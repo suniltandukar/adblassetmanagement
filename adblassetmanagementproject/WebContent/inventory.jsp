@@ -1,10 +1,16 @@
-<%@page import='java.sql.*'%>
+<%@page import="java.sql.*"%>
 <%@page import='com.adbl.daoimpl.InventoryDaoImpl'%>
 <%@page import='com.adbl.dao.InventoryDao'%>
 <%
 ResultSet branchdb=(ResultSet) session.getAttribute("userdetail");
-InventoryDao i=new InventoryDaoImpl();
-ResultSet inventory=(ResultSet) i.getinventorydata(branchdb.getString("branchdb")); %>
+InventoryDao i=new InventoryDaoImpl(branchdb.getString("branchdb"));
+ResultSet inventory=(ResultSet) i.getinventorydata();
+ResultSet supplier=(ResultSet) i.getcompanylist();
+ResultSet companylist1=(ResultSet) i.getcompanylist();
+ResultSet companylist2=(ResultSet) i.getcompanylist();
+ResultSet fundsource=(ResultSet) i.getfundsourcelist();
+ResultSet itemcondition=(ResultSet) i.getitemcondition();
+ResultSet group=(ResultSet) i.getgroup();%>
 <div class="panel panel-default" style="width: 100%; margin: auto;">
     <div class="panel-heading">
         <h3>
@@ -66,12 +72,15 @@ ResultSet inventory=(ResultSet) i.getinventorydata(branchdb.getString("branchdb"
                         <li><a data-toggle="tab" data-target="#3">AMC Details</a></li>
                         <li><a data-toggle="tab" data-target="#4">Insurance
                                 Details</a></li>
-                        <li><a data-toggle="tab" data-target="#5">Vehicle Details</a></li>
+                                
+                        <li><a data-toggle="tab" data-target="#5">Warranty Details</a></li>
+                        <li><a data-toggle="tab" data-target="#6">Vehicle Details</a></li>
                         
                     </ul>
                     <div class="tab-content">
                         <div id="1" class="tab-pane fade in active">
-                            <form method="post" action="" id="form">
+                            <form method="post" action="addinventory.adbl" id="form">
+                            <input type="hidden" value="<%=branchdb.getString("branchdb")%>" name="branchdb">
                                 <table class="table" style="width: 80%;">
                                     <tbody>
                                         <tr>
@@ -90,11 +99,16 @@ ResultSet inventory=(ResultSet) i.getinventorydata(branchdb.getString("branchdb"
                                         </tr>
                                         <tr>
                                             <td>
-                                                <h5>Group Code</h5> <input type="text" name="groupcode"
-                                                class="form-control"  form="form">
+                                                <h5>Group Name</h5>
+                                                <select class="form-control" name="groupcode" form="form">
+                                                	<option value="" selected>Select group</option>
+                                                	<%while(group.next()){ %>
+                                                	<option value="<%=group.getString("groupcode")%>"><%=group.getString("groupname") %></option>
+                                                	<%} %>
+                                                </select>
                                             </td>
                                             <td>
-                                                <h5>Item namee</h5> <input type="text" name="itemname"
+                                                <h5>Item name</h5> <input type="text" name="itemname"
                                                 class="form-control"  form="form">
                                             </td>
                                             <td>
@@ -138,22 +152,50 @@ ResultSet inventory=(ResultSet) i.getinventorydata(branchdb.getString("branchdb"
                         <div id="2" class="tab-pane fade in">
                             <table class="table" style="width: 80%;">
                                 <tbody>
-                                    <tr>
-                                        <td>
+                                	<tr>
+                                		<td>
+                                            <h5>Supplier</h5> <select class="form-control"
+                                            name="supplierid"  form="form">
+                                                <option value="" selected>Select supplier</option>
+                                                <%while(supplier.next()){%>
+                                                	<option value="<%=supplier.getString("companyid") %>"><%=supplier.getString("companyname") %></option>
+                                                <%}%>
+                                        </select>
+                                        </td>
+                                		<td>
                                             <h5>Fund Source</h5> <select class="form-control"
                                             name="fundsource"  form="form">
-                                                <option>1</option>
+                                                <option value="" selected>Select fund source</option>
+                                                <%while(fundsource.next()){%>
+                                                	<option value="<%=fundsource.getString("fundsourceid") %>"><%=fundsource.getString("sourcename") %></option>
+                                                <%}%>
                                         </select>
                                         </td>
                                         <td>
+                                            <h5>Item Condition</h5> <select name="itemconditionid"
+                                            class="form-control"  form="form" required>
+                                            	<option value="">None Selected</option>
+                                            	<%while(itemcondition.next()){ %>
+                                            	<option value="<%=itemcondition.getString("itemconditionid")%>"><%=itemcondition.getString("itemconditionname") %></option>
+                                            	<%} %>
+                                            </select>
+                                        </td>
+                                	</tr>
+                                    <tr>
+                                        
+                                        <td>
                                             <h5>Unit Name</h5> <input type="text" name="unitname"
                                             class="form-control" form="form"><br>
+                                        </td>
+                                        <td>
+                                            <h5>Item Size</h5> <input type="text" name="itemsize"
+                                            class="form-control"  form="form">
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
                                             <h5>Rate</h5> <input type="text" name="rate"
-                                            class="form-control">
+                                            class="form-control" form="form">
                                         </td>
                                         <td>
                                             <h5>Quantity</h5> <input type="text" name="quantity"
@@ -164,19 +206,11 @@ ResultSet inventory=(ResultSet) i.getinventorydata(branchdb.getString("branchdb"
                                             class="form-control"  form="form">
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <td>
-                                            <h5>Item Size</h5> <input type="text" name="itemsize"
-                                            class="form-control"  form="form">
-                                        </td>
-                                        <td>
-                                    </tr>
                                 </tbody>
                             </table>
                         </div>
                         <div id="3" class="tab-pane fade in">
-                            <form method="" action="" id="form"></form>
-                            <table class="table" style="width: 80%;">
+                            <table class="table" style="width: 60%;">
                                 <tbody>
                                     <tr>
                                         <td>
@@ -206,17 +240,19 @@ ResultSet inventory=(ResultSet) i.getinventorydata(branchdb.getString("branchdb"
                                         </td>
                                         <td>
                                             <h5>Company Name</h5> <select class="form-control"
-                                            name="companyid">
-                                                <option>Company</option>
+                                            name="amccompanyid" form="form">
+                                                <option value="" selected>Select Company</option>
+                                                <%while(companylist1.next()) {%>
+                                                <option value="<%=companylist1.getString("companyid")%>"><%=companylist1.getString("companyname") %></option>
+                                                <%} companylist1.close();%>
                                         </select>
                                         </td>
                                     </tr>
                                 </tbody>
                             </table>
-                            </form>
                         </div>
                         <div id="4" class="tab-pane fade in">
-                            <table class="table" style="width: 80%;">
+                            <table class="table" style="width: 60%;">
                                 <tbody>
                                     <tr>
                                         <td>
@@ -232,12 +268,12 @@ ResultSet inventory=(ResultSet) i.getinventorydata(branchdb.getString("branchdb"
                                     </tr>
                                     <tr>
                                         <td>
-                                            <h5>Insurance Start (B.S.)</h5> <input type="text"
+                                            <h5>Insurance End (B.S.)</h5> <input type="text"
                                             name="insuranceend" class="form-control" id="nepaliDate6"
                                             placeholder="YYYY-MM-DD"  form="form">
                                         </td>
                                         <td>
-                                            <h5>Insurance Start (B.S.)</h5> <input type="text"
+                                            <h5>Insurance End (A.D.)</h5> <input type="text"
                                             name="insuranceenden" class="form-control" id="englishDate6"
                                             placeholder="YYYY-MM-DD"  form="form">
                                         </td>
@@ -249,17 +285,45 @@ ResultSet inventory=(ResultSet) i.getinventorydata(branchdb.getString("branchdb"
                                         </td>
                                         <td>
                                             <h5>Company Name</h5> <select class="form-control"
-                                            name="companyid"  form="form">
-                                                <option>Company</option>
+                                            name="insurancecompanyid"  form="form">
+                                              <option value="" selected>Select Company</option>
+                                                <%while(companylist2.next()) {%>
+                                                <option value="<%=companylist2.getString("companyid")%>"><%=companylist2.getString("companyname") %></option>
+                                                <%} %>
                                         </select>
                                         </td>
                                     </tr>
                                 </tbody>
                             </table>
-                            </form>
                         </div>
-                        <div id="5" class="tab-pane fade in">
-                            
+                          <div id="5" class="tab-pane fade in">
+                            <table class="table" style="width: 80%;">
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <h5>Warranty Start (B.S.)</h5> <input type="text" name="warrantystart"
+                                            class="form-control" form="form" placeholder="YYYY-MM-DD" id="nepaliDate7">
+                                        </td>
+                                        
+                                        <td>
+                                            <h5>Warranty Start (A.D.)</h5> <input type="text" name="warrantystarten"
+                                            class="form-control" form="form" placeholder="YYYY-MM-DD" id="englishDate7">
+                                        </td>
+                                        </tr>
+                                        <tr>
+                                        <td>
+                                            <h5>Warranty Start (B.S.)</h5> <input type="text" name="warrantyend"
+                                            class="form-control" form="form" placeholder="YYYY-MM-DD" id="nepaliDate8">
+                                        </td>
+                                         <td>
+                                            <h5>Warranty End (A.D.)</h5> <input type="text" name="warrantyenden"
+                                            class="form-control"  form="form" placeholder="YYYY-MM-DD" id="englishDate8">
+                                        </td>
+                                                                            </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div id="6" class="tab-pane fade in">
                             <table class="table" style="width: 80%;">
                                 <tbody>
                                     <tr>
@@ -267,9 +331,7 @@ ResultSet inventory=(ResultSet) i.getinventorydata(branchdb.getString("branchdb"
                                             <h5>Vehicle No.</h5> <input type="text" name="vehicleno"
                                             class="form-control" form="form">
                                         </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
+                                         <td>
                                             <h5>Chesisno</h5> <input type="text" name="chesisno"
                                             class="form-control"  form="form">
                                         </td>
@@ -280,7 +342,6 @@ ResultSet inventory=(ResultSet) i.getinventorydata(branchdb.getString("branchdb"
                                     </tr>
                                 </tbody>
                             </table>
-                            </form>
                         </div>
                     </div>
                 </div>
