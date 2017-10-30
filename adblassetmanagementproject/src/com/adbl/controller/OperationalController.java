@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.adbl.action.InventoryAction;
 import com.adbl.action.LoginAction;
 
 @WebServlet("/OperationalController")
@@ -40,6 +41,14 @@ public class OperationalController extends HttpServlet {
 			HttpSession session=request.getSession(false);
 			session.invalidate();
 			RequestDispatcher rd=request.getRequestDispatcher("index.jsp");
+			rd.forward(request, response);
+		}
+		
+		if(uri.endsWith("addinventory.adbl"))
+		{
+			InventoryAction action=new InventoryAction();
+			action.addinventory(request,response);
+			RequestDispatcher rd=request.getRequestDispatcher("profile.jsp");
 			rd.forward(request, response);
 		}
 	}
