@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-    <%@page import='java.sql.*' %>
+ <%@page import="java.sql.*" %>
 <%if((session.getAttribute("userdetail"))!=null){
 	ResultSet userdetail=(ResultSet)session.getAttribute("userdetail");%>
 <!DOCTYPE html>
@@ -42,6 +42,7 @@
   	.clickable {
     cursor: pointer;
 }
+
   </style>
 </head>
 <body   class="hold-transition skin-blue sidebar-mini" >
@@ -101,7 +102,7 @@
                 <ul class="menu">
                   <li>
                     <a href="#">
-                      <i class="fa fa-users text-aqua"></i> 5 new 
+                      <i class="fa fa-users text-aqua"></i> abc
                     </a>
                   </li>
                   
@@ -191,7 +192,7 @@
         </li>
         <li class="treeview">
           <a href="#">
-            <i class="fa fa-user"></i>
+            <i class="fa fa-bars"></i>
             <span>Items</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
@@ -199,7 +200,6 @@
           </a>
           <ul class="treeview-menu">
             <li><a href="#!inventory"><i class="fa fa-circle-o"></i> Inventory</a></li>
-            <li><a href="#!registeredstudents"><i class="fa fa-circle-o"></i>Students List</a></li>
             
           </ul>
         </li>
@@ -214,14 +214,14 @@
           <ul class="treeview-menu">
           	<li class="treeview">
           		<a href="#">
-			        <i class="fa fa-home"></i> <span>Academic</span>
+			        <i class="fa fa-home"></i> <span>Next</span>
 			          <span class="pull-right-container">
 			        <i class="fa fa-angle-left pull-right"></i>
 			          </span>
          		</a>
           		<ul class="treeview-menu">
-          			 	<li><a href="#!createsubject"><i class="fa fa-circle-o"></i>Subjects</a></li>
-               	 		<li><a href="#!assignsubjects"><i class="fa fa-circle-o"></i> Assign Subjects</a></li>
+          			 	<li><a href=""><i class="fa fa-circle-o"></i>next</a></li>
+               	 		<li><a href=""><i class="fa fa-circle-o"></i> next</a></li>
           		 </ul>
           	</li>
             <li><a href="#!initialdetails"><i class="fa fa-circle-o"></i> Add/Edit Initial Details</a></li>
@@ -300,20 +300,8 @@ app.config(function($routeProvider) {
     .when("/inventory", {
         templateUrl : "inventory.jsp"
     })
-     .when("/registeredstudents", {
-        templateUrl : "view/student/registeredstudents.jsp"
-    })
-     .when("/studentdetail", {
-        templateUrl : "view/student/registeredstudentdetail.jsp"
-    })
-    .when("/createsubject", {
-        templateUrl : "view/academics/subjects/subjects.jsp"
-    })
-     .when("/assignsubjects", {
-        templateUrl : "view/academics/subjects/assignsubjects.jsp"
-    })
      .when("/initialdetails", {
-        templateUrl : "view/initialdetail/initialdetails.jsp"
+        templateUrl : "initialdetails.jsp"
     });
     
 });
