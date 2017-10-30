@@ -1,5 +1,4 @@
 package com.adbl.action;
-///commitenrekdkshishir
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,7 +14,7 @@ import com.adbl.daoimpl.LoginDaoImpl;
 import com.org.dbconnection.DBConnection;
 
 public class LoginAction {
-//shishir did this
+
 	public void verifyuser(HttpServletRequest request, HttpServletResponse response) throws SQLException {
 		String staffcode=request.getParameter("staffcode");
 		String username=request.getParameter("username");
