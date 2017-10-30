@@ -14,5 +14,24 @@
     <servlet-name>OperationController</servlet-name>
     <url-pattern>*.adbl</url-pattern>
   </servlet-mapping>
- 
+  <servlet>
+    <description></description>
+    <display-name>AddController</display-name>
+    <servlet-name>AddController</servlet-name>
+    <servlet-class>com.adbl.controller.AddController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AddController</servlet-name>
+    <url-pattern>*.add</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>DeleteController</display-name>
+    <servlet-name>DeleteController</servlet-name>
+    <servlet-class>com.adbl.controller.DeletionController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DeleteController</servlet-name>
+    <url-pattern>*.del</url-pattern>
+  </servlet-mapping>
 </web-app>
