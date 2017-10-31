@@ -12,8 +12,8 @@ import com.adbl.model.Inventory;
 
 public class InventoryAction {
 	
-	public void addinventory(HttpServletRequest request, HttpServletResponse response) {
-		
+	public boolean addinventory(HttpServletRequest request, HttpServletResponse response) {
+		boolean status=false;
 		String legacyid=request.getParameter("legacyid");
 		String groupcode=request.getParameter("groupcode");
 		String itemname=request.getParameter("itemname");
@@ -121,13 +121,11 @@ public class InventoryAction {
 			String[] ids=idao.selectids();
 			idao.additionaldetaildao(inventory,ids);
 			String additionaldetailid=idao.selectadditionaldetailid();
-			idao.inventorydao(inventory,additionaldetailid);
+			status=idao.inventorydao(inventory,additionaldetailid);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
-	
-		
+		return status;
 	}
 
 }

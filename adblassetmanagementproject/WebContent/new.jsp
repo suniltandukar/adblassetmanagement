@@ -7,7 +7,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-hello world
+
+<%System.out.println("new opened"); %>
 
 </body>
 </html>

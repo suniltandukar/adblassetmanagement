@@ -43,12 +43,16 @@ public class OperationalController extends HttpServlet {
 			RequestDispatcher rd=request.getRequestDispatcher("index.jsp");
 			rd.forward(request, response);
 		}
-		//error
 		if(uri.endsWith("addinventory.adbl"))
 		{
 			InventoryAction action=new InventoryAction();
-			action.addinventory(request,response);
-			response.sendRedirect("profile.jsp#!/inventory");
+			boolean status=action.addinventory(request,response);
+			if(status){
+			response.getOutputStream().println("<script>alert('ITEM ADDED SUCCESSFULLY!');window.location.href = 'profile.jsp#!/inventory';</script>");
+			}
+			else{
+				response.getOutputStream().println("<script>alert('ITEM ADDED UNSUCCESSFUL!');window.location.href = 'profile.jsp#!/inventory';</script>");
+			}
 		}
 	}
 

@@ -202,18 +202,23 @@ public class InventoryDaoImpl implements InventoryDao {
 			e.printStackTrace();
 		}
 	}
-	public void inventorydao(Inventory inventory,String additionaldetailid)
+	public boolean inventorydao(Inventory inventory,String additionaldetailid)
 	{
-		
+		boolean status=false;
+		int a;
 		String query="insert into inventorytbl(itemcode,transactionid,legacyid,groupcode,itemname,model,decisiondate,decisiondateen,purchasedate,purchasedateen,depreciationrate,inventoryotherdetailid) "
 				+ "values('"+inventory.getItemcode()+"','"+inventory.getTransactionid()+"','"+inventory.getLegacyid()+"','"+inventory.getGroupcode()+"','"+inventory.getItemname()+"','"+inventory.getModel()+"','"+inventory.getDecisiondate()+"','"+inventory.getDecisiondateen()+"','"+inventory.getPurchasedate()+"','"+inventory.getPurchasedateen()+"','"+inventory.getDepreciationrate()+"','"+additionaldetailid+"')";
 		try {
 			ps=con.prepareStatement(query);
 
-			ps.executeUpdate();
+			a=ps.executeUpdate();
+			if(a>0){
+				status=true;
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		return status;
 	}
 	
 	

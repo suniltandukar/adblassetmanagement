@@ -253,7 +253,7 @@
                   </a>
                   <ul class="treeview-menu">
                     <li><a href="#"><i class="fa fa-circle-o"></i> Level Three</a></li>
-                    <li><a href="#"><i class="fa fa-circle-o"></i> Level Three</a></li>
+                    <li><a href="#!new"><i class="fa fa-circle-o"></i> Level Three</a></li>
                   </ul>
                 </li>
               </ul>
@@ -302,6 +302,9 @@ app.config(function($routeProvider) {
     })
      .when("/initialdetails", {
         templateUrl : "initialdetails.jsp"
+    })
+    .when("/new", {
+        templateUrl : "new.jsp"
     });
     
 });
