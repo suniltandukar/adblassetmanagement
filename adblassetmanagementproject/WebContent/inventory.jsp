@@ -283,7 +283,7 @@ ResultSet group=(ResultSet) i.getgroup();%>
                                     <tr>
                                         <td>
                                             <h5>Premium Amount</h5> <input type="text"
-                                            name="insurancepremuimamount" class="form-control"  form="form">
+                                            name="insurancepremuimamount" id="insuranceamount" value="0"  class="form-control"  form="form">
                                         </td>
                                         <td>
                                             <h5>Company Name</h5> <select class="form-control"
@@ -377,8 +377,16 @@ ResultSet group=(ResultSet) i.getgroup();%>
     </div>
 </div>
 <script>
+
 $(document).ready(function() {
    $('#example').DataTable();
+   
 } );
+$("#insuranceamount").change(function(){
+   var value=$('#insuranceamount').val();
+   if(value.length==0){
+	   $('#insuranceamount').val("0");
+   }
+});
 </script>
 <script src="assets/js/dateConverter.js"></script>

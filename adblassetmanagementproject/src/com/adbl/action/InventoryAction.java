@@ -98,8 +98,19 @@ public class InventoryAction {
 		inventory.setMacaddress(macaddress);
 		inventory.setLicenseno(licenseno);
 		inventory.setItemcode(itemcode);
-		
-		
+		String value=null;
+		if(inventory.getAmccompanyid().equals("")){
+			inventory.setAmccompanyid(value);
+		}
+		if(inventory.getInsurancecompanyid().equals("")){
+			inventory.setInsurancecompanyid(value);
+		}
+		if(inventory.getFundsource().equals("")){
+			inventory.setFundsource(value);
+		}
+		if(inventory.getSupplierid().equals("")){
+			inventory.setSupplierid(value);
+		}
 		String branchdb=request.getParameter("branchdb");
 		InventoryDao idao=new InventoryDaoImpl(branchdb);
 		try {
