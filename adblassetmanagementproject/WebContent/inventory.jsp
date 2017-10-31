@@ -126,7 +126,7 @@ ResultSet group=(ResultSet) i.getgroup();%>
                                             </td>
                                             <td>
                                                 <h5>Decision Date (A.D.)</h5> <input type="text"
-                                                name="desisiondateen" class="form-control" id="englishDate1"
+                                                name="decisiondateen" class="form-control" id="englishDate1"
                                                 placeholder="YYYY-MM-DD"  form="form">
                                             </td>
                                         </tr>

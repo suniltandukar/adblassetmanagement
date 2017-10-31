@@ -20,7 +20,7 @@ public class InventoryAction {
 		String transactionid=request.getParameter("transactionid");
 		String model=request.getParameter("model");
 		String decisiondate=request.getParameter("decisiondate");
-		String decisiondateen=request.getParameter("decidiondateen");
+		String decisiondateen=request.getParameter("decisiondateen");
 		String purchasedate=request.getParameter("purchasedate");
 		String purchasedateen=request.getParameter("purchasedateen");
 		String depreciationrate=request.getParameter("depreciationrate");
