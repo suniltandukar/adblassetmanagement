@@ -193,7 +193,7 @@ public class InventoryDaoImpl implements InventoryDao {
 	
 	public void additionaldetaildao(Inventory inventory,String[] ids) throws SQLException {
 		String query="insert into inventoryotherdetailtbl(fundsourceid,unitname,rate,quantity,amount,warrantyid,amcid,insuranceid,supplierid,itemconditionid,itemsize,macaddress,licenseno,vehicleno,chesisno,engineno) "
-				+ "values("+inventory.getFundsource()+",'"+inventory.getUnitname()+"','"+inventory.getRate()+"','"+inventory.getQuantity()+"','"+inventory.getAmount()+"','"+ids[1]+"','"+ids[0]+"','"+ids[2]+"',"+inventory.getSupplierid()+",'"+inventory.getItemconditionid()+"','"+inventory.getItemsize()+"','"+inventory.getMacaddress()+"','"+inventory.getLicenseno()+"','"+inventory.getVehicleno()+"','"+inventory.getChesisno()+"','"+inventory.getEngineno()+"')";	
+				+ "values("+inventory.getFundsource()+",'"+inventory.getUnitname()+"','"+inventory.getRate()+"','"+inventory.getQuantity()+"','"+inventory.getAmount()+"','"+ids[1]+"','"+ids[0]+"','"+ids[2]+"',"+inventory.getSupplierid()+","+inventory.getItemconditionid()+",'"+inventory.getItemsize()+"','"+inventory.getMacaddress()+"','"+inventory.getLicenseno()+"','"+inventory.getVehicleno()+"','"+inventory.getChesisno()+"','"+inventory.getEngineno()+"')";	
 		try {
 			ps=con.prepareStatement(query);
 

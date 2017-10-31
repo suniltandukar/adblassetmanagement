@@ -48,8 +48,7 @@ public class OperationalController extends HttpServlet {
 		{
 			InventoryAction action=new InventoryAction();
 			action.addinventory(request,response);
-			RequestDispatcher rd=request.getRequestDispatcher("profile.jsp");
-			rd.forward(request, response);
+			response.sendRedirect("profile.jsp#!/inventory");
 		}
 	}
 

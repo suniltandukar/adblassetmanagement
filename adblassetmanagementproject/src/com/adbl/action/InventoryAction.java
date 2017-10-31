@@ -111,6 +111,9 @@ public class InventoryAction {
 		if(inventory.getSupplierid().equals("")){
 			inventory.setSupplierid(value);
 		}
+		if(inventory.getItemconditionid().equals("")){
+			inventory.setItemconditionid(value);
+		}
 		String branchdb=request.getParameter("branchdb");
 		InventoryDao idao=new InventoryDaoImpl(branchdb);
 		try {
