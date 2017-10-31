@@ -24,6 +24,12 @@ public class Inventory {
 	String amcenden;
 	String amccost;
 	String amccompanyid;
+	public String getAmccompanyid() {
+		return amccompanyid;
+	}
+	public void setAmccompanyid(String amccompanyid) {
+		this.amccompanyid = amccompanyid;
+	}
 	String insurancestart;
 	String insurancestarten;
 	String insuranceend;
@@ -176,12 +182,7 @@ public class Inventory {
 	public void setAmccost(String amccost) {
 		this.amccost = amccost;
 	}
-	public String getAmccompanyid() {
-		return amccompanyid;
-	}
-	public void setAmccompanyid(String amccompanyid) {
-		this.amccompanyid = amccompanyid;
-	}
+	
 	public String getInsurancestart() {
 		return insurancestart;
 	}

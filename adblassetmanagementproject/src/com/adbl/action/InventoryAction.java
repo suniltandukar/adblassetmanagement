@@ -20,7 +20,7 @@ public class InventoryAction {
 		String transactionid=request.getParameter("transactionid");
 		String model=request.getParameter("model");
 		String decisiondate=request.getParameter("decisiondate");
-		String decisiondateen=request.getParameter("decidiondateen");
+		String decisiondateen=request.getParameter("decisiondateen");
 		String purchasedate=request.getParameter("purchasedate");
 		String purchasedateen=request.getParameter("purchasedateen");
 		String depreciationrate=request.getParameter("depreciationrate");
@@ -98,8 +98,22 @@ public class InventoryAction {
 		inventory.setMacaddress(macaddress);
 		inventory.setLicenseno(licenseno);
 		inventory.setItemcode(itemcode);
-		
-		
+		String value=null;
+		if(inventory.getAmccompanyid().equals("")){
+			inventory.setAmccompanyid(value);
+		}
+		if(inventory.getInsurancecompanyid().equals("")){
+			inventory.setInsurancecompanyid(value);
+		}
+		if(inventory.getFundsource().equals("")){
+			inventory.setFundsource(value);
+		}
+		if(inventory.getSupplierid().equals("")){
+			inventory.setSupplierid(value);
+		}
+		if(inventory.getItemconditionid().equals("")){
+			inventory.setItemconditionid(value);
+		}
 		String branchdb=request.getParameter("branchdb");
 		InventoryDao idao=new InventoryDaoImpl(branchdb);
 		try {

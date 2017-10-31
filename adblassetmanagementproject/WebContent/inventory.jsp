@@ -175,7 +175,7 @@ ResultSet group=(ResultSet) i.getgroup();%>
                                         </td>
                                         <td>
                                             <h5>Item Condition</h5> <select name="itemconditionid"
-                                            class="form-control"  form="form" required>
+                                            class="form-control"  form="form" >
                                             	<option value="">None Selected</option>
                                             	<%while(itemcondition.next()){ %>
                                             	<option value="<%=itemcondition.getString("itemconditionid")%>"><%=itemcondition.getString("itemconditionname") %></option>
@@ -283,7 +283,7 @@ ResultSet group=(ResultSet) i.getgroup();%>
                                     <tr>
                                         <td>
                                             <h5>Premium Amount</h5> <input type="text"
-                                            name="insurancepremuimamount" class="form-control"  form="form">
+                                            name="insurancepremuimamount" id="insuranceamount" value="0"  class="form-control"  form="form">
                                         </td>
                                         <td>
                                             <h5>Company Name</h5> <select class="form-control"
@@ -377,8 +377,19 @@ ResultSet group=(ResultSet) i.getgroup();%>
     </div>
 </div>
 <script>
+
 $(document).ready(function() {
    $('#example').DataTable();
+   
 } );
+$("#insuranceamount").change(function(){
+   var value=$('#insuranceamount').val();
+   if(value.length==0){
+	   $('#insuranceamount').val("0");
+   }
+});
+$( "#form" ).submit(function( event ) {
+	 return confirm("CONFIRM SUBMISSION?");
+	});
 </script>
 <script src="assets/js/dateConverter.js"></script>

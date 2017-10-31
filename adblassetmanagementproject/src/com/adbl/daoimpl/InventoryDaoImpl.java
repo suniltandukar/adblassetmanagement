@@ -75,11 +75,11 @@ public class InventoryDaoImpl implements InventoryDao {
     }
 	public void addalldao(Inventory inventory) throws SQLException{
 		String query1="insert into insurancetbl(insurancestart,companyid,insurancestarten,insuranceend,insuranceenden,insurancepremiumamount) "
-				+ "values('"+inventory.getInsurancestart()+"','"+inventory.getInsurancecompanyid()+"','"+inventory.getInsurancestarten()+"','"+inventory.getInsuranceend()+"','"+inventory.getInsuranceenden()+"','"+inventory.getInsurancepremuimamount()+"')";
+				+ "values('"+inventory.getInsurancestart()+"',"+inventory.getInsurancecompanyid()+",'"+inventory.getInsurancestarten()+"','"+inventory.getInsuranceend()+"','"+inventory.getInsuranceenden()+"','"+inventory.getInsurancepremuimamount()+"')";
 		String query2="insert into warrantytbl(warrantystart,warrantystarten,warrantyend,warrantyenden) "
 				+ "values('"+inventory.getWarrantystart()+"','"+inventory.getWarrantystarten()+"','"+inventory.getWarrantyend()+"','"+inventory.getWarrantyenden()+"')";
 		String query3="insert into amctbl(amcstart,amcstarten,amcend,amcenden,amccost,companyid)"
-				+ "values('"+inventory.getAmcstart()+"','"+inventory.getAmcstarten()+"','"+inventory.getAmcend()+"','"+inventory.getAmcenden()+"','"+inventory.getAmccost()+"','"+inventory.getAmccompanyid()+"')";
+				+ "values('"+inventory.getAmcstart()+"','"+inventory.getAmcstarten()+"','"+inventory.getAmcend()+"','"+inventory.getAmcenden()+"','"+inventory.getAmccost()+"',"+inventory.getAmccompanyid()+")";
 		try{
 			stmt=con.createStatement();
 			
@@ -193,7 +193,7 @@ public class InventoryDaoImpl implements InventoryDao {
 	
 	public void additionaldetaildao(Inventory inventory,String[] ids) throws SQLException {
 		String query="insert into inventoryotherdetailtbl(fundsourceid,unitname,rate,quantity,amount,warrantyid,amcid,insuranceid,supplierid,itemconditionid,itemsize,macaddress,licenseno,vehicleno,chesisno,engineno) "
-				+ "values('"+inventory.getFundsource()+"','"+inventory.getUnitname()+"','"+inventory.getRate()+"','"+inventory.getQuantity()+"','"+inventory.getAmount()+"','"+ids[1]+"','"+ids[0]+"','"+ids[2]+"','"+inventory.getSupplierid()+"','"+inventory.getItemconditionid()+"','"+inventory.getItemsize()+"','"+inventory.getMacaddress()+"','"+inventory.getLicenseno()+"','"+inventory.getVehicleno()+"','"+inventory.getChesisno()+"','"+inventory.getEngineno()+"')";	
+				+ "values("+inventory.getFundsource()+",'"+inventory.getUnitname()+"','"+inventory.getRate()+"','"+inventory.getQuantity()+"','"+inventory.getAmount()+"','"+ids[1]+"','"+ids[0]+"','"+ids[2]+"',"+inventory.getSupplierid()+","+inventory.getItemconditionid()+",'"+inventory.getItemsize()+"','"+inventory.getMacaddress()+"','"+inventory.getLicenseno()+"','"+inventory.getVehicleno()+"','"+inventory.getChesisno()+"','"+inventory.getEngineno()+"')";	
 		try {
 			ps=con.prepareStatement(query);
 

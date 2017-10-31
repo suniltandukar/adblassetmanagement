@@ -43,13 +43,12 @@ public class OperationalController extends HttpServlet {
 			RequestDispatcher rd=request.getRequestDispatcher("index.jsp");
 			rd.forward(request, response);
 		}
-		
+		//error
 		if(uri.endsWith("addinventory.adbl"))
 		{
 			InventoryAction action=new InventoryAction();
 			action.addinventory(request,response);
-			RequestDispatcher rd=request.getRequestDispatcher("profile.jsp");
-			rd.forward(request, response);
+			response.sendRedirect("profile.jsp#!/inventory");
 		}
 	}
 
