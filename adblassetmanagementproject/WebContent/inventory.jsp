@@ -14,6 +14,7 @@ ResultSet group=(ResultSet) i.getgroup();%>
 <div class="panel panel-default" style="width: 100%; margin: auto;">
     <div class="panel-heading">
         <h3>
+        <p id="message"></p>
             <strong>INVENTORY</strong>
         </h3>
     </div>
@@ -28,7 +29,7 @@ ResultSet group=(ResultSet) i.getgroup();%>
                 <div id="menu1" class="tab-pane fade in active">
                     <div class="panel panel-default" style="width: 90%;">
                         <div class="panel-heading">
-                            <h6>
+                            <h6>${param.msg}
                                 <strong>Inventory Item Details</strong>
                             </h6>
                         </div>
@@ -82,6 +83,7 @@ ResultSet group=(ResultSet) i.getgroup();%>
                     <div class="tab-content">
                         <div id="1" class="tab-pane fade in active">
                             <form method="post" action="addinventory.adbl" id="form">
+                            <input type="hidden" name="inventory" value="/inventory" form="form">
                             <input type="hidden" value="<%=branchdb.getString("branchdb")%>" name="branchdb">
                                 <table class="table" style="width: 80%;">
                                     <tbody>
