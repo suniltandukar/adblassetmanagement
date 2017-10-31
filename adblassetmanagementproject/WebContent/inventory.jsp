@@ -75,6 +75,8 @@ ResultSet group=(ResultSet) i.getgroup();%>
                                 
                         <li><a data-toggle="tab" data-target="#5">Warranty Details</a></li>
                         <li><a data-toggle="tab" data-target="#6">Vehicle Details</a></li>
+                         <li><a data-toggle="tab" data-target="#7">Software Details</a></li>
+                        <li><a data-toggle="tab" data-target="#8">Computer Details</a></li>
                         
                     </ul>
                     <div class="tab-content">
@@ -343,6 +345,31 @@ ResultSet group=(ResultSet) i.getgroup();%>
                                 </tbody>
                             </table>
                         </div>
+                        <div id="7" class="tab-pane fade in">
+                            <table class="table" style="width: 20%;">
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <h5>License No.</h5> <input type="text" name="licenseno"
+                                            class="form-control" form="form">
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div id="8" class="tab-pane fade in">
+                            <table class="table" style="width: 20%;">
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <h5>MAC Address</h5> <input type="text" name="macaddress"
+                                            class="form-control" form="form">
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
                     </div>
                 </div>
             </div>
