@@ -8,7 +8,9 @@
 </head>
 <body>
 
-<%System.out.println("new opened"); %>
+{{msg}}
+
+
 
 </body>
 </html>

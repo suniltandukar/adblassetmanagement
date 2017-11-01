@@ -199,7 +199,9 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="#!inventory"><i class="fa fa-circle-o"></i> Inventory</a></li>
+            <li><a href="#!viewinventory"><i class="fa fa-circle-o"></i> View Inventory</a></li>
+            <li><a href="#!inventory"><i class="fa fa-circle-o"></i> Add Inventory</a></li>
+            <li><a href="#!inventory"><i class="fa fa-circle-o"></i> Edit Inventory</a></li>
             
           </ul>
         </li>
@@ -298,7 +300,12 @@ app.config(function($routeProvider) {
     $routeProvider
     
     .when("/inventory", {
-        templateUrl : "inventory.jsp"
+        templateUrl : "inventory.jsp",
+        controller : "inventoryctrl"
+    })
+     .when("/viewinventory", {
+        templateUrl : "view/inventory/viewinventory.jsp",
+        controller : "inventoryctrl"
     })
      .when("/initialdetails", {
         templateUrl : "initialdetails.jsp"
@@ -308,6 +315,7 @@ app.config(function($routeProvider) {
     });
     
 });
+
 </script>
 
 </body>

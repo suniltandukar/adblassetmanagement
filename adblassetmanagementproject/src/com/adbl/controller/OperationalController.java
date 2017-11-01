@@ -47,6 +47,7 @@ public class OperationalController extends HttpServlet {
 		{
 			InventoryAction action=new InventoryAction();
 			boolean status=action.addinventory(request,response);
+			
 			if(status){
 			response.getOutputStream().println("<script>alert('ITEM ADDED SUCCESSFULLY!');window.location.href = 'profile.jsp#!/inventory';</script>");
 			}

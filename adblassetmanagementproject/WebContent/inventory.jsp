@@ -4,7 +4,6 @@
 <%
 ResultSet branchdb=(ResultSet) session.getAttribute("userdetail");
 InventoryDao i=new InventoryDaoImpl(branchdb.getString("branchdb"));
-ResultSet inventory=(ResultSet) i.getinventorydata();
 ResultSet supplier=(ResultSet) i.getcompanylist();
 ResultSet companylist1=(ResultSet) i.getcompanylist();
 ResultSet companylist2=(ResultSet) i.getcompanylist();
@@ -21,48 +20,10 @@ ResultSet group=(ResultSet) i.getgroup();%>
     <div class="panel-body">
         <div class="container">
             <ul class="nav nav-tabs">
-                <li class="active"><a data-toggle="tab" data-target="#menu1">View
-                        Inventory</a></li>
-                <li><a data-toggle="tab" data-target="#menu2">Add Inventory</a></li>
+                <li class="active"><a data-toggle="tab" data-target="#menu2">Add Inventory</a></li>
             </ul>
             <div class="tab-content">
-                <div id="menu1" class="tab-pane fade in active">
-                    <div class="panel panel-default" style="width: 90%;">
-                        <div class="panel-heading">
-                            <h6>
-                                <strong>Inventory Item Details</strong>
-                            </h6>
-                        </div>
-                        <div class="panel-body">
-                            <table id="example" class="table table-striped table-bordered"
-                                cellspacing="0" width="100%">
-                                <thead>
-                                    <tr>
-                                        <th>Item Code</th>
-                                        <th>Item Name</th>
-                                        <th>Group Code</th>
-                                        <th>Model</th>
-                                        <th>Decission Date</th>
-                                        <th>Depreciation Rate</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <%while (inventory.next()){ %>
-                                    <tr>
-                                        <td><%=inventory.getString("itemcode") %></td>
-                                        <td><%=inventory.getString("itemname") %></td>
-                                        <td><%=inventory.getString("groupcode") %></td>
-                                        <td><%=inventory.getString("model") %></td>
-                                        <td><%=inventory.getString("decisiondate") %></td>
-                                        <td><%=inventory.getString("depreciationrate") %></td>
-                                    </tr>
-                                    <%} %>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                <div id="menu2" class="tab-pane fade">
+                <div id="menu2" class="tab-pane fade in active">
                 <br>
                     <ul class="nav nav-tabs">
                         <li><button type="submit" class="btn btn-success" form="form">Submit</button>&nbsp;&nbsp;&nbsp;</li>
@@ -379,11 +340,6 @@ ResultSet group=(ResultSet) i.getgroup();%>
     </div>
 </div>
 <script>
-
-$(document).ready(function() {
-   $('#example').DataTable();
-   
-} );
 $("#insuranceamount").change(function(){
    var value=$('#insuranceamount').val();
    if(value.length==0){
