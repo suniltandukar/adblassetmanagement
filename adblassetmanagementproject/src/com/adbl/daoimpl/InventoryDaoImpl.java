@@ -24,6 +24,17 @@ public class InventoryDaoImpl implements InventoryDao {
 		}
 		return rs;
 	}
+	public ResultSet getinventoryeditdata(String itemcode){
+		String query="select * from inventorytbl where itemcode='"+itemcode+"'";
+		try{
+			stmt=con.createStatement();
+			rs=stmt.executeQuery(query);
+		}
+		catch(Exception e){
+			System.out.println("geteditdata error"+e);
+		}
+		return rs;
+	}
 	public ResultSet getcompanylist(){
 		String query="select * from companytbl";
 		try{

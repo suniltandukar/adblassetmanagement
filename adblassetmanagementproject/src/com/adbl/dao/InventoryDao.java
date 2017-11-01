@@ -10,6 +10,7 @@ public interface InventoryDao {
 	public ResultSet getcompanylist();
 	public ResultSet getfundsourcelist();
 	public ResultSet getgroup();
+	public ResultSet getinventoryeditdata(String itemcode);
 	public ResultSet getitemcondition();
 	public String insuranceid();
 	public String amcid();
