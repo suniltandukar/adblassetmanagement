@@ -29,7 +29,7 @@ ResultSet group=(ResultSet) i.getgroup();%>
                 <div id="menu1" class="tab-pane fade in active">
                     <div class="panel panel-default" style="width: 90%;">
                         <div class="panel-heading">
-                            <h6>${param.msg}
+                            <h6>
                                 <strong>Inventory Item Details</strong>
                             </h6>
                         </div>

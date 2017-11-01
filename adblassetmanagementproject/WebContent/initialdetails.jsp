@@ -18,24 +18,44 @@ ResultSet itemcondition=(ResultSet)i.showitemcondition();%>
   				<li class="active"><a data-toggle="tab" data-target="#1" class="clickable">View Added Details</a></li>
 			  <li ><a data-toggle="tab" data-target="#2" class="clickable">Add Details</a></li>
 			  <li><a data-toggle="tab" data-target="#3" class="clickable">Edit Details</a></li>
-			  
 			</ul>
 			<div class="tab-content">
 			  	<div id="1" class="tab-pane fade in active">
 			  		<table class="table">
 			  		<caption>Inserted Initial Details</caption>
+			  			<thead>
+			  				<tr>
+				  				<th>Company</th>
+				  				<th>Group</th>
+				  				<th>Fund Source</th>
+				  				<th>Item Condition</th>
+			  				</tr>
+			  			</thead>
 			  			<tbody>
-			  				<tr><td style="border:1px solid black"><h5><strong>Company</strong></h5></td>
-			  				<%while(company.next()){ %><td style="border:1px solid black"><a href="" data-toggle="tooltip" title="VAT/PAN:<%=company.getString("vatpan") %>" style="color:black;"><%=company.getString("companyname") %>&nbsp;</a> <a href="company.del?id=<%=company.getString("companyid")%>" class="action"><i class="fa fa-trash-o" aria-hidden="true" style="color:red"></i></a></td><%} %>
-			  				
-			  				<tr><td style="border:1px solid black"><h5><strong>Group</strong></h5></td>
-			  				<%while(group.next()){ %><td style="border:1px solid black"><a href="" data-toggle="tooltip" title="Group-Code:<%=group.getString("groupcode") %>" style="color:black;"><%=group.getString("groupname") %></a>&nbsp;<a href="group.del?id=<%=group.getString("groupcode")%>" class="action"><i class="fa fa-trash-o" aria-hidden="true" style="color:red"></i></a></td><%} %>
-			  				</tr>
-			  				<tr><td style="border:1px solid black"><h5><strong>Fund Source</strong></h5></td>
-			  				<%while(fundsource.next()){ %><td style="border:1px solid black"><%=fundsource.getString("sourcename") %>&nbsp;<a href="fundsource.del?id=<%=fundsource.getString("fundsourceid")%>" class="action"><i class="fa fa-trash-o" aria-hidden="true" style="color:red"></i></a></td> <%} %>
-			  				</tr>
-			  				<tr><td style="border:1px solid black"><h5><strong>Item Condition</strong></h5></td>
-			  				<%while(itemcondition.next()){ %><td style="border:1px solid black"><%=itemcondition.getString("itemconditionname") %>&nbsp;<a href="itemcondition.del?id=<%=itemcondition.getString("itemconditionid")%>" class="action"><i class="fa fa-trash-o" aria-hidden="true" style="color:red"></i></a></td><%} %>
+			  				<tr>
+			  					<td>
+			  					<ol>
+			  					<%while(company.next()){ %><li><a href="company.del?id=<%=company.getString("companyid")%>" class="action"><i class="fa fa-trash-o" aria-hidden="true" style="color:red"></i></a>  <a href="" data-toggle="tooltip" title="VAT/PAN:<%=company.getString("vatpan") %>" style="color:black;"><%=company.getString("companyname") %>&nbsp;</a> </li><%} %>
+			  					</ol>
+			  					</td>
+			  					<td>
+			  					<ol>
+			  					<%while(group.next()){ %>
+			  					<li><a href="group.del?id=<%=group.getString("groupcode")%>" class="action"><i class="fa fa-trash-o" aria-hidden="true" style="color:red"></i></a>  <a href="" data-toggle="tooltip" title="Group-Code:<%=group.getString("groupcode") %>" style="color:black;"><%=group.getString("groupname") %></a></li><%} %>
+			  					</ol>
+			  					</td>
+			  					<td>
+			  					<ol>
+			  					<%while(fundsource.next()){ %>
+			  					<li><a href="fundsource.del?id=<%=fundsource.getString("fundsourceid")%>" class="action"><i class="fa fa-trash-o" aria-hidden="true" style="color:red"></i></a> <%=fundsource.getString("sourcename") %></li> <%} %>
+			  					</ol>
+			  					</td>
+			  					<td>
+			  					<ol>
+			  					<%while(itemcondition.next()){ %>
+			  					<li><a href="itemcondition.del?id=<%=itemcondition.getString("itemconditionid")%>" class="action"><i class="fa fa-trash-o" aria-hidden="true" style="color:red"></i></a> <%=itemcondition.getString("itemconditionname") %></li><%} %>
+			  					</ol>
+			  					</td>
 			  				</tr>
 			  			</tbody>
 			  			
