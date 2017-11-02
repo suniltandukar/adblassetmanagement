@@ -34,4 +34,14 @@
     <servlet-name>DeleteController</servlet-name>
     <url-pattern>*.del</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>NavigationController</display-name>
+    <servlet-name>NavigationController</servlet-name>
+    <servlet-class>com.adbl.controller.NavigationController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>NavigationController</servlet-name>
+    <url-pattern>*.click</url-pattern>
+  </servlet-mapping>
 </web-app>

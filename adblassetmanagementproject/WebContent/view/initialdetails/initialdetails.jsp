@@ -1,3 +1,4 @@
+<link rel="import" href="../../new.jsp">
 <%@page import="java.sql.*"%>
 <%@page import="com.adbl.daoimpl.InitialDetailDaoImpl"%>
 

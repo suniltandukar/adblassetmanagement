@@ -6,44 +6,7 @@
 <!DOCTYPE html>
 <html lang="en-US" ng-app="myApp">
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>ADBL || Agricultural Development Bank ltd</title>
-  <!-- Tell the browser to be responsive to screen width -->
-  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-  <!-- Bootstrap 3.3.7 -->
-  <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css">
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="assets/css/font-awesome.min.css">
-  <!-- Ionicons -->
-  <link rel="stylesheet" href="assets/css/ionicons.min.css">
-  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
-  <link rel="stylesheet" type="text/css" href="assets/nepaliDatePicker/nepali.datepicker.v2.2.min.css" />
-  <!-- Theme style -->
-  <link rel="stylesheet" href="assets/css/AdminLTE.min.css">
-  <!-- AdminLTE Skins. Choose a skin from the css/skins
-       folder instead of downloading all of them to reduce the load. -->
-  <link rel="stylesheet" href="assets/css/_all-skins.min.css">
-   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/css/bootstrap-select.min.css" />
- 
- 
-
-  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-  <!--[if lt IE 9]>
-  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-  <![endif]-->
-
-  <!-- Google Font -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
-  <style type="text/css">
-  	.clickable {
-    cursor: pointer;
-}
-
-  </style>
+	<link rel="import" href="new.jsp">
 </head>
 <body   class="hold-transition skin-blue sidebar-mini" >
 <div class="wrapper"  >
@@ -199,9 +162,9 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="#!viewinventory"><i class="fa fa-circle-o"></i> View Inventory</a></li>
-            <li><a href="#!inventory"><i class="fa fa-circle-o"></i> Add Inventory</a></li>
-            <li><a href="#!editinventory"><i class="fa fa-circle-o"></i> Edit Inventory</a></li>
+            <li><a id="viewinventory" target="iframe_a"><i class="fa fa-circle-o" ></i> View Inventory</a></li>
+            <li><a id="addinventory" target="iframe_a"><i class="fa fa-circle-o" ></i> Add Inventory</a></li>
+            <li><a id="editinventory" target="iframe_a"><i class="fa fa-circle-o" ></i> Edit Inventory</a></li>
             
           </ul>
         </li>
@@ -209,6 +172,7 @@
           <a href="#">
             <i class="fa fa-cogs"></i>
             <span>Settings</span>
+            
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
@@ -226,7 +190,7 @@
                	 		<li><a href=""><i class="fa fa-circle-o"></i> next</a></li>
           		 </ul>
           	</li>
-            <li><a href="#!initialdetails"><i class="fa fa-circle-o"></i> Add/Edit Initial Details</a></li>
+            <li><a id="initialdetails" target="iframe_a"><i class="fa fa-circle-o"></i> Add/Edit Initial Details</a></li>
             
           </ul>
         </li>
@@ -255,7 +219,7 @@
                   </a>
                   <ul class="treeview-menu">
                     <li><a href="#"><i class="fa fa-circle-o"></i> Level Three</a></li>
-                    <li><a href="#!new"><i class="fa fa-circle-o"></i> Level Three</a></li>
+                    <li><a class="click"><i class="fa fa-circle-o"></i> Level Three</a></li>
                   </ul>
                 </li>
               </ul>
@@ -268,59 +232,13 @@
     </section>
     <!-- /.sidebar -->
   </aside>
+     
   
-  <div class="content-wrapper"  style="height:1300px;">
-  
- <ng-view></ng-view>
+  <div class="content-wrapper view"  style="height:1300px;">
+  	<iframe height="1000px" width="100%" src="view/inventory/editinventory.jsp" id="Iframe" name="iframe_a">
+	</iframe>
   </div>
 </div>
- <script src="assets/js/jquery.min.js"></script>
- <!-- jQuery 3 -->
-<script src="assets/js/jquery.min.js"></script>
-<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-<script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
-<script type="text/javascript" src="assets/nepaliDatePicker/nepali.datepicker.v2.2.min.js"></script>
-
-	
- 
-<!-- jQuery UI 1.11.4 -->
-<script src="assets/js/jquery-ui.min.js"></script>
-<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-
-<!-- Bootstrap 3.3.7 -->
-<script src="assets/js/bootstrap.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.js"></script>
-<!-- AdminLTE App -->
-<script src="assets/js/adminlte.min.js"></script>
-
-<script>
-var app = angular.module("myApp", ["ngRoute"]);
-app.config(function($routeProvider) {
-    $routeProvider
-    
-    .when("/inventory", {
-        templateUrl : "inventory.jsp",
-        controller : "inventoryctrl"
-    })
-     .when("/viewinventory", {
-        templateUrl : "view/inventory/viewinventory.jsp",
-        controller : "inventoryctrl"
-    })
-     .when("/editinventory", {
-        templateUrl : "view/inventory/editinventory.jsp",
-        controller : "inventoryctrl"
-    })
-     .when("/initialdetails", {
-        templateUrl : "initialdetails.jsp"
-    })
-    .when("/new", {
-        templateUrl : "new.jsp"
-    });
-    
-});
-
-</script>
 
 </body>
 </html>

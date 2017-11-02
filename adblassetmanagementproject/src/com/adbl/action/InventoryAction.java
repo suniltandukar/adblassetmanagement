@@ -122,6 +122,7 @@ public class InventoryAction {
 			idao.additionaldetaildao(inventory,ids);
 			String additionaldetailid=idao.selectadditionaldetailid();
 			status=idao.inventorydao(inventory,additionaldetailid);
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

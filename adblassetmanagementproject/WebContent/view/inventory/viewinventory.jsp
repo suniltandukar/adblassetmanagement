@@ -1,3 +1,4 @@
+<link rel="import" href="../../new.jsp">
 <%@page import="java.sql.*"%>
 <%@page import='com.adbl.daoimpl.InventoryDaoImpl'%>
 <%@page import='com.adbl.dao.InventoryDao'%>
@@ -20,7 +21,7 @@ ResultSet inventory=(ResultSet) i.getinventorydata();%>
              </ul>
               <div class="tab-content">
                 <div id="menu1" class="tab-pane fade in active">
-					<div class="panel panel-default" style="width: 90%;">
+					<div class="panel panel-default" style="width: 100%;">
 					                        <div class="panel-heading">
 					                            <h6>
 					                                <strong>Inventory Item Details</strong>

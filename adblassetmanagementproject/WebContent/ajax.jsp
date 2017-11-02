@@ -1,4 +1,3 @@
-<link rel="import" href="../../new.jsp">
 <div class="panel panel-default" style="width: 100%; margin: auto;">
     <div class="panel-heading">
     	<h4>Edit Inventory</h4>
@@ -20,7 +19,7 @@ $(document).ready(function()
 		 $.ajax
 	        ({
 	        type: "POST",
-	        url: "editinventorydisplayform.jsp",
+	        url: "view/inventory/editinventorydisplayform.jsp",
 	        data: dataString,
 	        cache: false,
 	        success: function(html)
@@ -31,4 +30,5 @@ $(document).ready(function()
 		 
 	});
 });
+
 </script>

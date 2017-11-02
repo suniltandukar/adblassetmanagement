@@ -1,3 +1,4 @@
+<link rel="import" href="../../new.jsp">
 <%@page import="java.sql.*"%>
 <%@page import='com.adbl.daoimpl.InventoryDaoImpl'%>
 <%@page import='com.adbl.dao.InventoryDao'%>
@@ -20,7 +21,7 @@ ResultSet group=(ResultSet) i.getgroup();%>
     <div class="panel-body">
         <div class="container">
             <ul class="nav nav-tabs">
-                <li class="active"><a data-toggle="tab" data-target="#menu2">Add Inventory</a></li>
+                <li class="active"><a data-toggle="tab" data-target="#menu2"  >Add Inventory</a></li>
             </ul>
             <div class="tab-content">
                 <div id="menu2" class="tab-pane fade in active">
@@ -41,9 +42,11 @@ ResultSet group=(ResultSet) i.getgroup();%>
                         <li><a data-toggle="tab" data-target="#8">Computer Details</a></li>
                         
                     </ul>
+            
+	
                     <div class="tab-content">
                         <div id="1" class="tab-pane fade in active">
-                            <form method="post" action="addinventory.adbl" id="form">
+                            <form class="submitform" id="form" method="post" action="addinventory.adbl">
                             <input type="hidden" name="inventory" value="/inventory" form="form">
                             <input type="hidden" value="<%=branchdb.getString("branchdb")%>" name="branchdb">
                                 <table class="table" style="width: 80%;">
@@ -349,5 +352,25 @@ $("#insuranceamount").change(function(){
 $( "#form" ).submit(function( event ) {
 	 return confirm("CONFIRM SUBMISSION?");
 	});
+</script>
+<script>
+$(document).ready(function()
+        {
+	$('.submitform').submit(function() {
+	   
+	    var id=$(this).attr('id');
+		 $.ajax
+	     ({
+	       
+	        url: id+".adbl",
+	        cache: false,
+	        success: function(html)
+	        {
+	        $(".view").html(html);
+	        } 
+	        });
+	});
+});
+
 </script>
 <script src="assets/js/dateConverter.js"></script>

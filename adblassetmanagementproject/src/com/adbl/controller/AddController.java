@@ -3,6 +3,7 @@ package com.adbl.controller;
 import java.io.IOException;
 import java.sql.SQLException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -28,7 +29,8 @@ public class AddController extends HttpServlet {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-			response.sendRedirect("profile.jsp#!/initialdetails");
+			RequestDispatcher rd=request.getRequestDispatcher("../initialdetails/initialdetails.jsp");
+			rd.forward(request, response);
 		}
 		if(uri.endsWith("itemcondition.add"))
 		{
@@ -38,7 +40,8 @@ public class AddController extends HttpServlet {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-			response.sendRedirect("profile.jsp#!/initialdetails");
+			RequestDispatcher rd=request.getRequestDispatcher("../initialdetails/initialdetails.jsp");
+			rd.forward(request, response);
 		}
 		if(uri.endsWith("fundsource.add"))
 		{
@@ -48,7 +51,9 @@ public class AddController extends HttpServlet {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-			response.sendRedirect("profile.jsp#!/initialdetails");
+			RequestDispatcher rd=request.getRequestDispatcher("../initialdetails/initialdetails.jsp");
+			rd.forward(request, response);
+			
 		}
 		if(uri.endsWith("company.add"))
 		{
@@ -58,7 +63,12 @@ public class AddController extends HttpServlet {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-			response.sendRedirect("profile.jsp#!/initialdetails");
+			RequestDispatcher rd=request.getRequestDispatcher("../initialdetails/initialdetails.jsp");
+			rd.forward(request, response);
+		}
+		if(uri.endsWith("inventory.add")){
+			RequestDispatcher rd=request.getRequestDispatcher("initialdetails.jsp");
+			rd.forward(request, response);
 		}
 	}
 
