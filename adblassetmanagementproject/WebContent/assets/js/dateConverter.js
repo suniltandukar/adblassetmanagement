@@ -1,4 +1,3 @@
-//-------------------------------------------DATE CONVERTER---------------------
 		$('#englishDate1').change(function(){
 			$('#nepaliDate1').val(AD2BS($('#englishDate1').val()));
 		});
@@ -97,7 +96,6 @@
 			$('#nepaliDate14').val(AD2BS($('#englishDate14').val()));
 		});
 		
-//---------------------------------------AUTO - ON DATE TYPING------------------------
 		$("#nepaliDate1,#nepaliDate2,#nepaliDate3,#nepaliDate4,#nepaliDate5,#nepaliDate6,#nepaliDate7,#nepaliDate8,#nepaliDate9,#nepaliDate10,#nepaliDate11,#nepaliDate12,#nepaliDate13,#nepaliDate14, #englishDate1,#englishDate2,#englishDate3,#englishDate4,#englishDate5,#englishDate6,#englishDate7,#englishDate8,#englishDate9,#englishDate10,#englishDate11,#englishDate12,#englishDate13,#englishDate14").keyup(function(){
 	           if ($(this).val().length == 4){
 	               $(this).val($(this).val() + "-");

@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.adbl.action.InventoryAction;
+import com.adbl.action.InventoryEditAction;
 import com.adbl.action.LoginAction;
 
 @WebServlet("/OperationalController")
@@ -50,14 +51,21 @@ public class OperationalController extends HttpServlet {
 			boolean status=action.addinventory(request,response);
 			
 			if(status){
-				request.setAttribute("msg", "Congrats");
-				RequestDispatcher rd=request.getRequestDispatcher("addinventory.jsp");
+				request.setAttribute("msg", "Inventory Added Successfully");
+				RequestDispatcher rd=request.getRequestDispatcher("view/inventory/addinventory.jsp");
 				rd.forward(request, response);
 			}
 			else{
-				RequestDispatcher rd=request.getRequestDispatcher("addinventory.jsp");
+
+				request.setAttribute("msg", "Inventory Exists Already!!!");
+				RequestDispatcher rd=request.getRequestDispatcher("view/inventory/addinventory.jsp");
 				rd.forward(request, response);
 			}
+		}
+		else if(uri.endsWith("updateinventory.adbl"))
+		{
+			InventoryEditAction iedit=new InventoryEditAction();
+			iedit.editinventory(request, response);
 		}
 	}
 

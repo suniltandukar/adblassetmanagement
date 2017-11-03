@@ -30,7 +30,7 @@ public class DeletionController extends HttpServlet {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-			RequestDispatcher rd=request.getRequestDispatcher("../initialdetails/initialdetails.jsp");
+			RequestDispatcher rd=request.getRequestDispatcher("view/initialdetails/initialdetails.jsp");
 			rd.forward(request, response);
 		}
 		if(uri.endsWith("group.del")){
@@ -41,7 +41,7 @@ public class DeletionController extends HttpServlet {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-			RequestDispatcher rd=request.getRequestDispatcher("../initialdetails/initialdetails.jsp");
+			RequestDispatcher rd=request.getRequestDispatcher("view/initialdetails/initialdetails.jsp");
 			rd.forward(request, response);
 		}
 		if(uri.endsWith("fundsource.del")){
@@ -52,7 +52,7 @@ public class DeletionController extends HttpServlet {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-			RequestDispatcher rd=request.getRequestDispatcher("../initialdetails/initialdetails.jsp");
+			RequestDispatcher rd=request.getRequestDispatcher("view/initialdetails/initialdetails.jsp");
 			rd.forward(request, response);
 		}
 		if(uri.endsWith("itemcondition.del")){
@@ -63,7 +63,7 @@ public class DeletionController extends HttpServlet {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-			RequestDispatcher rd=request.getRequestDispatcher("../initialdetails/initialdetails.jsp");
+			RequestDispatcher rd=request.getRequestDispatcher("view/initialdetails/initialdetails.jsp");
 			rd.forward(request, response);
 		}	
 

@@ -1,4 +1,6 @@
-<link rel="import" href="../../new.jsp">
+<link rel="import" href="new.jsp">
+
+        
 <%@page import="java.sql.*"%>
 <%@page import='com.adbl.daoimpl.InventoryDaoImpl'%>
 <%@page import='com.adbl.dao.InventoryDao'%>
@@ -6,6 +8,10 @@
 ResultSet branchdb=(ResultSet) session.getAttribute("userdetail");
 InventoryDao i=new InventoryDaoImpl(branchdb.getString("branchdb"));
 ResultSet inventory=(ResultSet) i.getinventorydata();%>
+<html>
+<head>
+
+</head>
 <div class="panel panel-default" style="width: 100%; margin: auto;">
     <div class="panel-heading">
         <h3>
@@ -15,6 +21,7 @@ ResultSet inventory=(ResultSet) i.getinventorydata();%>
     </div>
     <div class="panel-body">
         <div class="container">
+        
             <ul class="nav nav-tabs">
                 <li class="active"><a data-toggle="tab" data-target="#menu1">View
                         Inventory</a></li>
@@ -43,7 +50,7 @@ ResultSet inventory=(ResultSet) i.getinventorydata();%>
 					                                <tbody>
 					                                    <%while (inventory.next()){ %>
 					                                    <tr>
-					                                        <td><%=inventory.getString("itemcode") %></td>
+					                                        <td><a href="editinventory.click?id=<%=inventory.getString("itemcode") %>"><%=inventory.getString("itemcode") %></a></td>
 					                                        <td><%=inventory.getString("itemname") %></td>
 					                                        <td><%=inventory.getString("groupcode") %></td>
 					                                        <td><%=inventory.getString("model") %></td>
@@ -60,9 +67,25 @@ ResultSet inventory=(ResultSet) i.getinventorydata();%>
 			                 </div>
 			            </div>
 			         </div>
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-body">
+          <p>${msg }</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+</div>
 <script type="text/javascript">
 		$(document).ready(function() {
 			   $('#example').DataTable();
-			   
+			   <%if(request.getAttribute("msg")!=null){%>
+			   $('#myModal').modal('show');
+			   <%}%>
 			} );
-</script>	         
+		
+</script>	
+</html>

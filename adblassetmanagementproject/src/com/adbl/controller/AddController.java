@@ -29,7 +29,7 @@ public class AddController extends HttpServlet {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-			RequestDispatcher rd=request.getRequestDispatcher("../initialdetails/initialdetails.jsp");
+			RequestDispatcher rd=request.getRequestDispatcher("view/initialdetails/initialdetails.jsp");
 			rd.forward(request, response);
 		}
 		if(uri.endsWith("itemcondition.add"))
@@ -40,7 +40,7 @@ public class AddController extends HttpServlet {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-			RequestDispatcher rd=request.getRequestDispatcher("../initialdetails/initialdetails.jsp");
+			RequestDispatcher rd=request.getRequestDispatcher("view/initialdetails/initialdetails.jsp");
 			rd.forward(request, response);
 		}
 		if(uri.endsWith("fundsource.add"))
@@ -51,7 +51,7 @@ public class AddController extends HttpServlet {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-			RequestDispatcher rd=request.getRequestDispatcher("../initialdetails/initialdetails.jsp");
+			RequestDispatcher rd=request.getRequestDispatcher("view/initialdetails/initialdetails.jsp");
 			rd.forward(request, response);
 			
 		}
@@ -63,7 +63,7 @@ public class AddController extends HttpServlet {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-			RequestDispatcher rd=request.getRequestDispatcher("../initialdetails/initialdetails.jsp");
+			RequestDispatcher rd=request.getRequestDispatcher("view/initialdetails/initialdetails.jsp");
 			rd.forward(request, response);
 		}
 		if(uri.endsWith("inventory.add")){

@@ -162,9 +162,9 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a id="viewinventory" target="iframe_a"><i class="fa fa-circle-o" ></i> View Inventory</a></li>
-            <li><a id="addinventory" target="iframe_a"><i class="fa fa-circle-o" ></i> Add Inventory</a></li>
-            <li><a id="editinventory" target="iframe_a"><i class="fa fa-circle-o" ></i> Edit Inventory</a></li>
+            <li><a href="viewinventory.click" target="iframe_a"><i class="fa fa-circle-o" ></i> View Inventory</a></li>
+            <li><a href="addinventory.click" target="iframe_a"><i class="fa fa-circle-o" ></i> Add Inventory</a></li>
+            <li><a href="editinventory.click" target="iframe_a"><i class="fa fa-circle-o" ></i> Edit Inventory</a></li>
             
           </ul>
         </li>
@@ -190,7 +190,7 @@
                	 		<li><a href=""><i class="fa fa-circle-o"></i> next</a></li>
           		 </ul>
           	</li>
-            <li><a id="initialdetails" target="iframe_a"><i class="fa fa-circle-o"></i> Add/Edit Initial Details</a></li>
+            <li><a href="initialdetails.click" target="iframe_a"><i class="fa fa-circle-o"></i> Add/Edit Initial Details</a></li>
             
           </ul>
         </li>
@@ -235,11 +235,10 @@
      
   
   <div class="content-wrapper view"  style="height:1300px;">
-  	<iframe height="1000px" width="100%" src="view/inventory/editinventory.jsp" id="Iframe" name="iframe_a">
+  	<iframe height="1000px" width="100%" src="" id="Iframe" name="iframe_a">
 	</iframe>
   </div>
 </div>
-
 </body>
 </html>
 <%}else{out.println("No User Session Found!");} %>

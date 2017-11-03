@@ -1,7 +1,11 @@
-<link rel="import" href="../../new.jsp">
+<link rel="import" href="new.jsp">
 <%@page import="java.sql.*"%>
 <%@page import='com.adbl.daoimpl.InventoryDaoImpl'%>
 <%@page import='com.adbl.dao.InventoryDao'%>
+<html>
+<head>
+</head>
+<body>
 <%
 ResultSet branchdb=(ResultSet) session.getAttribute("userdetail");
 InventoryDao i=new InventoryDaoImpl(branchdb.getString("branchdb"));
@@ -342,6 +346,19 @@ ResultSet group=(ResultSet) i.getgroup();%>
         </div>
     </div>
 </div>
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-body">
+          <p>${msg }</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+</div>
+</body>
 <script>
 $("#insuranceamount").change(function(){
    var value=$('#insuranceamount').val();
@@ -356,6 +373,10 @@ $( "#form" ).submit(function( event ) {
 <script>
 $(document).ready(function()
         {
+	
+	<%if(request.getAttribute("msg")!=null){%>
+	   $('#myModal').modal('show');
+	   <%}%>
 	$('.submitform').submit(function() {
 	   
 	    var id=$(this).attr('id');
@@ -373,4 +394,4 @@ $(document).ready(function()
 });
 
 </script>
-<script src="assets/js/dateConverter.js"></script>
+</html>

@@ -20,5 +20,6 @@ public interface InventoryDao {
 	public String[] selectids() throws SQLException;
 	public String selectadditionaldetailid() throws SQLException;
 	public boolean inventorydao(Inventory inventory,String additionaldetailid);
+	public boolean editalldao(Inventory inventory,String additionaldetailid);
 	
 }

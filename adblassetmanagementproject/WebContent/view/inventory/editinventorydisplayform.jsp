@@ -1,5 +1,6 @@
-<link rel="import" href="../../new.jsp">
+<link rel="import" href="new.jsp">
  <%String id=request.getParameter("id");%>
+ <%System.out.println(id); %>
  <%@page import="java.sql.*"%>
 <%@page import='com.adbl.daoimpl.InventoryDaoImpl'%>
 <%@page import='com.adbl.dao.InventoryDao'%>
@@ -11,12 +12,10 @@ ResultSet companylist1=(ResultSet) i.getcompanylist();
 ResultSet companylist2=(ResultSet) i.getcompanylist(); 
 ResultSet fundsource=(ResultSet) i.getfundsourcelist();
 ResultSet itemcondition=(ResultSet) i.getitemcondition();
-ResultSet group=(ResultSet) i.getgroup();%>
-<%while(idetail.next()){ %>
+ResultSet group=(ResultSet) i.getgroup();while(idetail.next()){ %>
 <div class="panel panel-default" style="width: 100%; margin: auto;">
     <div class="panel-body">
         <div class="container">
-          
             <div class="tab-content">
                 <div id="menu2" class="tab-pane fade in active">
                 <br>
@@ -38,7 +37,7 @@ ResultSet group=(ResultSet) i.getgroup();%>
                     </ul>
                     <div class="tab-content">
                         <div id="1" class="tab-pane fade in active">
-                            <form method="post" action="updateinventory.adbl" id="form">
+                            <form method="post" action="updateinventory.adbl?id=<%=id %>" id="form">
                             <input type="hidden" name="inventory" value="/inventory" form="form">
                             <input type="hidden" value="<%=branchdb.getString("branchdb")%>" name="branchdb">
                                 <table class="table" style="width: 80%;">
