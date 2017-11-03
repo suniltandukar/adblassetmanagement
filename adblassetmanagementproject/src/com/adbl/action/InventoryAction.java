@@ -98,6 +98,14 @@ public class InventoryAction {
 		inventory.setMacaddress(macaddress);
 		inventory.setLicenseno(licenseno);
 		inventory.setItemcode(itemcode);
+		
+		String branchdb=request.getParameter("branchdb");
+
+		String[] year=purchasedateen.split("-");
+		String group=groupcode;
+		Generator g=new Generator(branchdb);
+		String item_code=g.itemcodegenerator(groupcode, year[0]);
+		System.out.println(item_code);
 		String value=null;
 		if(inventory.getAmccompanyid().equals("")){
 			inventory.setAmccompanyid(value);
@@ -114,7 +122,6 @@ public class InventoryAction {
 		if(inventory.getItemconditionid().equals("")){
 			inventory.setItemconditionid(value);
 		}
-		String branchdb=request.getParameter("branchdb");
 		InventoryDao idao=new InventoryDaoImpl(branchdb);
 		try {
 			idao.addalldao(inventory);
