@@ -114,7 +114,7 @@ ResultSet group=(ResultSet) i.getgroup();%>
                                         </tr>
                                         <tr>
                                             <td>
-                                                <h5>Depreciation Rate</h5> <input type="text"
+                                                <h5>Depreciation Rate</h5> <input type="text" 
                                                 name="depreciationrate" class="form-control"  form="form">
                                             </td>
                                     </tbody>
@@ -166,16 +166,16 @@ ResultSet group=(ResultSet) i.getgroup();%>
                                     </tr>
                                     <tr>
                                         <td>
-                                            <h5>Rate</h5> <input type="text" name="rate"
-                                            class="form-control" form="form">
+                                            <h5>Rate</h5> <input type="text" name="rate" id="rate"
+                                            class="form-control" form="form" value="">
                                         </td>
                                         <td>
-                                            <h5>Quantity</h5> <input type="text" name="quantity"
-                                            class="form-control"  form="form">
+                                            <h5>Quantity</h5> <input type="text" name="quantity" id="quantity"
+                                            class="form-control"  form="form" value="1" >
                                         </td>
                                         <td>
-                                            <h5>Amount</h5> <input type="text" name="amount"
-                                            class="form-control"  form="form">
+                                            <h5>Amount</h5> <input type="text" name="amount" id="amount"
+                                            class="form-control"  form="form" value="">
                                         </td>
                                     </tr>
                                 </tbody>
@@ -208,7 +208,7 @@ ResultSet group=(ResultSet) i.getgroup();%>
                                     <tr>
                                         <td>
                                             <h5>AMC Cost</h5> <input type="text" name="amccost"
-                                            class="form-control"  form="form">
+                                            class="form-control"  form="form" id="amccost" value="0">
                                         </td>
                                         <td>
                                             <h5>Company Name</h5> <select class="form-control"
@@ -360,12 +360,22 @@ ResultSet group=(ResultSet) i.getgroup();%>
 </div>
 </body>
 <script>
-$("#insuranceamount").change(function(){
+$("#insuranceamount, #amccost").change(function(){
    var value=$('#insuranceamount').val();
+   var value1=$('#amccost').val();
    if(value.length==0){
 	   $('#insuranceamount').val("0");
    }
+   else if(value1.length==0){
+	   $('#amccost').val("0");
+   }
 });
+$("#quantity").change(function(){
+	   var value=$('#quantity').val();
+	   if(value.length==0){
+		   $('#quantity').val("1");
+	   }
+	});
 $( "#form" ).submit(function( event ) {
 	 return confirm("CONFIRM SUBMISSION?");
 	});
@@ -377,6 +387,21 @@ $(document).ready(function()
 	<%if(request.getAttribute("msg")!=null){%>
 	   $('#myModal').modal('show');
 	   <%}%>
+	
+	   $('#quantity, #rate').keyup(function(){
+		   var rate = parseFloat($('#rate').val()) || 0;
+		   var quantity = parseFloat($('#quantity').val()) || 0;
+		     var amount = parseFloat($('#amount').val()) || 0;
+	        $('#amount').val(rate * quantity);    
+	    });
+	 
+	 $('#amount').keyup(function(){
+		 var rate = parseFloat($('#rate').val()) || 0;
+		  var quantity = parseFloat($('#quantity').val()) || 0;
+		     var amount = parseFloat($('#amount').val()) || 0;
+	        $('#rate').val(amount/quantity);    
+	    });
+	  
 	$('.submitform').submit(function() {
 	   
 	    var id=$(this).attr('id');

@@ -4,7 +4,12 @@
     	<h4>Edit Inventory</h4>
     	<hr>
     	<h6><strong>Insert Item Code</strong></h6>
-    	<input type="text" class="form-control itemcode" style="width:20%;">   
+    	<%String itemcode= request.getParameter("id");%>
+    	<%if(itemcode!=null){ %>
+    	<input type="text" class="form-control itemcode" style="width:20%;" value="<%=itemcode%>">  
+    	<%}else{ %> 
+    	<input type="text" class="form-control itemcode" style="width:20%;"> 
+    	<%} %>
     </div>
      </div>
 <div class="displayform">
@@ -12,7 +17,7 @@
 <script>
 $(document).ready(function()
         {
-	 $(".itemcode").blur(function()
+	 $(".itemcode").keyup(function()
 		        {
 		 var id=$(this).val();
 		 var dataString = 'id='+ id;
