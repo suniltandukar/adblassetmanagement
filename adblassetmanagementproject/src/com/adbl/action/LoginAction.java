@@ -19,41 +19,49 @@ public class LoginAction {
 		String staffcode=request.getParameter("staffcode");
 		String username=request.getParameter("username");
 		String password=request.getParameter("password");
-		
+		ResultSet userdetail=null;
+		String branchdb="";
 		LoginDao ldao=  new LoginDaoImpl();
-		ResultSet userdetail=ldao.verifyuserDao(staffcode, username, password);
-		String branchdb="adblheadofficedb";
-		
-		if(userdetail.next()==true){
-			HttpSession session=request.getSession(true);
-			session.setAttribute("userdetail", userdetail);
-			DBConnection.getConnectionNext(branchdb);
-			boolean status=ldao.verifybranchuserDao(staffcode, username, password);
-			if(status)
-			{
+		boolean maindbstatus=ldao.checkmaindb(staffcode, username, password);
+		if(maindbstatus){
+			userdetail=ldao.userdetail(staffcode, username, password);
+			
+			if(userdetail.next()){
+			 branchdb=userdetail.getString("branchdb");
+			}
+			
+			boolean companydbstatus=ldao.checkcompanydb(staffcode, username, password, branchdb);
+			
+			if(companydbstatus){
+				HttpSession session=request.getSession(true);
+				session.setAttribute("userdetail", userdetail);
+				try{
 				RequestDispatcher rd=request.getRequestDispatcher("profile.jsp");
-				try {
-					rd.forward(request, response);
-				} catch (ServletException e) {
-					e.printStackTrace();
-				} catch (IOException e) {
-					e.printStackTrace();
+				rd.forward(request, response);
+				}catch(Exception e){
+					System.out.println(e);
 				}
 			}
-		
+			else{
+				try{
+					String msg="Unmatched Login Credentials!";
+					request.setAttribute("msg", msg);
+					RequestDispatcher rd=request.getRequestDispatcher("index.jsp");
+					rd.forward(request, response);
+					}catch(Exception e){
+						System.out.println(e);
+					}			
+				}
 		}
 		else{
-			String msg="Invalid Login Credentials!";
-			request.setAttribute("msg", msg);
-			RequestDispatcher rd=request.getRequestDispatcher("index.jsp");
-			try {
+			try{
+				String msg="Unmatched Login Credentials!";
+				request.setAttribute("msg", msg);
+				RequestDispatcher rd=request.getRequestDispatcher("index.jsp");
 				rd.forward(request, response);
-			} catch (ServletException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
+				}catch(Exception e){
+					System.out.println(e);
+				}		
 			}
-		}
 	}
-
 }

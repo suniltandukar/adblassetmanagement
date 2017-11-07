@@ -15,7 +15,26 @@ public class LoginDaoImpl implements LoginDao{
 	PreparedStatement ps;
 	Statement stmt=null;
 	ResultSet rs=null;
-	public ResultSet verifyuserDao(String staffcode,String username, String password)
+	public boolean checkmaindb(String staffcode , String username, String password){
+		con=DBConnection.getConnection();
+		String query="select * from usertbl where staffcode=? and username=? and password=?";
+		
+		try{
+			ps=con.prepareStatement(query);
+			ps.setString(1, staffcode);
+			ps.setString(2, username);
+			ps.setString(3, password);
+			rs=ps.executeQuery();
+			if(rs.next()){
+				con.close();
+				ps=null;
+				rs=null;
+				return true;
+			}
+		}catch(Exception e){System.out.println("checkmaindb error"+e);}
+		return false;
+	}
+	public ResultSet userdetail(String staffcode,String username, String password)
 	{
 		ResultSet userdetail=null;
 		String query="";
@@ -32,9 +51,9 @@ public class LoginDaoImpl implements LoginDao{
 	}
 		
 	
-	public boolean verifybranchuserDao(String staffcode,String username, String password)
+	public boolean checkcompanydb(String staffcode,String username, String password,String branchdb)
 	{
-		con=DBConnection.getConnection();
+		con=DBConnection.getConnectionNext(branchdb);
 		try{
 		ps=con.prepareStatement("SELECT * from usertbl where staffcode=? and username=? and password=?");
 		ps.setString(1, staffcode);
