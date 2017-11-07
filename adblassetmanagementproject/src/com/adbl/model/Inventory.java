@@ -24,12 +24,7 @@ public class Inventory {
 	String amcenden;
 	String amccost;
 	String amccompanyid;
-	public String getAmccompanyid() {
-		return amccompanyid;
-	}
-	public void setAmccompanyid(String amccompanyid) {
-		this.amccompanyid = amccompanyid;
-	}
+	String licenseno;
 	String insurancestart;
 	String insurancestarten;
 	String insuranceend;
@@ -47,6 +42,27 @@ public class Inventory {
 	String itemconditionid;
 	String macaddress;
 	String itemcode;
+	String generated_itemcode;
+	
+	public String getAmccompanyid() {
+		return amccompanyid;
+	}
+	public void setAmccompanyid(String amccompanyid) {
+		this.amccompanyid = amccompanyid;
+	}
+	public String getGenerated_itemcode() {
+		return generated_itemcode;
+	}
+	public void setGenerated_itemcode(String generated_itemcode) {
+		this.generated_itemcode = generated_itemcode;
+	}
+	public String getGenerated_transactionid() {
+		return generated_transactionid;
+	}
+	public void setGenerated_transactionid(String generated_transactionid) {
+		this.generated_transactionid = generated_transactionid;
+	}
+	String generated_transactionid;
 	
 	public String getItemcode() {
 		return itemcode;
@@ -66,7 +82,7 @@ public class Inventory {
 	public void setLicenseno(String licenseno) {
 		this.licenseno = licenseno;
 	}
-	String licenseno;
+	
 	
 	
 	public String getItemconditionid() {

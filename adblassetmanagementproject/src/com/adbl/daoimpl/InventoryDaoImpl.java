@@ -213,12 +213,14 @@ public class InventoryDaoImpl implements InventoryDao {
 			e.printStackTrace();
 		}
 	}
-	public boolean inventorydao(Inventory inventory,String additionaldetailid)
+	public boolean inventorydao(Inventory inventory,String additionaldetailid,String item_code,String transactionid)
 	{
+		System.out.println("dao ko tid"+transactionid);
 		boolean status=false;
 		int a;
-		String query="insert into inventorytbl(itemcode,transactionid,legacyid,groupcode,itemname,model,decisiondate,decisiondateen,purchasedate,purchasedateen,depreciationrate,inventoryotherdetailid) "
-				+ "values('"+inventory.getItemcode()+"','"+inventory.getTransactionid()+"','"+inventory.getLegacyid()+"','"+inventory.getGroupcode()+"','"+inventory.getItemname()+"','"+inventory.getModel()+"','"+inventory.getDecisiondate()+"','"+inventory.getDecisiondateen()+"','"+inventory.getPurchasedate()+"','"+inventory.getPurchasedateen()+"','"+inventory.getDepreciationrate()+"','"+additionaldetailid+"')";
+		String transactiondateen="date";
+		String query="insert into inventorytbl(itemcode,transactionid,transactiondateen,legacyid,groupcode,itemname,model,decisiondate,decisiondateen,purchasedate,purchasedateen,depreciationrate,inventoryotherdetailid) "
+				+ "values('"+item_code+"','"+transactionid+"','"+transactiondateen+"','"+inventory.getLegacyid()+"','"+inventory.getGroupcode()+"','"+inventory.getItemname()+"','"+inventory.getModel()+"','"+inventory.getDecisiondate()+"','"+inventory.getDecisiondateen()+"','"+inventory.getPurchasedate()+"','"+inventory.getPurchasedateen()+"','"+inventory.getDepreciationrate()+"','"+additionaldetailid+"')";
 		try {
 			ps=con.prepareStatement(query);
 
@@ -266,5 +268,4 @@ public class InventoryDaoImpl implements InventoryDao {
 		
 		
 	}
-	
 }

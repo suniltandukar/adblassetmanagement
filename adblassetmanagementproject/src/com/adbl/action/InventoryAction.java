@@ -2,6 +2,9 @@ package com.adbl.action;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,7 +15,7 @@ import com.adbl.model.Inventory;
 
 public class InventoryAction {
 	
-	public boolean addinventory(HttpServletRequest request, HttpServletResponse response) {
+	public Inventory addinventory(HttpServletRequest request, HttpServletResponse response) {
 		boolean status=false;
 		String legacyid=request.getParameter("legacyid");
 		String groupcode=request.getParameter("groupcode");
@@ -55,6 +58,8 @@ public class InventoryAction {
 		String macaddress=request.getParameter("macaddress");
 		String licenseno=request.getParameter("licenseno");
 		String itemcode=request.getParameter("itemcode");
+		String yeartxn=request.getParameter("year");
+		System.out.println("year is"+yeartxn);
 		
 		Inventory inventory=new Inventory();
 		inventory.setAmccompanyid(amccompanyid);
@@ -97,15 +102,20 @@ public class InventoryAction {
 		inventory.setItemconditionid(itemconditionid);
 		inventory.setMacaddress(macaddress);
 		inventory.setLicenseno(licenseno);
-		inventory.setItemcode(itemcode);
+		//inventory.setItemcode(itemcode);
 		
 		String branchdb=request.getParameter("branchdb");
-
+		DateFormat dateformat=new SimpleDateFormat("YYYY");
+		Date date=new Date();
+		
+		
 		String[] year=purchasedateen.split("-");
-		String group=groupcode;
 		Generator g=new Generator(branchdb);
+		String branchcode="001";
 		String item_code=g.itemcodegenerator(groupcode, year[0]);
-		System.out.println(item_code);
+		inventory.setGenerated_itemcode(item_code);
+		String transaction_id=g.transactionidgenerator(branchcode,dateformat.format(date));
+		inventory.setGenerated_transactionid(transaction_id);
 		String value=null;
 		if(inventory.getAmccompanyid().equals("")){
 			inventory.setAmccompanyid(value);
@@ -128,12 +138,12 @@ public class InventoryAction {
 			String[] ids=idao.selectids();
 			idao.additionaldetaildao(inventory,ids);
 			String additionaldetailid=idao.selectadditionaldetailid();
-			status=idao.inventorydao(inventory,additionaldetailid);
+			status=idao.inventorydao(inventory,additionaldetailid, item_code,transaction_id);
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return status;
+		return inventory;
 	}
 
 }

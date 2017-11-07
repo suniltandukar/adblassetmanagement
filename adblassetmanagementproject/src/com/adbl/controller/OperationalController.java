@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 import com.adbl.action.InventoryAction;
 import com.adbl.action.InventoryEditAction;
 import com.adbl.action.LoginAction;
+import com.adbl.model.Inventory;
 
 @WebServlet("/OperationalController")
 public class OperationalController extends HttpServlet {
@@ -48,10 +49,11 @@ public class OperationalController extends HttpServlet {
 			
 		{
 			InventoryAction action=new InventoryAction();
-			boolean status=action.addinventory(request,response);
+			Inventory inventorytoshow=action.addinventory(request,response);
 			
-			if(status){
+			if(inventorytoshow!=null){
 				request.setAttribute("msg", "Inventory Added Successfully");
+				request.setAttribute("inventory", inventorytoshow);
 				RequestDispatcher rd=request.getRequestDispatcher("view/inventory/addinventory.jsp");
 				rd.forward(request, response);
 			}

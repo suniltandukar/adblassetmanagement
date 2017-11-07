@@ -123,7 +123,6 @@ public class InventoryEditAction {
 			
 			
 			String additionaldetailid=idao.selectadditionaldetailid();
-			status=idao.inventorydao(inventory,additionaldetailid);
 			boolean stats=idao.editalldao(inventory,additionaldetailid);
 			if(stats)
 			{

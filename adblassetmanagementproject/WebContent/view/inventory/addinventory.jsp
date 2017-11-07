@@ -2,6 +2,7 @@
 <%@page import="java.sql.*"%>
 <%@page import='com.adbl.daoimpl.InventoryDaoImpl'%>
 <%@page import='com.adbl.dao.InventoryDao'%>
+<%@page import='java.util.Date' %>
 <html>
 <head>
 </head>
@@ -56,18 +57,17 @@ ResultSet group=(ResultSet) i.getgroup();%>
                                 <table class="table" style="width: 80%;">
                                     <tbody>
                                         <tr>
+                                        	 <% Date date=new Date(); %>
+                                            <td>
+                                                <h5>Transaction Date</h5> <input type="text"
+                                                name="transactiondateen" class="form-control datepicker"  form="form" value="<%=date%>" readonly>
+                                                <input type="hidden" name="year" id="year" value="">
+                                            </td>
                                             <td>
                                                 <h5>Legacy Id</h5> <input type="text" name="legacyid"
                                                 class="form-control"  form="form">
                                             </td>
-                                            <td>
-                                                <h5>Item code</h5> <input type="text" name="itemcode"
-                                                class="form-control"  form="form">
-                                            </td>
-                                            <td>
-                                                <h5>Transaction Id</h5> <input type="text"
-                                                name="transactionid" class="form-control"  form="form">
-                                            </td>
+                                           
                                         </tr>
                                         <tr>
                                             <td>
@@ -350,7 +350,11 @@ ResultSet group=(ResultSet) i.getgroup();%>
     <div class="modal-dialog modal-sm">
       <div class="modal-content">
         <div class="modal-body">
-          <p>${msg }</p>
+          <p><b>${msg }</b></p>
+          Item Code:${inventory.generated_itemcode }
+         TransactionID:${inventory.generated_transactionid }<br>
+         Item Name:${inventory.itemname }
+          <a href="editinventory.click?id=${inventory.generated_itemcode }" target="iframe_a"><i class="fa fa-circle-o" ></i> Edit Details</a>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -401,7 +405,9 @@ $(document).ready(function()
 		     var amount = parseFloat($('#amount').val()) || 0;
 	        $('#rate').val(amount/quantity);    
 	    });
-	  
+	  var date=new Date();
+	  var yr=date.getFullYear();
+	$('#year').value(yr);
 	$('.submitform').submit(function() {
 	   
 	    var id=$(this).attr('id');
