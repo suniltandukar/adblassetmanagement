@@ -45,6 +45,11 @@ public class NavigationController extends HttpServlet {
 			RequestDispatcher rd=request.getRequestDispatcher("view/initialdetails/initialdetails.jsp");
 			rd.forward(request, response);
 		}
+		if(uri.endsWith("addusers.click"))
+		{
+			RequestDispatcher rd=request.getRequestDispatcher("view/settings/usersettings/adduser.jsp");
+			rd.forward(request, response);
+		}
 	
 		
 	}

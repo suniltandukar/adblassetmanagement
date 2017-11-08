@@ -6,8 +6,13 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import com.adbl.dao.LoginDao;
+import com.adbl.model.UserRole;
 import com.mysql.jdbc.Connection;
+
 import java.sql.PreparedStatement;
+import java.util.ArrayList;
+import java.util.List;
+
 import com.org.dbconnection.DBConnection;
 
 public class LoginDaoImpl implements LoginDao{
@@ -71,6 +76,17 @@ public class LoginDaoImpl implements LoginDao{
 			System.out.println(e);
 		}
 		return false;
+	}
+	public ResultSet role(String roleid) throws SQLException{
+		String query="select * from rolemgmttbl where roleid='"+roleid+"'";
+		try{
+			ps=con.clientPrepareStatement(query);
+			rs=ps.executeQuery();
+		}
+		catch(Exception e){
+			System.out.println("role error"+e);
+		}
+		return rs;
 	}
 	
 

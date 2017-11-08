@@ -1,14 +1,27 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
  <%@page import="java.sql.*" %>
+ <%@page import="java.util.*" %>
+ <%@page import="com.adbl.model.UserRole" %>
 <%if((session.getAttribute("userdetail"))!=null){
-	ResultSet userdetail=(ResultSet)session.getAttribute("userdetail");%>
+	ResultSet userdetail=(ResultSet)session.getAttribute("userdetail");
+	ResultSet roleid=(ResultSet)request.getAttribute("role");%>
 <!DOCTYPE html>
 <html lang="en-US" ng-app="myApp">
 <head>
 	<link rel="import" href="new.jsp">
+	<style>
+	#nav1,#nav2,#nav3,#nav4,#nav5,#nav6,#nav7,#nav8{
+	display:none;}
+	<%while (roleid.next()) {%>
+<%=roleid.getString("navigationid") %>{
+display:block;}
+<%} %>
+	
+	</style>
 </head>
 <body   class="hold-transition skin-blue sidebar-mini" >
+
 <div class="wrapper"  >
 
   <header class="main-header">
@@ -162,9 +175,9 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="viewinventory.click" target="iframe_a"><i class="fa fa-circle-o" ></i> View Inventory</a></li>
-            <li><a href="addinventory.click" target="iframe_a"><i class="fa fa-circle-o" ></i> Add Inventory</a></li>
-            <li><a href="editinventory.click" target="iframe_a"><i class="fa fa-circle-o" ></i> Edit Inventory</a></li>
+            <li id="nav1" ><a href="viewinventory.click" target="iframe_a"><i class="fa fa-circle-o" ></i> View Inventory</a></li>
+            <li id="nav2" ><a href="addinventory.click" target="iframe_a"><i class="fa fa-circle-o" ></i> Add Inventory</a></li>
+            <li id="nav3" ><a href="editinventory.click" target="iframe_a"><i class="fa fa-circle-o" ></i> Edit Inventory</a></li>
             
           </ul>
         </li>
@@ -180,17 +193,18 @@
           <ul class="treeview-menu">
           	<li class="treeview">
           		<a href="#">
-			        <i class="fa fa-home"></i> <span>Next</span>
+			        <i class="fa fa-users"></i> <span>User Settings</span>
 			          <span class="pull-right-container">
 			        <i class="fa fa-angle-left pull-right"></i>
 			          </span>
          		</a>
           		<ul class="treeview-menu">
-          			 	<li><a href=""><i class="fa fa-circle-o"></i>next</a></li>
-               	 		<li><a href=""><i class="fa fa-circle-o"></i> next</a></li>
+          			 	<li id="nav4"><a href="addusers.click" target="iframe_a"><i class="fa fa-circle-o"></i>Add Users</a></li>
+               	 		<li id="nav5"><a href="showusers.click"><i class="fa fa-circle-o"></i>Show Users</a></li>
+               	 		<li id="nav6"><a href="editusers.click"><i class="fa fa-circle-o"></i>Edit Users</a></li>
           		 </ul>
           	</li>
-            <li><a href="initialdetails.click" target="iframe_a"><i class="fa fa-circle-o"></i> Add/Edit Initial Details</a></li>
+            <li id="nav7"><a href="initialdetails.click" target="iframe_a"><i class="fa fa-circle-o"></i> Add/Edit Initial Details</a></li>
             
           </ul>
         </li>

@@ -3,7 +3,6 @@
 <%@page import='com.adbl.daoimpl.InventoryDaoImpl'%>
 <%@page import='com.adbl.dao.InventoryDao'%>
 <%@page import='java.util.Date' %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
 </head>
