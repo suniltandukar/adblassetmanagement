@@ -72,6 +72,9 @@ ResultSet inventory=(ResultSet) i.getinventorydata();%>
       <div class="modal-content">
         <div class="modal-body">
           <p>${msg }</p>
+          <br>
+         Updated Itemcode: ${inventory.updated_itemcode }<br>
+         Item name: ${inventory.itemname }<br>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

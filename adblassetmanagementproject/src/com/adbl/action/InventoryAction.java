@@ -4,7 +4,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -59,7 +61,7 @@ public class InventoryAction {
 		String licenseno=request.getParameter("licenseno");
 		String itemcode=request.getParameter("itemcode");
 		String yeartxn=request.getParameter("year");
-		System.out.println("year is"+yeartxn);
+		
 		
 		Inventory inventory=new Inventory();
 		inventory.setAmccompanyid(amccompanyid);
@@ -86,7 +88,7 @@ public class InventoryAction {
 		inventory.setItemsize(itemsize);
 		inventory.setLegacyid(legacyid);
 		inventory.setModel(model);
-		inventory.setPurchasedate(purchasedateen);
+		inventory.setPurchasedate(purchasedate);
 		inventory.setPurchasedateen(purchasedateen);
 		inventory.setQuantity(quantity);
 		inventory.setRate(rate);
@@ -112,8 +114,8 @@ public class InventoryAction {
 		String[] year=purchasedateen.split("-");
 		Generator g=new Generator(branchdb);
 		String branchcode="001";
-		String item_code=g.itemcodegenerator(groupcode, year[0]);
-		inventory.setGenerated_itemcode(item_code);
+		
+		
 		String transaction_id=g.transactionidgenerator(branchcode,dateformat.format(date));
 		inventory.setGenerated_transactionid(transaction_id);
 		String value=null;
@@ -134,11 +136,20 @@ public class InventoryAction {
 		}
 		InventoryDao idao=new InventoryDaoImpl(branchdb);
 		try {
-			idao.addalldao(inventory);
-			String[] ids=idao.selectids();
-			idao.additionaldetaildao(inventory,ids);
-			String additionaldetailid=idao.selectadditionaldetailid();
-			status=idao.inventorydao(inventory,additionaldetailid, item_code,transaction_id);
+			List list=new ArrayList<>();
+			for(int i=1;i<=Integer.parseInt(quantity);i++){
+				String item_code=g.itemcodegenerator(groupcode, year[0]);
+				
+				list.add(item_code);
+				System.out.println(list);
+				inventory.setGenerated_itemcode(list);
+				idao.addalldao(inventory);
+				String[] ids=idao.selectids();
+				idao.additionaldetaildao(inventory,ids);
+				String additionaldetailid=idao.selectadditionaldetailid();
+				status=idao.inventorydao(inventory,additionaldetailid, item_code,transaction_id);
+				}
+			
 			
 		} catch (SQLException e) {
 			e.printStackTrace();

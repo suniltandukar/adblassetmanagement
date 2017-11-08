@@ -268,4 +268,40 @@ public class InventoryDaoImpl implements InventoryDao {
 		
 		
 	}
+	public boolean editalldaocodechanged(Inventory inventory,String additionaldetailid,String generated_itemcode)
+	{
+		int rs=0;
+		
+		String query="update inventorytbl set transactionid=?,legacyid=?,groupcode=?,itemname=?,model=?,decisiondate=?,decisiondateen=?,purchasedate=?,purchasedateen=?,depreciationrate=?,inventoryotherdetailid=?,itemcode=? where itemcode=?";
+		
+		try {
+			ps=con.prepareStatement(query);
+			ps.setString(1, inventory.getTransactionid());
+			ps.setString(2, inventory.getLegacyid());
+			ps.setString(3, inventory.getGroupcode());
+			ps.setString(4, inventory.getItemname());
+			ps.setString(5, inventory.getModel());
+			ps.setString(6, inventory.getDecisiondate());
+			ps.setString(7, inventory.getDecisiondateen());
+			ps.setString(8, inventory.getPurchasedate());
+			ps.setString(9, inventory.getPurchasedateen());
+			ps.setString(10, inventory.getDepreciationrate());
+			ps.setString(11, additionaldetailid);
+			ps.setString(12, generated_itemcode);
+			ps.setString(13, inventory.getItemcode());
+			rs=ps.executeUpdate();
+			if(rs>0)
+			{
+				System.out.println("success updating");
+				return true;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return false;
+		
+		
+		
+	}
 }

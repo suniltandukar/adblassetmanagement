@@ -1,6 +1,5 @@
 <link rel="import" href="new.jsp">
  <%String id=request.getParameter("id");%>
- <%System.out.println(id); %>
  <%@page import="java.sql.*"%>
 <%@page import='com.adbl.daoimpl.InventoryDaoImpl'%>
 <%@page import='com.adbl.dao.InventoryDao'%>
@@ -38,6 +37,7 @@ ResultSet group=(ResultSet) i.getgroup();while(idetail.next()){ %>
                     <div class="tab-content">
                         <div id="1" class="tab-pane fade in active">
                             <form method="post" action="updateinventory.adbl?id=<%=id %>" id="form">
+                            <input type="hidden" name="previousgroupcode" value="<%=idetail.getString("groupcode")%>" form="form">
                             <input type="hidden" name="inventory" value="/inventory" form="form">
                             <input type="hidden" value="<%=branchdb.getString("branchdb")%>" name="branchdb">
                                 <table class="table" style="width: 80%;">
@@ -49,11 +49,11 @@ ResultSet group=(ResultSet) i.getgroup();while(idetail.next()){ %>
                                             </td>
                                             <td>
                                                 <h5>Item code</h5> <input type="text" name="itemcode"
-                                                class="form-control"  form="form" value="<%=idetail.getString("itemcode")%>">
+                                                class="form-control"  form="form" value="<%=idetail.getString("itemcode")%>" readonly >
                                             </td>
                                             <td>
                                                 <h5>Transaction Id</h5> <input type="text"
-                                                name="transactionid" class="form-control"  form="form" value="<%=idetail.getString("transactionid")%>">
+                                                name="transactionid" class="form-control"  form="form" value="<%=idetail.getString("transactionid")%>" readonly>
                                             </td>
                                         </tr>
                                         <tr>
@@ -97,6 +97,12 @@ ResultSet group=(ResultSet) i.getgroup();while(idetail.next()){ %>
                                                 <h5>Purchase Date (A.D.)</h5> <input type="text"
                                                 name="purchasedateen" class="form-control" id="englishDate2"
                                                 placeholder="YYYY-MM-DD"  form="form" value="<%=idetail.getString("purchasedateen")%>">
+                                                
+                                                <%String year=idetail.getString("purchasedateen");
+                                                  String[] splittedyear=year.split("-");%>
+                                            
+                                            <input type="hidden" name="previousdate" value="<%=splittedyear[0]%>" form="form">
+                                            
                                             </td>
                                         </tr>
                                         <tr>

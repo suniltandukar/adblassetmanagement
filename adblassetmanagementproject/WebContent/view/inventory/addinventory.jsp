@@ -3,6 +3,7 @@
 <%@page import='com.adbl.daoimpl.InventoryDaoImpl'%>
 <%@page import='com.adbl.dao.InventoryDao'%>
 <%@page import='java.util.Date' %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
 </head>
@@ -351,10 +352,19 @@ ResultSet group=(ResultSet) i.getgroup();%>
       <div class="modal-content">
         <div class="modal-body">
           <p><b>${msg }</b></p>
-          Item Code:${inventory.generated_itemcode }
+          <%String quantity=request.getParameter("quantity"); %>
+          
+          <%if(quantity!="1"){ %>
+         Item Code:${inventory.generated_itemcode}
          TransactionID:${inventory.generated_transactionid }<br>
-         Item Name:${inventory.itemname }
+         Item Name:${inventory.itemname }<br>
+          <%} else{ %>
+           Item Code:${inventory.generated_itemcode}
+         TransactionID:${inventory.generated_transactionid }<br>
+         Item Name:${inventory.itemname }<br>
           <a href="editinventory.click?id=${inventory.generated_itemcode }" target="iframe_a"><i class="fa fa-circle-o" ></i> Edit Details</a>
+          <%} %>
+         
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

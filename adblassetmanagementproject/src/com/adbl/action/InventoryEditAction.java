@@ -14,7 +14,7 @@ import com.adbl.model.Inventory;
 
 public class InventoryEditAction {
 	
-	public boolean editinventory(HttpServletRequest request, HttpServletResponse response) {
+	public Inventory editinventory(HttpServletRequest request, HttpServletResponse response) {
 		boolean status=false;
 		String legacyid=request.getParameter("legacyid");
 		String groupcode=request.getParameter("groupcode");
@@ -57,6 +57,8 @@ public class InventoryEditAction {
 		String macaddress=request.getParameter("macaddress");
 		String licenseno=request.getParameter("licenseno");
 		String itemcode=request.getParameter("itemcode");
+		String previousdate=request.getParameter("previousdate");
+		String previousgroupcode=request.getParameter("previousgroupcode");
 		
 		Inventory inventory=new Inventory();
 		inventory.setAmccompanyid(amccompanyid);
@@ -101,6 +103,7 @@ public class InventoryEditAction {
 		inventory.setLicenseno(licenseno);
 		inventory.setItemcode(itemcode);
 		
+		
 		String value=null;
 		if(inventory.getAmccompanyid().equals("")){
 			inventory.setAmccompanyid(value);
@@ -120,26 +123,36 @@ public class InventoryEditAction {
 		String branchdb=request.getParameter("branchdb");
 		InventoryDao idao=new InventoryDaoImpl(branchdb);
 		try {
-			
-			
+			boolean stats=false;
+			String[] year=purchasedateen.split("-");
+			if(previousgroupcode.equals(groupcode) && previousdate.equals(year[0]))
+			{
 			String additionaldetailid=idao.selectadditionaldetailid();
-			boolean stats=idao.editalldao(inventory,additionaldetailid);
+			stats=idao.editalldao(inventory,additionaldetailid);
+			inventory.setUpdated_itemcode(itemcode);
+			}
+
+		else{
+				
+				Generator g=new Generator(branchdb);
+				String updated_itemcode=g.itemcodegenerator(groupcode, year[0]);
+				inventory.setUpdated_itemcode(updated_itemcode);
+
+				String additionaldetailid=idao.selectadditionaldetailid();
+
+			 stats=idao.editalldaocodechanged(inventory, additionaldetailid,updated_itemcode);
+				
+			}
+			
 			if(stats)
 			{
-				request.setAttribute("msg", "Update Successful.");
-				RequestDispatcher rd=request.getRequestDispatcher("view/inventory/viewinventory.jsp");
-				try {
-					rd.forward(request, response);
-				 
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
+			return inventory;
 			}
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return status;
+		return null;
 	}
 
 }

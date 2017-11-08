@@ -67,7 +67,20 @@ public class OperationalController extends HttpServlet {
 		else if(uri.endsWith("updateinventory.adbl"))
 		{
 			InventoryEditAction iedit=new InventoryEditAction();
-			iedit.editinventory(request, response);
+			Inventory editedinventory=iedit.editinventory(request, response);
+			
+			if(editedinventory!=null)
+			{
+				request.setAttribute("msg", "Update Successful.");
+				request.setAttribute("inventory", editedinventory);
+				RequestDispatcher rd=request.getRequestDispatcher("view/inventory/viewinventory.jsp");
+				try {
+					rd.forward(request, response);
+				 
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
 		}
 	}
 

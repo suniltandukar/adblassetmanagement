@@ -2,6 +2,7 @@ package com.adbl.dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 import com.adbl.model.Inventory;
 
@@ -21,5 +22,6 @@ public interface InventoryDao {
 	public String selectadditionaldetailid() throws SQLException;
 	public boolean inventorydao(Inventory inventory,String additionaldetailid, String item_code,String transactionid);
 	public boolean editalldao(Inventory inventory,String additionaldetailid);
+	public boolean editalldaocodechanged(Inventory inventory, String additionaldetailid, String generated_itemcode);
 	
 }

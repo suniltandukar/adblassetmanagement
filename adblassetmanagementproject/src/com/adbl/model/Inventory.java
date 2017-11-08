@@ -1,5 +1,7 @@
 package com.adbl.model;
 
+import java.util.List;
+
 public class Inventory {
 	String legacyid;
 	String groupcode;
@@ -42,18 +44,26 @@ public class Inventory {
 	String itemconditionid;
 	String macaddress;
 	String itemcode;
-	String generated_itemcode;
+	List generated_itemcode;
+	String updated_itemcode;
 	
+	public String getUpdated_itemcode() {
+		return updated_itemcode;
+	}
+	public void setUpdated_itemcode(String updated_itemcode) {
+		this.updated_itemcode = updated_itemcode;
+	}
 	public String getAmccompanyid() {
 		return amccompanyid;
 	}
 	public void setAmccompanyid(String amccompanyid) {
 		this.amccompanyid = amccompanyid;
 	}
-	public String getGenerated_itemcode() {
+	
+	public List getGenerated_itemcode() {
 		return generated_itemcode;
 	}
-	public void setGenerated_itemcode(String generated_itemcode) {
+	public void setGenerated_itemcode(List generated_itemcode) {
 		this.generated_itemcode = generated_itemcode;
 	}
 	public String getGenerated_transactionid() {
