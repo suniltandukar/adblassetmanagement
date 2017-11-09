@@ -1,8 +1,21 @@
 <html>
 <head>
 <link rel="import" href="new.jsp">
+<style>
+.green{
+color:green}
+.red{
+color:red}
+</style>
 </head>
 <body class="background">
+<%@page import="java.sql.*"%>
+<%@page import='com.adbl.daoimpl.InventoryDaoImpl'%>
+<%@page import='com.adbl.dao.InventoryDao'%>
+
+<%ResultSet branchdb=(ResultSet) session.getAttribute("userdetail");%>
+<%InventoryDao i=new InventoryDaoImpl(branchdb.getString("branchdb")); %>
+<%ResultSet role=(ResultSet)i.getroles(); %>
 <div class="breadcrumb-line">
 			<nav aria-label="breadcrumb" role="navigation">
 			  <ol class="breadcrumb">
@@ -23,31 +36,39 @@
     					<strong>Add User</strong>
     				</div>
     				<div class="panel-body">
-    				<form method="" action="" id="form"></form>
+    				<form method="adduseraction.add" action="" id="form"></form>
 						<table class="table">
 							<tbody>
 								<tr>
 									<td>
-                                       <h5>Username</h5> 
-                                       <input type="text" name="username" class="form-control datepicker"  form="form" value="">
+                                       <h5>Username</h5><span class="usercheck"></span> 
+                                       <input type="text" name="username" class="form-control datepicker username"  form="form" value="">
+                                   		
                                    	</td>
+                                   
 								</tr>
 								<tr>
 									<td>
-                                       <h5>Staffcode</h5> 
-                                       <input type="text" name="staffcode" class="form-control datepicker"  form="form" value="">
+                                       <h5>Staffcode</h5><span class="staffcheck"></span>
+                                       <input type="text" name="staffcode" class="form-control datepicker staffcode"  form="form" value="">
                                    	</td>
+                                   
 								</tr>
+								
 								<tr>
 									<td>
                                        <h5>Role</h5> 
-                                       <select name="role" form="form" class="form-control">
-                                       	<option value="admin">Admin</option>
+                                       <select name="roleid" form="form" class="form-control">
+                                       <%while(role.next()){%>
+                                       	<option value="<%=role.getString("roleid")%>"><%=role.getString("roledescription") %></option>
+                                       	<%} %>
                                        </select>
                                    	</td>
 								</tr>
 							</tbody>
-						</table>    				
+						</table> 
+						<input type="button" name="button" value="submit" class="btn btn-primary" >
+					   				
     				</div>
     			</div>
     		</div>
@@ -64,5 +85,45 @@
     	</div>
     </div>
 </div>
+<script>
+$(document).ready(function()
+        {
+	 $(".username").blur(function()
+		        {
+		 var id=$(this).val();
+		 var dataString = 'id='+ id;
+		 $.ajax
+	        ({
+	        type: "POST",
+	        url: "checkusername.check",
+	        data: dataString,
+	        cache: false,
+	        success: function(html)
+	        {
+	        $(".usercheck").html(html);
+	        } 
+	        });
+		 
+	});
+	 $(".staffcode").blur(function()
+		        {
+		 var id=$(this).val();
+		 var dataString = 'id='+ id;
+		 $.ajax
+	        ({
+	        type: "POST",
+	        url: "checkstaffcode.check",
+	        data: dataString,
+	        cache: false,
+	        success: function(html)
+	        {
+	        $(".staffcheck").html(html);
+	        } 
+	        });
+		 
+	});
+});
+</script>
 </body>
+
 </html>

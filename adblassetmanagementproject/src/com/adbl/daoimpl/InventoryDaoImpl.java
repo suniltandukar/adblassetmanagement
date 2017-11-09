@@ -304,4 +304,18 @@ public class InventoryDaoImpl implements InventoryDao {
 		
 		
 	}
+	public ResultSet getroles()
+	{
+		
+		String query="select * from adblassetmanagementdb.roletbl";
+		try{
+			ps=con.prepareStatement(query);
+			rs=ps.executeQuery();
+			return rs;
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return null;
+		
+	}
 }

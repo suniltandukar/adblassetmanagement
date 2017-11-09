@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.adbl.action.InitialDetailAddAction;
+import com.adbl.action.UserAction;
 
 /**
  * Servlet implementation class AddController
@@ -69,6 +70,11 @@ public class AddController extends HttpServlet {
 		if(uri.endsWith("inventory.add")){
 			RequestDispatcher rd=request.getRequestDispatcher("initialdetails.jsp");
 			rd.forward(request, response);
+		}
+		if(uri.endsWith("adduseraction.add"))
+		{
+			UserAction user=new UserAction();
+			user.adduser(request,response);
 		}
 	}
 
