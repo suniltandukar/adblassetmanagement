@@ -29,6 +29,8 @@ public class UserAction {
 		{
 			e.printStackTrace();
 		}
+		request.setAttribute("username",username);
+		
 		
 	}
 	

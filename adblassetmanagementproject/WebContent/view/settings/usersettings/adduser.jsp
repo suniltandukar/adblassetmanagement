@@ -10,11 +10,9 @@ color:red}
 </head>
 <body class="background">
 <%@page import="java.sql.*"%>
-<%@page import='com.adbl.daoimpl.InventoryDaoImpl'%>
-<%@page import='com.adbl.dao.InventoryDao'%>
-
-<%ResultSet branchdb=(ResultSet) session.getAttribute("userdetail");%>
-<%InventoryDao i=new InventoryDaoImpl(branchdb.getString("branchdb")); %>
+<%@page import='com.adbl.daoimpl.UserDaoImpl'%>
+<%@page import='com.adbl.dao.UserDao'%>
+<%UserDao i=new UserDaoImpl(); %>
 <%ResultSet role=(ResultSet)i.getroles(); %>
 <div class="breadcrumb-line">
 			<nav aria-label="breadcrumb" role="navigation">

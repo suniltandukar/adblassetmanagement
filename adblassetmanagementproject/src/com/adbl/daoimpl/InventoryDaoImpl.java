@@ -296,26 +296,9 @@ public class InventoryDaoImpl implements InventoryDao {
 				return true;
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return false;
-		
-		
-		
 	}
-	public ResultSet getroles()
-	{
-		
-		String query="select * from adblassetmanagementdb.roletbl";
-		try{
-			ps=con.prepareStatement(query);
-			rs=ps.executeQuery();
-			return rs;
-		}catch(Exception e){
-			e.printStackTrace();
-		}
-		return null;
-		
-	}
+	
 }
