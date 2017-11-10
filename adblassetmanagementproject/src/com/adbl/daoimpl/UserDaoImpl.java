@@ -28,10 +28,6 @@ public class UserDaoImpl implements UserDao {
 		}catch(Exception e){
 			System.out.println("adduserdao exception"+e);
 		}
-				
-		
-				
-		
 	}	
 	
 
