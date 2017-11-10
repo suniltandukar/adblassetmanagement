@@ -36,7 +36,7 @@ color:red}
     					<strong>Add User</strong>
     				</div>
     				<div class="panel-body">
-    				<form method="adduseraction.add" action="" id="form"></form>
+    				<form method="post" action="adduseraction.add" id="form">
 						<table class="table">
 							<tbody>
 								<tr>
@@ -58,7 +58,7 @@ color:red}
 								<tr>
 									<td>
                                        <h5>Role</h5> 
-                                       <select name="roleid" form="form" class="form-control">
+                                       <select name="roleid" form="form" class="form-control" >
                                        <%while(role.next()){%>
                                        	<option value="<%=role.getString("roleid")%>"><%=role.getString("roledescription") %></option>
                                        	<%} %>
@@ -67,8 +67,9 @@ color:red}
 								</tr>
 							</tbody>
 						</table> 
-						<input type="button" name="button" value="submit" class="btn btn-primary" >
-					   				
+						<input type="submit" name="button" value="submit" class="btn btn-primary" >
+					
+					   			</form>	
     				</div>
     			</div>
     		</div>
