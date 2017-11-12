@@ -50,6 +50,11 @@ public class NavigationController extends HttpServlet {
 			RequestDispatcher rd=request.getRequestDispatcher("view/settings/usersettings/adduser.jsp");
 			rd.forward(request, response);
 		}
+		if(uri.endsWith("userrolemanagement.click"))
+		{
+			RequestDispatcher rd=request.getRequestDispatcher("view/settings/usersettings/userrolemgmt.jsp");
+			rd.forward(request, response);
+		}
 	
 		
 	}

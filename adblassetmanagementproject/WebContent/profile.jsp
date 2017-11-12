@@ -200,7 +200,7 @@ display:block;}
          		</a>
           		<ul class="treeview-menu">
           			 	<li id="nav4"><a href="addusers.click" target="iframe_a"><i class="fa fa-circle-o"></i>Add Users</a></li>
-               	 		<li id="nav5"><a href="showusers.click"><i class="fa fa-circle-o"></i>Show Users</a></li>
+               	 		<li id="nav5"><a href="userrolemanagement.click" target="iframe_a"><i class="fa fa-circle-o"></i>Manage User Roles</a></li>
                	 		<li id="nav6"><a href="editusers.click"><i class="fa fa-circle-o"></i>Edit Users</a></li>
           		 </ul>
           	</li>
