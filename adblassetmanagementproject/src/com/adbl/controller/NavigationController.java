@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.adbl.action.UserAction;
+
 @WebServlet("/NavigationController")
 public class NavigationController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -54,6 +56,13 @@ public class NavigationController extends HttpServlet {
 		{
 			RequestDispatcher rd=request.getRequestDispatcher("view/settings/usersettings/userrolemgmt.jsp");
 			rd.forward(request, response);
+		}
+		if(uri.endsWith("edituser.click"))
+		{
+			UserAction action=new UserAction();
+			action.edituser(request, response);
+			
+			
 		}
 	
 		

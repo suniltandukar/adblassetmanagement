@@ -14,6 +14,7 @@ color:red}
 <%@page import='com.adbl.dao.UserDao'%>
 <%UserDao i=new UserDaoImpl(); %>
 <%ResultSet role=(ResultSet)i.getroles(); %>
+<%ResultSet existinguser=(ResultSet)i.getexistingusers(); %>
 <div class="breadcrumb-line">
 			<nav aria-label="breadcrumb" role="navigation">
 			  <ol class="breadcrumb">
@@ -40,7 +41,7 @@ color:red}
 								<tr>
 									<td>
                                        <h5>Username</h5><span class="usercheck"></span> 
-                                       <input type="text" name="username" class="form-control datepicker username"  form="form" value="">
+                                       <input type="text" name="username" class="form-control datepicker username"  form="form" value="${username }">
                                    		
                                    	</td>
                                    
@@ -48,7 +49,7 @@ color:red}
 								<tr>
 									<td>
                                        <h5>Staffcode</h5><span class="staffcheck"></span>
-                                       <input type="text" name="staffcode" class="form-control datepicker staffcode"  form="form" value="">
+                                       <input type="text" name="staffcode" class="form-control datepicker staffcode"  form="form" value="${staffcode }">
                                    	</td>
                                    
 								</tr>
@@ -57,15 +58,19 @@ color:red}
 									<td>
                                        <h5>Role</h5> 
                                        <select name="roleid" form="form" class="form-control" >
-                                       <%while(role.next()){%>
+                                 <option value="<%=role[0]%>"><%=role[1] %></option>
+									
+                                       	<%while(role.next()){%>
+                                       	<option value="${roleid }">${roledescription }</option>
                                        	<option value="<%=role.getString("roleid")%>"><%=role.getString("roledescription") %></option>
                                        	<%} %>
+                                       	
                                        </select>
-                                   	</td>
+                                   	</td> 
 								</tr>
 							</tbody>
 						</table> 
-						<input type="submit" name="button" value="submit" class="btn btn-primary" >
+						<input type="submit" name="button" class="btn" value="submit" class="btn btn-primary" >
 					
 					   			</form>	
     				</div>
@@ -77,6 +82,31 @@ color:red}
     					<strong>Existing Users</strong>
     				</div>
     				<div class="panel-body">
+    				<table class="table display" id="table">
+							<thead>
+								<tr>
+									<th>S No.</th>
+									<th>User Name</th>
+									<th>User Number</th>
+									<th>Staff Code</th>
+									<th>Actions</th><!-- 
+									<th><i class="fa fa-cog" aria-hidden="true"></i></th> -->
+								</tr>
+							</thead>
+							<tbody>
+							<%int sno=1;while(existinguser.next()){ %>
+							<tr>
+							<td><%=sno %></td>
+							<td><%=existinguser.getString("username") %></td>
+							<td><%=existinguser.getString("userid") %></td>
+							<td><%=existinguser.getString("staffcode") %></td>
+							<td><a href="edituser.click?id=<%=existinguser.getString("userid")%>"  class="btn btn-primary" value="">Edit</a>
+							
+							</tr>
+								<%sno++;} %>
+							
+							
+							</tbody>						</table>
     				
     				</div>
     			</div>
@@ -84,9 +114,39 @@ color:red}
     	</div>
     </div>
 </div>
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-body">
+        <%String username=request.getParameter("username");
+        	String staffcode=request.getParameter("staffcode");
+        if(username!=null && staffcode!=null){%>
+        	
+          <p><b>${msg}</b></p><br>
+    		Username:${username }<br>
+    		Staffcode:${staffcode }
+    	
+         <%} %>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+</div>
 <script>
 $(document).ready(function()
         {
+
+	$("#edit").click(function(){
+		$(".username").val("hello");
+		
+	})
+	
+        
+	<%if(request.getAttribute("msg")!=null){%>
+	   $('#myModal').modal('show');
+	   <%}%>
 	 $(".username").blur(function()
 		        {
 		 var id=$(this).val();

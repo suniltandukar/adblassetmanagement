@@ -72,7 +72,7 @@
 									<td><%=rolename.getString("roledescription") %></td>
 									<td></td>
 								</tr>
-							<%sno++;} %>
+							<%sno++;}%>
 							</tbody>
 						</table>
 					</div>
