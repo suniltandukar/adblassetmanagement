@@ -6,7 +6,17 @@
 color:green}
 .red{
 color:red}
-</style>
+
+	.updatebtn{
+	display:none;}
+	<%if(request.getAttribute("updatebtn")!=null){%>
+.updatebtn{
+display:block;}
+.submitbtn{
+display:none;}
+<%} %>
+	
+	</style>
 </head>
 <body class="background">
 <%@page import="java.sql.*"%>
@@ -15,6 +25,7 @@ color:red}
 <%UserDao i=new UserDaoImpl(); %>
 <%ResultSet role=(ResultSet)i.getroles(); %>
 <%ResultSet existinguser=(ResultSet)i.getexistingusers(); %>
+
 <div class="breadcrumb-line">
 			<nav aria-label="breadcrumb" role="navigation">
 			  <ol class="breadcrumb">
@@ -25,7 +36,7 @@ color:red}
 			  </ol>
 			</nav>
 		</div>
-
+		
 <div class="panel panel-default" style="width: 100%; margin: auto;">
     <div class="panel-body">
     	<div class="row">
@@ -35,7 +46,7 @@ color:red}
     					<strong>Add User</strong>
     				</div>
     				<div class="panel-body">
-    				<form method="post" action="adduseraction.add" id="form">
+    				<form method="post"  id="form" name="Form1">
 						<table class="table">
 							<tbody>
 								<tr>
@@ -58,21 +69,35 @@ color:red}
 									<td>
                                        <h5>Role</h5> 
                                        <select name="roleid" form="form" class="form-control" >
-                                 <option value="<%=role[0]%>"><%=role[1] %></option>
-									
-                                       	<%while(role.next()){%>
-                                       	<option value="${roleid }">${roledescription }</option>
+                               
+									<%if((request.getAttribute("update"))!=null){ %>
+									  	<option value="${roleid }" selected="selected">${roledescription }</option>
+									  	
+                                       		<%while(role.next()){%>
+                                      
                                        	<option value="<%=role.getString("roleid")%>"><%=role.getString("roledescription") %></option>
-                                       	<%} %>
+                                      
+                                       		
+                                       	<%}} else{  %>
+                                        	<%while(role.next()){%>
+                                      
+                                       	<option value="<%=role.getString("roleid")%>"><%=role.getString("roledescription") %></option>
+                                      
+                                     
+                                       	<%} }%>
+                                       
                                        	
                                        </select>
                                    	</td> 
 								</tr>
 							</tbody>
 						</table> 
-						<input type="submit" name="button" class="btn" value="submit" class="btn btn-primary" >
+						<input type="submit" name="button"  value="submit" class="btn btn-primary submitbtn" onclick="return OnButton1()" >
+					
+					<input type="submit" name="updatebtn" class="updatebtn btn btn-primary" value="update" onclick="return OnButton2()" >
 					
 					   			</form>	
+					   			
     				</div>
     			</div>
     		</div>
@@ -95,12 +120,15 @@ color:red}
 							</thead>
 							<tbody>
 							<%int sno=1;while(existinguser.next()){ %>
+							
+							
 							<tr>
 							<td><%=sno %></td>
 							<td><%=existinguser.getString("username") %></td>
 							<td><%=existinguser.getString("userid") %></td>
 							<td><%=existinguser.getString("staffcode") %></td>
 							<td><a href="edituser.click?id=<%=existinguser.getString("userid")%>"  class="btn btn-primary" value="">Edit</a>
+							<a href="deleteuser.click?id=<%=existinguser.getString("userid")%>" class="btn btn-danger" id="deletebtn" value="">Delete</a></td>
 							
 							</tr>
 								<%sno++;} %>
@@ -164,6 +192,9 @@ $(document).ready(function()
 	        });
 		 
 	});
+	 $( "#deletebtn" ).click(function( event ) {
+		 return confirm("CONFIRM Deletion?");
+		});
 	 $(".staffcode").blur(function()
 		        {
 		 var id=$(this).val();
@@ -182,6 +213,23 @@ $(document).ready(function()
 		 
 	});
 });
+</script>
+<script >
+
+function OnButton1()
+{
+    document.Form1.action = "adduseraction.add"
+    document.Form1.submit();             // Submit the page
+    return true;
+}
+
+function OnButton2()
+{
+    document.Form1.action = "updateuser.add"
+    document.Form1.submit();             // Submit the page
+    return true;
+}
+
 </script>
 </body>
 

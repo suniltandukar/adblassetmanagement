@@ -62,8 +62,15 @@ public class NavigationController extends HttpServlet {
 			UserAction action=new UserAction();
 			action.edituser(request, response);
 			
+		}
+		if(uri.endsWith("deleteuser.click"))
+		{
+			UserAction action=new UserAction();
+			action.deleteuser(request, response);
 			
 		}
+		
+		
 	
 		
 	}

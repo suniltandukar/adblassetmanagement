@@ -15,57 +15,59 @@ import com.adbl.action.InitialDetailDeleteAction;
 @WebServlet("/DeletionController")
 public class DeletionController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    public DeletionController() {
-        super();
-    }
 
-	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String uri=request.getRequestURI();
-		if(uri.endsWith("company.del")){
+	public DeletionController() {
+
+		super();
+	}
+
+	protected void service(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		String uri = request.getRequestURI();
+		if (uri.endsWith("company.del")) {
 			InitialDetailDeleteAction i;
 			try {
 				i = new InitialDetailDeleteAction(request, response);
-				i.deletecompany(request,response);
+				i.deletecompany(request, response);
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-			RequestDispatcher rd=request.getRequestDispatcher("view/initialdetails/initialdetails.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("view/initialdetails/initialdetails.jsp");
 			rd.forward(request, response);
 		}
-		if(uri.endsWith("group.del")){
+		if (uri.endsWith("group.del")) {
 			InitialDetailDeleteAction i;
 			try {
 				i = new InitialDetailDeleteAction(request, response);
-				i.deletegroup(request,response);
+				i.deletegroup(request, response);
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-			RequestDispatcher rd=request.getRequestDispatcher("view/initialdetails/initialdetails.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("view/initialdetails/initialdetails.jsp");
 			rd.forward(request, response);
 		}
-		if(uri.endsWith("fundsource.del")){
+		if (uri.endsWith("fundsource.del")) {
 			InitialDetailDeleteAction i;
 			try {
 				i = new InitialDetailDeleteAction(request, response);
-				i.deletefundsource(request,response);
+				i.deletefundsource(request, response);
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-			RequestDispatcher rd=request.getRequestDispatcher("view/initialdetails/initialdetails.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("view/initialdetails/initialdetails.jsp");
 			rd.forward(request, response);
 		}
-		if(uri.endsWith("itemcondition.del")){
+		if (uri.endsWith("itemcondition.del")) {
 			InitialDetailDeleteAction i;
 			try {
 				i = new InitialDetailDeleteAction(request, response);
-				i.deleteitemcondition(request,response);
+				i.deleteitemcondition(request, response);
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-			RequestDispatcher rd=request.getRequestDispatcher("view/initialdetails/initialdetails.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("view/initialdetails/initialdetails.jsp");
 			rd.forward(request, response);
-		}	
+		}
 
 	}
 

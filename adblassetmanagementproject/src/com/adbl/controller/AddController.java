@@ -76,6 +76,11 @@ public class AddController extends HttpServlet {
 			UserAction user=new UserAction();
 			user.adduser(request,response);
 		}
+		if(uri.endsWith("updateuser.add"))
+		{
+		UserAction user=new UserAction();
+		user.updateuser(request,response);
+		}
 	}
 
 }

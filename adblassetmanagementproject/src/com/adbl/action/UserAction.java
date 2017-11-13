@@ -51,35 +51,100 @@ public class UserAction {
 		String userid=request.getParameter("id");
 		
 		UserDao udao=new UserDaoImpl();
-		String[] editdetails=udao.edituserdao(userid);
+		ResultSet editdetails=udao.edituserdao(userid);
 		
+		
+		if(editdetails!=null)
+		{
+					try {
+
+						request.setAttribute("update", "update");
+						request.setAttribute("updatebtn", "showupdatebutton");
+						request.setAttribute("username",editdetails.getString("username"));
+						request.setAttribute("staffcode", editdetails.getString("staffcode"));
+						request.setAttribute("roleid", editdetails.getString("roleid"));
+						request.setAttribute("roledescription", editdetails.getString("roledescription"));
+						RequestDispatcher rd=request.getRequestDispatcher("view/settings/usersettings/adduser.jsp");
+						rd.forward(request, response);
+						
+					} catch (Exception e) {
+						System.out.println("EditUserAction Error");
+						e.printStackTrace();
+					}
+					
+				
+				
+				
+			
+				}
+		} 
+		
+	public void deleteuser(HttpServletRequest request, HttpServletResponse response) {
+		String userid=request.getParameter("id");
+		
+		
+		
+		HttpSession session=request.getSession(true);
+		ResultSet userdetails=(ResultSet) session.getAttribute("userdetail");
 		
 		try {
-			if(editdetails.length>0)
+
+			String branchdb=userdetails.getString("branchdb");
+			UserDao dao=new UserDaoImpl();
+			Boolean status=dao.deleteuserdao(userid,branchdb);
+			
+			if(status)
 			{
-				try {
-					request.setAttribute("update", "update");
-					request.setAttribute("username",editdetails[0]);
-					request.setAttribute("staffcode", editdetails[1]);
-					request.setAttribute("roleid", editdetails[2]);
-					request.setAttribute("roledescription", editdetails[3]);
 				RequestDispatcher rd=request.getRequestDispatcher("view/settings/usersettings/adduser.jsp");
-				rd.forward(request, response);
+				try {
+					rd.forward(request, response);
+					System.out.println("Delete Successful");
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
-				
-				
+					System.out.println("display error");
+					e.printStackTrace();
+				} 
 			}
-				}
-		} catch (Exception e) {
+			
+			
+		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		}
+	
 	
 		
 		
 	}
+	public void updateuser(HttpServletRequest request, HttpServletResponse response) {
+		String userid=request.getParameter("id");
+		String username=request.getParameter("username");
+		String staffcode=request.getParameter("staffcode");
+		String role=request.getParameter("roleid");
+		HttpSession session=request.getSession(true);
+		ResultSet userdetails=(ResultSet) session.getAttribute("userdetail");
+		try{
+		String mid=userdetails.getString("mid");
+		String branchdb=userdetails.getString("branchdb");
+		int roleid=Integer.parseInt(role);
+		
+		UserDao udao=new UserDaoImpl();
+		Boolean status=udao.updateuserdao(username,staffcode,roleid,mid,branchdb,userid);
+		if(status)
+		{
+			request.setAttribute("msg", "User Updated Successfully");
+			request.setAttribute("username",username);
+			request.setAttribute("staffcode", staffcode);
+			RequestDispatcher rd=request.getRequestDispatcher("view/settings/usersettings/adduser.jsp");
+			rd.forward(request, response);
+			
+		}
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	
+	}
+}
 	
 
 

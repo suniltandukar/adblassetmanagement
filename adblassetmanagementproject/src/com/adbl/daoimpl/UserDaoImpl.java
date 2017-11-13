@@ -29,24 +29,27 @@ public class UserDaoImpl implements UserDao {
 		}
 		return false;
 	}	
-	public String[] edituserdao(String userid) {
-		String[] user=new String[10];
+	public ResultSet edituserdao(String userid) {
 		con=DBConnection.getConnection();
-		String query="select * from usertbl where userid='"+userid+"'";
-		try{
-			ps=con.prepareStatement(query);
-			rs=ps.executeQuery();
-			if(rs!=null){
-				user[0]=rs.getString("username");
-				user[1]=rs.getString("staffcode");
-				user[2]=rs.getString("roleid");
-				user[3]=rs.getString("roledescription");
+		
+		//String query="select *,roletbl.* from usertbl join roletbl where userid='"+userid+"'";
+		String query="SELECT usertbl.*,roletbl.roledescription from usertbl join roletbl where usertbl.roleid=roletbl.roleid and userid='"+userid+"'";
+		
+			try {
+				ps=con.prepareStatement(query);
+				rs=ps.executeQuery();
 				
+				while(rs.next()){
+					return rs;
+				}
+					
+			} catch (SQLException e) {
+				System.out.println("edituserdao exception"+e);
 			}
-		}catch(Exception e){
-			System.out.println("adduserdao exception"+e);
-		}
-		return user;
+			return null;
+			
+			
+		
 	}
 	public ResultSet getroles()
 	{
@@ -65,6 +68,7 @@ public class UserDaoImpl implements UserDao {
 	public ResultSet getexistingusers()
 	{
 		 con=DBConnection.getConnection();
+	
 		
 		String query="select * from usertbl";
 		try{
@@ -78,6 +82,51 @@ public class UserDaoImpl implements UserDao {
 		}
 		return null;
 	}
-	
+	public boolean deleteuserdao(String userid,String branchdb)
+	{
+		con=DBConnection.getConnection();
+		
+		String query="delete  from usertbl where userid='"+userid+"'";
+		String query1="delete  from "+branchdb+".usertbl where userid='"+userid+"'";
+		
+		try {
+			stmt=con.createStatement();
+			stmt.addBatch(query);
+			stmt.addBatch(query1);
+			stmt.executeBatch();
+			return true;
+			
+		} catch (SQLException e) {
+			System.out.println("Delete USer Dao Error"+e);
+		}
+		
+		return false;
+		
+	}
+
+	public Boolean updateuserdao(String username, String staffcode, int roleid, String mid, String branchdb,String userid){
+		String query="update usertbl set username='"+username+"', staffcode='"+staffcode+"',roleid='"+roleid+"' where userid='"+userid+"'";
+		
+		System.out.println(query);
+		int rs=0;
+		con=DBConnection.getConnection();
+		try {
+			ps=con.prepareStatement(query);
+			ps.executeUpdate();
+			if(rs>0)
+			{
+				return true;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+				
+		
+		
+		return false;
+		
+	}
 
 }
