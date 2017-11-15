@@ -27,15 +27,14 @@
 		<br>
 		<div class="row ">
 			<div class="col-sm-4">
-				<form method="post" action="addsubject" id="form"></form>
+				<form method="post" action="updateuserrole.add" id="form"></form>
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<h4 class="panel-title"><strong>Fill Role Form</strong></h4>
 					</div>
 					<div class="panel-body">
-						<input type="hidden" name="companydb" value="" form="form">
 						<h5>Role Name*</h5>
-					   	<select class="form-control" name="rolename" form="form" required>
+					   	<select class="form-control" name="roleid" form="form" required>
 					   		<option value="" selected>Select role name</option>
 					   	<%while(rolename1.next()){ %>
 					   		<option value="<%=rolename1.getString("roleid") %>"><%=rolename1.getString("rolename") %></option>
@@ -70,7 +69,7 @@
 									<td><%=sno %></td>
 									<td><%=rolename.getString("rolename") %></td>
 									<td><%=rolename.getString("roledescription") %></td>
-									<td><a href=""><i class="fa fa-pencil-square-o" aria-hidden="true" style="color:blue;"></i></a>&nbsp;&nbsp;&nbsp;<a href="subject.del?id=" class="delete"><i class="fa fa-trash" aria-hidden="true" style="color:red;"></i></td>
+									<td><a href="userrole.del?id=<%=rolename.getString("roleid") %>" class="delete"><i class="fa fa-trash" id="deletebtn" aria-hidden="true" style="color:red;"></i></td>
 								</tr>
 							<%sno++;}%>
 							</tbody>
@@ -104,6 +103,9 @@
 			        paging:         false
 			    } );
 		} );
+		 $( "#deletebtn" ).click(function( event ) {
+			 return confirm("CONFIRM Deletion?");
+			});
 		$('#form').submit(function() {
 		    return confirm('CONFIRM SAVE?'); 
 		});
