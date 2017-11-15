@@ -70,7 +70,7 @@
 									<td><%=sno %></td>
 									<td><%=rolename.getString("rolename") %></td>
 									<td><%=rolename.getString("roledescription") %></td>
-									<td></td>
+									<td><a href=""><i class="fa fa-pencil-square-o" aria-hidden="true" style="color:blue;"></i></a>&nbsp;&nbsp;&nbsp;<a href="subject.del?id=" class="delete"><i class="fa fa-trash" aria-hidden="true" style="color:red;"></i></td>
 								</tr>
 							<%sno++;}%>
 							</tbody>
