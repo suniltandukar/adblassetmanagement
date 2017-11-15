@@ -147,6 +147,52 @@ public class UserAction {
 		}
 	
 	}
+	public void updateuserrole(HttpServletRequest request, HttpServletResponse response) {
+		String roleid=request.getParameter("roleid");
+		String roledescription=request.getParameter("roledescription");
+		UserDao udao=new UserDaoImpl();
+		boolean status=udao.updateuserroledao(roleid, roledescription);
+		try{
+			String msg="";
+		if(status){
+			msg="Successful !";
+			request.setAttribute("msg", msg);
+		}
+		else{
+			msg="Unsuccessful !";
+			request.setAttribute("msg", msg);
+		}
+		RequestDispatcher rd=request.getRequestDispatcher("view/settings/usersettings/userrolemgmt.jsp");
+		rd.forward(request, response);
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+		
+	}
+	public void deleteuserrole(HttpServletRequest request, HttpServletResponse response) {
+		String roleid=request.getParameter("id");
+		String roledescription=request.getParameter("roledescription");
+		UserDao udao=new UserDaoImpl();
+		boolean status=udao.deleteuserroledao(roleid);
+		try{
+			String msg="";
+		if(status){
+			msg="Successful !";
+			request.setAttribute("msg", msg);
+		}
+		else{
+			msg="Unsuccessful !";
+			request.setAttribute("msg", msg);
+		}
+		RequestDispatcher rd=request.getRequestDispatcher("view/settings/usersettings/userrolemgmt.jsp");
+		rd.forward(request, response);
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+		
+	}
 }
 	
 

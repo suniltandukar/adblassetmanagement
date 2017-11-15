@@ -24,16 +24,16 @@ display:block;}
 
 <div class="wrapper"  >
 
-  <header class="main-header">
+  <header class="main-header" >
     <!-- Logo -->
-    <a href="index2.html" class="logo">
+    <a href="" class="logo" style="background-color:#007B38;">
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>ADBL</b></span>
       <!-- logo for regular state and mobile devices -->
       <span class="logo-lg"><b><%=userdetail.getString("username") %></b>&nbsp;ADBL</span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
-    <nav class="navbar navbar-static-top">
+    <nav class="navbar navbar-static-top" style="background-color:#007B38;">
       <!-- Sidebar toggle button-->
       <a  class="sidebar-toggle" data-toggle="push-menu" role="button">
         <span class="sr-only">Toggle navigation</span>
@@ -199,26 +199,40 @@ display:block;}
 			          </span>
          		</a>
           		<ul class="treeview-menu">
-          			 	<li id="nav4"><a href="addusers.click" target="iframe_a"><i class="fa fa-circle-o"></i>Add Users</a></li>
+          			 	<li id="nav4"><a href="addusers.click" target="iframe_a"><i class="fa fa-circle-o"></i>Manage Users</a></li>
                	 		<li id="nav5"><a href="userrolemanagement.click" target="iframe_a"><i class="fa fa-circle-o"></i>Manage User Roles</a></li>
-               	 		<li id="nav6"><a href="editusers.click"><i class="fa fa-circle-o"></i>Edit Users</a></li>
+               	 		<li id="nav6"><a href="editusers.click"><i class="fa fa-circle-o"></i>Nav 6</a></li>
           		 </ul>
           	</li>
             <li id="nav7"><a href="initialdetails.click" target="iframe_a"><i class="fa fa-circle-o"></i> Add/Edit Initial Details</a></li>
             
           </ul>
         </li>
-        
+         <li class="treeview">
+          <a href="#">
+            <i class="fa fa-bars"></i>
+            <span>Transfer/Issue</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li id="" ><a href="transferitem.click" target="iframe_a"><i class="fa fa-circle-o" ></i> Transfer Items</a></li>
+            <li id="" ><a href="issueitem.click" target="iframe_a"><i class="fa fa-circle-o" ></i> Issue Items</a></li>
+            <li id="" ><a href=".click" target="iframe_a"><i class="fa fa-circle-o" ></i> Issue Confirmation</a></li>
+            
+          </ul>
+        </li>
         <li class="treeview">
           <a href="#">
-            <i class="fa fa-share"></i> <span>Multilevel</span>
+            <i class="fa fa-share"></i> <span>Multi Level</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
           <ul class="treeview-menu">
             <li class="treeview">
-              <a href="#"><i class="fa fa-circle-o"></i> Level One
+              <a href="#"><i class="fa fa-circle-o"></i> Level one
                 <span class="pull-right-container">
                   <i class="fa fa-angle-left pull-right"></i>
                 </span>
@@ -240,8 +254,6 @@ display:block;}
             </li>
           </ul>
         </li>
-       
-       
       </ul>
     </section>
     <!-- /.sidebar -->

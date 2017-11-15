@@ -114,7 +114,6 @@ display:none;}
 								<tr>
 									<th>S No.</th>
 									<th>User Name</th>
-									<th>User Number</th>
 									<th>Staff Code</th>
 									<th>Actions</th><!-- 
 									<th><i class="fa fa-cog" aria-hidden="true"></i></th> -->
@@ -122,12 +121,9 @@ display:none;}
 							</thead>
 							<tbody>
 							<%int sno=1;while(existinguser.next()){ %>
-							
-							
 							<tr>
 							<td><%=sno %></td>
 							<td><%=existinguser.getString("username") %></td>
-							<td><%=existinguser.getString("userid") %></td>
 							<td><%=existinguser.getString("staffcode") %></td>
 							<td><a href="edituser.click?id=<%=existinguser.getString("userid")%>"   ><i class="fa fa-pencil-square-o"></i></a>
 						

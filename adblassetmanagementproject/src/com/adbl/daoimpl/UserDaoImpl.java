@@ -104,12 +104,16 @@ public class UserDaoImpl implements UserDao {
 		
 	}
 
-	public Boolean updateuserdao(String username, String staffcode, int roleid, String mid, String branchdb,String userid){
+	public boolean updateuserdao(String username, String staffcode, int roleid, String mid, String branchdb,String userid){
 		String query="update usertbl set username='"+username+"', staffcode='"+staffcode+"',roleid='"+roleid+"' where userid='"+userid+"'";
+
 		String query1="update "+branchdb+".usertbl set username='"+username+"', staffcode='"+staffcode+"' where userid='"+userid+"'";
 		
 		System.out.println(query);
-		int rs[]=null;
+		
+
+		int[] rs=null;
+
 		con=DBConnection.getConnection();
 		try {
 			
@@ -125,10 +129,41 @@ public class UserDaoImpl implements UserDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
-				
-		
-		
+		return false;
+	}
+	public boolean updateuserroledao(String roleid, String roledescription){
+		String query="update roletbl set roledescription=? where roleid=?";
+		int rs=0;
+		con=DBConnection.getConnection();
+		try{
+			ps=con.prepareStatement(query);
+			ps.setString(1, roledescription);
+			ps.setString(2, roleid);
+			
+			rs=ps.executeUpdate();
+			if(rs>0){
+				return true;
+			}
+		}catch(SQLException  e){
+			e.printStackTrace();
+		}
+		return false;
+	}
+	public boolean deleteuserroledao(String roleid){
+		String query="update roletbl set roledescription=? where roleid=?";
+		int rs=0;
+		con=DBConnection.getConnection();
+		try{
+			ps=con.prepareStatement(query);
+			ps.setString(1, "");
+			ps.setString(2, roleid);
+			rs=ps.executeUpdate();
+			if(rs>0){
+				return true;
+			}
+		}catch(SQLException  e){
+			e.printStackTrace();
+		}
 		return false;
 		
 	}

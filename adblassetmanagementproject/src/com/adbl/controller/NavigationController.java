@@ -69,6 +69,16 @@ public class NavigationController extends HttpServlet {
 			action.deleteuser(request, response);
 			
 		}
+		if(uri.endsWith("transferitem.click"))
+		{
+			RequestDispatcher rd=request.getRequestDispatcher("view/transferissue/transferitem.jsp");
+			rd.forward(request, response);
+		}
+		if(uri.endsWith("issueitem.click"))
+		{
+			RequestDispatcher rd=request.getRequestDispatcher("view/transferissue/issueitem.jsp");
+			rd.forward(request, response);
+		}
 		
 		
 	
