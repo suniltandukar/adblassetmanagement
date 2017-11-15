@@ -50,8 +50,10 @@ display:none;}
 						<table class="table">
 							<tbody>
 								<tr>
+								
 									<td>
                                        <h5>Username</h5><span class="usercheck"></span> 
+                                       <input type="hidden" form="form" value="<%=request.getParameter("id")%>" name="useridforupdate">
                                        <input type="text" name="username" class="form-control datepicker username"  form="form" value="${username }">
                                    		
                                    	</td>
@@ -127,8 +129,9 @@ display:none;}
 							<td><%=existinguser.getString("username") %></td>
 							<td><%=existinguser.getString("userid") %></td>
 							<td><%=existinguser.getString("staffcode") %></td>
-							<td><a href="edituser.click?id=<%=existinguser.getString("userid")%>"  class="btn btn-primary" value="">Edit</a>
-							<a href="deleteuser.click?id=<%=existinguser.getString("userid")%>" class="btn btn-danger" id="deletebtn" value="">Delete</a></td>
+							<td><a href="edituser.click?id=<%=existinguser.getString("userid")%>"   ><i class="fa fa-pencil-square-o"></i></a>
+						
+							<a href="deleteuser.click?id=<%=existinguser.getString("userid")%>"   ><i  class="fa fa-trash" id="deletebtn" aria-hidden="true" style="color:red"></i></a></td>
 							
 							</tr>
 								<%sno++;} %>
@@ -165,7 +168,9 @@ display:none;}
 <script>
 $(document).ready(function()
         {
+	
 
+	$('#table').DataTable();
 	$("#edit").click(function(){
 		$(".username").val("hello");
 		
@@ -208,6 +213,10 @@ $(document).ready(function()
 	        success: function(html)
 	        {
 	        $(".staffcheck").html(html);
+	        var user=$('.staffcheck').html().val();
+	        if(user="Unavailable!"){
+	        	alert('hello');
+	        }
 	        } 
 	        });
 		 
@@ -219,14 +228,15 @@ $(document).ready(function()
 function OnButton1()
 {
     document.Form1.action = "adduseraction.add"
-    document.Form1.submit();             // Submit the page
+    document.Form1.submit();            
     return true;
 }
 
 function OnButton2()
 {
     document.Form1.action = "updateuser.add"
-    document.Form1.submit();             // Submit the page
+   
+    document.Form1.submit();         
     return true;
 }
 

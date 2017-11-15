@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import com.adbl.dao.UserDao;
 import com.adbl.daoimpl.UserDaoImpl;
+import com.adbl.model.UserRole;
 
 public class UserAction {
 
@@ -49,10 +50,10 @@ public class UserAction {
 	public void edituser(HttpServletRequest request, HttpServletResponse response) {
 
 		String userid=request.getParameter("id");
+	
 		
 		UserDao udao=new UserDaoImpl();
 		ResultSet editdetails=udao.edituserdao(userid);
-		
 		
 		if(editdetails!=null)
 		{
@@ -71,12 +72,9 @@ public class UserAction {
 						System.out.println("EditUserAction Error");
 						e.printStackTrace();
 					}
-					
-				
-				
-				
-			
 				}
+		
+	
 		} 
 		
 	public void deleteuser(HttpServletRequest request, HttpServletResponse response) {
@@ -116,7 +114,12 @@ public class UserAction {
 		
 	}
 	public void updateuser(HttpServletRequest request, HttpServletResponse response) {
-		String userid=request.getParameter("id");
+		
+		
+		
+		String userid=request.getParameter("useridforupdate");
+		System.out.println(userid);
+		
 		String username=request.getParameter("username");
 		String staffcode=request.getParameter("staffcode");
 		String role=request.getParameter("roleid");

@@ -10,6 +10,15 @@ ResultSet company1=(ResultSet)i.showcompany();
 ResultSet group=(ResultSet)i.showgroup();
 ResultSet fundsource=(ResultSet)i.showfundsource();
 ResultSet itemcondition=(ResultSet)i.showitemcondition();%>
+	<div class="breadcrumb-line">
+			<nav aria-label="breadcrumb" role="navigation">
+			  <ol class="breadcrumb">
+			    <li class="breadcrumb-item"><i class="fa fa-home" aria-hidden="true"></i>&nbsp;<a href="#">Home</a></li>
+			      <li class="breadcrumb-item active" aria-current="page">Settings</li>
+			    <li class="breadcrumb-item active" aria-current="page">Add/Edit Initial Details</li>
+			  </ol>
+			</nav>
+		</div>
 <div class="panel panel-default" >
   		<div class="panel-heading">
   		<h4><strong>Add/Edit Initial Form Details</strong></h4>

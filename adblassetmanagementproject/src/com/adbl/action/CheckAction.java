@@ -19,10 +19,10 @@ public class CheckAction {
 			CheckDao c=new CheckDaoImpl();
 			boolean status=c.checkusernamedao(id,checkusername);
 			if(status){
-				out.println("<h5 class='red'>Username Unavailable!</h5>");
+				out.println("<h5 class='red'>Unavailable!</h5>");
 			}
 			else{
-				out.println("<h5 class='green'>Username Available!</h5>");
+				out.println("<h5 class='green'>Available!</h5>");
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -37,10 +37,10 @@ public class CheckAction {
 			CheckDao c=new CheckDaoImpl();
 			boolean status=c.checkusernamedao(id,checkstaffcode);
 			if(status){
-				out.println("<h5 class='red'>Staffcode Unavailable!</h5>");
+				out.println("<h5 class='red'>Unavailable!</h5>");
 			}
 			else{
-				out.println("<h5 class='green'>Staffcode Available!</h5>");
+				out.println("<h5 class='green'>Available!</h5>");
 			}
 		} catch (IOException e) {
 			e.printStackTrace();

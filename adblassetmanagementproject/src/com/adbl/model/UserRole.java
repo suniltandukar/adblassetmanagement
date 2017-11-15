@@ -1,7 +1,11 @@
 package com.adbl.model;
 
 public class UserRole {
+	
+
+
 String rolemgmtid, roleid, navigationid, reserve1, reserve2, reserve3,reserve4,reserve5,reserve6,reserve7,reserve8,reserve9,reserve10;
+
 
 public String getRolemgmtid() {
 	return rolemgmtid;

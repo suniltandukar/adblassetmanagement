@@ -16,6 +16,15 @@ ResultSet companylist2=(ResultSet) i.getcompanylist();
 ResultSet fundsource=(ResultSet) i.getfundsourcelist();
 ResultSet itemcondition=(ResultSet) i.getitemcondition();
 ResultSet group=(ResultSet) i.getgroup();%>
+	<div class="breadcrumb-line">
+			<nav aria-label="breadcrumb" role="navigation">
+			  <ol class="breadcrumb">
+			    <li class="breadcrumb-item"><i class="fa fa-home" aria-hidden="true"></i>&nbsp;<a href="#">Home</a></li>
+			      <li class="breadcrumb-item active" aria-current="page">Items</li>
+			    <li class="breadcrumb-item active" aria-current="page">Add Inventory</li>
+			  </ol>
+			</nav>
+		</div>
 <div class="panel panel-default" style="width: 100%; margin: auto;">
     <div class="panel-heading">
         <h3>
