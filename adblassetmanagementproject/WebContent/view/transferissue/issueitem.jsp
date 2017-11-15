@@ -115,8 +115,12 @@ function myFunction() {
     var table = document.getElementById("table");
     var row = table.insertRow(2);
     var cell1 = row.insertCell(0);
-    cell1.innerHTML = "<input type='text' name='itemcode' class='form-control'  form='form'>";
+    cell1.innerHTML = "<a><i class='fa fa-times' aria-hidden='true' style='color:red;'></i></a><input type='text' name='itemcode' class='form-control'  form='form'>";
 }
+$('table').on('click','tr a',function(e){
+    e.preventDefault();
+   $(this).parents('tr').remove();
+ });
 </script>
   </body>
   </html>
