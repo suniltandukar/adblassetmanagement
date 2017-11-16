@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.adbl.action.InitialDetailAddAction;
+import com.adbl.action.TransferAction;
 import com.adbl.action.UserAction;
 
 /**
@@ -85,6 +86,16 @@ public class AddController extends HttpServlet {
 		{
 		UserAction user=new UserAction();
 		user.updateuserrole(request,response);
+		}
+		if(uri.endsWith("transferitem.add"))
+		{
+			TransferAction transfer=new TransferAction();
+			transfer.transferitems(request, response);
+		}
+		if(uri.endsWith("issueitem.add"))
+		{
+			TransferAction transfer=new TransferAction();
+			transfer.issueitems(request, response);
 		}
 	}
 

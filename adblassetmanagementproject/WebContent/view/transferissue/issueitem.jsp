@@ -1,3 +1,5 @@
+  <%@page import="java.sql.*" %>
+<%ResultSet userdetail=(ResultSet)session.getAttribute("userdetail"); %>
 <html>
 <head>
 <link rel="import" href="new.jsp">
@@ -31,11 +33,10 @@ display:none;}
 <div class="row">
 	<div class="col-md-7">
 		<div class="panel panel-default">
-    				<div class="panel-heading">
-    					<strong>Fill Item Codes</strong>
+    				<div class="panel-heading"><strong>Fill Issue Detail</strong>
     				</div>
     				<div class="panel-body">
-    				<form method="post" action="" id="form" >
+    				<form method="post" action="issueitem.add" id="form" >
 						<table class="table">
 							<tbody>
 								<tr>
@@ -45,17 +46,7 @@ display:none;}
 								</tr>
 								<tr>
 									<td>
-                                       <h5>Issued By (username):</h5><span class="usercheck"></span> 
-                                       <input type="text" name="issuedby" class="form-control"  form="form" value="">
-                                   	</td>
-                                   	<td>
-                                       <h5>Issued By (branchname):</h5><span class="usercheck"></span> 
-                                       <input type="text" name="branchby" class="form-control"  form="form" value="">
-                                   	</td>
-                                   
-								</tr>
-								<tr>
-									<td>
+										<input type="hidden" name="branchdb" value="<%=userdetail.getString("branchdb")%>">
                                        <h5>Issued to (username):</h5><span class="staffcheck"></span>
                                        <input type="text" name="issuedto" class="form-control"  form="form" value="">
                                    	</td>
@@ -69,11 +60,11 @@ display:none;}
 								<tr>
 									<td>
                                        <h5>Issued Date (B.S):</h5> 
-                                       <input type="text" name="issueddate" class="form-control"  form="form" value="">
+                                       <input type="text" name="issueddate" class="form-control"  form="form" value="" id="nepaliDate1">
                                    	</td>
                                    	<td>
                                        <h5>Issued Date (A.D):</h5> 
-                                       <input type="text" name="issueddateen" class="form-control"  form="form" value="">
+                                       <input type="text" name="issueddateen" class="form-control"  form="form" value="" id="englishDate1">
                                    	</td> 
 								</tr>
 							</tbody>
@@ -86,7 +77,7 @@ display:none;}
     		<div class="col-md-5">
     			<div class="panel panel-default">
     				<div class="panel-heading">
-    					<strong>Fill Issue Detail</strong>
+    					<strong>Fill Item Code</strong>
     				</div>
     				<div class="panel-body">
 						<table class="table" id="table">
