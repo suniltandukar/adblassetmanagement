@@ -26,18 +26,8 @@ ResultSet group=(ResultSet) i.getgroup();%>
 			</nav>
 		</div>
 <div class="panel panel-default" style="width: 100%; margin: auto;">
-    <div class="panel-heading">
-        <h3>
-        <p id="message"></p>
-            <strong>INVENTORY</strong>
-        </h3>
-    </div>
+    
     <div class="panel-body">
-        <div class="container">
-            <ul class="nav nav-tabs">
-                <li class="active"><a data-toggle="tab" data-target="#menu2"  >Add Inventory</a></li>
-            </ul>
-            <div class="tab-content">
                 <div id="menu2" class="tab-pane fade in active">
                 <br>
                     <ul class="nav nav-tabs">
@@ -351,8 +341,6 @@ ResultSet group=(ResultSet) i.getgroup();%>
                         
                     </div>
                 </div>
-            </div>
-        </div>
     </div>
 </div>
 <div class="modal fade" id="myModal" role="dialog">
