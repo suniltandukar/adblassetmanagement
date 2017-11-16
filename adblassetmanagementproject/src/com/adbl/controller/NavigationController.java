@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.adbl.action.TransferAction;
 import com.adbl.action.UserAction;
 
 @WebServlet("/NavigationController")
@@ -73,10 +74,26 @@ public class NavigationController extends HttpServlet {
 		{
 			RequestDispatcher rd=request.getRequestDispatcher("view/transferissue/transferitem.jsp");
 			rd.forward(request, response);
+			
 		}
 		if(uri.endsWith("issueitem.click"))
 		{
 			RequestDispatcher rd=request.getRequestDispatcher("view/transferissue/issueitem.jsp");
+			rd.forward(request, response);
+		}
+		if(uri.endsWith("uploadbill.click"))
+		{
+			RequestDispatcher rd=request.getRequestDispatcher("view/bill/uploadbill.jsp");
+			rd.forward(request, response);
+		}
+		if(uri.endsWith("viewbill.click"))
+		{
+			RequestDispatcher rd=request.getRequestDispatcher("view/bill/viewbill.jsp");
+			rd.forward(request, response);
+		}	
+		if(uri.endsWith("deletebill.click"))
+		{
+			RequestDispatcher rd=request.getRequestDispatcher("");
 			rd.forward(request, response);
 		}
 		

@@ -54,4 +54,14 @@
     <servlet-name>CheckController</servlet-name>
     <url-pattern>*.check</url-pattern>
   </servlet-mapping>
+   <servlet>
+    <description></description>
+    <display-name>FileUploadController</display-name>
+    <servlet-name>FileUploadController</servlet-name>
+    <servlet-class>com.adbl.controller.FileUploadController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>FileUploadController</servlet-name>
+    <url-pattern>*.upload</url-pattern>
+  </servlet-mapping>
 </web-app>
