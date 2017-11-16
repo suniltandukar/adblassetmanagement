@@ -55,6 +55,7 @@ public class TransferAction {
 				e.printStackTrace();
 			} 
 		}
+<<<<<<< HEAD
 		
 		
 		
@@ -63,5 +64,49 @@ public class TransferAction {
 		
 				
 				
+=======
+	}
+	//to be changed...
+	public void issueitems(HttpServletRequest request, HttpServletResponse response) {
+		String branchdb=request.getParameter("branchdb");
+		TransferDao tdao=new TransferDaoImpl(branchdb);
+		
+		HttpSession session=request.getSession(true);
+		ResultSet userdetail=(ResultSet) session.getAttribute("userdetail");
+		
+		String branchby="",issuedby="";
+		try {
+			branchby = userdetail.getString("branchid");
+			issuedby=userdetail.getString("username");
+		} catch (SQLException e1) {	
+			e1.printStackTrace();
+		}
+		
+		String issuedto=request.getParameter("issuedto");
+		String branchto=request.getParameter("branchto");
+		String issueddate=request.getParameter("issueddate");
+		String issueddateen=request.getParameter("issueddateen");
+		String[] itemcode=new String[100];
+		itemcode=request.getParameterValues("itemcode");
+		boolean status=false;
+		int i;	
+		
+		for(i=0;i<itemcode.length;i++){
+		tdao.setissuestatuspending(issuedby,issuedto,branchby,branchto,issueddate,issueddateen,itemcode[i],branchdb);
+		String issueid=tdao.getissueid();
+		status=tdao.updateissueitemstatus(issueid, itemcode[i]);
+		}
+		
+		if(status)
+		{
+			System.out.println("status pending");
+			RequestDispatcher rd=request.getRequestDispatcher("view/transferissue/issueitem.jsp");
+			try {
+				rd.forward(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			} 
+		}
+>>>>>>> branch 'master' of https://github.com/suniltandukar/adblassetmanagement.git
 	}
 }

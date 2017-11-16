@@ -175,9 +175,24 @@ display:block;}
             </span>
           </a>
           <ul class="treeview-menu">
-            <li id="nav1" ><a href="viewinventory.click" target="iframe_a"><i class="fa fa-circle-o" ></i> View Inventory</a></li>
-            <li id="nav2" ><a href="addinventory.click" target="iframe_a"><i class="fa fa-circle-o" ></i> Add Inventory</a></li>
-            <li id="nav3" ><a href="editinventory.click" target="iframe_a"><i class="fa fa-circle-o" ></i> Edit Inventory</a></li>
+            <li id="" ><a href="viewinventory.click" target="iframe_a"><i class="fa fa-circle-o" ></i> View Inventory</a></li>
+            <li id="" ><a href="addinventory.click" target="iframe_a"><i class="fa fa-circle-o" ></i> Add Inventory</a></li>
+            <li id="" ><a href="editinventory.click" target="iframe_a"><i class="fa fa-circle-o" ></i> Edit Inventory</a></li>
+            
+          </ul>
+        </li>
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-bars"></i>
+            <span>Transfer/Issue</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li id="" ><a href="transferitem.click" target="iframe_a"><i class="fa fa-circle-o" ></i> Transfer Items</a></li>
+            <li id="" ><a href="issueitem.click" target="iframe_a"><i class="fa fa-circle-o" ></i> Issue Items</a></li>
+            <li id="" ><a href=".click" target="iframe_a"><i class="fa fa-circle-o" ></i> Issue Confirmation</a></li>
             
           </ul>
         </li>
@@ -190,6 +205,7 @@ display:block;}
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
+          
           <ul class="treeview-menu">
           	<li class="treeview">
           		<a href="#">
@@ -199,27 +215,11 @@ display:block;}
 			          </span>
          		</a>
           		<ul class="treeview-menu">
-          			 	<li id="nav4"><a href="addusers.click" target="iframe_a"><i class="fa fa-circle-o"></i>Manage Users</a></li>
-               	 		<li id="nav5"><a href="userrolemanagement.click" target="iframe_a"><i class="fa fa-circle-o"></i>Manage User Roles</a></li>
-               	 		<li id="nav6"><a href="editusers.click"><i class="fa fa-circle-o"></i>Nav 6</a></li>
+          			 	<li id=""><a href="addusers.click" target="iframe_a"><i class="fa fa-circle-o"></i>Manage Users</a></li>
+               	 		<li id=""><a href="userrolemanagement.click" target="iframe_a"><i class="fa fa-circle-o"></i>Manage User Roles</a></li>
           		 </ul>
           	</li>
-            <li id="nav7"><a href="initialdetails.click" target="iframe_a"><i class="fa fa-circle-o"></i> Add/Edit Initial Details</a></li>
-            
-          </ul>
-        </li>
-         <li class="treeview">
-          <a href="#">
-            <i class="fa fa-bars"></i>
-            <span>Transfer/Issue</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li id="" ><a href="transferitem.click" target="iframe_a"><i class="fa fa-circle-o" ></i> Transfer Items</a></li>
-            <li id="" ><a href="issueitem.click" target="iframe_a"><i class="fa fa-circle-o" ></i> Issue Items</a></li>
-            <li id="" ><a href=".click" target="iframe_a"><i class="fa fa-circle-o" ></i> Issue Confirmation</a></li>
+            <li id=""><a href="initialdetails.click" target="iframe_a"><i class="fa fa-circle-o"></i> Add/Edit Initial Details</a></li>
             
           </ul>
         </li>

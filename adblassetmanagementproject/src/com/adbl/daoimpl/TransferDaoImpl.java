@@ -46,6 +46,7 @@ public class TransferDaoImpl implements TransferDao{
 		}
 		return false;
 	}
+
 	public String gettransferid(){
 		String id="";
 		String query="select max(transferid) as transferid from transfertbl;";
@@ -61,12 +62,88 @@ public class TransferDaoImpl implements TransferDao{
 		}
 		return null;
 	}
+	
+
+	public boolean setissuestatuspending(String issuedby, String issuedto, String branchby, String branchto,
+			String issueddate, String issueddateen, String itemcode, String branchdb)
+	{
+		String statusid="3";
+		int r=0;
+		String query="insert into issuetbl(issuedby,branchby,issuedto,branchto,issueddate,issueddateen,statusid) values(?,?,?,?,?,?,?)";
+		try {
+			
+			ps=con.prepareStatement(query);
+			ps.setString(1, issuedby);
+			ps.setString(2, branchby);
+			ps.setString(3, issuedto);
+			ps.setString(4, branchto);
+			ps.setString(5, issueddate);
+			ps.setString(6, issueddateen);
+			ps.setString(7, statusid);
+			r=ps.executeUpdate();
+			
+			if(r>0)
+			{
+				return true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+	public String gettransferid(){
+		String id="";
+		String query="select max(transferid) as transferid from transfertbl;";
+		try{
+			ps=con.prepareStatement(query);
+			rs=ps.executeQuery();
+			while(rs.next()){
+				id=rs.getString("transferid");
+				return id;
+			}
+		}catch(Exception e){
+			System.out.println(e);
+		}
+		return null;
+	}
+	public String getissueid(){
+		String id="";
+		String query="select max(issueid) as issueid from issuetbl;";
+		try{
+			ps=con.prepareStatement(query);
+			rs=ps.executeQuery();
+			while(rs.next()){
+				id=rs.getString("issueid");
+				return id;
+			}
+		}catch(Exception e){
+			System.out.println(e);
+		}
+		return null;
+	}
 	public boolean updatetransferitemstatus(String transferid, String itemcode){
 		String query="update inventorytbl set transferid=? where itemcode=?";
 		int rs=0;
 		try{
 			ps=con.prepareStatement(query);
-			ps.setString(1, transferid );
+			ps.setString(1, transferid);
+			ps.setString(2, itemcode);
+			rs=ps.executeUpdate();
+			if(rs>0){
+				return true;
+			}
+			
+		}catch(Exception e){
+			System.out.println(e);
+		}
+		return false;
+	}
+	public boolean updateissueitemstatus(String issueid, String itemcode){
+		String query="update inventorytbl set issueid=? where itemcode=?";
+		int rs=0;
+		try{
+			ps=con.prepareStatement(query);
+			ps.setString(1, issueid);
 			ps.setString(2, itemcode);
 			rs=ps.executeUpdate();
 			if(rs>0){
