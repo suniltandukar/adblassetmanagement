@@ -32,7 +32,7 @@ display:none;}
 	<div class="col-md-7">
 		<div class="panel panel-default">
     				<div class="panel-heading">
-    					<strong>Fill Item Codes</strong>
+    					<strong>Fill Issue Details</strong>
     				</div>
     				<div class="panel-body">
     				<form method="post" action="" id="form" >
@@ -86,7 +86,7 @@ display:none;}
     		<div class="col-md-5">
     			<div class="panel panel-default">
     				<div class="panel-heading">
-    					<strong>Fill Issue Detail</strong>
+    					<strong>Fill Item Codes</strong>
     				</div>
     				<div class="panel-body">
 						<table class="table" id="table">
