@@ -13,46 +13,45 @@ import com.adbl.daoimpl.OtherActionDAOImpl;
 
 
 
+
 public class OtherAction {
 
-	public void saveFileData(HttpServletRequest request,
-			HttpServletResponse response, Map<String, String> formMap) {
+	public void saveFileData(Map<String, String> formMap, HttpServletRequest request,
+			HttpServletResponse response) {
 		
-		String name=request.getParameter("name");
+		String branchdb=request.getParameter("branchdb");
+		String billno=request.getParameter("billno");
+		String companyname=request.getParameter("companyname");
+		String billdate=request.getParameter("billdate");
+		String billdateen=request.getParameter("billdateen");
+		System.out.println(billno);
 		
-		String filename=formMap.get("fileName");
+		
+		String billimagename=formMap.get("billimagename");
+		System.out.println("filename "+billimagename);
 		
 		
 		OtherActionDAO oad=new OtherActionDAOImpl();
 		
-		boolean status=oad.uploadCVDAO(name,filename);
+		boolean status=oad.uploadbillDao(billno,companyname,billdate,billdateen,billimagename,branchdb);
 		
 		if(status){
 			
-			request.setAttribute("msg", "CV Uploaded.");
-			RequestDispatcher rd=request.getRequestDispatcher("employersuccessful.jsp");
+			request.setAttribute("msg", "Bill Uploaded.");
+			RequestDispatcher rd=request.getRequestDispatcher("view/bill/uploadbill.jsp");
 			try {
 				rd.forward(request, response);
-			} catch (ServletException e) {
-				// TODO Auto-generated catch block
+			} catch (Exception e) {
 				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
+			} 
 		}
 		
 		else{
 			request.setAttribute("error", "Upload UnSuccessful! Please, try again.");
-			RequestDispatcher rd=request.getRequestDispatcher("employersuccessful.jsp");
+			RequestDispatcher rd=request.getRequestDispatcher("view/bill/uploadbill.jsp");
 			try {
 				rd.forward(request, response);
-			} catch (ServletException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 			

@@ -1,11 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+    <%@page import="java.sql.*"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <link rel="import" href="new.jsp">
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
+<%
+ResultSet branchdb=(ResultSet) session.getAttribute("userdetail");
+%>
 </head>
 <body>
 <div class="breadcrumb-line">
@@ -23,7 +27,9 @@
     					<strong>Fill Bill Detail</strong>
     				</div>
     				<div class="panel-body">
-    				<form method="post" action="billupload.upload" id="form" enctype="multipart/form-data">
+    				<form method="POST" action="bill.upload"  enctype="multipart/form-data">
+    				
+    				<input type="hidden" name="branchdb" value="<%=branchdb.getString("branchdb")%>">
 						<table class="table">
 							<tbody>
 								<tr>
@@ -35,11 +41,11 @@
 								<tr>
 									<td>
                                        <h5>Input Bill NO.</h5>
-                                       <input type="text" name="billno" class="form-control"  value="">
+                                       <input type="text" name="billno" class="form-control"  >
                                    	</td>
                                    	<td>
                                        <h5>Company Name</h5> 
-                                       <input type="text" name="companyname" class="form-control"   value="">
+                                       <input type="text" name="companyname" class="form-control">
                                    	</td>
                                    	
 								</tr>
@@ -58,7 +64,7 @@
 								<tr>
 									<td>
                                        <h5>Attach Bill Image</h5> 
-                                       <input type="file" name="billimage" class="form-control"   value="">
+                                       <input type="file" name="billimagename" class="form-control"   value="">
                                    	</td> 
                                    	</tr>
 							</tbody>
@@ -67,8 +73,8 @@
 					   			
     				</div>
     			</div>
-    		</div>
-    		</div>
+    		
+    		
 
 </body>
 </html>

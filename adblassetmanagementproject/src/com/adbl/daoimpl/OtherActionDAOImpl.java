@@ -10,20 +10,23 @@ import com.org.dbconnection.DBConnection;
 
 public class OtherActionDAOImpl implements OtherActionDAO {
 
-	public boolean uploadCVDAO(String name, String filename) {
-		// TODO Auto-generated method stub
-		
+	public boolean uploadbillDao(String billno, String companyname, String billdate, String billdateen, String billimagename,String branchdb) {
 		PreparedStatement ps=null;
 		Connection con=null;
 		int rs=0;
-		con=DBConnection.getConnection();
+		con=DBConnection.getConnectionNext(branchdb);
 		
 		try {
-			ps=con.prepareStatement("update jobseeker set cv=? where username=?");
-			ps.setString(1, filename);
-			ps.setString(2, name);
-			
+			ps=con.prepareStatement("insert into billtbl(billno,companyname,billdate,billdateen,billimagename) values(?,?,?,?,?)");
+			ps.setString(1,billno );
+			ps.setString(2,companyname );
+			ps.setString(3,billdate );
+			ps.setString(4, billdateen);
+			ps.setString(5, billimagename);
 			rs=ps.executeUpdate();
+			
+			
+		
 			if (rs > 0) {
 				con.close();
 				ps = null;
@@ -32,7 +35,6 @@ public class OtherActionDAOImpl implements OtherActionDAO {
 			}
 			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		

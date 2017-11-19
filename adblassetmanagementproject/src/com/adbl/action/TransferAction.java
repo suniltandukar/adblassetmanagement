@@ -55,7 +55,7 @@ public class TransferAction {
 				e.printStackTrace();
 			} 
 		}
-<<<<<<< HEAD
+
 		
 		
 		
@@ -64,7 +64,7 @@ public class TransferAction {
 		
 				
 				
-=======
+
 	}
 	//to be changed...
 	public void issueitems(HttpServletRequest request, HttpServletResponse response) {
@@ -107,6 +107,5 @@ public class TransferAction {
 				e.printStackTrace();
 			} 
 		}
->>>>>>> branch 'master' of https://github.com/suniltandukar/adblassetmanagement.git
 	}
 }

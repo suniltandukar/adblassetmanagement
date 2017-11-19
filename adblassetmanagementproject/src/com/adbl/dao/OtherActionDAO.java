@@ -2,7 +2,7 @@ package com.adbl.dao;
 
 public interface OtherActionDAO {
 
-	boolean uploadCVDAO(String name, String filename);
+	boolean uploadbillDao(String billno, String companyname, String billdate, String billdateen, String billimagename,String branchdb);
 
 	String downloadFileNameDAO(String name);
 	

@@ -108,74 +108,42 @@ public class AddController extends HttpServlet {
 			TransferAction transfer=new TransferAction();
 			transfer.issueitems(request, response);
 		}
-	}
->>>>>>> branch 'master' of https://github.com/suniltandukar/adblassetmanagement.git
+		if(uri.endsWith("billupload.add"))
+		{
+			System.out.println("hello");
+			String File_Directory = "E:/spring project/JobPortal/WebContent/cv";
+			// this map stores the data except the file
+			Map<String,String> formMap = new HashMap<String,String>();
+			if (ServletFileUpload.isMultipartContent(request)) {
+				DiskFileItemFactory factory = new DiskFileItemFactory();
+				ServletFileUpload upload = new ServletFileUpload(factory);
+				try {
+					@SuppressWarnings("unchecked")
+					List<FileItem> multiparts = upload.parseRequest(request);
+					
+					
+					for (FileItem fileItem : multiparts) {
+						if (!fileItem.isFormField()) {
+							String fileName = new File(fileItem.getName())
+									.getName();
+							formMap.put(fileItem.getFieldName(), fileName);
+							try {
+								fileItem.write(new File(File_Directory
+										+ File.separator + fileName));
+							} catch (Exception e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
 
-	protected void service(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		String uri = request.getRequestURI();
-		if (uri.endsWith("group.add")) {
-			InitialDetailAddAction action = new InitialDetailAddAction(request, response);
-			try {
-				action.addgroup(request, response);
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-			RequestDispatcher rd = request.getRequestDispatcher("view/initialdetails/initialdetails.jsp");
-			rd.forward(request, response);
-		}
-		if (uri.endsWith("itemcondition.add")) {
-			InitialDetailAddAction action = new InitialDetailAddAction(request, response);
-			try {
-				action.additemcondition(request, response);
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-			RequestDispatcher rd = request.getRequestDispatcher("view/initialdetails/initialdetails.jsp");
-			rd.forward(request, response);
-		}
-		if (uri.endsWith("fundsource.add")) {
-			InitialDetailAddAction action = new InitialDetailAddAction(request, response);
-			try {
-				action.addfundsource(request, response);
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-			RequestDispatcher rd = request.getRequestDispatcher("view/initialdetails/initialdetails.jsp");
-			rd.forward(request, response);
+						}
+					}
+					OtherAction action = new OtherAction();
+					action.saveFileData(formMap, request, response);
+				} catch (FileUploadException e) {
+					e.printStackTrace();
+				}
 
-		}
-		if (uri.endsWith("company.add")) {
-			InitialDetailAddAction action = new InitialDetailAddAction(request, response);
-			try {
-				action.addcompany(request, response);
-			} catch (SQLException e) {
-				e.printStackTrace();
 			}
-			RequestDispatcher rd = request.getRequestDispatcher("view/initialdetails/initialdetails.jsp");
-			rd.forward(request, response);
 		}
-		if (uri.endsWith("inventory.add")) {
-			RequestDispatcher rd = request.getRequestDispatcher("initialdetails.jsp");
-			rd.forward(request, response);
-		}
-		if (uri.endsWith("adduseraction.add")) {
-			UserAction user = new UserAction();
-			user.adduser(request, response);
-		}
-		if (uri.endsWith("updateuser.add")) {
-			UserAction user = new UserAction();
-			user.updateuser(request, response);
-		}
-		if (uri.endsWith("updateuserrole.add")) {
-			UserAction user = new UserAction();
-			user.updateuserrole(request, response);
-		}
-		if (uri.endsWith("transferitem.add")) {
-			TransferAction transfer = new TransferAction();
-			transfer.transferitems(request, response);
-		}
-	
-
 	}
 }
