@@ -8,6 +8,7 @@ import java.util.Map;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,6 +20,11 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 import com.adbl.action.OtherAction;
 
+/**
+ * Servlet implementation class AddController
+ */
+@WebServlet("/FileUploadController")
+	
 public class FileUploadController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -57,7 +63,6 @@ public class FileUploadController extends HttpServlet {
 							fileItem.write(new File(File_Directory
 									+ File.separator + fileName));
 						} catch (Exception e) {
-							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
 
@@ -66,7 +71,6 @@ public class FileUploadController extends HttpServlet {
 				OtherAction fua = new OtherAction();
 				fua.saveFileData(request, response, formMap);
 			} catch (FileUploadException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 

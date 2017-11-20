@@ -17,58 +17,51 @@
 			  </ol>
 			</nav>
 		</div>
-<div class="panel">
+
+<div class="panel panel-default" style="width:60%;margin:auto;">
 	
     				<div class="panel-heading">
     					<strong>Fill Bill Detail</strong>
     				</div>
     				<div class="panel-body">
-    				<form method="post" action="billupload.upload" id="form" enctype="multipart/form-data">
-						<table class="table">
+    					<form method="post" action="billupload.upload" id="form" enctype="multipart/form-data">	
+						<table class="table" >
 							<tbody>
 								<tr>
-									<td>
-										<input type="submit" name="button"  value="submit" class="btn btn-primary"  >
-									</td>
+									<td><input type="submit"  value="submit" class="btn btn-primary" form="form" ></td>
 								</tr>
-								
 								<tr>
 									<td>
                                        <h5>Input Bill NO.</h5>
-                                       <input type="text" name="billno" class="form-control"  value="">
+                                       <input type="text" name="billno" class="form-control"  value="" form="form">
                                    	</td>
                                    	<td>
                                        <h5>Company Name</h5> 
-                                       <input type="text" name="companyname" class="form-control"   value="">
+                                       <input type="text" name="companyname" class="form-control"   value="" form="form">
                                    	</td>
-                                   	
 								</tr>
 								
 								<tr>
 									<td>
-                                       <h5>Input Bill Date(B.S.)</h5><span class="staffcheck"></span>
-                                       <input type="text" name="billdate" class="form-control"   value="">
+                                       <h5>Input Bill Date(B.S.)</h5>
+                                       <input type="text" name="billdate" class="form-control"   value="" form="form">
                                    	</td>
                                    	<td>
-                                       <h5>Input Bill Date(A.D.)</h5><span class="staffcheck"></span>
-                                       <input type="text" name="billdateen" class="form-control"   value="">
+                                       <h5>Input Bill Date(A.D.)</h5>
+                                       <input type="text" name="billdateen" class="form-control"   value="" form="form">
                                    	</td>
-                                   
 								</tr>
+								
 								<tr>
 									<td>
                                        <h5>Attach Bill Image</h5> 
-                                       <input type="file" name="billimage" class="form-control"   value="">
+                                       <input type="file" name="billimage" class="form-control"   value="" form="form">
                                    	</td> 
-                                   	</tr>
+                                 </tr>
 							</tbody>
 						</table> 
-					   </form>	
-					   			
+						</form>
     				</div>
     			</div>
-    		</div>
-    		</div>
-
 </body>
 </html>

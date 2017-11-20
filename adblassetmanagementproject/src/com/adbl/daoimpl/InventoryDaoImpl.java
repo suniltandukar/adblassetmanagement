@@ -24,8 +24,9 @@ public class InventoryDaoImpl implements InventoryDao {
 		}
 		return rs;
 	}
+	
 	public ResultSet getinventoryeditdata(String itemcode){
-		String query="select * from inventorytbl where itemcode='"+itemcode+"'";
+		String query="select * from inventoryitemdetail where itemcode='"+itemcode+"'";
 		try{
 			stmt=con.createStatement();
 			rs=stmt.executeQuery(query);
@@ -85,11 +86,11 @@ public class InventoryDaoImpl implements InventoryDao {
         return rs;
     }
 	public void addalldao(Inventory inventory) throws SQLException{
-		String query1="insert into insurancetbl(insurancestart,companyid,insurancestarten,insuranceend,insuranceenden,insurancepremiumamount) "
+		String query1="insert into insurancetbl(insurancestart,insurancecompanyid,insurancestarten,insuranceend,insuranceenden,insurancepremiumamount) "
 				+ "values('"+inventory.getInsurancestart()+"',"+inventory.getInsurancecompanyid()+",'"+inventory.getInsurancestarten()+"','"+inventory.getInsuranceend()+"','"+inventory.getInsuranceenden()+"','"+inventory.getInsurancepremuimamount()+"')";
 		String query2="insert into warrantytbl(warrantystart,warrantystarten,warrantyend,warrantyenden) "
 				+ "values('"+inventory.getWarrantystart()+"','"+inventory.getWarrantystarten()+"','"+inventory.getWarrantyend()+"','"+inventory.getWarrantyenden()+"')";
-		String query3="insert into amctbl(amcstart,amcstarten,amcend,amcenden,amccost,companyid)"
+		String query3="insert into amctbl(amcstart,amcstarten,amcend,amcenden,amccost,amccompanyid)"
 				+ "values('"+inventory.getAmcstart()+"','"+inventory.getAmcstarten()+"','"+inventory.getAmcend()+"','"+inventory.getAmcenden()+"','"+inventory.getAmccost()+"',"+inventory.getAmccompanyid()+")";
 		try{
 			stmt=con.createStatement();
@@ -260,7 +261,6 @@ public class InventoryDaoImpl implements InventoryDao {
 				return true;
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return false;

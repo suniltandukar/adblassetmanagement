@@ -166,7 +166,7 @@ ResultSet group=(ResultSet) i.getgroup();%>
                                     <tr>
                                         <td>
                                             <h5>Rate</h5> <input type="text" name="rate" id="rate"
-                                            class="form-control" form="form" value="">
+                                            class="form-control" form="form" value="0">
                                         </td>
                                         <td>
                                             <h5>Quantity</h5> <input type="text" name="quantity" id="quantity"
