@@ -1,7 +1,13 @@
 package com.adbl.controller;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,13 +18,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.FileUploadException;
-import org.apache.commons.fileupload.disk.DiskFileItemFactory;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.apache.commons.fileupload.*;
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.*;
 
 import com.adbl.action.OtherAction;
+import com.adbl.model.Bill;
 
 /**
  * Servlet implementation class UploaderController
@@ -28,6 +33,8 @@ public class UploaderController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private final String UPLOAD_DIRECTORY = "C:/Users/Sunil/git/adblassetmanagement/adblassetmanagementproject/WebContent/view/uploadedbills";
 	Map<String,String> formMap = new HashMap<String,String>();
+	
+	
     public UploaderController() {
         super();
     }
@@ -40,41 +47,61 @@ public class UploaderController extends HttpServlet {
 
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
-		if(ServletFileUpload.isMultipartContent(request)){
-            try {
-            	String fname = null;
-            	String fsize = null;
-            	String ftype = null;
-                List<FileItem> multiparts = new ServletFileUpload(new DiskFileItemFactory()).parseRequest(request);
-                for(FileItem item : multiparts){
-                    if(!item.isFormField()){
-                        fname = new File(item.getName()).getName();
-                        
-                        fsize = new Long(item.getSize()).toString();
-                        ftype = item.getContentType();
-                        formMap.put(item.getFieldName(), fname);
-                        item.write( new File(UPLOAD_DIRECTORY + File.separator + fname));
-                        
-                    }
-                }
-                OtherAction action = new OtherAction();
-				action.saveFileData(formMap, request, response);
-               //File uploaded successfully
-               request.setAttribute("message", "File Uploaded Successfully");
-               request.setAttribute("name", fname);
-               request.setAttribute("size", fsize);
-               request.setAttribute("type", ftype);
+	
+		MultipartRequest req = new MultipartRequest(request, UPLOAD_DIRECTORY, 1024 * 1024 * 1024);
+	      String billno=req.getParameter("billno");
+	      String companyname=req.getParameter("companyname");
+	      String billdate=req.getParameter("billdate");
+	      String billdateen=req.getParameter("billdateen");
+	      String branchdb=req.getParameter("branchdb");
+	     
+	  	
+	      Bill bill=new Bill();
+		bill.setBilldate(billdate);
+		bill.setBilldateen(billdateen);
+		bill.setBillno(billno);
+		bill.setBranchdb(branchdb);
+		bill.setCompanyname(companyname);
+		   
+try{	   
+	    Enumeration files = req.getFileNames();
+	    while (files.hasMoreElements()) {
+	        String name = (String) files.nextElement();
+	        String filename = req.getFilesystemName(name);
+	        System.out.println(filename);
+	        bill.setBillimagename(filename);
+	        String type = req.getContentType(name);
+	        System.out.println(type);
+	      
+	        File uploadedFile = req.getFile(name);
+	        System.out.println(uploadedFile);
+	    	
+	        FileInputStream fis = new FileInputStream(uploadedFile);
+	        BufferedReader in = new BufferedReader(new InputStreamReader(fis));
+
+	        FileWriter fstream = new FileWriter(UPLOAD_DIRECTORY + name, true);
+	        BufferedWriter out11 = new BufferedWriter(fstream);
+
+	        String aLine = null;
+	        while ((aLine = in.readLine()) != null) {
+	            //Process each line and add output to Dest.txt file
+	            out11.write(aLine);
+	            out11.newLine();
+	        }
+	        in.close();
+	        out11.close();
+               }    
+	    OtherAction action = new OtherAction();
+		action.saveFileData(request, response,bill);
             } catch (Exception ex) {
                request.setAttribute("message", "File Upload Failed due to " + ex);
             }          
          
-        }else{
-            request.setAttribute("message","Sorry this Servlet only handles file upload request");
         }
     
-        request.getRequestDispatcher("/result.jsp").forward(request, response);
+      
      
     }		
 	
 
-}
+

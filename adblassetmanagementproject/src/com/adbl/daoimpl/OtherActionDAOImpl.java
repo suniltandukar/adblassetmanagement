@@ -6,23 +6,24 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.adbl.dao.OtherActionDAO;
+import com.adbl.model.Bill;
 import com.org.dbconnection.DBConnection;
 
 public class OtherActionDAOImpl implements OtherActionDAO {
 
-	public boolean uploadbillDao(String billno, String companyname, String billdate, String billdateen, String billimagename,String branchdb) {
+	public boolean uploadbillDao(Bill bill) {
 		PreparedStatement ps=null;
 		Connection con=null;
 		int rs=0;
-		con=DBConnection.getConnectionNext(branchdb);
+		con=DBConnection.getConnectionNext(bill.getBranchdb());
 		
 		try {
 			ps=con.prepareStatement("insert into billtbl(billno,companyname,billdate,billdateen,billimagename) values(?,?,?,?,?)");
-			ps.setString(1,billno );
-			ps.setString(2,companyname );
-			ps.setString(3,billdate );
-			ps.setString(4, billdateen);
-			ps.setString(5, billimagename);
+			ps.setString(1,bill.getBillno() );
+			ps.setString(2,bill.getCompanyname() );
+			ps.setString(3,bill.getBilldate() );
+			ps.setString(4, bill.getBilldateen());
+			ps.setString(5, bill.getBillimagename());
 			rs=ps.executeUpdate();
 			
 			

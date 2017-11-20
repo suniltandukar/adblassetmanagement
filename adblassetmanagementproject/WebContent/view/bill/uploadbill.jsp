@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
     <%@page import="java.sql.*"%>
+    
+  
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -73,8 +75,37 @@ ResultSet branchdb=(ResultSet) session.getAttribute("userdetail");
 					   			
     				</div>
     			</div>
+    			<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-body">
+          <p><b>${msg }</b></p>
+          Bill No.:: ${billno }<br>
+          Company Name:: ${companyname }<br>
+          Image Name:: ${billname }
+         
+          
+         
+         
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+</div>
     		
-    		
+    	
+    	
 
 </body>
+<script>
+$(document).ready(function()
+        {
+	<%if(request.getAttribute("msg")!=null){%>
+	   $('#myModal').modal('show');
+	   <%}%>
+        });
+</script>	
+
 </html>

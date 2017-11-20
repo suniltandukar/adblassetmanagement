@@ -10,34 +10,29 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.adbl.dao.OtherActionDAO;
 import com.adbl.daoimpl.OtherActionDAOImpl;
+import com.adbl.model.Bill;
+import com.oreilly.servlet.MultipartRequest;
 
 
 
 
 public class OtherAction {
+	private final String UPLOAD_DIRECTORY = "C:/Users/Sunil/git/adblassetmanagementproject/WebContent/view/uploadedbills";
 
-	public void saveFileData(Map<String, String> formMap, HttpServletRequest request,
-			HttpServletResponse response) {
-		
-		String branchdb=request.getParameter("branchdb");
-		String billno=request.getParameter("billno");
-		String companyname=request.getParameter("companyname");
-		String billdate=request.getParameter("billdate");
-		String billdateen=request.getParameter("billdateen");
-		System.out.println(billno);
-		
-		
-		String billimagename=formMap.get("billimagename");
-		System.out.println("filename "+billimagename);
-		
+	public void saveFileData(HttpServletRequest request,
+			HttpServletResponse response, Bill bill) {
+		    	
 		
 		OtherActionDAO oad=new OtherActionDAOImpl();
 		
-		boolean status=oad.uploadbillDao(billno,companyname,billdate,billdateen,billimagename,branchdb);
+		boolean status=oad.uploadbillDao(bill);
 		
 		if(status){
 			
 			request.setAttribute("msg", "Bill Uploaded.");
+			request.setAttribute("billno", bill.getBillno());
+			request.setAttribute("companyname", bill.getCompanyname());
+			request.setAttribute("billname", bill.getBillimagename());
 			RequestDispatcher rd=request.getRequestDispatcher("view/bill/uploadbill.jsp");
 			try {
 				rd.forward(request, response);

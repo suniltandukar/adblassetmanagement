@@ -1,10 +1,14 @@
 package com.adbl.dao;
 
+import com.adbl.model.Bill;
+
 public interface OtherActionDAO {
 
-	boolean uploadbillDao(String billno, String companyname, String billdate, String billdateen, String billimagename,String branchdb);
+	
 
 	String downloadFileNameDAO(String name);
+
+	boolean uploadbillDao(Bill bill);
 	
 	
 	

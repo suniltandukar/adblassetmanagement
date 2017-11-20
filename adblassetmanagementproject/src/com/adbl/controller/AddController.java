@@ -108,42 +108,7 @@ public class AddController extends HttpServlet {
 			TransferAction transfer=new TransferAction();
 			transfer.issueitems(request, response);
 		}
-		if(uri.endsWith("billupload.add"))
-		{
-			System.out.println("hello");
-			String File_Directory = "E:/spring project/JobPortal/WebContent/cv";
-			// this map stores the data except the file
-			Map<String,String> formMap = new HashMap<String,String>();
-			if (ServletFileUpload.isMultipartContent(request)) {
-				DiskFileItemFactory factory = new DiskFileItemFactory();
-				ServletFileUpload upload = new ServletFileUpload(factory);
-				try {
-					@SuppressWarnings("unchecked")
-					List<FileItem> multiparts = upload.parseRequest(request);
-					
-					
-					for (FileItem fileItem : multiparts) {
-						if (!fileItem.isFormField()) {
-							String fileName = new File(fileItem.getName())
-									.getName();
-							formMap.put(fileItem.getFieldName(), fileName);
-							try {
-								fileItem.write(new File(File_Directory
-										+ File.separator + fileName));
-							} catch (Exception e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
-
-						}
-					}
-					OtherAction action = new OtherAction();
-					action.saveFileData(formMap, request, response);
-				} catch (FileUploadException e) {
-					e.printStackTrace();
-				}
-
-			}
-		}
+		
+		
 	}
 }
