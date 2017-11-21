@@ -1,5 +1,6 @@
 package com.adbl.daoimpl;
 import java.sql.*;
+
 import com.adbl.dao.InventoryDao;
 import com.adbl.model.Inventory;
 import com.mysql.jdbc.Connection;
@@ -234,69 +235,36 @@ public class InventoryDaoImpl implements InventoryDao {
 		}
 		return status;
 	}
-	public boolean editalldao(Inventory inventory,String additionaldetailid)
+	public boolean editalldaocodechanged(Inventory inventory)
 	{
 		int rs=0;
 		
-		String query="update inventorytbl set transactionid=?,legacyid=?,groupcode=?,itemname=?,model=?,decisiondate=?,decisiondateen=?,purchasedate=?,purchasedateen=?,depreciationrate=?,inventoryotherdetailid=? where itemcode=?";
-		
+		String query="update inventorytbl inner join inventoryotherdetailtbl on  inventoryotherdetailtbl.inventoryotherdetailid=inventorytbl.inventoryotherdetailid inner join insurancetbl on inventoryotherdetailtbl.insuranceid=insurancetbl.insuranceid inner join amctbl on inventoryotherdetailtbl.amcid=amctbl.amcid inner join warrantytbl on inventoryotherdetailtbl.warrantyid=warrantytbl.warrantyid set "
+				+ "inventorytbl.itemcode='"+inventory.getUpdated_itemcode()+"', inventorytbl.transactionid='"+inventory.getTransactionid()+"', inventorytbl.legacyid='"+inventory.getLegacyid()+"', inventorytbl.groupcode='"+inventory.getGroupcode()+"', inventorytbl.itemname='"+inventory.getItemname()+"', inventorytbl.model='"+inventory.getModel()+"', inventorytbl.decisiondate='"+inventory.getDecisiondate()+"', inventorytbl.decisiondateen='"+inventory.getDecisiondateen()+"', inventorytbl.purchasedate='"+inventory.getPurchasedate()+"', inventorytbl.purchasedateen='"+inventory.getPurchasedateen()+"', inventorytbl.depreciationrate='"+inventory.getDepreciationrate()+"',"
+				+ "inventoryotherdetailtbl.fundsourceid='"+inventory.getFundsource()+"', inventoryotherdetailtbl.unitname='"+inventory.getUnitname()+"', inventoryotherdetailtbl.rate='"+inventory.getRate()+"', inventoryotherdetailtbl.supplierid='"+inventory.getSupplierid()+"', inventoryotherdetailtbl.itemconditionid='"+inventory.getItemconditionid()+"', inventoryotherdetailtbl.itemsize='"+inventory.getItemsize()+"', inventoryotherdetailtbl.vehicleno='"+inventory.getVehicleno()+"', inventoryotherdetailtbl.chesisno='"+inventory.getChesisno()+"', inventoryotherdetailtbl.engineno='"+inventory.getEngineno()+"', inventoryotherdetailtbl.macaddress='"+inventory.getMacaddress()+"', inventoryotherdetailtbl.licenseno='"+inventory.getLicenseno()+"',"
+						+ "insurancetbl.insurancecompanyid='"+inventory.getInsurancecompanyid()+"', insurancetbl.insurancestart='"+inventory.getInsurancestart()+"',insurancetbl.insurancestarten='"+inventory.getInsurancestarten()+"', insurancetbl.insuranceend='"+inventory.getInsuranceend()+"', insurancetbl.insuranceenden='"+inventory.getInsuranceenden()+"', insurancetbl.insurancepremiumamount='"+inventory.getInsurancepremuimamount()+"',"
+						+ "amctbl.amcstart='"+inventory.getAmcstart()+"', amctbl.amcstarten='"+inventory.getAmcstarten()+"', amctbl.amcend='"+inventory.getAmcend()+"', amctbl.amcenden='"+inventory.getAmcenden()+"', amctbl.amccost='"+inventory.getAmccost()+"', amctbl.amccompanyid='"+inventory.getAmccompanyid()+"',"
+								+ "warrantytbl.warrantystart='"+inventory.getWarrantystart()+"', warrantytbl.warrantystarten='"+inventory.getWarrantystarten()+"', warrantytbl.warrantyend='"+inventory.getWarrantyend()+"', warrantytbl.warrantyenden='"+inventory.getWarrantyenden()+"'"
+								+ "where inventorytbl.itemcode='"+inventory.getItemcode()+"' and inventoryotherdetailtbl.inventoryotherdetailid='"+inventory.getInventoryotherdetailid()+"' and insurancetbl.insuranceid='"+inventory.getInsuranceid()+"' and amctbl.amcid='"+inventory.getAmcid()+"'and warrantytbl.warrantyid='"+inventory.getWarrantyid()+"';";
 		try {
+			System.out.println(query);
 			ps=con.prepareStatement(query);
-			ps.setString(1, inventory.getTransactionid());
-			ps.setString(2, inventory.getLegacyid());
-			ps.setString(3, inventory.getGroupcode());
-			ps.setString(4, inventory.getItemname());
-			ps.setString(5, inventory.getModel());
-			ps.setString(6, inventory.getDecisiondate());
-			ps.setString(7, inventory.getDecisiondateen());
-			ps.setString(8, inventory.getPurchasedate());
-			ps.setString(9, inventory.getPurchasedateen());
-			ps.setString(10, inventory.getDepreciationrate());
-			ps.setString(11, additionaldetailid);
-			ps.setString(12, inventory.getItemcode());
+			
 			rs=ps.executeUpdate();
-			if(rs>0)
-			{
-				System.out.println("success updating");
+			if(rs>0){
 				return true;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return false;
-		
-		
-		
-	}
-	public boolean editalldaocodechanged(Inventory inventory,String additionaldetailid,String generated_itemcode)
-	{
-		int rs=0;
-		
-		String query="update inventorytbl set transactionid=?,legacyid=?,groupcode=?,itemname=?,model=?,decisiondate=?,decisiondateen=?,purchasedate=?,purchasedateen=?,depreciationrate=?,inventoryotherdetailid=?,itemcode=? where itemcode=?";
-		
-		try {
-			ps=con.prepareStatement(query);
-			ps.setString(1, inventory.getTransactionid());
-			ps.setString(2, inventory.getLegacyid());
-			ps.setString(3, inventory.getGroupcode());
-			ps.setString(4, inventory.getItemname());
-			ps.setString(5, inventory.getModel());
-			ps.setString(6, inventory.getDecisiondate());
-			ps.setString(7, inventory.getDecisiondateen());
-			ps.setString(8, inventory.getPurchasedate());
-			ps.setString(9, inventory.getPurchasedateen());
-			ps.setString(10, inventory.getDepreciationrate());
-			ps.setString(11, additionaldetailid);
-			ps.setString(12, generated_itemcode);
-			ps.setString(13, inventory.getItemcode());
-			rs=ps.executeUpdate();
-			if(rs>0)
-			{
-				System.out.println("success updating");
-				return true;
+		finally{
+			if(con!=null){
+				try {
+					con.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
 			}
-		} catch (SQLException e) {
-			e.printStackTrace();
 		}
 		return false;
 	}
