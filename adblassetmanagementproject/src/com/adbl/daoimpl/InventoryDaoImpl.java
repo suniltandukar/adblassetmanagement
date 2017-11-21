@@ -300,5 +300,9 @@ public class InventoryDaoImpl implements InventoryDao {
 		}
 		return false;
 	}
+	public void deleteinventorydao(String itemcode)
+	{
+		
+	}
 	
 }

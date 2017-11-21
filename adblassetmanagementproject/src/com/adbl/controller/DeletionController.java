@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.adbl.action.InitialDetailDeleteAction;
+import com.adbl.action.InventoryAction;
 import com.adbl.action.UserAction;
 
 @WebServlet("/DeletionController")
@@ -72,6 +73,10 @@ public class DeletionController extends HttpServlet {
 		if (uri.endsWith("userrole.del")) {
 			UserAction user=new UserAction();
 			user.deleteuserrole(request,response);
+		}
+		if (uri.endsWith("inventorydelete.del")) {
+			InventoryAction inventory=new InventoryAction();
+			inventory.deleteinventory(request,response);
 		}
 
 	}

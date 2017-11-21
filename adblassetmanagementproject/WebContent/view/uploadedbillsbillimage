@@ -1,371 +1,0 @@
-package com.adbl.daoimpl;
-import java.sql.*;
-import com.adbl.dao.InventoryDao;
-import com.adbl.model.Inventory;
-import com.mysql.jdbc.Connection;
-import com.org.dbconnection.DBConnection;
-
-public class InventoryDaoImpl implements InventoryDao {
-	Connection con=null;
-	Statement stmt=null;
-	PreparedStatement ps=null;
-	ResultSet rs=null;
-	public InventoryDaoImpl(String branchdb) {
-		con=DBConnection.getConnectionNext(branchdb);
-	}
-	public ResultSet getinventorydata(){
-		String query="select * from inventorytbl";
-		try{
-			stmt=con.createStatement();
-			rs=stmt.executeQuery(query);
-		}
-		catch(Exception e){
-			System.out.println("getinventorydata error"+e);
-		}
-		return rs;
-	}
-	public ResultSet getinventoryeditdata(String itemcode){
-		String query="select * from inventorytbl where itemcode='"+itemcode+"'";
-		try{
-			stmt=con.createStatement();
-			rs=stmt.executeQuery(query);
-		}
-		catch(Exception e){
-			System.out.println("geteditdata error"+e);
-		}
-		return rs;
-	}
-	public ResultSet getcompanylist(){
-		String query="select * from companytbl";
-		try{
-			stmt=con.createStatement();
-			rs=stmt.executeQuery(query);
-		}
-		catch(Exception e){
-			System.out.println("getcompanylist error"+e);
-		}
-		return rs;
-	}
-	public ResultSet getfundsourcelist(){
-		String query="select * from fundsourcetbl";
-		try{
-			stmt=con.createStatement();
-			rs=stmt.executeQuery(query);
-		}
-		catch(Exception e){
-			System.out.println("getfundsource error"+e);
-		}
-		
-		return rs;
-	}
-	public ResultSet getgroup(){
-        String query="select * from grouptbl";
-        try{
-            stmt=con.createStatement();
-            rs=stmt.executeQuery(query);
-
-        }
-        catch(Exception e){
-            System.out.println("getgroup error"+e);
-        }
-        
-        return rs;
-    }
-	public ResultSet getitemcondition(){
-        String query="select * from itemconditiontbl";
-        try{
-            stmt=con.createStatement();
-            rs=stmt.executeQuery(query);
-
-        }
-        catch(Exception e){
-            System.out.println("getgroup error"+e);
-        }
-        
-        return rs;
-    }
-	public void addalldao(Inventory inventory) throws SQLException{
-		String query1="insert into insurancetbl(insurancestart,companyid,insurancestarten,insuranceend,insuranceenden,insurancepremiumamount) "
-				+ "values('"+inventory.getInsurancestart()+"',"+inventory.getInsurancecompanyid()+",'"+inventory.getInsurancestarten()+"','"+inventory.getInsuranceend()+"','"+inventory.getInsuranceenden()+"','"+inventory.getInsurancepremuimamount()+"')";
-		String query2="insert into warrantytbl(warrantystart,warrantystarten,warrantyend,warrantyenden) "
-				+ "values('"+inventory.getWarrantystart()+"','"+inventory.getWarrantystarten()+"','"+inventory.getWarrantyend()+"','"+inventory.getWarrantyenden()+"')";
-		String query3="insert into amctbl(amcstart,amcstarten,amcend,amcenden,amccost,companyid)"
-				+ "values('"+inventory.getAmcstart()+"','"+inventory.getAmcstarten()+"','"+inventory.getAmcend()+"','"+inventory.getAmcenden()+"','"+inventory.getAmccost()+"',"+inventory.getAmccompanyid()+")";
-		try{
-			stmt=con.createStatement();
-			
-			stmt.addBatch(query1);
-			stmt.addBatch(query2);
-			stmt.addBatch(query3);
-			stmt.executeBatch();
-		}catch(Exception e){
-			System.out.println(e);
-		}
-		finally{
-			if(stmt!=null){
-				stmt.close();
-			}
-		}
-	}
-	public String[] selectids() throws SQLException{
-		String[] ids=new String[3];
-		String query="SELECT max(amcid) as amcid ,max(warrantyid) as warrantyid ,max(insuranceid) as insuranceid from amctbl, warrantytbl, insurancetbl";
-		try{
-			ps=con.prepareStatement(query);
-			rs=ps.executeQuery();
-			while(rs.next()){
-				ids[0]=rs.getString("amcid");
-				ids[1]=rs.getString("warrantyid");
-				ids[2]=rs.getString("insuranceid");
-			}
-			
-		}
-		catch(Exception e){
-			System.out.println(e);
-		}
-		finally{
-			if(ps!=null){
-				ps.close();
-			}
-		}
-		return ids;
-	}
-	public String selectadditionaldetailid() throws SQLException{
-		String id="";
-		String query="SELECT max(inventoryotherdetailid) as additionaldetailid from inventoryotherdetailtbl";
-		try{
-			ps=con.prepareStatement(query);
-			rs=ps.executeQuery();
-			while(rs.next()){
-				id=rs.getString("additionaldetailid");
-			}
-		}
-		catch(Exception e){
-			System.out.println(e);
-		}
-		finally{
-			if(ps!=null){
-				ps.close();
-			}
-		}
-		return id;
-	}
-	public String insuranceid(){
-		String query="select max(insuranceid) from insurancetbl";
-		String insuranceid="";
-		try{
-			ps=con.prepareStatement(query);
-			rs=ps.executeQuery();
-            while(rs.next()){
-            	insuranceid=rs.getString("max(insuranceid)");
-            }
-            
-		}
-		catch(Exception e){
-			
-		}
-		return insuranceid;
-	}
-
-	public String warrantyid(){
-		String query="select max(warrantyid) from warrantytbl";
-		String warrantyid="";
-		try{
-			ps=con.prepareStatement(query);
-			rs=ps.executeQuery();
-            while(rs.next()){
-            	warrantyid=rs.getString("max(warrantyid)");
-            }
-            
-		}
-		catch(Exception e){
-			
-		}
-		return warrantyid;
-	}
-
-	
-	public String amcid(){
-		String query="select max(amcid) from amctbl";
-		String amcid="";
-		try{
-			ps=con.prepareStatement(query);
-			rs=ps.executeQuery();
-            while(rs.next()){
-            	amcid=rs.getString("max(amcid)");
-            }
-            
-		}
-		catch(Exception e){
-			
-		}
-		return amcid;
-	}
-	
-	public void additionaldetaildao(Inventory inventory,String[] ids) throws SQLException {
-		String query="insert into inventoryotherdetailtbl(fundsourceid,unitname,rate,quantity,amount,warrantyid,amcid,insuranceid,supplierid,itemconditionid,itemsize,macaddress,licenseno,vehicleno,chesisno,engineno) "
-				+ "values("+inventory.getFundsource()+",'"+inventory.getUnitname()+"','"+inventory.getRate()+"','"+inventory.getQuantity()+"','"+inventory.getAmount()+"','"+ids[1]+"','"+ids[0]+"','"+ids[2]+"',"+inventory.getSupplierid()+","+inventory.getItemconditionid()+",'"+inventory.getItemsize()+"','"+inventory.getMacaddress()+"','"+inventory.getLicenseno()+"','"+inventory.getVehicleno()+"','"+inventory.getChesisno()+"','"+inventory.getEngineno()+"')";	
-		try {
-			ps=con.prepareStatement(query);
-
-			ps.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
-	public boolean inventorydao(Inventory inventory,String additionaldetailid)
-	{
-		boolean status=false;
-		int a;
-		String query="insert into inventorytbl(itemcode,transactionid,legacyid,groupcode,itemname,model,decisiondate,decisiondateen,purchasedate,purchasedateen,depreciationrate,inventoryotherdetailid) "
-				+ "values('"+inventory.getItemcode()+"','"+inventory.getTransactionid()+"','"+inventory.getLegacyid()+"','"+inventory.getGroupcode()+"','"+inventory.getItemname()+"','"+inventory.getModel()+"','"+inventory.getDecisiondate()+"','"+inventory.getDecisiondateen()+"','"+inventory.getPurchasedate()+"','"+inventory.getPurchasedateen()+"','"+inventory.getDepreciationrate()+"','"+additionaldetailid+"')";
-		try {
-			ps=con.prepareStatement(query);
-
-			a=ps.executeUpdate();
-			if(a>0){
-				status=true;
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return status;
-	}
-	public boolean editalldao(Inventory inventory,String additionaldetailid)
-	{
-		int rs=0;
-		
-		String query="update inventorytbl set transactionid=?,legacyid=?,groupcode=?,itemname=?,model=?,decisiondate=?,decisiondateen=?,purchasedate=?,purchasedateen=?,depreciationrate=?,inventoryotherdetailid=? where itemcode=?";
-		
-		try {
-			ps=con.prepareStatement(query);
-			ps.setString(1, inventory.getTransactionid());
-			ps.setString(2, inventory.getLegacyid());
-			ps.setString(3, inventory.getGroupcode());
-			ps.setString(4, inventory.getItemname());
-			ps.setString(5, inventory.getModel());
-			ps.setString(6, inventory.getDecisiondate());
-			ps.setString(7, inventory.getDecisiondateen());
-			ps.setString(8, inventory.getPurchasedate());
-			ps.setString(9, inventory.getPurchasedateen());
-			ps.setString(10, inventory.getDepreciationrate());
-			ps.setString(11, additionaldetailid);
-			ps.setString(12, inventory.getItemcode());
-			rs=ps.executeUpdate();
-			if(rs>0)
-			{
-				System.out.println("success updating");
-				return true;
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return false;
-		
-		
-		
-	}
-	
-}
-PK     ! 2‘oWf  ¥   [Content_Types].xml ¢(                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  ´”ËjÃ0E÷…þƒÑ¶ØJº(¥ÄÉ¢?ehúŠ4NDõB£¼þ¾ã81¥$14ÉÆ ÏÜ{Ï1ƒÑÚšl	µw%ë=–?“^i7+Ù×ä-d&á”0ÞAÉ6€l4¼½L60#µÃ’ÍS
-Oœ£œƒXø Ž*•?V$:ÆB~‹ðû^ï?Kï¸”§Úƒ
-/P‰…IÙëš~7$²ì¹i¬³J&B0ZŠDu¾têOJ¾K(H¹íÁ¹xG
-ŒL¨+Çvººš¨dcÓ»°ÔÅW>*®¼\XR§mpúªÒZ}í¢—€HwnMÑV¬ÐnÏ”Ã-ì")/ÒZwB`ÚÀË4¾Ýñ?	®°sîDXÁôój¿Ì;A*Ê?ˆ©?Ëc´Ö?‰Ö 4ßþÙ[›S‘Ô9Ž> ­•ø?±÷{£Vç4p€˜ôéW×&’õÙóA½’¨Ù|»d‡?   ÿÿ PK     ! ‘·ï   N   _rels/.rels ¢(                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  ¬’ÁjÃ0@ïƒýƒÑ½QÚÁ£N/cÐÛÙ[ILÛØj×þý<ØØ]éaGËÒÓ“ÐzsœFuà”]ð–U
-Š½	Öù^Ã[û¼x •…¼¥1xÖpâ›æöfýÊ#I)Êƒ‹YŠÏ‘øˆ˜ÍÀå*Döå§i")ÏÔc$³£žqU×÷˜~3 ™1ÕÖjH[{ª=E¾†ºÎ~
-f?±—3-??ÂÞ²]ÄTê“¸2?j)õ,l0/%œ‘b¬
-ð¼Ñêz£¿§Å‰…,	¡	‰/û|f\ZþçŠæ?6ï!Y´_áoœ]Aó  ÿÿ PK     ! ³¾‹  ¶   word/_rels/document.xml.rels ¢(                                                                                                                                                                                                                                                                  ¬“ÍjÃ0„ï…¾ƒØ{-;mC	‘s)?\[÷d{ýCõc¤MZ¿}EJ‡ÓƒŽ3bg¾…Õzó­; ó½5²$†¦²uoZÅöá˜'ij©¬A#zØä÷wë7T’Â?ïúÁ³?b¼€ŽhXqî«µô‰Ð„—Æ:-)H×òAVŸ²E¾HÓ%wÓÈ¯2Ù®àvõ#°bð?Ù¶iú
-_mµ×hèF÷H6ó!SºIÀÉIBðÛ‹¨4*œõ\}³Þìu‰.l|!8[sË˜fñp”¿f6Çð“¡±†
-Yª	ÇÙšƒxŠ	ñ…åûŸ“œ˜'~õÛò   ÿÿ PK     ! ­R­À	  +Ž     word/document.xmlì]ïrÛ¸ÿÞ™¾F3×/Q¬?¶lŸzöÕ–Çir§ZÎuú©‘‰8 (Uyš>KŸ¬» )ÛŠäÈ‘mÙœ™H$ˆÅb±¿ÝÅ ~ùõ?‰ c¦
-Wò¨ÒØ©W“?
-¹ŒŽ*Ÿ¯Þ½=¬c©©P’U¦ÌT~=þóŸ~™´Cd	“– 	iÚ“48ªÄÖ¦íZÍ1K¨ÙIx •QC»¨¤¦†C°ÚDé°Ö¬7êî[ªUÀŒ?ö:TŽ©©ä’o©©”I(*?P—:ª%T?²ô-PO©å.¸?íú~IFU2-Û‰·3†°J;g¨ø(kèUÚÍ«œp-Ö4Àƒ’&æéu7~”Æ%‘ñ]?'¢|n’6öÖƒ3M'ðqMpöÃ¼R"rÎï¦Ø¨¯0"HbVcn·Yr’P.¯þ!ÑÜn£u?Íyi´Þàœk•¥×ÔøzÔ.ähF‘}ZÅ ßìšY?™~LS@`´/"©4à†Œ€Ô	ªuå,Î@…SüLÉ¤
-+¼<ªÔëÍN}·Q)o?±!Í„Å’V³¹»ßp5ÓžÆ“Ò ZƒgéÐ2@zë	ŽýßkÎ..3lžfVUjXMçµõ;%­ÁÊ&à ý+ž0C~cr©*±6£ÆžNÆ'Ò,®˜oo»–îÿ@	¥á±1Ø/üË‹Í×òîn³¸‡å­@0ªu¬^ô.‡\@é;÷‡•jEk31åÿ½œNgå
-T%ÁÖ–Ä¤m?;™Ö<ÈD–??¸¥mþH.*¯ˆ^°Ó¨]ýLrA® ÚÊFTßÒ¸m“Åöž lÍ½g¶ya>;`<$:Ð7Ø6ùùpo·q¡CãyábeQ\÷j gº½E#Ù…h\´‰A‡J4q­úß"¼?!â÷ìþaëì´µóEÉBÌç8ßÝsáüK0ëÌ¾˜Þ4úÏÒžíâ¿Eåm¬—÷
-òÞ8îŸ²ÓÎŽSÍ˜&¿¾°Àòñ
-át¡cå­úíù›ßªdQÒ[[KWšG¶º_;Øü#ÄÖ%ûŠ»Ž
-w¥ÈDé”¤Z
-1ÿ $bJ€G±?¸l¢œ’	·1<)¥#*ùW—à£‚¨R?É_h’þ•5g2LŽ¹VÒåEmL-QÃ!Ó†hfRÂÊS”UÄÐ$“«’/j@6Ct€<çHL RF†ëÅ:/mx0›ä0
-HLAbL?Yåø™“>
-(©º‹ym£Z‡lÌ„J?Ö¡p"­&6Þù¾‘õ.~Éyoß
-³ Dè)
-F „™Ve–ä_¸‹Y¯rö¡ìbÖ?FÁÝ¬‚¥S|–Ï6´Ølª@„MG¹-ž¼+m°ûóÒ´—ÈÒ>ªäOiÅp‘Ã%¦2r‹k»ûß¯}ò÷l ñtsÝRnQu0Ì¸dÔâ rºÓÝ?HA%ä·'Q@Ä°´‹z12ÖãJ’4µ»yƒÞØß«·N?©(ñ`ò`zY`z—	AúA¬Õ¸¶NÞ+0 $Qçš†™Ô÷á±Û¨wOÁ£(ñðððxQðX<gê1?‘7LgççG0çUÃ®FÞì4…J&eBô-Õ¶P‘m±+ŸS«VNW†Û%šÅ:Evç¤…¼Ü˜jß° ¯UFð8ÓöDðH–UM†™ˆ@óÔáç¦‚éÛ“Ÿ­×Ÿ!²ðÓœTJ?pŸ³A@˜‡…û“4ÿ>W8›Ìù*Ÿí:Ç—?™·íç•Þ×¿v\÷¨1,$ošù4ò$SÀ?“€†,™bH<E?5ëõ<}}Ðüi…Y£‡Š‡Êë„Jÿc'ÇÊÕÅ§nßM#•¸?“ýÃ'‡û;­U â7!¬9\~Âs‘÷Æ­ÁSvq}Å‚Xò€
-òw©&‚…Ñoë]Ù7ºþxßè}ã&|ãâéÙ¸‘jiš$¨`T"£0,øˆ‘N•tÞ¼©’tL«ä½MDÕç˜–n_5f%Ùø“ÓÁo4	y¹NÞwZ?V×ÙÛmÐXß%–ªwIå¬µpPß©,I-}hv»wJi»tg‰”æ´ÕÒè§¸¤^%}¸ÌV‹½©äwÜÊgaêx—:5Ízý`kLQïF8ÐQ2`©õ?³œ·,pÀ÷%“!Ó,ìA@|ª9²öø7	?n†ÐùKÜvÌ?‚îQÃŠÆ¸Msçûøñ™¦5Çðž™&/o/ï×,oŸI}4yoÜ>e§Ñoõ­f2²ñíìÆ?©]QâŽl­±IµäÑG†>2|êÈÐÿ#ãÁˆ`EÉô
-ÁÝ£LŽ<<6?É-§Zsçóh~°Ò2B*³îÜåÏ0xlxll'ù¹_baôIpËhâ`qLä;n=P^‚æ<ÑþCþBå²À™à	{<Dg)ú"¡µ['é9°€Þ&E!8ýœ?7#? ñîÆ»›ís7.¨$Ép»?«L¨˜Z·û	Ã	,EÉ’Ùü³@ÁViýÂQô©À5åíS?×¡ms6v‹Z‘
-¼¡y+;Û=ïl½³Ý”³]¼»ä—Ð|O+ÜSÒþÎKŠžÅn’Ç³‹c”j@zJ[*æ…³ÕŠƒgSpçùŒ/³&Ÿþè?O*dsï¹ò¶ÕÛÖíµ­ô‹·­wÚÖ«	·øî >eÜ½îg†ÏïFßr[»Lu?™N§~pº=»Íù]²Ø²í®·=0…	Ždä#Ð‘«-`yGìñ+ƒD?jËžRÜ!ê˜j®2C¬¦Q‘§áñÍ¹Ìr÷+XŒŸ†òi¨»ÒPïÕ`ÀÙ¦2P.©ì?³7Î1Î—ŒÎÎÐ?¦îÝ£¸±xàèD€ŒMÅ-›Œ[æ¶¡]Èüw#Ëí»wB D¦>`ñË,½rí=d–rñÀ‘‹7e¯2µw×Ä?³÷tà9DÙ¾¥PÛcò§úþ÷ß®Œp×eK©àþ¥%K}&4³û•Äãß[’'’1’xñæ7YÔ"–ë>§'|ZÛj?Ï0LTC2àÚÆÞ~ÞÒðf½Õx[o¾õ¿¿ù¢Uü$aLÍ¶*7ÄÞí/MŸJˆŒ¼Û_Ý(úr©2}„Û¦Ùü?˜ß©NµûMz‹WãLz›.ð “^/(/(/(/(/¨GÔ²ŽØÊo¾7Žç¨?BœUÍæž[kŠá{ëp¯?q}¢XÙªîïå?ËQåå@Y«’ëë|åª¼Š
-qí—ÇPþJ¹¥°â2ÊpÃßQ¹ƒ…2+"–bEmÒUp®¹[ã’õ¸
-âÙòW­ì¢û:PáÔ}?*î <þ?   ÿÿ PK     ! ªR%ß#  ‹     word/theme/theme1.xmlìYM‹7¾úÄÜÍøc‰7Øc;i³›„ì&%GyFžQ¬IÞ]%9
-¥ié¡?Þz(m	ô’þšmSÚòªÑxlÉ–YÚl`)YÃZÏûêÑûJ?4žËWNŽã˜¦§z©â ”4ÄiÔqîK-pÓš¢Ž3GÜ¹²ûá—áŽˆQ‚€´Oùì8±Ó?r™²òKtŠRÙ7¦,?BVYT<–~R®U*?rqê€&ÒíÍñf.?ÝÂù€È©àYC@ØAæ
-NªÙŸsŸ0pIÇ‘ã„ôø?È…ìè8õç”w/——FDl±Õì†êoa·0'5eÇ¢ÑÒÐu=·Ñ]úW "6qƒæ 1h,ý) 9Óœ‹Žõzí^ß[`5P^´øî7ûõª?×ü×7ð]/ûxÊ‹î~8ôW1Ô@yÑ³Ä¤Yó]¯@y±±?oVº}·ià(&8?l +^£î³]BÆ”\³ÂÛž;lÖðª¬­®Ü>ÛÖZïS6” •\(p
-Ä|ŠÆ0?8<bìá(–o
-SÊes¥VVêòöqUIEî ¨YçMßhÊø 0<çcéÕÑ o^þøæåspúèÅé£_N?>}ô³ÅêL#Ýêõ÷_üýôSð×óï^?ùÊŽç:þ÷Ÿ>ûí×/í@¡_}ýì?Ï^}óùŸ?<±À»Žtø!N7Ð1¸M91Ë hÄþ?Åa±nÑM#S˜ÙXÐèsH ×Cfï2)6àÕÙ}ƒðAÌf[€×ãÄ îSJz”Yçt=K?Â,?ìƒ³™Ž»
-á‘ml-¿ƒÙT®wlséÇÈ y‹È”Ã¥H€¬?N²˜ÝÃØˆë>åt,À=z[CrˆGÆjZ]Ã‰ÌËÜFPæÛˆÍþ]Ð£Äæ¾?ŽL¤Ü?Ø\"b„ñ*œ	˜XÃ„èÈ=(bÉƒ9Œ€s!3!BÁ DœÛln²¹A÷º”{Ú÷É<1‘Là‰
-¹)Õ‘}:ñc˜L­œqëØ?øD.QnQa%AÍ’Õe`º5Ýw12Ò}öÞ¾#•Õ¾@²ž³m	DÍý8'cˆ”óòšž'8=SÜ×dÝ{·².…ôÕ·Oíº{!½Ë°uG­Ëø6Üºxû”…øâkwÎÒ[Hnô½t¿—îÿ½toÛÏç/Ø+?V—øâª®Ü$[ïícLÈ?˜´Ç•ºs9½p(UE-¦±,.†3pƒªŸ`Äp*‡©ª"¾pq0¥\žªÙê;ë ³dŸ†ykµZ<™J(Víò|)Úåi$òÖFsõ¶t¯j‘zT.d¶ÿ†„6˜I¢n!Ñ,Ï ¡fv.,Ú­ÌýVêk‘¹ÿ Ì~ÔðÜœ‘\o? 0ËSn_d÷Ü3½-˜æ´k–éµ3®ç“iƒ„¶ÜLÚ2ŒaˆÖ›Ï9×íUJ
-zY(6i4[ï"×™ˆ¬iIÍ8–{®îI7œvœ±¼Êb2•þx¦›?DiÇ	Ä"ÐÿEY¦Œ‹>äqS]ùü,'r­ëi éŠ[µÖÌæxAÉµ+/rêKO2?Q ¶´¬ª²/wbí}KpV¡3Iú ?ÁˆÌØm(å5«Y CÌÅ2š!fÚâ^EqM®[ÑøÅlµE!™Æpq¢èbžÃUyIG›‡bº>+³¾˜Ì(Ê’ôÖ§îÙFY‡&š[?ìÔ´ëÇ»;ä5V+Ý7XåÒ½®uíBë¶?o hÔVƒÔ2Æj«V“Ú9^´á–KsÛqÞ§ÁúªÍˆâ^©j¯&èè¾\ù}y]?ÁUt"ŸüâGå\	Tk¡.'Ìî8*^×õkž_ª´¼AÉ­»•RËëÖK]Ï«W^µÒïÕÊ ˆ8©zùØCù<Cæ‹7/ª}ãíKR\³/4)Su.+cõö¥ZÛþö`™?Ú°]o÷¥v½;,¹ý^«Ôö½R¿á7ûÃ¾ïµÚÃ‡8R`·[÷ÝÆ UjT}¿ä6*ýV»Ôtkµ®Ûì¶n÷á"ÖræÅw^Åk÷   ÿÿ PK     ! vy½å  ¥
-     word/settings.xml´Vm?â6þ^©ÿåsY’@Â6:öÄéíiéUÍÞpÖúM¶ËUýï;ñîèŠötŸpæ™7?Ÿ™áÝûF{¬4|D7a0À¼5áÛYðù)Þm¯Ï‚#ÖÁû»ŸzwÈ46Ôô \p?±jìŒ‘Ùh¤«fHß‰9€¡2ð©¶#†Ôs#‡•`RJÌq‡atnÄ,hÏ:CF*%´Øk’‰Í†T¸ûñêš¸­ÉRT
-ÃÜ¸ˆ#…)ä ¸Þ©½7ö½¸óNöo]bÏ¨×;Dá×=U¿Z\“ž5?JTXkx F}‚„÷?'ß8z?}±»+:W`…îtšyòßÄ_9Ðôš›´Ð#)R-Oºk°*{Ør¡PI?•p?dÜ-¿Á‡LbUÁÛ §ã0Y *"6…A¬%¦Ô‘¼¢?ÃC¶Uˆ=½ÄÙÔxƒjžPY!Ai? ï©wYí?B•Áª?¨oÁ?ÔëÕâwa@u/ÑY8âÛS£q¾zDGÑ˜¤h›
-<pÄàfg?²5¶™6Š\_|kà²?ú¼HÀP¤ÆO¶¢…9RœÃe
-òÏyý±Ñ†€G×.ß‘Á[	`n#<%Î12
-”ís/“S"×D)¡x
-\ùaÁÈfƒ À½5Ð‰(qpuþ€Q
-³÷;ãŽNi“¼Öþð§Æ«†a¼Óq—©E{$‚&	§‘t&÷—?ØBñEä_ãŒ£pu{Y$Q²º„$q<N/zKo“å}Gêsd:™†‹‹ÈbNï/ÆY&étÚõõ9²ÊÓ<wÞF¯õe™?÷(²Í2`­Å±R4XÛ?0²¥z¾'Üã%†‡O‘¢)=8¶€fˆÒ¦‹\j,«‰–K¼qgºFjÛûí4ÔE)L²?¯¾ìdÄê7%Ù¢…dÛ^%šL:KÂÍ#a^®›²ðV†ò	ÔðúÓ^¹:õå9dÈì†É#rMát1~.º¦¡ª°„Çk$eÛ7å6š”lw&²T7ðUÃ÷Qnã‹·˜û@•½hw‡^{Ù‰ÞØËÆ½lâe“^–xYÒËR/K­lKÁ:y†öG+ßJÅ×züQ[½C/Ûmô­ [?z°Ïðì2\ÿÇ$©z?7
-ãÔšwÚÔ-“3]‹Yeyî¡Fùáqfì(þU.vVèXYÙ/·›6qJ4<	{Ðå±_%Y-ª‡Ú®æVþW:O–Qòër˜.óÉpr;^
-çÓñ|ƒ!Ì§óÕ8?Ã¿»Nóÿ/ïþ  ÿÿ PK     ! )=ôe  m     word/webSettings.xml”“Ñn‚0†ï—ìHï$N7"š³dÉ®6÷ ¥hÖö4m•¹§ßQÙÜ…\õïú9'«/%ƒ=·N€NÉd‘€k¹ÐeJ>¶Ï£G8OuN%hž’wdµ¼¿[ÔIÍ³wî=¾tR´KKIå½IÂÐ±Š+êÆ`¸ÆbVQ?W[†ŠÚÏ?1P†z‘	)ü!Œ£hF:Œ½…E!ß Û)®}›-—Hí*aÜ‰VßB«ÁæÆãÎá<JyŠ
-}ÆL¦W %˜…ã0]G-
-ã“¨UJ^ Ã ñ XòRj°4“¸ì$@Yâr±wÝÔ‰ÈS2?Oç³8ŽŸÚzùaÓÖöTâ~IØ¸¸?W^ø“?Ý7QVÿØ[0×æ¼õÇÇ>Ö¹m”¿d4~9/î»y×Cï4	¸pºópDÈ^gÃ’Ù¯Ž†emò!Ñð2ôQžN×ŠÞO²ü  ÿÿ PK     ! ?Z35   p     word/styles.xml¼?]Sã:†ï·jÿƒ+W»„Ïê0§€?…ÚagÂì\+¶B´ÈVÖì¯_Iv…¶·ÜËÄI?’õö+«ý‘üöûK*£_</„ÊÎFã{£ˆg±JDöx6úñp½óq%Ë&UÆÏF¯¼ýþù¯ùíù´(_%/"
-ÈŠÓ4>ÍËrqº»[Äsž²âƒZðL¿9SyÊJý2ÜMYþT-vb•.X)¦BŠòuwoïxÔ`ò>5›‰˜Qq•ò¬´ñ»9—š¨²b.Å’öÜ‡ö¬òd‘«˜…ÞéTÖ¼”‰l…P*â\jV~Ð;ÓôÈ¢tøxÏþ—Ê5àØ_Òøôö1S9›J=úº'‘†?>ëáOTü…ÏX%ËÂ¼ÌïóæeóÊþ¹VYYDÏ§¬ˆ…xÐ-kH*4ïæ<+ÄH¿ÃYQž‚¹o^5ÛÌûsóÁÖÈ¸(?Í"£]Óhñ_ýæ/&ÏFûûË-—¦Û$Ë—Ûx¶ócâvÆÙ4ÕÜ³Ëw&ç&p·Ù·ú¯³Ç‹·¯lÃÛ›•\'×øxÏ@¥0¹¼ôiùâ{e†—U¥j±€úï
-»]çœÎÀImý.Ÿ}UñO&¥~ãldÛÒÜÞçBå:ÙÏFŸl›zã„§âF$	Ïœfs‘ðŸsžý(x²ÞþçµMØfC¬ªLÿp2¶‰ ‹äê%æ“þúÝŒM¾™ i>]‰uã6ü?KØ¸Q¢-~Î™™¢ñ[„í>
-±o"
-goÛ™Õ›}·ŸB5tð^
-¾WCGïÕÐñ{5tò^
-}|¯†,æÿÙ?ÈþR6¨Û87¢9³¡9/¡9« 9' 9žDGs<yŒæxÒÁ)UìËB'Ù<ÙÞÍÝ~Œãn?$„q·Â¸Û'ü0îöù=Œ»}:ãnŸ½Ã¸Û'k<·^jE·ÚfY9Øe3¥ÊL•<*ùËpË4ËF4<sÐã9ÉN`ê™­9¦ÅÌ¾Þž!Ö¤áÇóÒÔr‘šE3ñXåºžÚqžýâRW¶KÍ#æ¼¬rÏˆ„ätÎg<çYÌ)›j*Á(«Ò)An.Ø#‹g	ñð-‰$“Â*¡uý<7&I?²8WÃ»¦ÙüðUÃÇÊ@¢‹JJNÄúF“b–5¼6°˜á¥?Å¯,fxaàhF5D
-?h¤Ñ€54¢q«ó“jÜÑ¸54¢qkhÃÇíA”ÒNñîªcÜÿÜÝ¥TæTöà~LÄcÆô`øá¦9gÝ³œ=æl1?Ì‰év¬»ÏØv.Tò=PÓV$ªu½M‘K½×"«†è?Ê\+‘½V<"ƒ­xÃ-v§—Éf?vCSÏLªiÙjZKêeÚ	“U½ î6VÏ°µ®E^?Ù K?ÁßÌrÖÈI1ó­{9¼ckÖp[½?•H»× 	z)UüD3
-ß¼.x®Ë²§Á¤k%¥zæ	qRæªÎ5×òûV’^–¿JsV[+m úê—Á£;¶¼C÷’‰ŒF·«?”	Ñ­ nî¾FjaÊL304ÀU–*%c6gÿö“OÿNÓÁs]g¯D{{NtzÈÂ.ÁA¦&©„ˆ¤—™"$ÇPËû'?*–'4´ûœ×÷?”œˆ8aé¢^txKÏ‹Ïzþ!X
-YÞ¿X.Ìy!*S=?ÀœÓ†E5ý7?‡OußTDrfè?ª´çíR×FÓá†/6pÃ—VM}x0ùK°³¸á;»?£ÚÙKÉŠBx/¡ó¨vwÉ£ÞßáÅ_ÃSRå³JÒ
-àH6‚K Ù*Y¥YA¹Ç–G¸Ã–G½¿„)cy§ä,ï¹HÈÄ°0*%,ŒJ£ÒÀÂH~‡Ž~›Ž~¯N
-#Z80ª<#=ü]åq`TyfaTyfaTyfaTyvð%â³™^Ób$UÎ9HºMVòt¡r–¿!¯$d'HkÚ}®fæ?•Õ7q Í9jI¸Ø®qT"ÿäS²®e¿Îˆ2)•":·¶>àØÈÍ{×¶…Ù'9wá^²˜Ï•LxîÙ'¬®—'õco»o»Ñë´çWñ8/£É|u¶ßÅïm?\ìaÛlóãåó,maw<Uºì(|˜âø °Íè?àÃíÁë•ÄFäQÏHØæñöÈõ*y#ò¤g$lócÏHëÓ?È.?|aùSk"œtåÏªÆó$ßIW­‚[›íJ¤Ud[
-žteÑ†U¢ó86W :ý<ã?ïg<ÆE~
-ÆN~Jo_ù]ûÎ	sdÇLš¶½ÕÝ`Þ·‹è^3çŸ•ªÏÛo\pêÿP×­^8e?Z9ý/\mÌ2þqì=Ýø½ç?¢÷äGôš‰¼á¨)ÉOé=7ù½')?=[Á#n¶‚ñ¸Ù
-Æ‡ÌV?2[
-Xø½—~Ú¨?6ê€•‚?2*2*¤ ?
-h£BÚ¨p†3*ŒÇÆ‡RBŒ
-)h£BÚ¨?6*D ?
-h£®í½áAF…´Q!mTˆ@Õ®ÆãŒ
-ãCŒ
-)!F…´Q!mTˆ@"ÐF…´Q!eTdTHA"ÐF…´QëG
-Ã?
-ãqF…ñ!F…”£B
-Ú¨?6*D ?
-h£BÚ¨?2*2*¤ ?
-h£BÚ¨öbá £ÂxœQa|ˆQ!%Ä¨?‚6*D ?
-h£BÚ¨?6*D Œ
-ÂƒŒ
-)h£BÚ¨Ñ•ŸÍ%JßmöcüYOïûý/]5?úî>Êí¢ú£–½ò³ú?‹p¡ÔSÔúàá?­7úAÄT
-eOQ{.«»\{KêÂç—ÝOø¸ô?_ºÔ<a¯™øaßHpNå°+åÝHPäveº	V?‡]³¯	ƒ‡]“®õåò¦}8Á]ÓŒ<ö„wÍÖN8â®9Ú	„#Ü53;?p€»æc'ð(2“óÛè£žãt¼º¿ºÒÑ!œø	]i	µZNÇÐ}Eóúªç'ô•ÑO@ééÅà…õ£Ð
-ûQaRC›a¥7ªŸ€•‚¤˜p©!*Xjˆ
-“NŒX©!+uøäì'I
-0áRCT°Ô&5<”a¥†¬Ô?€•zàÙ‹	—¢‚¥†¨0©áâ+5$`¥†¬Ô?$5À„K
-QÁRCT˜Ô JFK
-	X©!+5$I
-0áRCT°ÔÕ%µ=‹²!5Ja'·sqd'79;?Õ’X-9„Àj	jµÔW-¹¢ù	}ÕóúÊè' ôôbðÂúQh…ý¨0©qÕR›ÔáFõ°Rãª%¯Ô¸j©Sj\µÔ)5®ZòK?«–Ú¤ÆUKmR‡OÎ~B?Ô¸j©Sj\µÔ)5®ZòK?«–Ú¤ÆUKmRãª¥6©?½˜p©qÕR§Ô¸jÉ/5®Zj“W-µI?«–Ú¤ÆUK^©qÕR§Ô¸j©Sj\µä—W-µI?«–Ú¤ÆUKmRãª%¯Ô¸j©Sj\µÔ)µ§ZÚ}Þø&Ã¶¿I¦?\¾.¸ùnç?™¤þÒæ" ýàm²ú¡$lz5?IÕl¶n.Ö-Ú@ØT<×mÅÍ·'yšj¾uõ?ýÔ·
-{¾*Õvd=ËO7Cº¾Znã²gg¿K3ä}¶’tŽQ­š¯ƒŸš4ÜÖCÝŸ©¬´Kÿs›%ðÜü`UÝÓä…Õ(ýþ%—òŽÕŸVÿG%Ÿ•õ»ã=ûÐü›÷§õ÷¿yãs;Qx»›?©_6?æïúá›+ØÞ”4nhn{;ÅÐ‘^÷mù_ñù   ÿÿ PK     ! ÈÏ.#D  ‰   docProps/core.xml ¢(                                                                                                                                                                                                                                                                  œ’_kÂ0Åßû%ïmn+m„mø4a0ÇÆÞBrÕ`ó‡$Zýök«VEŸöÎïžœ{’b¼ÕU²”5%¢A	a¥2‹}Í&éJBäFòÊ(Ñ³û»B¸\XÞ:ðQAH'ráJ´ŒÑå±ÍCÖ¦çÖk›£_`ÇÅŠ/ a
-‘K9n
-S×;¢ƒ¥½¥[ûª3?CL˜fŸØ^‡›?rFjwn¢G±§·Aõ`]×Y=ìÐ&?Å?Ó÷ÏnÕT™¶+ˆRäÂ?Ö³°6ªJÚ×+î|&µ5V<ÄiÓø\?|Ù]Ñ×D;äa£Ú7cƒŽè?Å¡€ý
- “&x¾_ó¨|_ßfÄ„>¦ä9¥£}È‡4'ä·
-w12Ô‡ ÿv<°.ñåça   ÿÿ PK     ! ¼-¦¬Î  p&     word/numbering.xmlìZ[nÛ8ý/0{0ôŸèiI1ê®ƒƒ¢@ÓÐ2måC i»™¯¢Ké&f?³?ÙB)R’åÄQgŒðC_”xyÏ¹<”ŽLÉoß}#¸·…\ F‡Žé9=H3¶@t5t¾ÜÎ.R§'$ €…Cç
-çÝõoÞîtCæ?«?=…AÅ`—gCg-e>p]‘­!â’ Œ3Á–ò2cÄeË%Ê »c|ážïé£œ³
-¡pÆ€n?pJ8ò?å?ªà’q¤:å+— þu“_(ôH4GÉ;…íÅ:N%ÄE]P‘20•M•ÁŸÂkR&,ÛH¥ft9ÄªFÅåûiœŠ¦‚ë
-dÛ6‰-ÁÕ¸]îG/[ƒ	;ÕìŸRþÂ$l*oGô½'¬HQg<¥„CÎªÝŸ$MC\¿ÿ<€à>@¾zÙâüÉÙ&ß£¡—¡ÝÐ¯5Vqk?«\äæÔÄËŠù¼¹ºI6¸YQÆÁ«ŠÔ’õ”ê½â²v®•å€¹?dòã†ôÎnCÇÓC¨@Û¬ì,‚(ùŽ[DÈKôÜB|{—ÃjŒîÅE¯%IŽ«XÿjM'Ql"x[?j*.eŒ\Ödf”rÅ©;çŒ¡¬óoá·:ôï÷Ÿuÿ‡¬êÅp©‡»ºÿ>­o¦x@±€" ¬þÇ³	‚s„ç&0Ê	úç&ˆÏM?œ› ýÿ	ÜƒÛ½Þêå?Òô‚t:&qrªLß?ÆÓ4Š:/è¼ &è¼à·¯ïåuÜð‚àj”„?œê?—L'IPæ7gÛyAç?ØëåeÖð‚þÄ?û^ä?ê³÷Ó¸Ÿ„£Î:/¨	:/ø-Áë{Ay4¼ NGãh2*÷û'¼/P^0MãÒKš³í¼ ó‚Îìõ‚r‘^?øãQ?ŽO~_^ãqŽÏâÿýø§EƒÝ ÿÄu=j–e[?QŽ:Î™PS´S¹û?ˆó/pLT?¬]é?A¡ñ5·Fçe3cTŠBR‘!4t>ß‘9Ã:u¤=è@T+»J8S©ø»ª¬.Fã>ægêPB*?D[Xù›Rú‘ùùˆ–:l›˜?­b~­Î11uØ61CkÅLÓV1‹°mbF¶Š©ÄiS‡m³o«˜QØúüÑaÛÄŒm³z…ñˆ˜:l›˜‰µb&­ ¶MÌÔV1ã¨õ¤Ã¯/¦û`¿@õ>?6¿'lTuõÈif{|4-jI3›Þ£iaKÚƒÿHìÓô§ŠGÒÌÞçhZ%Õ±4³í<šÖo¦™ÖüSìú   ÿÿ PK     ! nÿˆÉ  ö     word/fontTable.xmlÜ’]kÛ0†ïûB÷?e×ù˜©S¶®?ÁØEÛý Y‘mQ}%^þýŽ?Ò6K;»¨…±üéÑñƒ¯®M¶Òƒr6§ñ„Q"­pke«œþ|X],(?ÀíškgeNwèõòã‡«6+?
-@p¿…ÌˆœÖ!4Y?¨¥á0q?´X,?7<à«¯"Ãýã¦¹Î4<¨BivQÂØŒŽ
-Å•¥ò«#mè÷G^j$:µj`OkO¡µÎ¯ï„Ào6zà®ì&N?@F	ïÀ•a‚3vÔ£p{Ìú™ÑÏ€éy€ä	`Dö­²ÎóB£|ì„ Œ.Gû¤Í,7X¸ß™Âé>o¸u c,m¹Î)›âˆY×ÕœÍð9esuEÍ=ÈŽ1,L†¸äFéÝ>õÎp;D½Ï·Ü«®§¡ªÂÂ
-†œñ¢CãOu˜$Gk.Ñs‡Iüb
-ž
-ŽD<(#?ü?-¹ë;ÍH‚cÆ.ÑDŠw‚³ôu#ýIÿnä{NnW«g#7˜ÌÓ/GF>ýÍHÿœÓ?Üp­
-¯Þ0±ê
-t#EÉY& U ç›øü§‰$?ÿOä»ªêð¦?ÎÂ;õ1N`ù  ÿÿ PK     ! 
-Œ‚Ù  Ú   docProps/app.xml ¢(                                                                                                                                                                                                                                                                  œSËnÛ0¼è?¼Ç”Ü¤?€fP8(rhV’3K­l¢I?#î×w)Õ*ÝöT?f‡«áìƒâæe°Õb2Þ­X³¨YNûÎ¸ÝŠ=´Ÿ.Þ³*¡r?²ÞÁŠ!±ùú•ØD ¢?T‘„K+¶G×œ'½‡A¥;:é}RwÜ÷½Ñpëõó ù²®ßrxAptad“âõÿW´ó:ûK?í1?ž-Á*ù5ÿiŸ	ÑzT¶5È†è9µƒ$ß>ñäc—ä²ù øÅz¯¢ÒHÍ“ÍòŠ2B|Á­?ú*¿}ò=V÷£Ù*^¦*`ú9<ÊZð2Ÿ?#
-Ñ"oQí¢
-{2”
-Î‘ØjeaMµË^Ù‚ÿ&Ä¨<×?2Ùà¯ ÑÇ*™4Ù%«¾©¹c+vPÑ(‡lJ›‚Û?0ÊÖ %í9a™Vbs™;;?óÄ1=>w7Þ?î{ª
-ÿa¶)ÍŽ&«…?ÒÙéŽ?T×~ÊQƒùŒ¨ÁßÓChým^Ž_=<'‹¹?ÜoƒÒy:—ïêrŠ#±%:é<”™wTB´ùú×í ;åü}?wêqzª²¹ZÔô?Ktâhæ7$  ÿÿ PK-      ! 2‘oWf  ¥                   [Content_Types].xmlPK-      ! ‘·ï   N               Ÿ  _rels/.relsPK-      ! ³¾‹  ¶               ¿  word/_rels/document.xml.relsPK-      ! ­R­À	  +Ž               	  word/document.xmlPK-      ! ªR%ß#  ‹               õ  word/theme/theme1.xmlPK-      ! vy½å  ¥
-               K  word/settings.xmlPK-      ! )=ôe  m               _  word/webSettings.xmlPK-      ! ?Z35   p               ö  word/styles.xmlPK-      ! ÈÏ.#D  ‰               C*  docProps/core.xmlPK-      ! ¼-¦¬Î  p&               ¾,  word/numbering.xmlPK-      ! nÿˆÉ  ö               ¼0  word/fontTable.xmlPK-      ! 
-Œ‚Ù  Ú               µ2  docProps/app.xmlPK        Ä5    

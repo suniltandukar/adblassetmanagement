@@ -55,11 +55,11 @@ ResultSet branchdb=(ResultSet) session.getAttribute("userdetail");
 								<tr>
 									<td>
                                        <h5>Input Bill Date(B.S.)</h5><span class="staffcheck"></span>
-                                       <input type="text" name="billdate" class="form-control"   value="">
+                                       <input type="text" name="billdate" class="form-control" id="nepaliDate1"  value="">
                                    	</td>
                                    	<td>
                                        <h5>Input Bill Date(A.D.)</h5><span class="staffcheck"></span>
-                                       <input type="text" name="billdateen" class="form-control"   value="">
+                                       <input type="text" name="billdateen" class="form-control" id="englishDate1"  value="">
                                    	</td>
                                    
 								</tr>

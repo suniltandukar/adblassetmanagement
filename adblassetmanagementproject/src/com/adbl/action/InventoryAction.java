@@ -157,4 +157,12 @@ public class InventoryAction {
 		return inventory;
 	}
 
+	public void deleteinventory(HttpServletRequest request, HttpServletResponse response) {
+		String itemcode=request.getParameter("itemcode");
+		
+		InventoryDao idao=new InventoryDaoImpl();
+		idao.deleteinventorydao(itemcode);
+		
+	}
+
 }

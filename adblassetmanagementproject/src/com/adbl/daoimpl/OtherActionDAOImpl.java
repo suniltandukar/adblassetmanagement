@@ -18,23 +18,19 @@ public class OtherActionDAOImpl implements OtherActionDAO {
 		con=DBConnection.getConnectionNext(bill.getBranchdb());
 		
 		try {
-			ps=con.prepareStatement("insert into billtbl(billno,companyname,billdate,billdateen,billimagename) values(?,?,?,?,?)");
+			ps=con.prepareStatement("insert into billtbl(billno,companyname,billdate,billdateen,billimageoriginalname) values(?,?,?,?,?)");
 			ps.setString(1,bill.getBillno() );
 			ps.setString(2,bill.getCompanyname() );
 			ps.setString(3,bill.getBilldate() );
 			ps.setString(4, bill.getBilldateen());
 			ps.setString(5, bill.getBillimagename());
 			rs=ps.executeUpdate();
-			
-			
-		
 			if (rs > 0) {
 				con.close();
 				ps = null;
 				rs = 0;
 				return true;
 			}
-			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -51,28 +47,19 @@ public class OtherActionDAOImpl implements OtherActionDAO {
 		String query="";
 		
 		con=DBConnection.getConnection();
-		
 		try {
 			ps=con.prepareStatement(query);
 			ps.setString(1, name);
 			rs=ps.executeQuery();
-			
 			while(rs.next()){
-				
-				
 				ps=null;
 				rs=null;
 				con.close();
 				return null;
-				
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-				
-		
-				
 		return null;
 	}
 

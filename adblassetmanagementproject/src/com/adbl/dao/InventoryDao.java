@@ -23,5 +23,6 @@ public interface InventoryDao {
 	public boolean inventorydao(Inventory inventory,String additionaldetailid, String item_code,String transactionid);
 	public boolean editalldao(Inventory inventory,String additionaldetailid);
 	public boolean editalldaocodechanged(Inventory inventory, String additionaldetailid, String generated_itemcode);
+	public void deleteinventorydao(String itemcode);
 	
 }
