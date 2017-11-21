@@ -76,7 +76,7 @@ public class TransferDaoImpl implements TransferDao{
 			e.printStackTrace();
 		}
 		return false;
-	}
+	}//transfer id
 	public String gettransferid(){
 		String id="";
 		String query="select max(transferid) as transferid from transfertbl;";

@@ -235,6 +235,7 @@ display:block;}
             <li id="nav1" ><a href="uploadbill.click" target="iframe_a"><i class="fa fa-circle-o" ></i> Upload Bill</a></li>
             <li id="nav2" ><a href="viewbill.click" target="iframe_a"><i class="fa fa-circle-o" ></i> View Bill</a></li>
             <li id="nav3" ><a href="deletebill.click" target="iframe_a"><i class="fa fa-circle-o" ></i> Delete Bill</a></li>
+            <li id="nav4" ><a href="downloadbill.click" target="iframe_a"><i class="fa fa-circle-o" ></i> Download Bill</a></li>
             
           </ul>
         </li>
