@@ -1,10 +1,14 @@
 package com.adbl.dao;
 
+import com.adbl.model.Bill;
+
 public interface OtherActionDAO {
 
-	boolean uploadCVDAO(String name, String filename);
+	
 
 	String downloadFileNameDAO(String name);
+
+	boolean uploadbillDao(Bill bill);
 	
 	
 	

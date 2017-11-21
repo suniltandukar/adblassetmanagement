@@ -71,7 +71,7 @@ ResultSet group=(ResultSet) i.getgroup();%>
                                         <tr>
                                             <td>
                                                 <h5>Group Name</h5>
-                                                <select class="form-control" name="groupcode" form="form">
+                                                <select class="form-control" name="groupcode" form="form" required>
                                                 	<option value="" selected>Select group</option>
                                                 	<%while(group.next()){ %>
                                                 	<option value="<%=group.getString("groupcode")%>"><%=group.getString("groupname") %></option>
@@ -103,12 +103,12 @@ ResultSet group=(ResultSet) i.getgroup();%>
                                             <td>
                                                 <h5>Purchase Date (B.S.)</h5> <input type="text"
                                                 name="purchasedate" class="form-control" id="nepaliDate2"
-                                                placeholder="YYYY-MM-DD"  form="form"> 
+                                                placeholder="YYYY-MM-DD"  form="form" required> 
                                             </td>
                                             <td>
                                                 <h5>Purchase Date (A.D.)</h5> <input type="text"
                                                 name="purchasedateen" class="form-control" id="englishDate2"
-                                                placeholder="YYYY-MM-DD"  form="form">
+                                                placeholder="YYYY-MM-DD"  form="form" required>
                                             </td>
                                         </tr>
                                         <tr>
@@ -126,7 +126,7 @@ ResultSet group=(ResultSet) i.getgroup();%>
                                 	<tr>
                                 		<td>
                                             <h5>Supplier</h5> <select class="form-control"
-                                            name="supplierid"  form="form">
+                                            name="supplierid"  form="form" required>
                                                 <option value="" selected>Select supplier</option>
                                                 <%while(supplier.next()){%>
                                                 	<option value="<%=supplier.getString("companyid") %>"><%=supplier.getString("companyname") %></option>
@@ -135,8 +135,7 @@ ResultSet group=(ResultSet) i.getgroup();%>
                                         </td>
                                 		<td>
                                             <h5>Fund Source</h5> <select class="form-control"
-                                            name="fundsource"  form="form">
-                                                <option value="" selected>Select fund source</option>
+                                            name="fundsource"  form="form" >
                                                 <%while(fundsource.next()){%>
                                                 	<option value="<%=fundsource.getString("fundsourceid") %>"><%=fundsource.getString("sourcename") %></option>
                                                 <%}%>
@@ -144,7 +143,7 @@ ResultSet group=(ResultSet) i.getgroup();%>
                                         </td>
                                         <td>
                                             <h5>Item Condition</h5> <select name="itemconditionid"
-                                            class="form-control"  form="form" >
+                                            class="form-control"  form="form" required>
                                             	<option value="">None Selected</option>
                                             	<%while(itemcondition.next()){ %>
                                             	<option value="<%=itemcondition.getString("itemconditionid")%>"><%=itemcondition.getString("itemconditionname") %></option>
@@ -212,7 +211,6 @@ ResultSet group=(ResultSet) i.getgroup();%>
                                         <td>
                                             <h5>Company Name</h5> <select class="form-control"
                                             name="amccompanyid" form="form">
-                                                <option value="" selected>Select Company</option>
                                                 <%while(companylist1.next()) {%>
                                                 <option value="<%=companylist1.getString("companyid")%>"><%=companylist1.getString("companyname") %></option>
                                                 <%} companylist1.close();%>
@@ -257,7 +255,6 @@ ResultSet group=(ResultSet) i.getgroup();%>
                                         <td>
                                             <h5>Company Name</h5> <select class="form-control"
                                             name="insurancecompanyid"  form="form">
-                                              <option value="" selected>Select Company</option>
                                                 <%while(companylist2.next()) {%>
                                                 <option value="<%=companylist2.getString("companyid")%>"><%=companylist2.getString("companyname") %></option>
                                                 <%} %>

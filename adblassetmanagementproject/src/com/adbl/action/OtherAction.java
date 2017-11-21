@@ -10,49 +10,43 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.adbl.dao.OtherActionDAO;
 import com.adbl.daoimpl.OtherActionDAOImpl;
+import com.adbl.model.Bill;
+import com.oreilly.servlet.MultipartRequest;
+
 
 
 
 public class OtherAction {
+	private final String UPLOAD_DIRECTORY = "C:/Users/Sunil/git/adblassetmanagementproject/WebContent/view/uploadedbills";
 
 	public void saveFileData(HttpServletRequest request,
-			HttpServletResponse response, Map<String, String> formMap) {
-		
-		String name=request.getParameter("name");
-		
-		String filename=formMap.get("fileName");
-		
+			HttpServletResponse response, Bill bill) {
+		    	
 		
 		OtherActionDAO oad=new OtherActionDAOImpl();
 		
-		boolean status=oad.uploadCVDAO(name,filename);
+		boolean status=oad.uploadbillDao(bill);
 		
 		if(status){
 			
-			request.setAttribute("msg", "CV Uploaded.");
-			RequestDispatcher rd=request.getRequestDispatcher("employersuccessful.jsp");
+			request.setAttribute("msg", "Bill Uploaded.");
+			request.setAttribute("billno", bill.getBillno());
+			request.setAttribute("companyname", bill.getCompanyname());
+			request.setAttribute("billname", bill.getBillimagename());
+			RequestDispatcher rd=request.getRequestDispatcher("view/bill/uploadbill.jsp");
 			try {
 				rd.forward(request, response);
-			} catch (ServletException e) {
-				// TODO Auto-generated catch block
+			} catch (Exception e) {
 				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
+			} 
 		}
 		
 		else{
 			request.setAttribute("error", "Upload UnSuccessful! Please, try again.");
-			RequestDispatcher rd=request.getRequestDispatcher("employersuccessful.jsp");
+			RequestDispatcher rd=request.getRequestDispatcher("view/bill/uploadbill.jsp");
 			try {
 				rd.forward(request, response);
-			} catch (ServletException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 			

@@ -44,7 +44,7 @@
     <servlet-name>NavigationController</servlet-name>
     <url-pattern>*.click</url-pattern>
   </servlet-mapping>
-   <servlet>
+  <servlet>
     <description></description>
     <display-name>CheckController</display-name>
     <servlet-name>CheckController</servlet-name>
@@ -54,14 +54,16 @@
     <servlet-name>CheckController</servlet-name>
     <url-pattern>*.check</url-pattern>
   </servlet-mapping>
-   <servlet>
+    <servlet>
     <description></description>
-    <display-name>FileUploadController</display-name>
-    <servlet-name>FileUploadController</servlet-name>
-    <servlet-class>com.adbl.controller.FileUploadController</servlet-class>
+    <display-name>UploaderController</display-name>
+    <servlet-name>UploaderController</servlet-name>
+    <servlet-class>com.adbl.controller.UploaderController</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>FileUploadController</servlet-name>
+    <servlet-name>UploaderController</servlet-name>
     <url-pattern>*.upload</url-pattern>
   </servlet-mapping>
+
+  
 </web-app>

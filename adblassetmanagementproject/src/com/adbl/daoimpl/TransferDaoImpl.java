@@ -47,21 +47,7 @@ public class TransferDaoImpl implements TransferDao{
 		return false;
 	}
 
-	public String gettransferid(){
-		String id="";
-		String query="select max(transferid) as transferid from transfertbl;";
-		try{
-			ps=con.prepareStatement(query);
-			rs=ps.executeQuery();
-			while(rs.next()){
-				id=rs.getString("transferid");
-				return id;
-			}
-		}catch(Exception e){
-			System.out.println(e);
-		}
-		return null;
-	}
+
 	
 
 	public boolean setissuestatuspending(String issuedby, String issuedto, String branchby, String branchto,
@@ -161,4 +147,11 @@ public class TransferDaoImpl implements TransferDao{
 				
 	}
 
+	@Override
+	public String gettransferid() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
 }
