@@ -76,11 +76,8 @@ public class TransferDaoImpl implements TransferDao{
 			e.printStackTrace();
 		}
 		return false;
-<<<<<<< HEAD
 	}
-	
-=======
-	}//transfer id
+
 	public String gettransferid(){
 		String id="";
 		String query="select max(transferid) as transferid from transfertbl;";
@@ -96,7 +93,6 @@ public class TransferDaoImpl implements TransferDao{
 		}
 		return null;
 	}
->>>>>>> branch 'master' of https://github.com/suniltandukar/adblassetmanagement.git
 	public String getissueid(){
 		String id="";
 		String query="select max(issueid) as issueid from issuetbl;";
@@ -164,12 +160,6 @@ public class TransferDaoImpl implements TransferDao{
 		
 		return null;
 				
-	}
-
-	@Override
-	public String gettransferid() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	
