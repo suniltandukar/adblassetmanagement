@@ -48,7 +48,6 @@ public class InventoryEditAction {
 		String vehicleno=request.getParameter("vehicleno");
 		String chesisno=request.getParameter("chesisno");
 		String engineno=request.getParameter("engineno");
-		String warrantyid=request.getParameter("warrantyid");
 		String warrantystart=request.getParameter("warrantystart");
 		String warrantystarten=request.getParameter("warrantystarten");
 		String warrantyend=request.getParameter("warrantyend");
@@ -60,12 +59,17 @@ public class InventoryEditAction {
 		String previousdate=request.getParameter("previousdate");
 		String previousgroupcode=request.getParameter("previousgroupcode");
 		
+		String amcid=request.getParameter("amcid");
+		String insuranceid=request.getParameter("insuranceid");
+		String inventoryotherdetailid=request.getParameter("inventoryotherdetailid");
+		String warrantyid=request.getParameter("warrantyid");
+		
 		Inventory inventory=new Inventory();
 		inventory.setAmccompanyid(amccompanyid);
 		inventory.setAmccost(amccost);
 		inventory.setAmcend(amcend);
 		inventory.setAmcenden(amcenden);
-		inventory.setAmcstart(amcstarten);
+		inventory.setAmcstart(amcstart);
 		inventory.setAmcstarten(amcstarten);
 		inventory.setAmount(insurancepremuimamount);
 		inventory.setChesisno(chesisno);
@@ -76,16 +80,16 @@ public class InventoryEditAction {
 		inventory.setFundsource(fundsource);
 		inventory.setGroupcode(groupcode);
 		inventory.setInsurancecompanyid(insurancecompanyid);
-		inventory.setInsuranceend(insuranceenden);
+		inventory.setInsuranceend(insuranceend);
 		inventory.setInsuranceenden(insuranceenden);
 		inventory.setInsurancepremuimamount(insurancepremuimamount);
-		inventory.setInsurancestart(insurancestarten);
+		inventory.setInsurancestart(insurancestart);
 		inventory.setInsurancestarten(insurancestarten);
 		inventory.setItemname(itemname);
 		inventory.setItemsize(itemsize);
 		inventory.setLegacyid(legacyid);
 		inventory.setModel(model);
-		inventory.setPurchasedate(purchasedateen);
+		inventory.setPurchasedate(purchasedate);
 		inventory.setPurchasedateen(purchasedateen);
 		inventory.setQuantity(quantity);
 		inventory.setRate(rate);
@@ -93,15 +97,19 @@ public class InventoryEditAction {
 		inventory.setTransactionid(transactionid);
 		inventory.setUnitname(unitname);
 		inventory.setVehicleno(vehicleno);
-		inventory.setWarrantyid(warrantyid);
-		inventory.setWarrantyend(warrantyenden);
+		inventory.setWarrantyend(warrantyend);
 		inventory.setWarrantyenden(warrantyenden);
-		inventory.setWarrantystart(warrantystarten);
+		inventory.setWarrantystart(warrantystart);
 		inventory.setWarrantystarten(warrantystarten);
 		inventory.setItemconditionid(itemconditionid);
 		inventory.setMacaddress(macaddress);
 		inventory.setLicenseno(licenseno);
 		inventory.setItemcode(itemcode);
+		
+		inventory.setAmcid(amcid);
+		inventory.setInsuranceid(insuranceid);
+		inventory.setInventoryotherdetailid(inventoryotherdetailid);
+		inventory.setWarrantyid(warrantyid);
 		
 		
 		String value=null;
@@ -122,35 +130,24 @@ public class InventoryEditAction {
 		}
 		String branchdb=request.getParameter("branchdb");
 		InventoryDao idao=new InventoryDaoImpl(branchdb);
-		try {
-			boolean stats=false;
-			String[] year=purchasedateen.split("-");
-			if(previousgroupcode.equals(groupcode) && previousdate.equals(year[0]))
-			{
-			String additionaldetailid=idao.selectadditionaldetailid();
-			stats=idao.editalldao(inventory,additionaldetailid);
+		boolean stats=false;
+		String updated_itemcode="";
+		String[] year=purchasedateen.split("-");
+		if(previousgroupcode.equals(groupcode) && previousdate.equals(year[0]))// need to be thought
+		{
 			inventory.setUpdated_itemcode(itemcode);
-			}
-
+			stats=idao.editalldaocodechanged(inventory);
+		}
 		else{
-				
-				Generator g=new Generator(branchdb);
-				String updated_itemcode=g.itemcodegenerator(groupcode, year[0]);
-				inventory.setUpdated_itemcode(updated_itemcode);
-
-				String additionaldetailid=idao.selectadditionaldetailid();
-
-			 stats=idao.editalldaocodechanged(inventory, additionaldetailid,updated_itemcode);
-				
-			}
-			
-			if(stats)
-			{
-			return inventory;
-			}
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
+			Generator g=new Generator(branchdb);
+			updated_itemcode=g.itemcodegenerator(groupcode, year[0]);
+			inventory.setUpdated_itemcode(updated_itemcode);
+			stats=idao.editalldaocodechanged(inventory);
+		}
+		
+		if(stats)
+		{
+		return inventory;
 		}
 		return null;
 	}

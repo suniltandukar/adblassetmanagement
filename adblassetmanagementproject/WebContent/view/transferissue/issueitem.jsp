@@ -48,16 +48,15 @@ display:none;}
 									</td>
 								</tr>
 								<tr>
-									<td>
-										<input type="hidden" name="branchdb" value="<%=userdetail.getString("branchdb")%>">
-                                       <h5>Issued to (username):</h5><span class="staffcheck"></span>
-                                       <input type="text" name="issuedto" class="form-control"  form="form" value="">
-                                   	</td>
                                    	<td>
                                        <h5>Issued to (branchname):</h5><span class="staffcheck"></span>
                                        <input type="text" name="branchto" class="form-control"  form="form" value="">
                                    	</td>
-                                   
+                                   <td>
+										<input type="hidden" name="branchdb" value="<%=userdetail.getString("branchdb")%>">
+                                       <h5>Issued to (username):</h5><span class="staffcheck"></span>
+                                       <input type="text" name="issuedto" class="form-control"  form="form" value="">
+                                   	</td>
 								</tr>
 								
 								<tr>
@@ -106,6 +105,7 @@ display:none;}
     			</div>
     		</div>
     	</div>
+    	<script src="assets/js/dateConverter.js"></script>
    <script>
 function myFunction() {
     var table = document.getElementById("table");

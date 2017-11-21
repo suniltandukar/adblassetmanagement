@@ -10,15 +10,15 @@
 		</div>
 <div class="panel panel-default" style="width: 100%; margin: auto;">
     <div class="panel-heading">
-    	<h4>Edit Inventory</h4>
-    	<hr>
     	<h6><strong>Insert Item Code</strong></h6>
     	<%String itemcode= request.getParameter("id");%>
     	<%if(itemcode!=null){ %>
-    	<input type="text" class="form-control itemcode" style="width:20%;" value="<%=itemcode%>">  
+    	<input type="text" class="form-control itemcode" style="width:20%;" value="<%=itemcode%>"> 
     	<%}else{ %> 
     	<input type="text" class="form-control itemcode" style="width:20%;"> 
     	<%} %>
+    	<br>
+    	<input type="submit" class="btn btn-info searchbtn" value="SEARCH" >
     </div>
      </div>
 <div class="displayform">
@@ -26,9 +26,9 @@
 <script>
 $(document).ready(function()
         {
-	 $(".itemcode").keyup(function()
+	 $(".searchbtn").click(function()
 		        {
-		 var id=$(this).val();
+		 var id=$(".itemcode").val();
 		 var dataString = 'id='+ id;
 		 $.ajax
 	        ({
