@@ -54,6 +54,7 @@ ResultSet inventory=(ResultSet) i.getinventorydata();%>
 					                                        <th>Model</th>
 					                                        <th>Decission Date</th>
 					                                        <th>Depreciation Rate</th>
+					                                        <th><i class="fa fa-cog" aria-hidden="true"></i></th>
 					                                    </tr>
 					                                </thead>
 					                                <tbody>
@@ -65,6 +66,13 @@ ResultSet inventory=(ResultSet) i.getinventorydata();%>
 					                                        <td><%=inventory.getString("model") %></td>
 					                                        <td><%=inventory.getString("decisiondate") %></td>
 					                                        <td><%=inventory.getString("depreciationrate") %></td>
+					                                        <td><div class="dropdown">
+		    													<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Action
+		    													<span class="caret"></span></button>
+															    <ul class="dropdown-menu">
+															    	<li><a href="" target="_blank" style="color:red;"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</a></li>
+															    </ul>
+															    
 					                                    </tr>
 					                                    <%} %>
 					                                </tbody>

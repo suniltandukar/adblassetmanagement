@@ -14,7 +14,7 @@ public class InventoryDaoImpl implements InventoryDao {
 		con=DBConnection.getConnectionNext(branchdb);
 	}
 	public ResultSet getinventorydata(){
-		String query="select * from inventorytbl";
+		String query="select * from inventoryitemdetail";
 		try{
 			stmt=con.createStatement();
 			rs=stmt.executeQuery(query);
