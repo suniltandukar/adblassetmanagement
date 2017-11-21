@@ -26,14 +26,14 @@ display:block;}
 
   <header class="main-header" >
     <!-- Logo -->
-    <a href="" class="logo" style="background-color:#4CAF50;">
+    <a href="" class="logo" style="background-color:#007B38;">
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>ADBL</b></span>
       <!-- logo for regular state and mobile devices -->
       <span class="logo-lg"><b><%=userdetail.getString("username") %></b>&nbsp;ADBL</span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
-    <nav class="navbar navbar-static-top" style="background-color:#4CAF50;">
+    <nav class="navbar navbar-static-top" style="background-color:#007B38;">
       <!-- Sidebar toggle button-->
       <a  class="sidebar-toggle" data-toggle="push-menu" role="button">
         <span class="sr-only">Toggle navigation</span>
@@ -232,9 +232,9 @@ display:block;}
             </span>
           </a>
           <ul class="treeview-menu">
-            <li id="" ><a href="uploadbill.click" target="iframe_a"><i class="fa fa-circle-o" ></i> Upload Bill</a></li>
-            <li id="" ><a href="viewbill.click" target="iframe_a"><i class="fa fa-circle-o" ></i> View Bill</a></li>
-            <li id="" ><a href="deletebill.click" target="iframe_a"><i class="fa fa-circle-o" ></i> Delete Bill</a></li>
+            <li id="nav1" ><a href="uploadbill.click" target="iframe_a"><i class="fa fa-circle-o" ></i> Upload Bill</a></li>
+            <li id="nav2" ><a href="viewbill.click" target="iframe_a"><i class="fa fa-circle-o" ></i> View Bill</a></li>
+            <li id="nav3" ><a href="deletebill.click" target="iframe_a"><i class="fa fa-circle-o" ></i> Delete Bill</a></li>
             
           </ul>
         </li>

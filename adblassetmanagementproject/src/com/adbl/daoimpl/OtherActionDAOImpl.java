@@ -48,21 +48,22 @@ public class OtherActionDAOImpl implements OtherActionDAO {
 		PreparedStatement ps=null;
 		ResultSet rs=null;
 		Connection con=null;
+		String query="";
 		
 		con=DBConnection.getConnection();
 		
 		try {
-			ps=con.prepareStatement("select cv from jobseeker where username=?");
+			ps=con.prepareStatement(query);
 			ps.setString(1, name);
 			rs=ps.executeQuery();
 			
 			while(rs.next()){
-				String file=rs.getString("cv");
+				
 				
 				ps=null;
 				rs=null;
 				con.close();
-				return file;
+				return null;
 				
 			}
 		} catch (SQLException e) {

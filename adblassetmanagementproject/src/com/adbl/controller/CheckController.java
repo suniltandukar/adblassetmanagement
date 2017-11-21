@@ -33,6 +33,7 @@ public class CheckController extends HttpServlet {
 			CheckAction c=new CheckAction();
 			c.checkstaffcode(request,response);
 		}
+		
 	
 	}
 

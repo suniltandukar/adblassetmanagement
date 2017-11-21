@@ -96,6 +96,11 @@ public class NavigationController extends HttpServlet {
 			RequestDispatcher rd=request.getRequestDispatcher("");
 			rd.forward(request, response);
 		}
+		if(uri.endsWith("downloadbill.click"))
+		{
+			RequestDispatcher rd=request.getRequestDispatcher("view/bill/downloadbill.jsp");
+			rd.forward(request, response);
+		}
 		
 		
 	

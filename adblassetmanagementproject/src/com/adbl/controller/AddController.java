@@ -23,6 +23,8 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import com.adbl.action.InitialDetailAddAction;
 import com.adbl.action.TransferAction;
 import com.adbl.action.UserAction;
+import com.adbl.dao.OtherActionDAO;
+import com.adbl.daoimpl.OtherActionDAOImpl;
 import com.adbl.action.OtherAction;
 
 /**
@@ -109,8 +111,17 @@ public class AddController extends HttpServlet {
 			transfer.issueitems(request, response);
 		}
 		
-		
-		
+		else if (uri.endsWith("downloadbill.download")) {
+
+			String name = request.getParameter("id");
+
+			OtherActionDAO oad = new OtherActionDAOImpl();
+			String filename = oad.downloadFileNameDAO(name);
+			request.setAttribute("filename", filename);
+			RequestDispatcher rd = request.getRequestDispatcher("downloadbill.jsp");
+			rd.forward(request, response);
+
+		}
 	}
 
 }
