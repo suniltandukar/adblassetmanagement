@@ -55,11 +55,11 @@ ResultSet branchdb=(ResultSet) session.getAttribute("userdetail");
 								<tr>
 									<td>
                                        <h5>Input Bill Date(B.S.)</h5><span class="staffcheck"></span>
-                                       <input type="text" name="billdate" class="form-control"   value="">
+                                       <input type="text" name="billdate" class="form-control" id="nepaliDate1"  value="">
                                    	</td>
                                    	<td>
                                        <h5>Input Bill Date(A.D.)</h5><span class="staffcheck"></span>
-                                       <input type="text" name="billdateen" class="form-control"   value="">
+                                       <input type="text" name="billdateen" class="form-control" id="englishDate1"  value="">
                                    	</td>
                                    
 								</tr>
@@ -67,7 +67,8 @@ ResultSet branchdb=(ResultSet) session.getAttribute("userdetail");
 									<td>
                                        <h5>Attach Bill Image</h5> 
                                        <input type="file" name="billimagename" class="form-control"   value="">
-                                   	</td> 
+                                      <a><img src="C:\Users\Sunil\git\adblassetmanagement\adblassetmanagementproject\WebContent\view\uploadedbills\maxresdefault.jpg" target="_blank">image</img>
+                                   </a> 	</td> 
                                    	</tr>
 							</tbody>
 						</table> 
@@ -83,6 +84,8 @@ ResultSet branchdb=(ResultSet) session.getAttribute("userdetail");
           Bill No.:: ${billno }<br>
           Company Name:: ${companyname }<br>
           Image Name:: ${billname }
+          
+          <a href="C:/Users/Sunil/git/adblassetmanagement/adblassetmanagementproject/WebContent/view/uploadedbills/${billname }" target="_blank">View</a>
          
           
          

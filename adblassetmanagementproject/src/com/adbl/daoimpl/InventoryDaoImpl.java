@@ -6,6 +6,8 @@ import com.adbl.model.Inventory;
 import com.mysql.jdbc.Connection;
 import com.org.dbconnection.DBConnection;
 
+import sun.font.CreatedFontTracker;
+
 public class InventoryDaoImpl implements InventoryDao {
 	Connection con=null;
 	Statement stmt=null;
@@ -267,6 +269,33 @@ public class InventoryDaoImpl implements InventoryDao {
 			}
 		}
 		return false;
+	}
+	public boolean deleteinventorydao(String itemcode, String inventoryotherdetailid, String amcid, String insuranceid, String warrantyid)
+	{
+		String query1="delete from inventoryotherdetailtbl where inventoryotherdetailid='"+inventoryotherdetailid+"'";
+		String query2="delete from amctbl where amcid='"+amcid+"'";
+		String query3="delete from insurancetbl where insuranceid='"+insuranceid+"'";
+		String query4="delete from warrantytbl where warrantyid='"+warrantyid+"'";
+		String query5="delete from inventorytbl where itemcode='"+itemcode+"'";
+				
+		
+		try {
+			stmt=con.createStatement();
+			stmt.addBatch(query5);
+			stmt.addBatch(query1);
+			stmt.addBatch(query2);
+			stmt.addBatch(query3);
+			stmt.addBatch(query4);
+			stmt.executeBatch();
+			return true;
+						
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("deleteinventory dao error");
+		}
+		return false;
+	
+		
 	}
 	
 }

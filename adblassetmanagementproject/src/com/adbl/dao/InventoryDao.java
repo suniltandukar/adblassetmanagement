@@ -21,6 +21,7 @@ public interface InventoryDao {
 	public String[] selectids() throws SQLException;
 	public String selectadditionaldetailid() throws SQLException;
 	public boolean inventorydao(Inventory inventory,String additionaldetailid, String item_code,String transactionid);
+	public boolean deleteinventorydao(String itemcode, String inventoryotherdetailid, String amcid, String insuranceid, String warrantyid);
 	public boolean editalldaocodechanged(Inventory inventory);
 	
 }
