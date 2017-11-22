@@ -50,22 +50,22 @@ public class TransferDaoImpl implements TransferDao{
 
 	
 
-	public boolean setissuestatuspending(String issuedby, String issuedto, String branchby, String branchto,
+	public boolean setissuestatuspending(String issuedby, String issuedto, String branchby,
 			String issueddate, String issueddateen, String itemcode, String branchdb)
 	{
 		String statusid="3";
 		int r=0;
-		String query="insert into issuetbl(issuedby,branchby,issuedto,branchto,issueddate,issueddateen,statusid) values(?,?,?,?,?,?,?)";
+		String query="insert into issuetbl(issuedby,branchby,issuedto,issueddate,issueddateen,statusid) values(?,?,?,?,?,?)";
 		try {
 			
 			ps=con.prepareStatement(query);
 			ps.setString(1, issuedby);
 			ps.setString(2, branchby);
 			ps.setString(3, issuedto);
-			ps.setString(4, branchto);
-			ps.setString(5, issueddate);
-			ps.setString(6, issueddateen);
-			ps.setString(7, statusid);
+			
+			ps.setString(4, issueddate);
+			ps.setString(5, issueddateen);
+			ps.setString(6, statusid);
 			r=ps.executeUpdate();
 			
 			if(r>0)
@@ -162,6 +162,18 @@ public class TransferDaoImpl implements TransferDao{
 		
 		return null;
 				
+	}
+	public ResultSet getissueditemdetails(String username){
+		String query="SELECT inventorytbl.*, issuetbl.*, statustbl.statusname from inventorytbl JOIN issuetbl on inventorytbl.issueid=issuetbl.issueid join statustbl on issuetbl.statusid=statustbl.statusid  WHERE issuetbl.issuedto='"+username+"'";
+		try{
+			ps=con.prepareStatement(query);
+			rs=ps.executeQuery();
+			
+		}
+		catch(Exception e)
+		{
+			System.out.println("TransferDaoImpl getissueditemdetails error"+e);
+		}		return rs;
 	}
 
 	

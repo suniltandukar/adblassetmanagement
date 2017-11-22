@@ -43,6 +43,8 @@ public class OtherActionDAOImpl implements OtherActionDAO {
 	}
 
 	public String downloadFileNameDAO(String name) {
+
+	
 		String query="";
 		
 		con=DBConnection.getConnection();
@@ -52,7 +54,7 @@ public class OtherActionDAOImpl implements OtherActionDAO {
 			rs=ps.executeQuery();
 			while(rs.next()){
 				ps=null;
-				rs=null;
+				rs.close();
 				con.close();
 				return null;
 			}

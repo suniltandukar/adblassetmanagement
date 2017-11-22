@@ -1,5 +1,9 @@
   <%@page import="java.sql.*" %>
-<%ResultSet userdetail=(ResultSet)session.getAttribute("userdetail"); %>
+  <%@page import="com.adbl.daoimpl.UserDaoImpl" %>
+   <%@page import="com.adbl.dao.UserDao" %>
+<%ResultSet userdetail=(ResultSet)session.getAttribute("userdetail");
+UserDao u=new UserDaoImpl();
+ResultSet username=u.selectusernames();%>
 <html>
 <head>
 <link rel="import" href="new.jsp">
@@ -48,14 +52,14 @@ display:none;}
 									</td>
 								</tr>
 								<tr>
-                                   	<td>
-                                       <h5>Issued to (branchname):</h5><span class="staffcheck"></span>
-                                       <input type="text" name="branchto" class="form-control"  form="form" value="">
-                                   	</td>
                                    <td>
 										<input type="hidden" name="branchdb" value="<%=userdetail.getString("branchdb")%>">
                                        <h5>Issued to (username):</h5><span class="staffcheck"></span>
-                                       <input type="text" name="issuedto" class="form-control"  form="form" value="">
+                                       <select name="issuedto" class="form-control"  form="form">
+                                       <%while(username.next()){ %>
+                                       <option value="<%=username.getString("username")%>"><%=username.getString("username")%></option>
+                                       <%} %>
+                                       </select>
                                    	</td>
 								</tr>
 								

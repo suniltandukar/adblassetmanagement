@@ -13,6 +13,7 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.adbl.dao.InventoryDao;
 import com.adbl.daoimpl.InventoryDaoImpl;
@@ -174,8 +175,7 @@ public class InventoryAction {
 		if(status)
 		{
 			request.setAttribute("msg", "File Deleted Successfully");
-			request.setAttribute("action", "delete")
-			;
+			request.setAttribute("action", "delete");
 			RequestDispatcher rd=request.getRequestDispatcher("view/inventory/viewinventory.jsp");
 			try {
 				rd.forward(request, response);
@@ -183,6 +183,24 @@ public class InventoryAction {
 				e.printStackTrace();
 			} 
 		}
+		
+	}
+	public boolean issueconfirmation(HttpServletRequest request, HttpServletResponse response){
+		HttpSession session=request.getSession();
+		ResultSet userdetail=(ResultSet)session.getAttribute("userdetail");
+		
+		String branchdb="";
+		try {
+			branchdb = userdetail.getString("branchdb");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		String issueid=request.getParameter("issueid");
+		String statusid=request.getParameter("id");
+		
+		InventoryDao i=new InventoryDaoImpl(branchdb);
+		Boolean status=i.issueconfirmation(issueid,statusid);
+		return status;
 		
 	}
 

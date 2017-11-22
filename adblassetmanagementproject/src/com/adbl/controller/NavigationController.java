@@ -1,6 +1,7 @@
 package com.adbl.controller;
 
 import java.io.IOException;
+import java.sql.ResultSet;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
@@ -79,6 +80,14 @@ public class NavigationController extends HttpServlet {
 		if(uri.endsWith("issueitem.click"))
 		{
 			RequestDispatcher rd=request.getRequestDispatcher("view/transferissue/issueitem.jsp");
+			rd.forward(request, response);
+		}
+		if(uri.endsWith("issueconfirmation.click"))
+		{
+			TransferAction t=new TransferAction();
+			ResultSet issueditemdetails=t.issueditemsdetails(request, response);
+			request.setAttribute("issueditemdetails", issueditemdetails);
+			RequestDispatcher rd=request.getRequestDispatcher("view/transferissue/issueconfirmation.jsp");
 			rd.forward(request, response);
 		}
 		if(uri.endsWith("uploadbill.click"))

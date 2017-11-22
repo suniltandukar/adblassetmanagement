@@ -74,7 +74,6 @@ public class TransferAction {
 		}
 		
 		String issuedto=request.getParameter("issuedto");
-		String branchto=request.getParameter("branchto");
 		String issueddate=request.getParameter("issueddate");
 		String issueddateen=request.getParameter("issueddateen");
 		String[] itemcode=new String[100];
@@ -83,7 +82,7 @@ public class TransferAction {
 		int i;	
 		
 		for(i=0;i<itemcode.length;i++){
-		tdao.setissuestatuspending(issuedby,issuedto,branchby,branchto,issueddate,issueddateen,itemcode[i],branchdb);
+		tdao.setissuestatuspending(issuedby,issuedto,branchby,issueddate,issueddateen,itemcode[i],branchdb);
 		String issueid=tdao.getissueid();
 		status=tdao.updateissueitemstatus(issueid, itemcode[i]);
 		}
@@ -99,5 +98,21 @@ public class TransferAction {
 			} 
 		}
 		
+	}
+	public ResultSet issueditemsdetails(HttpServletRequest request, HttpServletResponse response){
+		HttpSession session=request.getSession(true);
+		ResultSet userdetail=(ResultSet)session.getAttribute("userdetail");
+		String branchdb="";
+		String username="";
+		try {
+			 branchdb=userdetail.getString("branchdb");
+			 username=userdetail.getString("username");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		TransferDao t=new TransferDaoImpl(branchdb);
+		ResultSet issueditemdetails=t.getissueditemdetails(username);
+		
+		return issueditemdetails;
 	}
 }

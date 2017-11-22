@@ -12,5 +12,6 @@ public interface UserDao {
 	public boolean updateuserdao(String username, String staffcode, int roleid, String mid, String branchdb,String userid);
 	public boolean updateuserroledao(String roleid, String roledescription);
 	public boolean deleteuserroledao(String roleid);
+	public ResultSet selectusernames();
 
 }

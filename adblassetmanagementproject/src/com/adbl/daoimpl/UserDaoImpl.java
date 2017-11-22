@@ -68,8 +68,6 @@ public class UserDaoImpl implements UserDao {
 	public ResultSet getexistingusers()
 	{
 		 con=DBConnection.getConnection();
-	
-		
 		String query="select * from usertbl";
 		try{
 		ps=con.prepareStatement(query);
@@ -167,5 +165,18 @@ public class UserDaoImpl implements UserDao {
 		return false;
 		
 	}
-
+	public ResultSet selectusernames(){
+		 con=DBConnection.getConnection();
+		String query="select username from usertbl;";
+		try{
+			ps=con.prepareStatement(query);
+			rs=ps.executeQuery();
+		}
+		catch(Exception e){
+			System.out.println(e);
+		}
+		
+		return rs;
+	}
+	
 }
