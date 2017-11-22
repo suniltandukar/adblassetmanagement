@@ -1,4 +1,4 @@
-<link rel="import" href="new.jsp">
+
  <%String id=request.getParameter("id");%>
  <%@page import="java.sql.*"%>
 <%@page import='com.adbl.daoimpl.InventoryDaoImpl'%>
@@ -14,6 +14,11 @@ ResultSet fundsource=(ResultSet) i.getfundsourcelist();
 ResultSet itemcondition=(ResultSet) i.getitemcondition();
 ResultSet group=(ResultSet) i.getgroup();
 if(idetail.next()){ %>
+<html>
+	<head>
+		<link rel="import" href="new.jsp">
+	</head>
+	<body>
 <div class="panel panel-default" style="width: 100%; margin: auto;">
     <div class="panel-body">
         <div class="container">
@@ -38,9 +43,12 @@ if(idetail.next()){ %>
                     </ul>
                     <div class="tab-content">
                         <div id="1" class="tab-pane fade in active">
-                            <form method="post" action="updateinventory.adbl?id=<%=id %>" id="form">
-                            <input type="hidden" name="previousgroupcode" value="" form="form">
-                            <input type="hidden" name="inventory" value="/inventory" form="form">
+                            <form method="post" action="updateinventory.adbl?" id="form">
+                            <input type="hidden" form="form" name="amcid" value="<%=idetail.getString("amcid")%>">
+                            <input type="hidden" form="form" name="insuranceid" value="<%=idetail.getString("insuranceid")%>">
+                            <input type="hidden" form="form" name="inventoryotherdetailid" value="<%=idetail.getString("inventoryotherdetailid")%>">
+                            <input type="hidden" form="form" name="warrantyid" value="<%=idetail.getString("warrantyid")%>">
+                            <input type="hidden" name="previousgroupcode" value="<%=idetail.getString("groupcode") %>" form="form">
                             <input type="hidden" value="<%=branchdb.getString("branchdb")%>" name="branchdb">
                                 <table class="table" style="width: 80%;">
                                     <tbody>
@@ -124,7 +132,7 @@ if(idetail.next()){ %>
                                             <h5>Supplier</h5> <select class="form-control"
                                             name="supplierid"  form="form">
                                                 <%while(supplier.next()){%>
-                                                	<option value="<%=supplier.getString("companyid")%><% if(supplier.getString("companyid").equals(idetail.getString("supplierid"))) {%>selected<%}%>"><%=supplier.getString("companyname") %></option>
+                                                	<option value="<%=supplier.getString("companyid")%>" <% if(supplier.getString("companyid").equals(idetail.getString("supplierid"))) {%>selected<%}%>"><%=supplier.getString("companyname") %></option>
                                                 <%}%>
                                         </select>
                                         </td>
@@ -132,7 +140,7 @@ if(idetail.next()){ %>
                                             <h5>Fund Source</h5> <select class="form-control"
                                             name="fundsource"  form="form">
                                                 <%while(fundsource.next()){%>
-                                                	<option value="<%=fundsource.getString("fundsourceid") %> <%if(fundsource.getString("fundsourceid").equals(idetail.getString("fundsourceid"))){%>selected<%}%>"><%=fundsource.getString("sourcename") %></option>
+                                                	<option value="<%=fundsource.getString("fundsourceid") %>" <%if(fundsource.getString("fundsourceid").equals(idetail.getString("fundsourceid"))){%>selected<%}%>"><%=fundsource.getString("sourcename") %></option>
                                                 <%}%>
                                         </select>
                                         </td>
@@ -140,7 +148,7 @@ if(idetail.next()){ %>
                                             <h5>Item Condition</h5> <select name="itemconditionid"
                                             class="form-control"  form="form" >
                                             	<%while(itemcondition.next()){ %>
-                                            	<option value="<%=itemcondition.getString("itemconditionid")%> <%if(itemcondition.getString("itemconditionid").equals(idetail.getString("itemconditionid"))){%>selected<%}%>"><%=itemcondition.getString("itemconditionname") %></option>
+                                            	<option value="<%=itemcondition.getString("itemconditionid")%>" <%if(itemcondition.getString("itemconditionid").equals(idetail.getString("itemconditionid"))){%>selected<%}%>"><%=itemcondition.getString("itemconditionname") %></option>
                                             	<%} %>
                                             </select>
                                         </td>
@@ -161,14 +169,7 @@ if(idetail.next()){ %>
                                             <h5>Rate</h5> <input type="text" name="rate"
                                             class="form-control" form="form" value="<%=idetail.getString("rate")%>">
                                         </td>
-                                        <td>
-                                            <h5>Quantity</h5> <input type="text" name="quantity"
-                                            class="form-control"  form="form" value="">
-                                        </td>
-                                        <td>
-                                            <h5>Amount</h5> <input type="text" name="amount"
-                                            class="form-control"  form="form" value="">
-                                        </td>
+                                       
                                     </tr>
                                 </tbody>
                             </table>
@@ -245,7 +246,7 @@ if(idetail.next()){ %>
                                     <tr>
                                         <td>
                                             <h5>Premium Amount</h5> <input type="text"
-                                            name="insurancepremuimamount" id="insuranceamount" value="0"  class="form-control"  form="form" value="<%=idetail.getString("insurancepremiumamount") %>">
+                                            name="insurancepremuimamount" id="insuranceamount"   class="form-control"  form="form" value="<%=idetail.getString("insurancepremiumamount") %>">
                                         </td>
                                         <td>
                                             <h5>Company Name</h5> <select class="form-control"
@@ -337,4 +338,8 @@ if(idetail.next()){ %>
         </div>
     </div>
 </div>
+<script src="assets/js/dateConverter.js"></script>
+</body>
+</html>
+
 <%} %>

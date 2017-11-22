@@ -22,21 +22,8 @@ ResultSet inventory=(ResultSet) i.getinventorydata();%>
 			</nav>
 		</div>
 <div class="panel panel-default" style="width: 100%; margin: auto;">
-    <div class="panel-heading">
-        <h3>
-        <p id="message"></p>
-            <strong>INVENTORY</strong>
-        </h3>
-    </div>
+    
     <div class="panel-body">
-        <div class="container">
-        
-            <ul class="nav nav-tabs">
-                <li class="active"><a data-toggle="tab" data-target="#menu1">View
-                        Inventory</a></li>
-             </ul>
-              <div class="tab-content">
-                <div id="menu1" class="tab-pane fade in active">
 					<div class="panel panel-default" style="width: 100%;">
 					                        <div class="panel-heading">
 					                            <h6>
@@ -70,7 +57,7 @@ ResultSet inventory=(ResultSet) i.getinventorydata();%>
 		    													<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Action
 		    													<span class="caret"></span></button>
 															    <ul class="dropdown-menu">
-															    	<li><a href="deleteinventory.del?inventoryotherdetailid=<%=inventory.getString("inventoryotherdetailid") %>&itemcode=<%=inventory.getString("itemcode") %>&amcid=<%=inventory.getString("amcid") %>&insuranceid<%=inventory.getString("insuranceid") %>&warrantyid=<%=inventory.getString("warrantyid") %>&branchdb=<%=branchdb.getString("branchdb") %>"  style="color:red;"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</a></li>
+															    	<li><a class="clickbtn" href="deleteinventory.del?inventoryotherdetailid=<%=inventory.getString("inventoryotherdetailid") %>&itemcode=<%=inventory.getString("itemcode") %>&amcid=<%=inventory.getString("amcid") %>&insuranceid<%=inventory.getString("insuranceid") %>&warrantyid=<%=inventory.getString("warrantyid") %>&branchdb=<%=branchdb.getString("branchdb") %>"  style="color:red;"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</a></li>
 															    </ul>
 															    
 					                                    </tr>
@@ -79,9 +66,6 @@ ResultSet inventory=(ResultSet) i.getinventorydata();%>
 					                            </table>
 					                        </div>
 					                    </div>
-			                    </div>
-			                    </div>
-			                 </div>
 			            </div>
 			         </div>
 <div class="modal fade" id="myModal" role="dialog">
@@ -108,6 +92,9 @@ ResultSet inventory=(ResultSet) i.getinventorydata();%>
 			   $('#myModal').modal('show');
 			   <%}%>
 			} );
+		$('.clickbtn').click(function(){
+			return confirm('CONFIRM?');
+		});
 		
 </script>	
 </html>

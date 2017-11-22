@@ -183,7 +183,7 @@ display:block;}
         </li>
         <li class="treeview">
           <a href="#">
-            <i class="fa fa-bars"></i>
+            <i class="fa fa-exchange"></i>
             <span>Transfer/Issue</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
@@ -193,6 +193,21 @@ display:block;}
             <li id="" ><a href="transferitem.click" target="iframe_a"><i class="fa fa-circle-o" ></i> Transfer Items</a></li>
             <li id="" ><a href="issueitem.click" target="iframe_a"><i class="fa fa-circle-o" ></i> Issue Items</a></li>
             <li id="" ><a href=".click" target="iframe_a"><i class="fa fa-circle-o" ></i> Issue Confirmation</a></li>
+            
+          </ul>
+        </li>
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-money"></i>
+            <span>Bill</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li id="" ><a href="uploadbill.click" target="iframe_a"><i class="fa fa-circle-o" ></i> Upload Bill</a></li>
+            <li id="" ><a href="viewbill.click" target="iframe_a"><i class="fa fa-circle-o" ></i> View Bill</a></li>
+            <li id="" ><a href="deletebill.click" target="iframe_a"><i class="fa fa-circle-o" ></i> Delete Bill</a></li>
             
           </ul>
         </li>
@@ -223,22 +238,6 @@ display:block;}
             
           </ul>
         </li>
-          <li class="treeview">
-          <a href="#">
-            <i class="fa fa-bars"></i>
-            <span>Bill</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li id="" ><a href="uploadbill.click" target="iframe_a"><i class="fa fa-circle-o" ></i> Upload Bill</a></li>
-            <li id="" ><a href="viewbill.click" target="iframe_a"><i class="fa fa-circle-o" ></i> View Bill</a></li>
-            <li id="" ><a href="deletebill.click" target="iframe_a"><i class="fa fa-circle-o" ></i> Delete Bill</a></li>
-            
-          </ul>
-        </li>
-        
         <li class="treeview">
           <a href="#">
             <i class="fa fa-share"></i> <span>Multi Level</span>

@@ -3,6 +3,25 @@ package com.adbl.model;
 import java.util.List;
 
 public class Inventory {
+	String amcid, insuranceid, inventoryotherdetailid;
+	public String getAmcid() {
+		return amcid;
+	}
+	public void setAmcid(String amcid) {
+		this.amcid = amcid;
+	}
+	public String getInsuranceid() {
+		return insuranceid;
+	}
+	public void setInsuranceid(String insuranceid) {
+		this.insuranceid = insuranceid;
+	}
+	public String getInventoryotherdetailid() {
+		return inventoryotherdetailid;
+	}
+	public void setInventoryotherdetailid(String inventoryotherdetailid) {
+		this.inventoryotherdetailid = inventoryotherdetailid;
+	}
 	String legacyid;
 	String groupcode;
 	String itemname;
