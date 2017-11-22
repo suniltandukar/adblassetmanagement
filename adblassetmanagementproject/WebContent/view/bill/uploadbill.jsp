@@ -67,8 +67,7 @@ ResultSet branchdb=(ResultSet) session.getAttribute("userdetail");
 									<td>
                                        <h5>Attach Bill Image</h5> 
                                        <input type="file" name="billimagename" class="form-control"   value="">
-                                      <a><img src="C:\Users\Sunil\git\adblassetmanagement\adblassetmanagementproject\WebContent\view\uploadedbills\maxresdefault.jpg" target="_blank">image</img>
-                                   </a> 	</td> 
+									</td> 
                                    	</tr>
 							</tbody>
 						</table> 
@@ -83,9 +82,9 @@ ResultSet branchdb=(ResultSet) session.getAttribute("userdetail");
           <p><b>${msg }</b></p>
           Bill No.:: ${billno }<br>
           Company Name:: ${companyname }<br>
-          Image Name:: ${billname }
+          Image Name:: ${billname }<br>
           
-          <a href="C:/Users/Sunil/git/adblassetmanagement/adblassetmanagementproject/WebContent/view/uploadedbills/${billname }" target="_blank">View</a>
+          <a href="view/uploadedbills/${billname }" target="_blank">View</a>
          
           
          

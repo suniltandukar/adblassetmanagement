@@ -122,6 +122,11 @@ public class AddController extends HttpServlet {
 			rd.forward(request, response);
 
 		}
+		
+		else if(uri.endsWith("viewbillimage.add")){
+			OtherAction action=new OtherAction();
+			action.viewbillimage(request, response);
+		}
 	}
 
 }
