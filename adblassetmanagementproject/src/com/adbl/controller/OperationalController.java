@@ -1,6 +1,7 @@
 package com.adbl.controller;
 
 import java.io.IOException;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
@@ -15,6 +16,7 @@ import javax.servlet.http.HttpSession;
 import com.adbl.action.InventoryAction;
 import com.adbl.action.InventoryEditAction;
 import com.adbl.action.LoginAction;
+import com.adbl.action.TransferAction;
 import com.adbl.model.Inventory;
 
 @WebServlet("/OperationalController")
@@ -82,6 +84,25 @@ public class OperationalController extends HttpServlet {
 				}
 			}
 		}
+		else if(uri.endsWith("issueconfirmation.adbl"))
+		{
+				InventoryAction i=new InventoryAction();
+				Boolean status=i.issueconfirmation(request, response);
+				
+				TransferAction t=new TransferAction();
+				ResultSet issueditemdetails=t.issueditemsdetails(request, response);
+				request.setAttribute("issueditemdetails", issueditemdetails);
+				
+				if(status){
+					request.setAttribute("msg", "Issue Confirmation Successful!");
+				}
+				else{
+					request.setAttribute("msg", "Issue Confirmation Unsuccessful!");
+				}
+				RequestDispatcher rd=request.getRequestDispatcher("view/transferissue/issueconfirmation.jsp");
+				rd.forward(request, response);
+			}
+		}
 	}
 
-}
+

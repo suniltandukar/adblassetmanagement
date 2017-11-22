@@ -192,7 +192,7 @@ display:block;}
           <ul class="treeview-menu">
             <li id="" ><a href="transferitem.click" target="iframe_a"><i class="fa fa-circle-o" ></i> Transfer Items</a></li>
             <li id="" ><a href="issueitem.click" target="iframe_a"><i class="fa fa-circle-o" ></i> Issue Items</a></li>
-            <li id="" ><a href=".click" target="iframe_a"><i class="fa fa-circle-o" ></i> Issue Confirmation</a></li>
+            <li id="" ><a href="issueconfirmation.click" target="iframe_a"><i class="fa fa-circle-o" ></i> Issue Confirmation</a></li>
             
           </ul>
         </li>

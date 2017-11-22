@@ -39,8 +39,6 @@ public class OtherActionDAOImpl implements OtherActionDAO {
 	}
 
 	public String downloadFileNameDAO(String name) {
-		// TODO Auto-generated method stub
-		
 		PreparedStatement ps=null;
 		ResultSet rs=null;
 		Connection con=null;
@@ -53,7 +51,7 @@ public class OtherActionDAOImpl implements OtherActionDAO {
 			rs=ps.executeQuery();
 			while(rs.next()){
 				ps=null;
-				rs=null;
+				rs.close();
 				con.close();
 				return null;
 			}

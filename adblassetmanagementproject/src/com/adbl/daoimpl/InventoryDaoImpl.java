@@ -297,5 +297,23 @@ public class InventoryDaoImpl implements InventoryDao {
 	
 		
 	}
+	public boolean issueconfirmation(String issueid, String statusid){
+		int a=0;
+		String query="update issuetbl SET statusid='"+statusid+"' WHERE issueid='"+issueid+"';";
+		try{
+			ps=con.prepareStatement(query);
+			a=ps.executeUpdate();
+			if(a>0){
+				System.out.println("confirmation done!");
+				ps.close();
+				con.close();
+				return true;
+			}
+		}catch(Exception e){
+			System.out.println(e);
+		}
+		return false;
+	}
+	
 	
 }
