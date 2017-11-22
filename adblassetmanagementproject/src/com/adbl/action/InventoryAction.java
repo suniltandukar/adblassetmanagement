@@ -1,5 +1,6 @@
 package com.adbl.action;
 
+import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DateFormat;
@@ -8,6 +9,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -159,9 +162,27 @@ public class InventoryAction {
 
 	public void deleteinventory(HttpServletRequest request, HttpServletResponse response) {
 		String itemcode=request.getParameter("itemcode");
+		String inventoryotherdetailid=request.getParameter("inventoryotherdetailid");
+		String amcid=request.getParameter("acmid");
+		String insuranceid=request.getParameter("insuranceid");
+		String warrantyid=request.getParameter("warrantyid");
+		String branchdb=request.getParameter("branchdb");
 		
-		InventoryDao idao=new InventoryDaoImpl();
-		idao.deleteinventorydao(itemcode);
+		
+		InventoryDao idao=new InventoryDaoImpl(branchdb);
+		boolean status=idao.deleteinventorydao(itemcode,inventoryotherdetailid,amcid,insuranceid,warrantyid);
+		if(status)
+		{
+			request.setAttribute("msg", "File Deleted Successfully");
+			request.setAttribute("action", "delete")
+			;
+			RequestDispatcher rd=request.getRequestDispatcher("view/inventory/viewinventory.jsp");
+			try {
+				rd.forward(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			} 
+		}
 		
 	}
 

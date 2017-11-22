@@ -74,7 +74,7 @@ public class DeletionController extends HttpServlet {
 			UserAction user=new UserAction();
 			user.deleteuserrole(request,response);
 		}
-		if (uri.endsWith("inventorydelete.del")) {
+		if (uri.endsWith("deleteinventory.del")) {
 			InventoryAction inventory=new InventoryAction();
 			inventory.deleteinventory(request,response);
 		}

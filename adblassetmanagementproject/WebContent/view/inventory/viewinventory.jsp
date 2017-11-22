@@ -70,7 +70,7 @@ ResultSet inventory=(ResultSet) i.getinventorydata();%>
 		    													<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Action
 		    													<span class="caret"></span></button>
 															    <ul class="dropdown-menu">
-															    	<li><a href="" target="_blank" style="color:red;"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</a></li>
+															    	<li><a href="deleteinventory.del?inventoryotherdetailid=<%=inventory.getString("inventoryotherdetailid") %>&itemcode=<%=inventory.getString("itemcode") %>&amcid=<%=inventory.getString("amcid") %>&insuranceid<%=inventory.getString("insuranceid") %>&warrantyid=<%=inventory.getString("warrantyid") %>&branchdb=<%=branchdb.getString("branchdb") %>"  style="color:red;"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</a></li>
 															    </ul>
 															    
 					                                    </tr>
@@ -90,8 +90,10 @@ ResultSet inventory=(ResultSet) i.getinventorydata();%>
         <div class="modal-body">
           <p>${msg }</p>
           <br>
+         <%if(request.getAttribute("action")==null) {%>
          Updated Itemcode: ${inventory.updated_itemcode }<br>
          Item name: ${inventory.itemname }<br>
+         <%} %>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
