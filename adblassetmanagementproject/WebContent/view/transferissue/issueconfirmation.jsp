@@ -27,6 +27,8 @@
 					                                cellspacing="0" width="100%">
 					                                <thead>
 					                                    <tr>
+					                                    	<th>Issued Date(B.S)</th>
+					                                    	<th>Issued Date(A.D)</th>
 					                                        <th>Item Code</th>
 					                                        <th>Item Name</th>
 					                                        <th>Group Code</th>
@@ -37,6 +39,8 @@
 					                                <tbody>
 					                                <%while(i.next()){ %>
 					                                    <tr>
+					                                    	<td><%=i.getString("issueddate") %></td>
+					                                    	<td><%=i.getString("issueddateen") %></td>
 					                                        <td><%=i.getString("itemcode") %></td>
 					                                        <td><%=i.getString("itemname") %></td>
 					                                        <td><%=i.getString("groupcode") %></td>

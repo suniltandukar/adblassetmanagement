@@ -50,22 +50,21 @@ public class TransferDaoImpl implements TransferDao{
 
 	
 
-	public boolean setissuestatuspending(String issuedby, String issuedto, String branchby,
-			String issueddate, String issueddateen, String itemcode, String branchdb)
+	public boolean setissuestatuspending(String issuedby, String issuedto,
+			String issueddate, String issueddateen, String itemcode)
 	{
 		String statusid="3";
 		int r=0;
-		String query="insert into issuetbl(issuedby,branchby,issuedto,issueddate,issueddateen,statusid) values(?,?,?,?,?,?)";
+		String query="insert into issuetbl(issuedby,issuedto,issueddate,issueddateen,statusid, issueitemcode) values(?,?,?,?,?,?)";
 		try {
 			
 			ps=con.prepareStatement(query);
 			ps.setString(1, issuedby);
-			ps.setString(2, branchby);
-			ps.setString(3, issuedto);
-			
-			ps.setString(4, issueddate);
-			ps.setString(5, issueddateen);
-			ps.setString(6, statusid);
+			ps.setString(2, issuedto);
+			ps.setString(3, issueddate);
+			ps.setString(4, issueddateen);
+			ps.setString(5, statusid);
+			ps.setString(6, itemcode);
 			r=ps.executeUpdate();
 			
 			if(r>0)

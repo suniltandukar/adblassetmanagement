@@ -58,7 +58,7 @@ public class TransferAction {
 
 	}
 	//to be changed...
-	public void issueitems(HttpServletRequest request, HttpServletResponse response) {
+	public boolean issueitems(HttpServletRequest request, HttpServletResponse response) {
 		String branchdb=request.getParameter("branchdb");
 		TransferDao tdao=new TransferDaoImpl(branchdb);
 		
@@ -82,21 +82,12 @@ public class TransferAction {
 		int i;	
 		
 		for(i=0;i<itemcode.length;i++){
-		tdao.setissuestatuspending(issuedby,issuedto,branchby,issueddate,issueddateen,itemcode[i],branchdb);
+		tdao.setissuestatuspending(issuedby,issuedto,issueddate,issueddateen,itemcode[i]);
 		String issueid=tdao.getissueid();
 		status=tdao.updateissueitemstatus(issueid, itemcode[i]);
 		}
 		
-		if(status)
-		{
-			System.out.println("status pending");
-			RequestDispatcher rd=request.getRequestDispatcher("view/transferissue/issueitem.jsp");
-			try {
-				rd.forward(request, response);
-			} catch (Exception e) {
-				e.printStackTrace();
-			} 
-		}
+		return status;
 		
 	}
 	public ResultSet issueditemsdetails(HttpServletRequest request, HttpServletResponse response){

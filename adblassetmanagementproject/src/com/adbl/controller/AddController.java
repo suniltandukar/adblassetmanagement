@@ -108,7 +108,15 @@ public class AddController extends HttpServlet {
 		if(uri.endsWith("issueitem.add"))
 		{
 			TransferAction transfer=new TransferAction();
-			transfer.issueitems(request, response);
+			boolean status=transfer.issueitems(request, response);
+			if(status){
+				request.setAttribute("msg", "Issue Successful!");
+			}
+			else{
+				request.setAttribute("msg", "Issue Unsuccessful!");
+			}
+			RequestDispatcher rd=request.getRequestDispatcher("view/transferissue/issueitem.jsp");
+			rd.forward(request, response);
 		}
 		
 		else if (uri.endsWith("downloadbill.download")) {

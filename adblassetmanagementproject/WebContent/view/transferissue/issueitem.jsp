@@ -43,7 +43,7 @@ display:none;}
 
     				</div>
     				<div class="panel-body">
-    				<form method="post" action="issueitem.add" id="form" >
+    				<form method="post" action="issueitem.add" id="form">
 						<table class="table">
 							<tbody>
 								<tr>
@@ -109,6 +109,18 @@ display:none;}
     			</div>
     		</div>
     	</div>
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-body">
+          <p><b>${msg }</b></p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+</div>
     	<script src="assets/js/dateConverter.js"></script>
    <script>
 function myFunction() {
@@ -121,6 +133,12 @@ $('table').on('click','tr a',function(e){
     e.preventDefault();
    $(this).parents('tr').remove();
  });
+<%if(request.getAttribute("msg")!=null){%>
+$('#myModal').modal('show');
+<%}%>
+$('#form').submit(function(){
+	return confirm('Confirm?');
+});
 </script>
   </body>
   </html>
