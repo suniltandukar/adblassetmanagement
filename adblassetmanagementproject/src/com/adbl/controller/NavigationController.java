@@ -44,6 +44,11 @@ public class NavigationController extends HttpServlet {
 			RequestDispatcher rd=request.getRequestDispatcher("view/inventory/editinventory.jsp");
 			rd.forward(request, response);
 		}
+		if(uri.endsWith("viewinventoryitem.click"))
+		{
+			RequestDispatcher rd=request.getRequestDispatcher("view/inventory/viewinventoryitem.jsp");
+			rd.forward(request, response);
+		}
 		if(uri.endsWith("initialdetails.click"))
 		{
 			RequestDispatcher rd=request.getRequestDispatcher("view/initialdetails/initialdetails.jsp");

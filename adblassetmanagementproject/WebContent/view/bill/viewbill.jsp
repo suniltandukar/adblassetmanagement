@@ -1,14 +1,15 @@
-<link rel="import" href="new.jsp">
-
-        
 <%@page import="java.sql.*"%>
 <%@page import='com.adbl.daoimpl.OtherActionDAOImpl'%>
 <%@page import='com.adbl.dao.OtherActionDAO' %>
 <%ResultSet branchdb=(ResultSet) session.getAttribute("userdetail");
 OtherActionDAO ac=new OtherActionDAOImpl();
 ResultSet bill=(ResultSet) ac.viewbillDao(branchdb.getString("branchdb")); %>
-
-<div class="breadcrumb-line">
+<html>
+	<head>
+		<link rel="import" href="new.jsp">
+	</head>
+	<body>
+		<div class="breadcrumb-line">
 			<nav aria-label="breadcrumb" role="navigation">
 			  <ol class="breadcrumb">
 			    <li class="breadcrumb-item"><i class="fa fa-home" aria-hidden="true"></i>&nbsp;<a href="#">Home</a></li>
@@ -17,9 +18,9 @@ ResultSet bill=(ResultSet) ac.viewbillDao(branchdb.getString("branchdb")); %>
 			  </ol>
 			</nav>
 		</div>
-<div class="panel panel-default" style="width: 100%; margin: auto;">
+	<div class="panel panel-default" style="width: 100%; margin: auto;">
     
-    <div class="panel-body">
+    	<div class="panel-body">
 					<div class="panel panel-default" style="width: 100%;">
 					                        <div class="panel-heading">
 					                            <h6>
@@ -59,23 +60,26 @@ ResultSet bill=(ResultSet) ac.viewbillDao(branchdb.getString("branchdb")); %>
 			            </div>
 			         </div>
 
-<div class="modal fade" id="imagemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">              
-      <div class="modal-body">
-      	<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <img src="view/uploadedbills/${billimageoriginalname }" class="imagepreview" style="width: 100%;" >
-      </div>
-    </div>
-  </div>
-</div>
-<script>
-$(document).ready(function()
-        {
-	<%if(request.getAttribute("msg")!=null){%>
-	
-	   $('#imagemodal').modal('show');
-	   <%}%>
-        });
-</script>	
+		<div class="modal fade" id="imagemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		  <div class="modal-dialog">
+		    <div class="modal-content">              
+		      <div class="modal-body">
+		      	<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+		        <img src="view/uploadedbills/${billimageoriginalname }" class="imagepreview" style="width: 100%;" >
+		      </div>
+		    </div>
+		  </div>
+		</div>
+		<script>
+		<%if(request.getAttribute("msg")!=null){%>
+		   $('#imagemodal').modal('show');
+		<%}%>
+		$(document).ready(function()
+		        {
+			$('#example').DataTable();
+			
+		});
+		
+		</script>	
+	</body>
 </html>

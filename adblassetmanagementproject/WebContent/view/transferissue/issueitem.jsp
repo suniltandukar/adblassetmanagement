@@ -55,7 +55,7 @@ display:none;}
                                    <td>
 										<input type="hidden" name="branchdb" value="<%=userdetail.getString("branchdb")%>">
                                        <h5>Issued to (username):</h5><span class="staffcheck"></span>
-                                       <select name="issuedto" class="form-control"  form="form">
+                                       <select name="issuedto" class="form-control"  form="form" required>
                                        <%while(username.next()){ %>
                                        <option value="<%=username.getString("username")%>"><%=username.getString("username")%></option>
                                        <%} %>
@@ -66,11 +66,11 @@ display:none;}
 								<tr>
 									<td>
                                        <h5>Issued Date (B.S):</h5> 
-                                       <input type="text" name="issueddate" class="form-control"  form="form" value="" id="nepaliDate1">
+                                       <input type="text" name="issueddate" class="form-control"  form="form" value="" id="nepaliDate1" required>
                                    	</td>
                                    	<td>
                                        <h5>Issued Date (A.D):</h5> 
-                                       <input type="text" name="issueddateen" class="form-control"  form="form" value="" id="englishDate1">
+                                       <input type="text" name="issueddateen" class="form-control"  form="form" value="" id="englishDate1" required>
                                    	</td> 
 								</tr>
 							</tbody>
@@ -98,7 +98,7 @@ display:none;}
 								<tr>
 									<td>
                                        <h5>Item Code:</h5> 
-                                       <input type="text" name="itemcode" class="form-control"  form="form" value="">
+                                       <input type="text" name="itemcode" class="form-control"  form="form" value=""required>
                                    	</td> 
 								</tr>
 							</tbody>
@@ -127,7 +127,7 @@ function myFunction() {
     var table = document.getElementById("table");
     var row = table.insertRow(2);
     var cell1 = row.insertCell(0);
-    cell1.innerHTML = "<a><i class='fa fa-times' aria-hidden='true' style='color:red;'></i></a><input type='text' name='itemcode' class='form-control'  form='form'>";
+    cell1.innerHTML = "<a><i class='fa fa-times' aria-hidden='true' style='color:red;'></i></a><input type='text' name='itemcode' class='form-control'  form='form' required>";
 }
 $('table').on('click','tr a',function(e){
     e.preventDefault();

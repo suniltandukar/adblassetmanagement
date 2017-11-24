@@ -41,7 +41,7 @@
 					                                    <tr>
 					                                    	<td><%=i.getString("issueddate") %></td>
 					                                    	<td><%=i.getString("issueddateen") %></td>
-					                                        <td><%=i.getString("itemcode") %></td>
+					                                        <td><a href="viewinventoryitem.click?id=<%=i.getString("itemcode") %>"><%=i.getString("itemcode") %></a></td>
 					                                        <td><%=i.getString("itemname") %></td>
 					                                        <td><%=i.getString("groupcode") %></td>
 					                                        <td><%=i.getString("model") %></td>
