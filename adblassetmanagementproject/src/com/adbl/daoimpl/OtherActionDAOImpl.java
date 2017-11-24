@@ -96,7 +96,6 @@ public class OtherActionDAOImpl implements OtherActionDAO {
 			e.printStackTrace();
 		}
 		return null;
-		
 	}
 
 	@Override
@@ -104,8 +103,4 @@ public class OtherActionDAOImpl implements OtherActionDAO {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-	
-	
-
 }
