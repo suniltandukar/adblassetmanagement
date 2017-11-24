@@ -47,12 +47,13 @@ ResultSet bill=(ResultSet) ac.viewbillDao(branchdb.getString("branchdb")); %>
 					                                        <td><%=bill.getString("billdate") %></td>
 					                                        <td><%=bill.getString("billdateen") %></td>
 					                                        <td><%=bill.getString("companyname") %></td>
-					                                     	 <td><a href="viewbillimage.add?id=<%=bill.getString("billid") %>">View Bill</a></td>
-					                                        
-					                                       
-															    
-					                                    </tr>
-					                                    <%} %>
+					                                     	 <td><a  href="view/uploadedbills/<%=bill.getString("billimageoriginalname") %>" class="btn btn-primary" >View Bill</a></td>
+					                                     
+															<td>   <a href="#" class="thumbnail img-responsive" data-toggle="modal" data-caption="test caption text" data-image="view/uploadedbills/<%=bill.getString("billimageoriginalname") %>" data-target="#trslphotos"><img src="view/uploadedbills/<%=bill.getString("billimageoriginalname") %>" alt="recent photo" width="0px" style="{display:hidden;}">Show</a></td>
+					                                    
+					                                    <td><a href="#" data-toggle="modal" data-target="#modalRegister" id="view"> Register</a></td></tr>
+					                                   
+ <%} %>
 					                                </tbody>
 					                            </table>
 					                        </div>
@@ -70,7 +71,53 @@ ResultSet bill=(ResultSet) ac.viewbillDao(branchdb.getString("branchdb")); %>
 		    </div>
 		  </div>
 		</div>
-		<script>
+	<div id="modalRegister" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title" style="text-align-last: center">Register</h4>
+                  <img src="" class="imagepreview" style="width: 100%;" >
+            </div>
+            <div class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+			         <div class="modal fade" id="trslphotos" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title"></h4>
+            </div>
+            <div class="modal-body"><img src="" class="img-responsive"></div>
+         
+        </div>
+    </div>
+</div>
+
+<script>
+$(document).ready(function()
+        {
+	$('#trslphotos').on('shown.bs.modal', function (a, b,c) {
+		 var clickedImageUrl = a.relatedTarget.childNodes[0].src;
+		  displayPhotos(clickedImageUrl);
+		})
+		function displayPhotos(url) {
+		 $('.modal-body img').attr('src',url);
+		 $('#trslphotos').modal();
+		}
+	   
+	 
+        });
+</script>	
+<script>
 		<%if(request.getAttribute("msg")!=null){%>
 		   $('#imagemodal').modal('show');
 		<%}%>
@@ -81,5 +128,5 @@ ResultSet bill=(ResultSet) ac.viewbillDao(branchdb.getString("branchdb")); %>
 		});
 		
 		</script>	
-	</body>
+</body>
 </html>
