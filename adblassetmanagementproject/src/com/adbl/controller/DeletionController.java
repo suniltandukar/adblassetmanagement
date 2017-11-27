@@ -78,6 +78,9 @@ public class DeletionController extends HttpServlet {
 			InventoryAction inventory=new InventoryAction();
 			inventory.deleteinventory(request,response);
 		}
+		if (uri.endsWith("deletebill.del")) {
+			O
+		}
 
 	}
 
