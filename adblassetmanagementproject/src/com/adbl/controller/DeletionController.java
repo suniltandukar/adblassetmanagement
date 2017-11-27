@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.adbl.action.InitialDetailDeleteAction;
 import com.adbl.action.InventoryAction;
+import com.adbl.action.OtherAction;
 import com.adbl.action.UserAction;
 
 @WebServlet("/DeletionController")
@@ -79,7 +80,8 @@ public class DeletionController extends HttpServlet {
 			inventory.deleteinventory(request,response);
 		}
 		if (uri.endsWith("deletebill.del")) {
-			O
+			OtherAction o=new OtherAction();
+			o.deletebilldata(request,response);
 		}
 
 	}

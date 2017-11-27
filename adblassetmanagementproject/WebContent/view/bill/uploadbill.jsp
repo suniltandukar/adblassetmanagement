@@ -43,11 +43,11 @@ ResultSet branchdb=(ResultSet) session.getAttribute("userdetail");
 								<tr>
 									<td>
                                        <h5>Input Bill NO.</h5>
-                                       <input type="text" name="billno" class="form-control"  >
+                                       <input type="text" name="billno" class="form-control"  required>
                                    	</td>
                                    	<td>
                                        <h5>Company Name</h5> 
-                                       <input type="text" name="companyname" class="form-control">
+                                       <input type="text" name="companyname" class="form-control" required>
                                    	</td>
                                    	
 								</tr>
@@ -55,18 +55,18 @@ ResultSet branchdb=(ResultSet) session.getAttribute("userdetail");
 								<tr>
 									<td>
                                        <h5>Input Bill Date(B.S.)</h5><span class="staffcheck"></span>
-                                       <input type="text" name="billdate" class="form-control" id="nepaliDate1"  value="">
+                                       <input type="text" name="billdate" class="form-control" id="nepaliDate1"  value="" required>
                                    	</td>
                                    	<td>
                                        <h5>Input Bill Date(A.D.)</h5><span class="staffcheck"></span>
-                                       <input type="text" name="billdateen" class="form-control" id="englishDate1"  value="">
+                                       <input type="text" name="billdateen" class="form-control" id="englishDate1"  value="" required>
                                    	</td>
                                    
 								</tr>
 								<tr>
 									<td>
                                        <h5>Attach Bill Image</h5> 
-                                       <input type="file" name="billimagename" class="form-control"   value="">
+                                       <input type="file" name="billimagename" class="form-control"   value="" required>
 									</td> 
                                    	</tr>
 							</tbody>

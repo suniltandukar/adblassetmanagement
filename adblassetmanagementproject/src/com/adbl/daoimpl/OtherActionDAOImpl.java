@@ -22,12 +22,14 @@ public class OtherActionDAOImpl implements OtherActionDAO {
 		con=DBConnection.getConnectionNext(bill.getBranchdb());
 		
 		try {
-			ps=con.prepareStatement("insert into billtbl(billno,companyname,billdate,billdateen,billimageoriginalname) values(?,?,?,?,?)");
+			ps=con.prepareStatement("insert into billtbl(billno,companyname,billdate,billdateen,billimageoriginalname, billimagepath, billimagegeneratedname) values(?,?,?,?,?,?,?)");
 			ps.setString(1,bill.getBillno() );
 			ps.setString(2,bill.getCompanyname() );
 			ps.setString(3,bill.getBilldate() );
 			ps.setString(4, bill.getBilldateen());
 			ps.setString(5, bill.getBillimagename());
+			ps.setString(6, bill.getBillimagepath());
+			ps.setString(7, bill.getBillimagegeneratedname());
 			rs=ps.executeUpdate();
 			if (rs > 0) {
 				con.close();
@@ -97,10 +99,26 @@ public class OtherActionDAOImpl implements OtherActionDAO {
 		}
 		return null;
 	}
-
+	public boolean deletebilldata(String branchdb, String billid){
+		String query="delete from billtbl where billid='"+billid+"'";
+		int i=0;
+		try{
+			con=DBConnection.getConnectionNext(branchdb);
+			ps=con.prepareStatement(query);
+			i=ps.executeUpdate();
+			if(i>0){
+				return true;
+			}
+		}
+		catch(Exception e){
+			System.out.println(e);
+		}
+		return false;
+	}
 	@Override
 	public ResultSet editbillDao(String branchdb, String billid) {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
 }

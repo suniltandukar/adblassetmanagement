@@ -54,6 +54,12 @@ public class UploaderController extends HttpServlet {
 	      String billdate=req.getParameter("billdate");
 	      String billdateen=req.getParameter("billdateen");
 	      String branchdb=req.getParameter("branchdb");
+	      
+	     String[] billdateString=billdate.split("-");
+	     String[] billdateenString=billdateen.split("-");
+	     String billdateyear=billdateString[0];
+	     String billdateenyear=billdateenString[0];
+	     String billimagegeneratedname=billdateyear+billno+billdateenyear;
 	     
 	  	
 	      Bill bill=new Bill();
@@ -62,6 +68,8 @@ public class UploaderController extends HttpServlet {
 		bill.setBillno(billno);
 		bill.setBranchdb(branchdb);
 		bill.setCompanyname(companyname);
+		bill.setBillimagepath(UPLOAD_DIRECTORY);
+		bill.setBillimagegeneratedname(billimagegeneratedname);
 		   
 try{	   
 	    Enumeration files = req.getFileNames();

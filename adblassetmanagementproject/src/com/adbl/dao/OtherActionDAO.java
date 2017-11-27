@@ -17,6 +17,8 @@ public interface OtherActionDAO {
 
 	public ResultSet viewbillimageDao(String branchdb, String billid);
 
+	public boolean deletebilldata(String branchdb, String billid);
+
 	
 	
 	

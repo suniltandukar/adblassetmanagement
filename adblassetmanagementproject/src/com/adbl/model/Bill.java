@@ -7,7 +7,21 @@ public class Bill {
     String billdateen;
     String branchdb;
     String billimagename;
-    public String getBillimagename() {
+    String billimagepath;
+    String billimagegeneratedname;
+    public String getBillimagegeneratedname() {
+		return billimagegeneratedname;
+	}
+	public void setBillimagegeneratedname(String billimagegeneratedname) {
+		this.billimagegeneratedname = billimagegeneratedname;
+	}
+	public String getBillimagepath() {
+		return billimagepath;
+	}
+	public void setBillimagepath(String billimagepath) {
+		this.billimagepath = billimagepath;
+	}
+	public String getBillimagename() {
 		return billimagename;
 	}
 	public void setBillimagename(String billimagename) {

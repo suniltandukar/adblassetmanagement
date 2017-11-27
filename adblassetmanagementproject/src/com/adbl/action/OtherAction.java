@@ -1,5 +1,6 @@
 package com.adbl.action;
 
+import java.io.File;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -129,5 +130,45 @@ public class OtherAction {
 			}
 		
 	}
+
+		public void deletebilldata(HttpServletRequest request, HttpServletResponse response) {
+			HttpSession session=request.getSession(true);
+			ResultSet userdetail=(ResultSet)session.getAttribute("userdetail");
+			String branchdb="";
+			try {
+				 branchdb=userdetail.getString("branchdb");
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			String path=request.getParameter("path");
+			String filename=request.getParameter("filename");
+			String filepath=path+"/"+filename;
+			String billid=request.getParameter("id");
+			OtherActionDAO ac=new OtherActionDAOImpl();
+			boolean status=ac.deletebilldata(branchdb,billid);
+			if(status){
+				System.out.println("filepath="+filepath);
+				File file = new File(filepath);
+				
+		        boolean fileDelete = file.delete();
+
+		            if (fileDelete) 
+		            { 
+		              request.setAttribute("msg", "Delete Successful !");   
+		            } else {
+		            	request.setAttribute("msg", "Delete Unsuccessful !");      
+		            } 
+			}
+			else{
+				request.setAttribute("msg", "Delete Unsuccessful !");   
+			}
+			RequestDispatcher rd=request.getRequestDispatcher("view/bill/viewbill.jsp");
+			try {
+				rd.forward(request, response);
+			} catch (ServletException | IOException e) {
+				e.printStackTrace();
+			}
+			
+		}
 
 }
