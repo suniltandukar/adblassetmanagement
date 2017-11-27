@@ -58,38 +58,6 @@ public class OtherAction {
 		
 	
 	}
-	
-	public void editBill(HttpServletRequest request,
-			HttpServletResponse response)
-	{
-		String billid=request.getParameter("id");
-		HttpSession session=request.getSession(true);
-		ResultSet userdetail=(ResultSet)session.getAttribute("userdetail");
-		String branchdb="";
-		try {
-			 branchdb=userdetail.getString("branchdb");
-		} catch (SQLException e1) {
-			e1.printStackTrace();
-		}
-		
-		OtherActionDAO ac=new OtherActionDAOImpl();
-		ResultSet bill=ac.editbillDao(branchdb,billid);
-		
-		try {
-			if(bill.next()){
-				request.setAttribute("billno", bill.getString("billno"));
-				request.setAttribute("billdate", bill.getString("billdate"));
-				request.setAttribute("billdateen", bill.getString("billdateen"));
-				request.setAttribute("companyname", bill.getString("companyname"));
-				
-				
-				
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
-		
 		public void viewbillimage(HttpServletRequest request,
 				HttpServletResponse response)
 		{
@@ -170,5 +138,71 @@ public class OtherAction {
 			}
 			
 		}
+
+		public void getbilldetail(HttpServletRequest request,
+				HttpServletResponse response) {
+			String billid=request.getParameter("id");
+			HttpSession session=request.getSession(true);
+			ResultSet userdetail=(ResultSet)session.getAttribute("userdetail");
+			String branchdb="";
+			try {
+				 branchdb=userdetail.getString("branchdb");
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			Bill bill=new Bill();
+			OtherActionDAO ac=new OtherActionDAOImpl();
+			Bill b=ac.getbilldetail(billid, branchdb, bill);
+			request.setAttribute("billdata", b);
+			
+		}
+
+		public void billupdate(HttpServletRequest req,
+				HttpServletResponse response) {
+			  String billno=req.getParameter("billno");
+		      String companyname=req.getParameter("companyname");
+		      String billdate=req.getParameter("billdate");
+		      String billdateen=req.getParameter("billdateen");
+		      String billid=req.getParameter("billid");
+		      
+		      String[] billdateString=billdate.split("-");
+			     String[] billdateenString=billdateen.split("-");
+			     String billdateyear=billdateString[0];
+			     String billdateenyear=billdateenString[0];
+			     String billimagegeneratedname=billdateyear+billno+billdateenyear;
+			     
+		      HttpSession session=req.getSession(true);
+				ResultSet userdetail=(ResultSet)session.getAttribute("userdetail");
+				String branchdb="";
+				try {
+					 branchdb=userdetail.getString("branchdb");
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+				Bill bill=new Bill();
+				bill.setBillid(billid);
+				bill.setBilldate(billdate);
+				bill.setBilldateen(billdateen);
+				bill.setBillno(billno);
+				bill.setBranchdb(branchdb);
+				bill.setCompanyname(companyname);
+				bill.setBillimagegeneratedname(billimagegeneratedname);
+				
+				OtherActionDAO ac=new OtherActionDAOImpl();
+				boolean status=ac.editbillDao(branchdb, bill);
+				if(status){
+					req.setAttribute("msg","Update Successful !");
+				}
+				else{
+					req.setAttribute("msg","Update Unsuccessful !");
+				}
+				RequestDispatcher rd=req.getRequestDispatcher("view/bill/viewbill.jsp");
+				try {
+					rd.forward(req, response);
+				} catch (ServletException | IOException e) {
+					e.printStackTrace();
+				}
+		}
+
 
 }

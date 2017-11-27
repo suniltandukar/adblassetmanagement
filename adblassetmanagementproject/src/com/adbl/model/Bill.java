@@ -1,6 +1,13 @@
 package com.adbl.model;
 
 public class Bill {
+	String billid;
+	public String getBillid() {
+		return billid;
+	}
+	public void setBillid(String billid) {
+		this.billid = billid;
+	}
 	String billno;
     String companyname;
     String billdate;

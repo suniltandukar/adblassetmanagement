@@ -115,10 +115,46 @@ public class OtherActionDAOImpl implements OtherActionDAO {
 		}
 		return false;
 	}
-	@Override
-	public ResultSet editbillDao(String branchdb, String billid) {
-		// TODO Auto-generated method stub
-		return null;
+	public Bill getbilldetail(String billid, String branchdb,Bill bill){
+		String query="select * from billtbl where billid='"+billid+"'";
+		try{
+			con=DBConnection.getConnectionNext(branchdb);
+			ps=con.prepareStatement(query);
+			rs=ps.executeQuery();
+			if(rs.next()){
+				bill.setBillid(rs.getString("billid"));
+				bill.setBilldate(rs.getString("billdate"));
+				bill.setBilldateen(rs.getString("billdateen"));
+				bill.setBillno(rs.getString("billno"));
+				bill.setCompanyname(rs.getString("companyname"));
+			}
+		}
+		catch(Exception e){
+			System.out.println(e);
+		}
+		return bill;
+	}
+	public boolean editbillDao(String branchdb,Bill bill) {
+		String query="update billtbl set billno=?,billdate=?,billdateen=?,companyname=?,billimagegeneratedname=? where billid=?";
+		int i=0;
+		try{
+			con=DBConnection.getConnectionNext(branchdb);
+			ps=con.prepareStatement(query);
+			ps.setString(1, bill.getBillno());
+			ps.setString(2, bill.getBilldate());
+			ps.setString(3, bill.getBilldateen());
+			ps.setString(4, bill.getCompanyname());
+			ps.setString(5, bill.getBillimagegeneratedname());
+			ps.setString(6, bill.getBillid());
+			i=ps.executeUpdate();
+			if(i>0){
+				return true;
+			}
+		}
+		catch(Exception e){
+			System.out.println(e);
+		}
+		return false;
 	}
 	
 }

@@ -135,6 +135,10 @@ public class AddController extends HttpServlet {
 			OtherAction action=new OtherAction();
 			action.viewbillimage(request, response);
 		}
+		else if(uri.endsWith("billupdate.add")){
+			OtherAction action=new OtherAction();
+			action.billupdate(request, response);
+		}
 	}
 
 }

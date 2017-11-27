@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.adbl.action.OtherAction;
 import com.adbl.action.TransferAction;
 import com.adbl.action.UserAction;
 
@@ -115,10 +116,13 @@ public class NavigationController extends HttpServlet {
 			RequestDispatcher rd=request.getRequestDispatcher("view/bill/downloadbill.jsp");
 			rd.forward(request, response);
 		}
-		
-		
-	
-		
+		if(uri.endsWith("editbill.click"))
+		{
+			OtherAction o=new OtherAction();
+			o.getbilldetail(request,response);
+			RequestDispatcher rd=request.getRequestDispatcher("view/bill/editbill.jsp");
+			rd.forward(request, response);
+		}
 	}
 
 }
