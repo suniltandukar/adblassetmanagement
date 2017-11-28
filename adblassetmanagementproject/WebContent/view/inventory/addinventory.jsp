@@ -3,6 +3,7 @@
 <%@page import='com.adbl.daoimpl.InventoryDaoImpl'%>
 <%@page import='com.adbl.dao.InventoryDao'%>
 <%@page import='java.util.Date' %>
+<jsp:include page="/includefile"></jsp:include>
 <html>
 <head>
 </head>
@@ -60,7 +61,7 @@ ResultSet group=(ResultSet) i.getgroup();%>
                                             <td>
                                                 <h5>Transaction Date</h5> <input type="text"
                                                 name="transactiondateen" class="form-control datepicker"  form="form" value="<%=date%>" readonly>
-                                                <input type="hidden" name="year" id="year" value="">
+                                                <input type="hidden" name="year" id="year" value="" maxlength="10">
                                             </td>
                                             <td>
                                                 <h5>Legacy Id</h5> <input type="text" name="legacyid"
@@ -91,30 +92,30 @@ ResultSet group=(ResultSet) i.getgroup();%>
                                             <td>
                                                 <h5>Decision Date (B.S.)</h5> <input type="text"
                                                 name="decisiondate" class="form-control" id="nepaliDate1"
-                                                placeholder="YYYY-MM-DD"  form="form">
+                                                placeholder="YYYY-MM-DD"  form="form" maxlength="10">
                                             </td>
                                             <td>
                                                 <h5>Decision Date (A.D.)</h5> <input type="text"
                                                 name="decisiondateen" class="form-control" id="englishDate1"
-                                                placeholder="YYYY-MM-DD"  form="form">
+                                                placeholder="YYYY-MM-DD"  form="form" maxlength="10">
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>
                                                 <h5>Purchase Date (B.S.)</h5> <input type="text"
                                                 name="purchasedate" class="form-control" id="nepaliDate2"
-                                                placeholder="YYYY-MM-DD"  form="form" required> 
+                                                placeholder="YYYY-MM-DD"  form="form" maxlength="10" required> 
                                             </td>
                                             <td>
                                                 <h5>Purchase Date (A.D.)</h5> <input type="text"
                                                 name="purchasedateen" class="form-control" id="englishDate2"
-                                                placeholder="YYYY-MM-DD"  form="form" required>
+                                                placeholder="YYYY-MM-DD"  form="form" maxlength="10" required>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>
-                                                <h5>Depreciation Rate</h5> <input type="text" 
-                                                name="depreciationrate" class="form-control"  form="form">
+                                                <h5>Depreciation Rate(%)</h5> <input type="text" 
+                                                name="depreciationrate" class="form-control"  form="form" >
                                             </td>
                                     </tbody>
                                 </table>
@@ -127,7 +128,7 @@ ResultSet group=(ResultSet) i.getgroup();%>
                                 		<td>
                                             <h5>Supplier</h5> <select class="form-control"
                                             name="supplierid"  form="form" required>
-                                                <option value="" selected>Select supplier</option>
+                                               
                                                 <%while(supplier.next()){%>
                                                 	<option value="<%=supplier.getString("companyid") %>"><%=supplier.getString("companyname") %></option>
                                                 <%}%>
@@ -144,7 +145,7 @@ ResultSet group=(ResultSet) i.getgroup();%>
                                         <td>
                                             <h5>Item Condition</h5> <select name="itemconditionid"
                                             class="form-control"  form="form" required>
-                                            	<option value="">None Selected</option>
+                                            	
                                             	<%while(itemcondition.next()){ %>
                                             	<option value="<%=itemcondition.getString("itemconditionid")%>"><%=itemcondition.getString("itemconditionname") %></option>
                                             	<%} %>
@@ -185,22 +186,22 @@ ResultSet group=(ResultSet) i.getgroup();%>
                                     <tr>
                                         <td>
                                             <h5>AMC Start (B.S.)</h5> <input type="text" name="amcstart"
-                                            class="form-control" placeholder="YYYY-MM-DD"  form="form" id="nepaliDate3">
+                                            class="form-control" placeholder="YYYY-MM-DD"  form="form" id="nepaliDate3" maxlength="10">
                                         </td>
                                         <td>
                                             <h5>AMC Start (A.D.)</h5> <input type="text"
                                             name="amcstarten" class="form-control"
-                                            placeholder="YYYY-MM-DD"  form="form" id="englishDate3">
+                                            placeholder="YYYY-MM-DD"  form="form" id="englishDate3" maxlength="10">
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
                                             <h5>AMC End (B.S.)</h5> <input type="text" name="amcend"
-                                            class="form-control" placeholder="YYYY-MM-DD"  form="form" id="nepaliDate4">
+                                            class="form-control" placeholder="YYYY-MM-DD"  form="form" id="nepaliDate4" maxlength="10">
                                         </td>
                                         <td>
                                             <h5>AMC End (A.D.)</h5> <input type="text" name="amcenden"
-                                            class="form-control" placeholder="YYYY-MM-DD"  form="form" id="englishDate4">
+                                            class="form-control" placeholder="YYYY-MM-DD"  form="form" id="englishDate4" maxlength="10">
                                         </td>
                                     </tr>
                                     <tr>
@@ -227,24 +228,24 @@ ResultSet group=(ResultSet) i.getgroup();%>
                                         <td>
                                             <h5>Insurance Start (B.S.)</h5> <input type="text"
                                             name="insurancestart" class="form-control" id="nepaliDate5"
-                                            placeholder="YYYY-MM-DD"  form="form">
+                                            placeholder="YYYY-MM-DD"  form="form" maxlength="10">
                                         </td>
                                         <td>
                                             <h5>Insurance Start (A.D.)</h5> <input type="text"
                                             name="insurancestarten" class="form-control" id="englishDate5"
-                                            placeholder="YYYY-MM-DD"  form="form">
+                                            placeholder="YYYY-MM-DD"  form="form" maxlength="10">
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
                                             <h5>Insurance End (B.S.)</h5> <input type="text"
                                             name="insuranceend" class="form-control" id="nepaliDate6"
-                                            placeholder="YYYY-MM-DD"  form="form">
+                                            placeholder="YYYY-MM-DD"  form="form" maxlength="10">
                                         </td>
                                         <td>
                                             <h5>Insurance End (A.D.)</h5> <input type="text"
                                             name="insuranceenden" class="form-control" id="englishDate6"
-                                            placeholder="YYYY-MM-DD"  form="form">
+                                            placeholder="YYYY-MM-DD"  form="form" maxlength="10">
                                         </td>
                                     </tr>
                                     <tr>
@@ -270,22 +271,22 @@ ResultSet group=(ResultSet) i.getgroup();%>
                                     <tr>
                                         <td>
                                             <h5>Warranty Start (B.S.)</h5> <input type="text" name="warrantystart"
-                                            class="form-control" form="form" placeholder="YYYY-MM-DD" id="nepaliDate7">
+                                            class="form-control" form="form" placeholder="YYYY-MM-DD" id="nepaliDate7" maxlength="10">
                                         </td>
                                         
                                         <td>
                                             <h5>Warranty Start (A.D.)</h5> <input type="text" name="warrantystarten"
-                                            class="form-control" form="form" placeholder="YYYY-MM-DD" id="englishDate7">
+                                            class="form-control" form="form" placeholder="YYYY-MM-DD" id="englishDate7" maxlength="10">
                                         </td>
                                         </tr>
                                         <tr>
                                         <td>
                                             <h5>Warranty Start (B.S.)</h5> <input type="text" name="warrantyend"
-                                            class="form-control" form="form" placeholder="YYYY-MM-DD" id="nepaliDate8">
+                                            class="form-control" form="form" placeholder="YYYY-MM-DD" id="nepaliDate8" maxlength="10">
                                         </td>
                                          <td>
                                             <h5>Warranty End (A.D.)</h5> <input type="text" name="warrantyenden"
-                                            class="form-control"  form="form" placeholder="YYYY-MM-DD" id="englishDate8">
+                                            class="form-control"  form="form" placeholder="YYYY-MM-DD" id="englishDate8" maxlength="10">
                                         </td>
                                                                             </tr>
                                 </tbody>
@@ -366,6 +367,7 @@ ResultSet group=(ResultSet) i.getgroup();%>
     </div>
 </div>
 </body>
+<script src="assets/js/dateConverter.js"></script>
 <script>
 $("#insuranceamount, #amccost").change(function(){
    var value=$('#insuranceamount').val();

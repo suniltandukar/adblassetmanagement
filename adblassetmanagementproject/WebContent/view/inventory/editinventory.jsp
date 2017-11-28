@@ -1,4 +1,4 @@
-<link rel="import" href="new.jsp">
+<jsp:include page="/includefile"></jsp:include>
 <div class="breadcrumb-line">
 			<nav aria-label="breadcrumb" role="navigation">
 			  <ol class="breadcrumb">

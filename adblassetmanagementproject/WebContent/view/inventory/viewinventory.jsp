@@ -8,6 +8,7 @@
 ResultSet branchdb=(ResultSet) session.getAttribute("userdetail");
 InventoryDao i=new InventoryDaoImpl(branchdb.getString("branchdb"));
 ResultSet inventory=(ResultSet) i.getinventorydata();%>
+<jsp:include page="/includefile"></jsp:include>
 <html>
 <head>
 

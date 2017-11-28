@@ -10,7 +10,15 @@
 <!DOCTYPE html>
 <html lang="en-US" ng-app="myApp">
 <head>
+	<style>
+	#nav1,#nav2,#nav3,#nav4,#nav5,#nav6,#nav7,#nav8{
+	display:none;}
+	<%while (roleid.next()) {%>
+<%=roleid.getString("navigationid") %>{
+display:block;}
+<%} %>
 	
+	</style>
 </head>
 <body   class="hold-transition skin-blue sidebar-mini" >
 
@@ -199,6 +207,8 @@
           <ul class="treeview-menu">
             <li id="" ><a href="uploadbill.click" target="iframe_a"><i class="fa fa-circle-o" ></i> Upload Bill</a></li>
             <li id="" ><a href="viewbill.click" target="iframe_a"><i class="fa fa-circle-o" ></i> View Bill</a></li>
+            <li id="" ><a href="deletebill.click" target="iframe_a"><i class="fa fa-circle-o" ></i> Delete Bill</a></li>
+            
           </ul>
         </li>
         <li class="treeview">
@@ -222,11 +232,41 @@
           		<ul class="treeview-menu">
           			 	<li id=""><a href="addusers.click" target="iframe_a"><i class="fa fa-circle-o"></i>Manage Users</a></li>
                	 		<li id=""><a href="userrolemanagement.click" target="iframe_a"><i class="fa fa-circle-o"></i>Manage User Roles</a></li>
-               	 		<li id=""><a href="changeusernamepassword.click" target="iframe_a"><i class="fa fa-circle-o"></i>Change Username/password</a></li>
           		 </ul>
           	</li>
             <li id=""><a href="initialdetails.click" target="iframe_a"><i class="fa fa-circle-o"></i> Add/Edit Initial Details</a></li>
             
+          </ul>
+        </li>
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-share"></i> <span>Multi Level</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li class="treeview">
+              <a href="#"><i class="fa fa-circle-o"></i> Level one
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="#"><i class="fa fa-circle-o"></i> Level Two</a></li>
+                <li class="treeview">
+                  <a href="#"><i class="fa fa-circle-o"></i> Level Two
+                    <span class="pull-right-container">
+                      <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                  </a>
+                  <ul class="treeview-menu">
+                    <li><a href="#"><i class="fa fa-circle-o"></i> Level Three</a></li>
+                    <li><a class="click"><i class="fa fa-circle-o"></i> Level Three</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
           </ul>
         </li>
       </ul>
@@ -240,23 +280,6 @@
 	</iframe>
   </div>
 </div>
-<div class="modal fade" id="myModal" role="dialog">
-    <div class="modal-dialog modal-sm">
-      <div class="modal-content">
-        <div class="modal-body">
-          <p><b>${msg}</b></p><br>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-    </div>
-</div>
-<script>
-<%if(request.getAttribute("msg")!=null){%>
-$('#myModal').modal('show');
-<%}%>
-</script>
 </body>
 </html>
 <%}else{out.println("No User Session Found!");} %>

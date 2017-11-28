@@ -13,5 +13,7 @@ public interface UserDao {
 	public boolean updateuserroledao(String roleid, String roledescription);
 	public boolean deleteuserroledao(String roleid);
 	public ResultSet selectusernames();
+	public boolean updateusernamepasswordInMaindb(String username, String newusername, String newpassword);
+	public boolean updateusernamepasswordInBranchdb(String username, String newusername, String newpassword, String branchdb);
 
 }

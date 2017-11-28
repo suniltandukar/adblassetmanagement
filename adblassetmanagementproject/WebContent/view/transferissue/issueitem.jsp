@@ -4,9 +4,9 @@
 <%ResultSet userdetail=(ResultSet)session.getAttribute("userdetail");
 UserDao u=new UserDaoImpl();
 ResultSet username=u.selectusernames();%>
+<jsp:include page="/includefile"></jsp:include>
 <html>
 <head>
-<link rel="import" href="new.jsp">
 <style>
 .green{
 color:green}

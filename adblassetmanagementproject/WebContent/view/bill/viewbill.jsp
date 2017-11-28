@@ -1,12 +1,12 @@
 <%@page import="java.sql.*"%>
 <%@page import='com.adbl.daoimpl.OtherActionDAOImpl'%>
 <%@page import='com.adbl.dao.OtherActionDAO'%>
-<%ResultSet branchdb=(ResultSet) session.getAttribute("userdetail");
+<%ResultSet userdetail=(ResultSet) session.getAttribute("userdetail");
 OtherActionDAO ac=new OtherActionDAOImpl();
-ResultSet bill=(ResultSet) ac.viewbillDao(branchdb.getString("branchdb")); %>
+ResultSet bill=(ResultSet) ac.viewbillDao(userdetail.getString("branchdb")); %>
+<jsp:include page="/includefile"></jsp:include>
 <html>
 <head>
-<link rel="import" href="new.jsp">
 </head>
 <body>
 	<div class="breadcrumb-line">
@@ -26,7 +26,7 @@ ResultSet bill=(ResultSet) ac.viewbillDao(branchdb.getString("branchdb")); %>
 				<div class="panel panel-default" style="width: 100%;">
 					<div class="panel-heading">
 						<h6>
-							<strong>Inventory Item Details</strong>
+							<strong>Bill Details</strong>
 						</h6>
 					</div>
 					<div class="panel-body">
@@ -51,9 +51,9 @@ ResultSet bill=(ResultSet) ac.viewbillDao(branchdb.getString("branchdb")); %>
 
 									<td><a href="#" data-toggle="modal"
 										data-caption="test caption text"
-										data-image="view/uploadedbills/<%=bill.getString("billimageoriginalname") %>"
+										data-image="//<%=bill.getString("ipport") %>/<%=bill.getString("filepath") %>/<%=bill.getString("billimageoriginalname") %>"
 										data-target="#trslphotos"><img
-											src="view/uploadedbills/<%=bill.getString("billimageoriginalname") %>"
+											src="//<%=bill.getString("ipport") %>/<%=bill.getString("filepath") %>/<%=bill.getString("billimageoriginalname") %>"
 											alt="recent photo" width="0px"><i class="fa fa-eye"></i></a>&nbsp;
 										&nbsp; &nbsp;<a class="confirmbtn"
 										href="deletebill.del?path=<%=bill.getString("billimagepath") %>&id=<%=bill.getString("billid")%>&filename=<%=bill.getString("billimageoriginalname") %>">

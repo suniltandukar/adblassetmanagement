@@ -7,8 +7,8 @@ ResultSet userdetail=(ResultSet) session.getAttribute("userdetail");
 TransferDao tdao=new TransferDaoImpl(userdetail.getString("branchdb"));
 ResultSet branchname=(ResultSet) tdao.getbranchdetails();
 %>
+<jsp:include page="/includefile"></jsp:include>
 <head>
-<link rel="import" href="new.jsp">
 <style>
 .green{
 color:green}

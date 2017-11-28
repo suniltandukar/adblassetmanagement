@@ -139,6 +139,10 @@ public class AddController extends HttpServlet {
 			OtherAction action=new OtherAction();
 			action.billupdate(request, response);
 		}
+		else if(uri.endsWith("updateusernamepassword.add")){
+			UserAction u=new UserAction();
+			u.usernamepasswordupdate(request, response);
+		}
 	}
 
 }

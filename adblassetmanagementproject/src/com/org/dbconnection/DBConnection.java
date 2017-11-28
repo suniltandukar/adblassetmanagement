@@ -15,7 +15,7 @@ public class DBConnection {
     }
     public static Connection getConnection(){
         try{
-            con=(Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/adblassetmanagementdb","root","");//javproject name of database
+            con=(Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/adblassetmanagementdb","root","123456");//javproject name of database
         }
         catch(Exception e){
             e.printStackTrace();
@@ -24,7 +24,7 @@ public class DBConnection {
     }
     public static Connection getConnectionNext(String branchdb){
         try{
-            con=(Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/"+branchdb+"","root","");//javproject name of database
+            con=(Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/"+branchdb+"","root","123456");//javproject name of database
         }
         catch(Exception e){
             e.printStackTrace();

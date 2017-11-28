@@ -1,6 +1,7 @@
 package com.adbl.action;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -191,6 +192,43 @@ public class UserAction {
 		catch(Exception e){
 			e.printStackTrace();
 		}
+		
+	}
+	public void usernamepasswordupdate(HttpServletRequest request,
+			HttpServletResponse response) {
+		PrintWriter out = null;
+		try {
+			out = response.getWriter();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		HttpSession session=request.getSession();
+		ResultSet userdetail=(ResultSet)session.getAttribute("userdetail");
+		String username="";
+		String branchdb="";
+		try {
+			username=userdetail.getString("username");
+			branchdb=userdetail.getString("branchdb");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		String newusername=request.getParameter("newusername");
+		String newpassword=request.getParameter("newpassword");
+		UserDao u=new UserDaoImpl();
+		boolean status1=u.updateusernamepasswordInBranchdb(username, newusername, newpassword, branchdb);
+		if(status1){
+			boolean status2=u.updateusernamepasswordInMaindb(username,newusername,newpassword);
+			if(status2){
+				request.setAttribute("msg", "Update Successful!");
+			}
+			else{
+				request.setAttribute("msg", "Update Failed!");
+			}
+		}
+		else{
+			request.setAttribute("msg", "Update Failed!");
+		}
+		out.println("Update Successful. Login Again!");
 		
 	}
 	

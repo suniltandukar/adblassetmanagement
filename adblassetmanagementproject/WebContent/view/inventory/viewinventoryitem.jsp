@@ -14,10 +14,9 @@ ResultSet fundsource=(ResultSet) i.getfundsourcelist();
 ResultSet itemcondition=(ResultSet) i.getitemcondition();
 ResultSet group=(ResultSet) i.getgroup();
 if(idetail.next()){ %>
+<jsp:include page="/includefile"></jsp:include>
 <html>
 	<head>
-		<link rel="import" href="new.jsp">
-		
 	</head>
 	<body>
 <div class="panel panel-default" style="width: 100%; margin: auto;">

@@ -1,19 +1,23 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
     <%@page import="java.sql.*"%>
-    
-  
+    <%@page import='com.adbl.daoimpl.InventoryDaoImpl'%>
+<%@page import='com.adbl.dao.InventoryDao'%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<link rel="import" href="new.jsp">
+
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
 <%
 ResultSet branchdb=(ResultSet) session.getAttribute("userdetail");
+InventoryDao i=new InventoryDaoImpl(branchdb.getString("branchdb"));
+ResultSet companylist1=(ResultSet) i.getcompanylist();
 %>
 </head>
 <body>
+<jsp:include page="/includefile"></jsp:include> 
 <div class="breadcrumb-line">
 			<nav aria-label="breadcrumb" role="navigation">
 			  <ol class="breadcrumb">
@@ -29,7 +33,7 @@ ResultSet branchdb=(ResultSet) session.getAttribute("userdetail");
     					<strong>Fill Bill Detail</strong>
     				</div>
     				<div class="panel-body">
-    				<form method="POST" action="bill.upload"  enctype="multipart/form-data">
+    				<form method="POST" action="bill.upload" class="confirm" enctype="multipart/form-data">
     				
     				<input type="hidden" name="branchdb" value="<%=branchdb.getString("branchdb")%>">
 						<table class="table">
@@ -46,8 +50,13 @@ ResultSet branchdb=(ResultSet) session.getAttribute("userdetail");
                                        <input type="text" name="billno" class="form-control"  required>
                                    	</td>
                                    	<td>
-                                       <h5>Company Name</h5> 
-                                       <input type="text" name="companyname" class="form-control" required>
+                                      <h5>Company Name</h5> <select class="form-control"
+                                            name="companyid"  required>
+                                                <option value="" selected>Select company</option>
+                                                <%while(companylist1.next()){%>
+                                                	<option value="<%=companylist1.getString("companyid") %>"><%=companylist1.getString("companyname") %></option>
+                                                <%}%>
+                                        </select>
                                    	</td>
                                    	
 								</tr>
@@ -101,13 +110,18 @@ ResultSet branchdb=(ResultSet) session.getAttribute("userdetail");
     	
 
 </body>
+<script src="assets/js/dateConverter.js"></script>
 <script>
 $(document).ready(function()
         {
 	<%if(request.getAttribute("msg")!=null){%>
 	   $('#myModal').modal('show');
 	   <%}%>
+	   $('.confirm').submit(function(){
+		  return confirm('sure?'); 
+	   });
         });
 </script>	
+
 
 </html>

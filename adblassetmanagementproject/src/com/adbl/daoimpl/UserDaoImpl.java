@@ -178,5 +178,42 @@ public class UserDaoImpl implements UserDao {
 		
 		return rs;
 	}
-	
+	public boolean updateusernamepasswordInMaindb(String username, String newusername, String newpassword){
+		 con=DBConnection.getConnection();
+		 int i=0;
+		 String query="update usertbl set username=?, password=? where username=?";
+		 try{
+			 ps=con.prepareStatement(query);
+			 ps.setString(1, newusername);
+			 ps.setString(2, newpassword);
+			 ps.setString(3, username);
+			 i=ps.executeUpdate();
+			 if(i>0){
+				 return true;
+			 }
+		 }
+		 catch(Exception e){
+			 System.out.println(e);
+		 }
+		 return false;
+	}
+	public boolean updateusernamepasswordInBranchdb(String username, String newusername, String newpassword, String branchdb){
+		 con=DBConnection.getConnectionNext(branchdb);
+		 int i=0;
+		 String query="update usertbl set username=?, password=? where username=?";
+		 try{
+			 ps=con.prepareStatement(query);
+			 ps.setString(1, newusername);
+			 ps.setString(2, newpassword);
+			 ps.setString(3, username);
+			 i=ps.executeUpdate();
+			 if(i>0){
+				 return true;
+			 }
+		 }
+		 catch(Exception e){
+			 System.out.println(e);
+		 }
+		 return false;
+	}
 }

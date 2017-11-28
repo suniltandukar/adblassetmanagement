@@ -22,14 +22,15 @@ public class OtherActionDAOImpl implements OtherActionDAO {
 		con=DBConnection.getConnectionNext(bill.getBranchdb());
 		
 		try {
-			ps=con.prepareStatement("insert into billtbl(billno,companyname,billdate,billdateen,billimageoriginalname, billimagepath, billimagegeneratedname) values(?,?,?,?,?,?,?)");
+			ps=con.prepareStatement("insert into billtbl(billno,companyid,billdate,billdateen,billimageoriginalname, billimagepath, billimagegeneratedname,billportpathid) values(?,?,?,?,?,?,?,?)");
 			ps.setString(1,bill.getBillno() );
-			ps.setString(2,bill.getCompanyname() );
+			ps.setString(2,bill.getCompanyid() );
 			ps.setString(3,bill.getBilldate() );
 			ps.setString(4, bill.getBilldateen());
 			ps.setString(5, bill.getBillimagename());
 			ps.setString(6, bill.getBillimagepath());
 			ps.setString(7, bill.getBillimagegeneratedname());
+			ps.setString(8, "1");
 			rs=ps.executeUpdate();
 			if (rs > 0) {
 				con.close();
@@ -70,15 +71,18 @@ public class OtherActionDAOImpl implements OtherActionDAO {
 	{
 		
 		con=DBConnection.getConnectionNext(branchdb);
-		String query="select * from billtbl";
+		String query="select billtbl.*, billportpathtbl.ipport, billportpathtbl.filepath, companytbl.companyname from billtbl join billportpathtbl on billportpathtbl.billportpathid=billtbl.billportpathid join companytbl on billtbl.companyid=companytbl.companyid";
 		try {
 			ps=con.prepareStatement(query);
 			rs=ps.executeQuery();
+			if(rs!=null){
+				return rs;
+			}
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return rs;
+		return null;
 		
 	}
 
@@ -116,7 +120,7 @@ public class OtherActionDAOImpl implements OtherActionDAO {
 		return false;
 	}
 	public Bill getbilldetail(String billid, String branchdb,Bill bill){
-		String query="select * from billtbl where billid='"+billid+"'";
+		String query="select billtbl.*, companytbl.companyname from billtbl join companytbl on companytbl.companyid=billtbl.companyid where billtbl.billid='"+billid+"'";
 		try{
 			con=DBConnection.getConnectionNext(branchdb);
 			ps=con.prepareStatement(query);
@@ -126,6 +130,7 @@ public class OtherActionDAOImpl implements OtherActionDAO {
 				bill.setBilldate(rs.getString("billdate"));
 				bill.setBilldateen(rs.getString("billdateen"));
 				bill.setBillno(rs.getString("billno"));
+				bill.setCompanyid(rs.getString("companyid"));
 				bill.setCompanyname(rs.getString("companyname"));
 			}
 		}
@@ -135,7 +140,7 @@ public class OtherActionDAOImpl implements OtherActionDAO {
 		return bill;
 	}
 	public boolean editbillDao(String branchdb,Bill bill) {
-		String query="update billtbl set billno=?,billdate=?,billdateen=?,companyname=?,billimagegeneratedname=? where billid=?";
+		String query="update billtbl set billno=?,billdate=?,billdateen=?,companyid=?,billimagegeneratedname=? where billid=?";
 		int i=0;
 		try{
 			con=DBConnection.getConnectionNext(branchdb);
@@ -143,7 +148,7 @@ public class OtherActionDAOImpl implements OtherActionDAO {
 			ps.setString(1, bill.getBillno());
 			ps.setString(2, bill.getBilldate());
 			ps.setString(3, bill.getBilldateen());
-			ps.setString(4, bill.getCompanyname());
+			ps.setString(4, bill.getCompanyid());
 			ps.setString(5, bill.getBillimagegeneratedname());
 			ps.setString(6, bill.getBillid());
 			i=ps.executeUpdate();

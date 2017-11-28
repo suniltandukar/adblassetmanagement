@@ -1,8 +1,8 @@
 <%@page import="java.sql.*"%>
 <%ResultSet i=(ResultSet)request.getAttribute("issueditemdetails"); %>
+<jsp:include page="/includefile"></jsp:include>
 <html>
 	<head>
-		<link rel="import" href="new.jsp">
 	</head>
 	<body>
 		<div class="breadcrumb-line">

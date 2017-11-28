@@ -32,6 +32,7 @@ import com.adbl.model.Bill;
 public class UploaderController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private final String UPLOAD_DIRECTORY = "C:/Users/hackersdelima/git/adblassetmanagement/adblassetmanagementproject/WebContent/view/uploadedbills";
+	//private final String UPLOAD_DIRECTORY = "C:/xampp/tomcat/webapps/adblassetbillimages/billimages";
 	Map<String,String> formMap = new HashMap<String,String>();
 	
 	
@@ -50,7 +51,7 @@ public class UploaderController extends HttpServlet {
 	
 		MultipartRequest req = new MultipartRequest(request, UPLOAD_DIRECTORY, 1024 * 1024 * 1024);
 	      String billno=req.getParameter("billno");
-	      String companyname=req.getParameter("companyname");
+	      String companyid=req.getParameter("companyid");
 	      String billdate=req.getParameter("billdate");
 	      String billdateen=req.getParameter("billdateen");
 	      String branchdb=req.getParameter("branchdb");
@@ -67,7 +68,7 @@ public class UploaderController extends HttpServlet {
 		bill.setBilldateen(billdateen);
 		bill.setBillno(billno);
 		bill.setBranchdb(branchdb);
-		bill.setCompanyname(companyname);
+		bill.setCompanyid(companyid);
 		bill.setBillimagepath(UPLOAD_DIRECTORY);
 		bill.setBillimagegeneratedname(billimagegeneratedname);
 		   

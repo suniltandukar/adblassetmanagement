@@ -35,7 +35,7 @@ public class OtherAction {
 		
 			request.setAttribute("msg", "Bill Uploaded.");
 			request.setAttribute("billno", bill.getBillno());
-			request.setAttribute("companyname", bill.getCompanyname());
+			request.setAttribute("companyid", bill.getCompanyid());
 			request.setAttribute("billname", bill.getBillimagename());
 			RequestDispatcher rd=request.getRequestDispatcher("view/bill/uploadbill.jsp");
 			try {
@@ -160,7 +160,7 @@ public class OtherAction {
 		public void billupdate(HttpServletRequest req,
 				HttpServletResponse response) {
 			  String billno=req.getParameter("billno");
-		      String companyname=req.getParameter("companyname");
+		      String companyid=req.getParameter("companyid");
 		      String billdate=req.getParameter("billdate");
 		      String billdateen=req.getParameter("billdateen");
 		      String billid=req.getParameter("billid");
@@ -185,7 +185,7 @@ public class OtherAction {
 				bill.setBilldateen(billdateen);
 				bill.setBillno(billno);
 				bill.setBranchdb(branchdb);
-				bill.setCompanyname(companyname);
+				bill.setCompanyid(companyid);
 				bill.setBillimagegeneratedname(billimagegeneratedname);
 				
 				OtherActionDAO ac=new OtherActionDAOImpl();

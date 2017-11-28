@@ -8,9 +8,9 @@
 <%UserDao i=new UserDaoImpl(); %>
 <%ResultSet rolename1=(ResultSet)i.getroles(); %>
 <%ResultSet rolename=(ResultSet)i.getroles(); %>
+<jsp:include page="/includefile"></jsp:include>
 <html>
 	<head>
-		<link rel="import" href="new.jsp">
 	</head>
 	<body>
 		<div class="background">

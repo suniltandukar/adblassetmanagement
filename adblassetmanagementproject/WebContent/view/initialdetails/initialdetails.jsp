@@ -1,7 +1,6 @@
 <link rel="import" href="new.jsp">
 <%@page import="java.sql.*"%>
 <%@page import="com.adbl.daoimpl.InitialDetailDaoImpl"%>
-
 <%ResultSet userdetail=(ResultSet)session.getAttribute("userdetail");
 String companydb=userdetail.getString("branchdb");
 InitialDetailDaoImpl i=new InitialDetailDaoImpl(companydb);
@@ -10,6 +9,7 @@ ResultSet company1=(ResultSet)i.showcompany();
 ResultSet group=(ResultSet)i.showgroup();
 ResultSet fundsource=(ResultSet)i.showfundsource();
 ResultSet itemcondition=(ResultSet)i.showitemcondition();%>
+<jsp:include page="/includefile"></jsp:include>
 	<div class="breadcrumb-line">
 			<nav aria-label="breadcrumb" role="navigation">
 			  <ol class="breadcrumb">

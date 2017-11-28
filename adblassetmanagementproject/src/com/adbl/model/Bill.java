@@ -10,7 +10,14 @@ public class Bill {
 	}
 	String billno;
     String companyname;
-    String billdate;
+    String companyid;
+    public String getCompanyid() {
+		return companyid;
+	}
+	public void setCompanyid(String companyid) {
+		this.companyid = companyid;
+	}
+	String billdate;
     String billdateen;
     String branchdb;
     String billimagename;

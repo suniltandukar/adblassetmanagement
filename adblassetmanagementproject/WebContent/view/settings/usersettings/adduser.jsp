@@ -1,6 +1,6 @@
+<jsp:include page="/includefile"></jsp:include>
 <html>
 <head>
-<link rel="import" href="new.jsp">
 <style>
 .green{
 color:green}
@@ -43,7 +43,7 @@ display:none;}
     		<div class="col-md-4">
     			<div class="panel panel-default">
     				<div class="panel-heading">
-    					<strong>Add User</strong>
+    					<strong>User Detail</strong>
     				</div>
     				<div class="panel-body">
     				<form method="post"  id="form" name="Form1">
@@ -127,7 +127,7 @@ display:none;}
 							<td><%=existinguser.getString("staffcode") %></td>
 							<td><a href="edituser.click?id=<%=existinguser.getString("userid")%>"   ><i class="fa fa-pencil-square-o"></i></a>
 						
-							<a href="deleteuser.click?id=<%=existinguser.getString("userid")%>"   ><i  class="fa fa-trash" id="deletebtn" aria-hidden="true" style="color:red"></i></a></td>
+							<a class="confirmbtn" href="deleteuser.click?id=<%=existinguser.getString("userid")%>"   ><i  class="fa fa-trash" id="deletebtn" aria-hidden="true" style="color:red"></i></a></td>
 							
 							</tr>
 								<%sno++;} %>
@@ -164,8 +164,6 @@ display:none;}
 <script>
 $(document).ready(function()
         {
-	
-
 	$('#table').DataTable();
 	$("#edit").click(function(){
 		$(".username").val("hello");
@@ -193,8 +191,8 @@ $(document).ready(function()
 	        });
 		 
 	});
-	 $( "#deletebtn" ).click(function( event ) {
-		 return confirm("CONFIRM Deletion?");
+	 $( ".confirmbtn" ).click(function( event ) {
+		 return confirm("CONFIRM?");
 		});
 	 $(".staffcode").blur(function()
 		        {
