@@ -120,6 +120,11 @@ public class NavigationController extends HttpServlet {
 			RequestDispatcher rd=request.getRequestDispatcher("view/bill/editbill.jsp");
 			rd.forward(request, response);
 		}
+		else if(uri.endsWith("issuedetail.click"))
+		{
+			RequestDispatcher rd=request.getRequestDispatcher("view/transferissue/issuedetails.jsp");
+			rd.forward(request, response);
+		}
 		else if(uri.endsWith("changeusernamepassword.click"))
 		{
 			HttpSession session=request.getSession();

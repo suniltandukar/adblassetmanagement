@@ -15,5 +15,6 @@ public interface TransferDao {
 	public String getissueid();
 	public boolean updateissueitemstatus(String issueid, String itemcode);
 	public ResultSet getissueditemdetails(String username);
+	public ResultSet getissuedetails();
 
 }

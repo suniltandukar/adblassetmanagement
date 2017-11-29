@@ -174,6 +174,19 @@ public class TransferDaoImpl implements TransferDao{
 			System.out.println("TransferDaoImpl getissueditemdetails error"+e);
 		}		return rs;
 	}
+	public ResultSet getissuedetails(){
+		String query="SELECT inventorytbl.*, issuetbl.*, statustbl.statusdescription from inventorytbl JOIN issuetbl on inventorytbl.issueid=issuetbl.issueid join statustbl on issuetbl.statusid=statustbl.statusid";
+		try{
+			ps=con.prepareStatement(query);
+			rs=ps.executeQuery();
+			
+		}
+		catch(Exception e)
+		{
+			System.out.println("TransferDaoImpl getissueditemdetails error"+e);
+		}		return rs;
+		
+	}
 
 	
 }

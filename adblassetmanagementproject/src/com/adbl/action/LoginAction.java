@@ -1,7 +1,13 @@
 package com.adbl.action;
 import java.io.IOException;
+import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.UnknownHostException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -11,7 +17,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.adbl.dao.LoginDao;
+import com.adbl.dao.UserDao;
 import com.adbl.daoimpl.LoginDaoImpl;
+import com.adbl.daoimpl.UserDaoImpl;
 import com.adbl.model.UserRole;
 import com.org.dbconnection.DBConnection;
 
@@ -24,6 +32,7 @@ public class LoginAction {
 		ResultSet userdetail=null;
 		String branchdb="";
 		String roleid="";
+		InetAddress ip;
 		LoginDao ldao=  new LoginDaoImpl();
 		boolean maindbstatus=ldao.checkmaindb(staffcode, username, password);
 		if(maindbstatus){
@@ -40,6 +49,46 @@ public class LoginAction {
 				HttpSession session=request.getSession(true);
 				session.setAttribute("userdetail", userdetail);
 				request.setAttribute("role", ulist);
+				
+				//for log history
+				try {
+					ip = InetAddress.getLocalHost();
+					String ipaddress=ip.toString();
+					NetworkInterface network = NetworkInterface.getByInetAddress(ip);
+
+					byte[] mac = network.getHardwareAddress();
+
+					StringBuilder sb = new StringBuilder();
+					for (int i = 0; i < mac.length; i++) {
+						sb.append(String.format("%02X%s", mac[i], (i < mac.length - 1) ? "-" : ""));
+					}
+					String macaddress=sb.toString();
+					
+					DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+					Date date = new Date();
+					System.out.println(dateFormat.format(date)); //2016/11/16 12:08:43
+					
+					UserDao use=new UserDaoImpl();
+					boolean status=use.loghistorydao(userdetail, ipaddress, macaddress);
+					
+					if(status)
+					{
+						System.out.println("logged");
+					}
+						
+					else{
+						System.out.println("not logged");
+					}
+					
+					
+					
+				} catch (Exception e1) {
+					System.out.println("ip error//mac error in login action");
+					e1.printStackTrace();
+				}
+				
+				
+				
 				try{
 				RequestDispatcher rd=request.getRequestDispatcher("profile.jsp");
 				rd.forward(request, response);

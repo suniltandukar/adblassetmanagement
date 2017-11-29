@@ -1,9 +1,11 @@
 package com.adbl.daoimpl;
 
+import java.net.InetAddress;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Date;
 
 import com.adbl.dao.UserDao;
 import com.mysql.jdbc.Connection;
@@ -215,5 +217,28 @@ public class UserDaoImpl implements UserDao {
 			 System.out.println(e);
 		 }
 		 return false;
+	}
+	public boolean loghistorydao(ResultSet userdetail, String ip, String mac)
+	{
+		int rs=0;
+		
+		try {
+			String query="insert into loginhistorytbl(username,ipaddress,macaddress,logindatetime) values(?,?,?,NOW())";
+			con=DBConnection.getConnection();
+			ps=con.prepareStatement(query);
+			ps.setString(1, userdetail.getString("username"));
+			ps.setString(2, ip);
+			ps.setString(3, mac);
+			rs=ps.executeUpdate();
+			if(rs>0)
+			{
+				return true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return false;
+			
 	}
 }

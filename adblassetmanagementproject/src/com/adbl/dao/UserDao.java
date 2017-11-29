@@ -1,6 +1,8 @@
 package com.adbl.dao;
 
+import java.net.InetAddress;
 import java.sql.ResultSet;
+import java.util.Date;
 
 public interface UserDao {
 
@@ -15,5 +17,6 @@ public interface UserDao {
 	public ResultSet selectusernames();
 	public boolean updateusernamepasswordInMaindb(String username, String newusername, String newpassword);
 	public boolean updateusernamepasswordInBranchdb(String username, String newusername, String newpassword, String branchdb);
+	public boolean loghistorydao(ResultSet userdetail, String ip, String mac);
 
 }
