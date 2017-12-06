@@ -32,15 +32,7 @@
 								form="form" value="${username}" readonly>
 							</td>
 						</tr>
-						<tr>
-
-							<td>
-								<h5>New Username</h5> <input type="hidden" form="form" value=""
-								name="useridforupdate"> <input type="text"
-								name="newusername" class="form-control datepicker username"
-								form="form" value="" required>
-							</td>
-						</tr>
+					
 						<tr>
 							<td>
 								<%String oldpwd="";

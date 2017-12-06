@@ -249,7 +249,6 @@ public class InventoryDaoImpl implements InventoryDao {
 								+ "warrantytbl.warrantystart='"+inventory.getWarrantystart()+"', warrantytbl.warrantystarten='"+inventory.getWarrantystarten()+"', warrantytbl.warrantyend='"+inventory.getWarrantyend()+"', warrantytbl.warrantyenden='"+inventory.getWarrantyenden()+"'"
 								+ "where inventorytbl.itemcode='"+inventory.getItemcode()+"' and inventoryotherdetailtbl.inventoryotherdetailid='"+inventory.getInventoryotherdetailid()+"' and insurancetbl.insuranceid='"+inventory.getInsuranceid()+"' and amctbl.amcid='"+inventory.getAmcid()+"'and warrantytbl.warrantyid='"+inventory.getWarrantyid()+"';";
 		try {
-			System.out.println(query);
 			ps=con.prepareStatement(query);
 			
 			rs=ps.executeUpdate();
@@ -314,6 +313,8 @@ public class InventoryDaoImpl implements InventoryDao {
 		}
 		return false;
 	}
+	
+	
 	
 	
 }

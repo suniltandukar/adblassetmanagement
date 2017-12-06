@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 25, 2017 at 02:22 PM
+-- Generation Time: Dec 06, 2017 at 05:39 AM
 -- Server version: 5.6.24
 -- PHP Version: 5.6.8
 
@@ -34,17 +34,36 @@ CREATE TABLE IF NOT EXISTS `amctbl` (
   `amcenden` varchar(10) DEFAULT NULL,
   `amccost` double DEFAULT NULL,
   `amccompanyid` bigint(20) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `amctbl`
 --
 
 INSERT INTO `amctbl` (`amcid`, `amcstart`, `amcstarten`, `amcend`, `amcenden`, `amccost`, `amccompanyid`) VALUES
-(6, 'das', '', '', '', 250, 3),
-(7, '', '', '', '', 0, 3),
-(8, '', '', '', '', 0, 3),
-(9, '', '', '', '', 0, 3);
+(10, '', '', '', '', 0, 4),
+(11, '', '', '', '', 0, 4),
+(12, '', '', '', '', 0, 4),
+(13, '', '', '', '', 0, 4);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `billportpathtbl`
+--
+
+CREATE TABLE IF NOT EXISTS `billportpathtbl` (
+  `billportpathid` bigint(20) NOT NULL,
+  `ipport` varchar(20) NOT NULL,
+  `filepath` varchar(500) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `billportpathtbl`
+--
+
+INSERT INTO `billportpathtbl` (`billportpathid`, `ipport`, `filepath`) VALUES
+(1, 'localhost:8080', 'adblassetmanagementproject/view/uploadedbills');
 
 -- --------------------------------------------------------
 
@@ -55,25 +74,22 @@ INSERT INTO `amctbl` (`amcid`, `amcstart`, `amcstarten`, `amcend`, `amcenden`, `
 CREATE TABLE IF NOT EXISTS `billtbl` (
   `billid` bigint(20) NOT NULL,
   `billno` varchar(20) DEFAULT NULL,
-  `companyname` varchar(50) DEFAULT NULL,
+  `companyid` bigint(20) DEFAULT NULL,
   `billdate` varchar(10) DEFAULT NULL,
   `billdateen` varchar(10) DEFAULT NULL,
   `billimageoriginalname` varchar(80) DEFAULT NULL,
   `billimagegeneratedname` varchar(50) DEFAULT NULL,
-  `billimagepath` varchar(100) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+  `billimagepath` varchar(500) DEFAULT NULL,
+  `billportpathid` bigint(20) DEFAULT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `billtbl`
 --
 
-INSERT INTO `billtbl` (`billid`, `billno`, `companyname`, `billdate`, `billdateen`, `billimageoriginalname`, `billimagegeneratedname`, `billimagepath`) VALUES
-(1, 'jlkjkl', 'jlkj', 'jlk', 'jlk', 'adbl-fb.jpg', NULL, NULL),
-(2, '2017', '1022', '2017-11-11', '1961-02-22', 'IMG20171012151025.jpg', NULL, NULL),
-(3, '', '', '', '', 'adbl-fb.jpg', NULL, NULL),
-(4, '', '', '', '', NULL, NULL, NULL),
-(5, '', '', '', '', NULL, NULL, NULL),
-(6, 'ABC123', 'ABX', '2074-11-11', '2018-02-23', 'shishir.jpg', NULL, NULL);
+INSERT INTO `billtbl` (`billid`, `billno`, `companyid`, `billdate`, `billdateen`, `billimageoriginalname`, `billimagegeneratedname`, `billimagepath`, `billportpathid`) VALUES
+(7, '121212', NULL, '2050-11-11', '1994-02-23', 'icon.png', '20501212121994', 'D:/xampp/tomcat/webapps/image', 1),
+(10, 'dfas', 4, '2015-11-11', '1959-02-22', 'bg2.jpg', '2015dfas1959', 'C:/Users/sunil/git/adblassetmanagementproject/adblassetmanagementproject/WebContent/view/uploadedbills', 1);
 
 -- --------------------------------------------------------
 
@@ -89,14 +105,27 @@ CREATE TABLE IF NOT EXISTS `companytbl` (
   `companycontactno` varchar(10) DEFAULT NULL,
   `companyemail` varchar(30) DEFAULT NULL,
   `companycontactperson` varchar(50) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `companytbl`
 --
 
 INSERT INTO `companytbl` (`companyid`, `vatpan`, `companyname`, `companyaddress`, `companycontactno`, `companyemail`, `companycontactperson`) VALUES
-(3, '123456', 'Harish and Com.', 'Dillibazar, Kathmandu', '9848023564', 'harish@furniture.com', 'Harish Bikram Singh');
+(4, 'none', 'none', 'none', 'none', 'none', 'none');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `depreciationtbl`
+--
+
+CREATE TABLE IF NOT EXISTS `depreciationtbl` (
+  `did` bigint(20) NOT NULL,
+  `lastyearDepreciation` varchar(100) DEFAULT NULL,
+  `thisyearDepreciation` varchar(100) DEFAULT NULL,
+  `totalDepreciation` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -107,14 +136,14 @@ INSERT INTO `companytbl` (`companyid`, `vatpan`, `companyname`, `companyaddress`
 CREATE TABLE IF NOT EXISTS `fundsourcetbl` (
   `fundsourceid` bigint(20) NOT NULL,
   `sourcename` varchar(30) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `fundsourcetbl`
 --
 
 INSERT INTO `fundsourcetbl` (`fundsourceid`, `sourcename`) VALUES
-(3, 'Donation');
+(4, 'none');
 
 -- --------------------------------------------------------
 
@@ -132,8 +161,8 @@ CREATE TABLE IF NOT EXISTS `grouptbl` (
 --
 
 INSERT INTO `grouptbl` (`groupcode`, `groupname`) VALUES
-('CHA', 'Chair'),
-('TBL', 'Table');
+('CHA', 'chair'),
+('TBL', 'table');
 
 -- --------------------------------------------------------
 
@@ -149,17 +178,16 @@ CREATE TABLE IF NOT EXISTS `insurancetbl` (
   `insuranceend` varchar(10) DEFAULT NULL,
   `insuranceenden` varchar(10) DEFAULT NULL,
   `insurancepremiumamount` double DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `insurancetbl`
 --
 
 INSERT INTO `insurancetbl` (`insuranceid`, `insurancecompanyid`, `insurancestart`, `insurancestarten`, `insuranceend`, `insuranceenden`, `insurancepremiumamount`) VALUES
-(6, 3, 'lathik cha', '', '', '', 250),
-(7, 3, '', '', '', '', 0),
-(8, 3, '', '', '', '', 0),
-(9, 3, '', '', '', '', 0);
+(11, 4, '', '', '', '', 0),
+(12, 4, '', '', '', '', 0),
+(13, 4, '', '', '', '', 0);
 
 -- --------------------------------------------------------
 
@@ -246,16 +274,16 @@ CREATE TABLE IF NOT EXISTS `inventoryotherdetailtbl` (
   `engineno` varchar(30) DEFAULT NULL,
   `macaddress` varchar(30) DEFAULT NULL,
   `licenseno` varchar(30) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `inventoryotherdetailtbl`
 --
 
 INSERT INTO `inventoryotherdetailtbl` (`inventoryotherdetailid`, `fundsourceid`, `unitname`, `rate`, `quantity`, `amount`, `warrantyid`, `amcid`, `insuranceid`, `supplierid`, `itemconditionid`, `itemsize`, `vehicleno`, `chesisno`, `engineno`, `macaddress`, `licenseno`) VALUES
-(6, 3, 'done', 250, 1, 0, 183, 6, 6, 3, 2, '', '20', '20', '20', '105', '30'),
-(8, 3, '', 20, 2, 0, 185, 8, 8, 3, 2, '', '', '', '', '', ''),
-(9, 3, '', 0, 1, 0, 186, 9, 9, 3, 2, '', '', '', '', '', '');
+(11, 4, '', 0, 1, 0, 188, 11, 11, 4, 3, '', '', '', '', '', ''),
+(12, 4, '', 0, 1, 0, 189, 12, 12, 4, 3, '', '', '', '', '', ''),
+(13, 4, '', 0, 1, 0, 190, 13, 13, 4, 3, '', '', '', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -286,9 +314,9 @@ CREATE TABLE IF NOT EXISTS `inventorytbl` (
 --
 
 INSERT INTO `inventorytbl` (`itemcode`, `transactionid`, `legacyid`, `groupcode`, `itemname`, `model`, `decisiondate`, `decisiondateen`, `purchasedate`, `purchasedateen`, `depreciationrate`, `inventoryotherdetailid`, `transactiondateen`, `issueid`, `transferid`) VALUES
-('2017CHA0002', '20170010002', 'Chari', 'CHA', 'Chair', 'ChairModel', '2074-01-01', '2017-04-14', '2074-02-01', '2017-05-15', '', 8, 'date', 24, NULL),
-('2017TBL0001', '20170010004', '', 'TBL', 'shishir saman', '', '', '', '2074-07-25', '2017-11-11', '', 9, 'date', 26, NULL),
-('2018TBL0001', '20170010001', 'Table01', 'TBL', 'Table', 'Table01', '2074-05-06', '2017-08-22', '2075-05-07', '2018-08-23', '0', 6, 'date', 17, NULL);
+('1959CHA0001', '20170010004', '', 'CHA', 'chair', '', '', '', '2015-11-11', '1959-02-22', '02', 13, 'date', NULL, NULL),
+('2012TBL0001', '20170010001', '', 'TBL', 'table', '', '', '', '2068-10-19', '2012-02-02', '', 11, 'date', 1, NULL),
+('2012TBL0002', '20170010002', '', 'TBL', 'table12', '2', '', '', '2068-10-17', '2012-02-0', '1', 12, 'date', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -306,34 +334,14 @@ CREATE TABLE IF NOT EXISTS `issuetbl` (
   `issueitemcode` varchar(50) DEFAULT NULL,
   `reserve2` varchar(50) DEFAULT NULL,
   `reserve3` varchar(50) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `issuetbl`
 --
 
 INSERT INTO `issuetbl` (`issueid`, `issuedby`, `issuedto`, `issueddate`, `issueddateen`, `statusid`, `issueitemcode`, `reserve2`, `reserve3`) VALUES
-(7, 'admin', 'shishir', '2017-11-11', '1961-02-22', 2, NULL, NULL, NULL),
-(8, 'shishir', 'shishir', '2017-11-11', '1961-02-22', 1, NULL, NULL, NULL),
-(9, 'admin', 'shishir', '2017-11-11', '1961-02-22', 2, NULL, NULL, NULL),
-(10, 'shishir', 'shishir', '2017-11-11', '1961-02-22', 2, NULL, NULL, NULL),
-(11, 'admin', 'admin', '2017-11-11', '1961-02-22', 2, NULL, NULL, NULL),
-(12, 'admin', 'admin', '2017-11-11', '1961-02-22', 2, NULL, NULL, NULL),
-(13, 'admin', 'admin', '2017-11-11', '1961-02-22', 2, NULL, NULL, NULL),
-(14, 'admin', 'admin', '2017-11-11', '1961-02-22', 2, NULL, NULL, NULL),
-(15, 'shishir', 'admin', '2017-11-11', '1961-02-22', 2, NULL, NULL, NULL),
-(16, 'admin', 'admin', '2017-11-11', '1961-02-22', 1, NULL, NULL, NULL),
-(17, 'admin', 'admin', '2017-11-11', '1961-02-22', 1, NULL, NULL, NULL),
-(18, 'admin', 'admin', '2017-11-11', '1961-02-22', 1, NULL, NULL, NULL),
-(19, 'admin', 'admin', '2017-11-11', '1961-02-22', 1, NULL, NULL, NULL),
-(20, 'admin', 'admin', '2017-11-11', '1961-02-22', 3, '2017CHA0002', NULL, NULL),
-(21, 'admin', 'admin', '2017-11-11', '1961-02-22', 2, '2017CHA0002', NULL, NULL),
-(22, 'admin', 'admin', '2017-11-11', '1961-02-22', 3, '	2017TBL0001', NULL, NULL),
-(23, 'admin', 'admin', '2017-11-12', '1961-02-23', 2, '2017TBL0001', NULL, NULL),
-(24, 'admin', 'shishir', '2017-11-12', '1961-02-23', 2, '2017CHA0002', NULL, NULL),
-(25, 'admin', 'shishir', '2017-12-05', '1961-03-18', 1, '2017TBL0001', NULL, NULL),
-(26, 'shishir', 'admin', '2015-05-06', '1958-08-22', 2, '2017TBL0001', NULL, NULL),
-(27, 'admin', 'admin', '2017-11-11', '1961-02-22', 3, 'jfalkdjf', NULL, NULL);
+(1, 'admin', 'admin', '2012-02-02', '1955-05-16', 3, '2012TBL0001', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -344,14 +352,14 @@ INSERT INTO `issuetbl` (`issueid`, `issuedby`, `issuedto`, `issueddate`, `issued
 CREATE TABLE IF NOT EXISTS `itemconditiontbl` (
   `itemconditionid` bigint(20) NOT NULL,
   `itemconditionname` varchar(20) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `itemconditiontbl`
 --
 
 INSERT INTO `itemconditiontbl` (`itemconditionid`, `itemconditionname`) VALUES
-(2, 'Good');
+(3, 'none');
 
 -- --------------------------------------------------------
 
@@ -424,7 +432,7 @@ CREATE TABLE IF NOT EXISTS `usertbl` (
 
 INSERT INTO `usertbl` (`userid`, `username`, `password`, `staffcode`) VALUES
 (1, 'admin', 'admin', '1'),
-(2, 'shishir', 'shishir', '10');
+(2, 'anil', 'anil', '9');
 
 -- --------------------------------------------------------
 
@@ -438,16 +446,16 @@ CREATE TABLE IF NOT EXISTS `warrantytbl` (
   `warrantystarten` varchar(20) NOT NULL,
   `warrantyend` varchar(10) DEFAULT NULL,
   `warrantyenden` varchar(20) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=187 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=191 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `warrantytbl`
 --
 
 INSERT INTO `warrantytbl` (`warrantyid`, `warrantystart`, `warrantystarten`, `warrantyend`, `warrantyenden`) VALUES
-(183, 'das', '', '', ''),
-(185, '', '', '', ''),
-(186, '', '', '', '');
+(188, '', '', '', ''),
+(189, '', '', '', ''),
+(190, '', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -469,16 +477,28 @@ ALTER TABLE `amctbl`
   ADD PRIMARY KEY (`amcid`), ADD KEY `fk_amctbl_companyid` (`amccompanyid`);
 
 --
+-- Indexes for table `billportpathtbl`
+--
+ALTER TABLE `billportpathtbl`
+  ADD PRIMARY KEY (`billportpathid`);
+
+--
 -- Indexes for table `billtbl`
 --
 ALTER TABLE `billtbl`
-  ADD PRIMARY KEY (`billid`);
+  ADD PRIMARY KEY (`billid`), ADD KEY `fk_billtbl_billportpathid` (`billportpathid`), ADD KEY `fk_billtbl_companyid` (`companyid`);
 
 --
 -- Indexes for table `companytbl`
 --
 ALTER TABLE `companytbl`
   ADD PRIMARY KEY (`companyid`);
+
+--
+-- Indexes for table `depreciationtbl`
+--
+ALTER TABLE `depreciationtbl`
+  ADD PRIMARY KEY (`did`);
 
 --
 -- Indexes for table `fundsourcetbl`
@@ -560,42 +580,47 @@ ALTER TABLE `warrantytbl`
 -- AUTO_INCREMENT for table `amctbl`
 --
 ALTER TABLE `amctbl`
-  MODIFY `amcid` bigint(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
+  MODIFY `amcid` bigint(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=14;
 --
 -- AUTO_INCREMENT for table `billtbl`
 --
 ALTER TABLE `billtbl`
-  MODIFY `billid` bigint(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
+  MODIFY `billid` bigint(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT for table `companytbl`
 --
 ALTER TABLE `companytbl`
-  MODIFY `companyid` bigint(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+  MODIFY `companyid` bigint(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT for table `depreciationtbl`
+--
+ALTER TABLE `depreciationtbl`
+  MODIFY `did` bigint(20) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `fundsourcetbl`
 --
 ALTER TABLE `fundsourcetbl`
-  MODIFY `fundsourceid` bigint(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+  MODIFY `fundsourceid` bigint(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `insurancetbl`
 --
 ALTER TABLE `insurancetbl`
-  MODIFY `insuranceid` bigint(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
+  MODIFY `insuranceid` bigint(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=14;
 --
 -- AUTO_INCREMENT for table `inventoryotherdetailtbl`
 --
 ALTER TABLE `inventoryotherdetailtbl`
-  MODIFY `inventoryotherdetailid` bigint(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
+  MODIFY `inventoryotherdetailid` bigint(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=14;
 --
 -- AUTO_INCREMENT for table `issuetbl`
 --
 ALTER TABLE `issuetbl`
-  MODIFY `issueid` bigint(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=28;
+  MODIFY `issueid` bigint(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `itemconditiontbl`
 --
 ALTER TABLE `itemconditiontbl`
-  MODIFY `itemconditionid` bigint(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+  MODIFY `itemconditionid` bigint(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `statustbl`
 --
@@ -620,7 +645,7 @@ ALTER TABLE `usertbl`
 -- AUTO_INCREMENT for table `warrantytbl`
 --
 ALTER TABLE `warrantytbl`
-  MODIFY `warrantyid` bigint(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=187;
+  MODIFY `warrantyid` bigint(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=191;
 --
 -- Constraints for dumped tables
 --
@@ -630,6 +655,13 @@ ALTER TABLE `warrantytbl`
 --
 ALTER TABLE `amctbl`
 ADD CONSTRAINT `fk_amctbl_companyid` FOREIGN KEY (`amccompanyid`) REFERENCES `companytbl` (`companyid`) ON UPDATE CASCADE;
+
+--
+-- Constraints for table `billtbl`
+--
+ALTER TABLE `billtbl`
+ADD CONSTRAINT `fk_billtbl_billportpathid` FOREIGN KEY (`billportpathid`) REFERENCES `billportpathtbl` (`billportpathid`) ON UPDATE CASCADE,
+ADD CONSTRAINT `fk_billtbl_companyid` FOREIGN KEY (`companyid`) REFERENCES `companytbl` (`companyid`) ON UPDATE CASCADE;
 
 --
 -- Constraints for table `insurancetbl`

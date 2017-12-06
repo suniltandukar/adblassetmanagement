@@ -3,6 +3,12 @@ package com.adbl.dao;
 import java.net.InetAddress;
 import java.sql.ResultSet;
 import java.util.Date;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.adbl.model.History;
 
 public interface UserDao {
 
@@ -18,5 +24,6 @@ public interface UserDao {
 	public boolean updateusernamepasswordInMaindb(String username, String newusername, String newpassword);
 	public boolean updateusernamepasswordInBranchdb(String username, String newusername, String newpassword, String branchdb);
 	public boolean loghistorydao(ResultSet userdetail, String ip, String mac);
+	public List<History> viewhistory(HttpServletRequest request, HttpServletResponse response);
 
 }

@@ -29,45 +29,52 @@ ResultSet group=(ResultSet) i.getgroup();%>
 
 	<div class="panel-body">
 		<div class="panel panel-default" style="width: 100%;">
-			<div class="panel-heading">
-				<h6>
+			<div class="panel-heading count">
+				<h5>
 					<strong>Inventory Item Details</strong>
-					<p class="totalstock">fsadf</p>
-					<table cellpadding="3" cellspacing="0" border="0">
+					 <div class="pull-right text-center">
+					  Total Items <input type="text" form="form"  style="width: 50px; height: 20px; text-align: center;" class="totalstock count" readonly>
+					 &nbsp<table cellpadding="3" cellspacing="0" border="0" class="pull-right">
 						<tbody>
 							<tr id="filter_col2" data-column="1">
 								<td align="center">
-									<select name="groupcode" form="form" class="column_filter form-control" id="col1_filter"  required>
-                                                	<option value="" selected>Select group</option>
+							 <select name="groupcode" form="form" class="column_filter form-control" id="col1_filter"  required>
+                                    <option  value="" selected>Search By Group</option>
                                                 	<%while(group.next()){ %>
-                                                	<option value="<%=group.getString("groupcode")%>"><%=group.getString("groupname") %></option>
-                                                	<%} %>
+                                                
+                                                	<option  value="<%=group.getString("groupcode")%>"><%=group.getString("groupname") %></option>
+                                                	
+                                                		<%} %>
+                                                
                                                 </select></td>
 							</tr>
 						</tbody>
 					</table>
-				</h6>
+					</div>
+					
+					
+				</h5>
 			</div>
-			<div class="panel-body">
+				<div class="panel-body">
 				<table id="example" class="table table-striped table-bordered"
 					cellspacing="0" width="100%">
 					<thead>
 						<tr>
-							<th>S. No</th>
+							<th></th>
 							<th>Item Code</th>
 							<th>Group Code</th>
 							<th>Item Name</th>
 							<th>Model</th>
-							<th>Decission Date</th>
+							<th>Decision Date</th>
 							<th>Depreciation Rate</th>
 							<th><i class="fa fa-cog" aria-hidden="true"></i></th>
 						</tr>
 					</thead>
 					<tbody>
-						<%int sno=1; while (inventory.next()){
+						<% while (inventory.next()){
 							%>
 						<tr class="tablerows">
-							<td><%=sno %></td>
+							<td></td>
 							<td><a
 								href="editinventory.click?id=<%=inventory.getString("itemcode") %>"><%=inventory.getString("itemcode") %></a></td>
 							<td><%=inventory.getString("groupcode") %></td>
@@ -89,7 +96,7 @@ ResultSet group=(ResultSet) i.getgroup();%>
 									</ul>
 								</div></td>
 						</tr>
-						<%sno++;} %>
+						<%} %>
 					
 					</tbody>
 				</table>
@@ -125,9 +132,19 @@ ResultSet group=(ResultSet) i.getgroup();%>
 		});
 		
 		
+		
 </script>
-<script>
 
+<script>
+function filterGlobal () {
+    $('#example').DataTable().search(
+        $('#global_filter').val(),
+        $('#global_regex').prop('checked'),
+        $('#global_smart').prop('checked')
+        
+    ).draw();
+}
+ 
 
 function filterColumn ( i ) {
    $('#example').DataTable().column( i ).search(
@@ -138,18 +155,33 @@ function filterColumn ( i ) {
 }
 
 $(document).ready(function() {
-    
-	var table=$('#example').DataTable();
+    var t = $('#example').DataTable( {
+        "columnDefs": [ {
+            "searchable": false,
+            "orderable": false,
+            "targets": 0
+        } ],
+        "order": [[ 1, 'asc' ]]
+    } );
+ 
+    t.on( 'order.dt search.dt', function () {
+        t.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+            var c=cell.innerHTML = i+1;
+            $('.count').val(c);
+        } );
+    } ).draw();
 	
-   $('select.global_filter').on( 'keyup click', function () {
-       filterGlobal();
-   } );
+    $('select.global_filter').on( 'keyup click', function () {
+        filterGlobal();
+    } );
 
-   $('select.column_filter').on( 'keyup click', function () {
-       filterColumn( $(this).parents('tr').attr('data-column') );
-       var total=table.rows( '.tablerows' ).count();
-	   $('.totalstock').text(total);
-   } );
-} );
+    $('select.column_filter').on( 'keyup click', function () {
+        filterColumn( $(this).parents('tr').attr('data-column') );
+ 	  
+    } );
+    
+ } );
+ 
+
 </script>
 </html>

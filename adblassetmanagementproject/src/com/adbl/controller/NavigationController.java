@@ -3,6 +3,7 @@ package com.adbl.controller;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
@@ -17,7 +18,11 @@ import com.adbl.action.OtherAction;
 import com.adbl.action.TransferAction;
 import com.adbl.action.UserAction;
 import com.adbl.dao.OtherActionDAO;
+import com.adbl.dao.UserDao;
 import com.adbl.daoimpl.OtherActionDAOImpl;
+import com.adbl.daoimpl.UserDaoImpl;
+import com.adbl.model.History;
+
 
 @WebServlet("/NavigationController")
 public class NavigationController extends HttpServlet {
@@ -125,6 +130,7 @@ public class NavigationController extends HttpServlet {
 			RequestDispatcher rd=request.getRequestDispatcher("view/transferissue/issuedetails.jsp");
 			rd.forward(request, response);
 		}
+		
 		else if(uri.endsWith("changeusernamepassword.click"))
 		{
 			HttpSession session=request.getSession();
@@ -142,6 +148,19 @@ public class NavigationController extends HttpServlet {
 			RequestDispatcher rd=request.getRequestDispatcher("view/settings/usersettings/changeusernamepassword.jsp");
 			rd.forward(request, response);
 		}
+		
+		else if(uri.endsWith("logindetails.click"))
+		{
+			UserDao userhistory=new UserDaoImpl();
+			List<History> hist=userhistory.viewhistory(request,response);
+			
+			request.setAttribute("list", hist);
+			RequestDispatcher rd=request.getRequestDispatcher("view/settings/usersettings/logindetails.jsp");
+			rd.forward(request, response);
+		}
+		
+	
+		
 	}
 
 }

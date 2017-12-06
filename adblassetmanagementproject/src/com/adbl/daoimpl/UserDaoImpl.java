@@ -5,9 +5,15 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import com.adbl.dao.UserDao;
+import com.adbl.model.History;
 import com.mysql.jdbc.Connection;
 import com.org.dbconnection.DBConnection;
 
@@ -241,4 +247,35 @@ public class UserDaoImpl implements UserDao {
 		return false;
 			
 	}
+	public List<History> viewhistory(HttpServletRequest request, HttpServletResponse response)
+	{
+		String query="select * from loginhistorytbl";
+		con=DBConnection.getConnection();
+		History hist=null;
+		List<History> list=new ArrayList<History>();
+		try {
+			ps=con.prepareStatement(query);
+			rs=ps.executeQuery();
+			while(rs.next())
+			{
+				hist=new History();
+				hist.setUsername(rs.getString("username"));
+				hist.setIpaddress(rs.getString("ipaddress"));
+				hist.setMacaddress(rs.getString("macaddress"));
+				hist.setLogin(rs.getString("logindatetime"));
+				list.add(hist);
+			}
+			if(list.size()>0){
+				con.close();
+				rs=null;
+				ps=null;
+				return list;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+		
+	}
+
 }

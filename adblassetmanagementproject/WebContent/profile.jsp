@@ -171,6 +171,8 @@
             <li id="" ><a href="addinventory.click" target="iframe_a"><i class="fa fa-circle-o" ></i> Add Inventory</a></li>
             <li id="" ><a href="editinventory.click" target="iframe_a"><i class="fa fa-circle-o" ></i> Edit Inventory</a></li>
             
+          		 
+            
           </ul>
         </li>
         <li class="treeview">
@@ -224,6 +226,7 @@
           			 	<li id=""><a href="addusers.click" target="iframe_a"><i class="fa fa-circle-o"></i>Manage Users</a></li>
                	 		<li id=""><a href="userrolemanagement.click" target="iframe_a"><i class="fa fa-circle-o"></i>Manage User Roles</a></li>
                	 		<li id=""><a href="changeusernamepassword.click" target="iframe_a"><i class="fa fa-circle-o"></i>Change Username/password</a></li>
+          		 		<li id=""><a href="logindetails.click" target="iframe_a"><i class="fa fa-circle-o"></i>Login Details</a></li>
           		 </ul>
           	</li>
             <li id=""><a href="initialdetails.click" target="iframe_a"><i class="fa fa-circle-o"></i> Add/Edit Initial Details</a></li>

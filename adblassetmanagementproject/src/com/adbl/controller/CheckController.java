@@ -1,6 +1,8 @@
 package com.adbl.controller;
 
 import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -33,6 +35,7 @@ public class CheckController extends HttpServlet {
 			CheckAction c=new CheckAction();
 			c.checkstaffcode(request,response);
 		}
+	
 		
 	
 	}
