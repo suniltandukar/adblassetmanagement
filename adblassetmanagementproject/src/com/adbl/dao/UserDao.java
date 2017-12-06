@@ -12,7 +12,7 @@ import com.adbl.model.History;
 
 public interface UserDao {
 
-	public boolean adduserdao(String username, String staffcode, int roleid, String mid, String branchdb);
+	public boolean adduserdao(String username, String staffcode, int roleid, String mid, String branchdb,String role);
 	public ResultSet getroles();
 	public ResultSet getexistingusers();
 	public ResultSet edituserdao(String userid);
@@ -25,5 +25,6 @@ public interface UserDao {
 	public boolean updateusernamepasswordInBranchdb(String username, String newusername, String newpassword, String branchdb);
 	public boolean loghistorydao(ResultSet userdetail, String ip, String mac);
 	public List<History> viewhistory(HttpServletRequest request, HttpServletResponse response);
+	public void addroles(HttpServletRequest request, HttpServletResponse response);
 
 }

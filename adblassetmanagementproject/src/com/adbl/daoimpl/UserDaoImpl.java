@@ -22,10 +22,10 @@ public class UserDaoImpl implements UserDao {
 	PreparedStatement ps=null;
 	Statement stmt=null;
 	ResultSet rs=null;
-	public boolean adduserdao(String username, String staffcode, int roleid,String mid,String branchdb) {
+	public boolean adduserdao(String username, String staffcode, int roleid,String mid,String branchdb,String role) {
 		con=DBConnection.getConnection();
-		String query1="insert into usertbl(username,staffcode,roleid,password,mid) values('"+username+"','"+staffcode+"','"+roleid+"','"+username+"','"+mid+"')";
-		String query2="insert into "+branchdb+".usertbl (username, password, staffcode) values ('"+username+"','"+username+"','"+staffcode+"')";
+		String query1="insert into usertbl(username,staffcode,roleid,password,mid,givenrole) values('"+username+"','"+staffcode+"','"+roleid+"','"+username+"','"+mid+"','"+role+"')";
+		String query2="insert into "+branchdb+".usertbl (username, password, staffcode,givenrole) values ('"+username+"','"+username+"','"+staffcode+"','"+role+"')";
 		try{
 			stmt=con.createStatement();
 			stmt.addBatch(query1);
@@ -37,6 +37,7 @@ public class UserDaoImpl implements UserDao {
 		}
 		return false;
 	}	
+	
 	public ResultSet edituserdao(String userid) {
 		con=DBConnection.getConnection();
 		
@@ -276,6 +277,18 @@ public class UserDaoImpl implements UserDao {
 		}
 		return null;
 		
+	}
+	public void addroles(HttpServletRequest request, HttpServletResponse response)
+	{
+		String query="";
+		con=DBConnection.getConnection();
+		try {
+			ps=con.prepareStatement(query);
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }

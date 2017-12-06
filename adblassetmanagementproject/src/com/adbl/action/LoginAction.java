@@ -49,6 +49,16 @@ public class LoginAction {
 				HttpSession session=request.getSession(true);
 				session.setAttribute("userdetail", userdetail);
 				request.setAttribute("role", ulist);
+				System.out.println(roleid);
+				if(roleid.equals("1"))
+				{
+					session.setAttribute("userrole", "admin");
+					
+				}
+				else
+				{
+					session.setAttribute("userrole", "staff");
+				}
 				
 				//for log history
 				try {

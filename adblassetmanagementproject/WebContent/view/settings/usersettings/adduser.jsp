@@ -52,7 +52,7 @@ display:none;}
 								<tr>
 								
 									<td>
-                                       <h5>Username</h5><span class="usercheck"></span> 
+                                   <h5>Username</h5><span class="usercheck"></span>   
                                        <input type="hidden" form="form" value="<%=request.getParameter("id")%>" name="useridforupdate">
                                        <input type="text" name="username" class="form-control datepicker username"  form="form" value="${username }">
                                    		
@@ -65,6 +65,22 @@ display:none;}
                                        <input type="text" name="staffcode" class="form-control datepicker staffcode"  form="form" value="${staffcode }">
                                    	</td>
                                    
+								</tr>
+								
+								<tr>
+									<td>
+									<label><input type="checkbox" id="view" name="role" value="#nav1"> View Inventory</label><br>
+  									<label><input type="checkbox" id="add" name="role" value="#nav2"> Add Inventory</label><br>
+ 									<label> <input type="checkbox" id="edit" name="role" value="#nav3"> Edit Inventory</label><br>
+ 									 <label><input type="checkbox" id="edit" name="role" value="#nav4"> Transfer Items</label><br>
+ 									 
+ 									 </td>
+ 									 <td>
+									<label><input type="checkbox" id="staff" name="role" value="#nav1,#nav2,#nav3,#nav4,#nav5,#nav6,#nav7,#nav8,#nav9,#nav10"> Staff(all)</label><br>
+  									<label><input type="checkbox" id="admin" name="role" value="#nav1,#nav2,#nav3,#nav4,#nav5,#nav6,#nav7,#nav8,#nav9,#nav10,#nav11,#nav12,#nav13,#nav14"> Admin(all)</label><br>
+ 									 <label><input type="checkbox" id="edit" name="role" value="#nav6"> Update</label><br>
+ 									 <label><input type="checkbox" id="edit" name="role" value="#nav6"> Delete</label><br>
+ 									 </td>
 								</tr>
 								
 								<tr>
@@ -141,7 +157,7 @@ display:none;}
     	</div>
     </div>
 </div>
-<div class="modal fade" id="myModal" role="dialog">
+<div class="modal fade" id="myModal" role="dialog" tabindex="-1">
     <div class="modal-dialog modal-sm">
       <div class="modal-content">
         <div class="modal-body">
@@ -154,6 +170,7 @@ display:none;}
     		Staffcode:${staffcode }
     	
          <%} %>
+    
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -161,14 +178,12 @@ display:none;}
       </div>
     </div>
 </div>
+
 <script>
 $(document).ready(function()
         {
 	$('#table').DataTable();
-	$("#edit").click(function(){
-		$(".username").val("hello");
-		
-	})
+	
 	
         
 	<%if(request.getAttribute("msg")!=null){%>

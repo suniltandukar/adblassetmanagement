@@ -3,6 +3,7 @@ package com.adbl.controller;
 import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,7 +25,9 @@ import com.adbl.action.InitialDetailAddAction;
 import com.adbl.action.TransferAction;
 import com.adbl.action.UserAction;
 import com.adbl.dao.OtherActionDAO;
+import com.adbl.dao.UserDao;
 import com.adbl.daoimpl.OtherActionDAOImpl;
+import com.adbl.daoimpl.UserDaoImpl;
 import com.adbl.action.OtherAction;
 
 /**
@@ -119,18 +122,7 @@ public class AddController extends HttpServlet {
 			rd.forward(request, response);
 		}
 		
-		else if (uri.endsWith("downloadbill.download")) {
-
-			String name = request.getParameter("id");
-
-			OtherActionDAO oad = new OtherActionDAOImpl();
-			String filename = oad.downloadFileNameDAO(name);
-			request.setAttribute("filename", filename);
-			RequestDispatcher rd = request.getRequestDispatcher("downloadbill.jsp");
-			rd.forward(request, response);
-
-		}
-		
+			
 		else if(uri.endsWith("viewbillimage.add")){
 			OtherAction action=new OtherAction();
 			action.viewbillimage(request, response);
@@ -143,6 +135,7 @@ public class AddController extends HttpServlet {
 			UserAction u=new UserAction();
 			u.usernamepasswordupdate(request, response);
 		}
+	
 	}
 
 }

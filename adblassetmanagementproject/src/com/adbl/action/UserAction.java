@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Arrays;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -19,18 +20,21 @@ public class UserAction {
 
 	public void adduser(HttpServletRequest request, HttpServletResponse response) {
 
+		 String[] name = request.getParameterValues("role");
+		 String role=Arrays.toString(name).replace("[","").replace("]","");
+		
 		String username=request.getParameter("username");
 		String staffcode=request.getParameter("staffcode");
-		String role=request.getParameter("roleid");
+		String roles=request.getParameter("roleid");
 		HttpSession session=request.getSession(true);
 		ResultSet userdetails=(ResultSet) session.getAttribute("userdetail");
 		try{
 		String mid=userdetails.getString("mid");
 		String branchdb=userdetails.getString("branchdb");
-		int roleid=Integer.parseInt(role);
+		int roleid=Integer.parseInt(roles);
 		
 		UserDao udao=new UserDaoImpl();
-		Boolean status=udao.adduserdao(username,staffcode,roleid,mid,branchdb);
+		Boolean status=udao.adduserdao(username,staffcode,roleid,mid,branchdb,role);
 		if(status)
 		{
 			request.setAttribute("msg", "User Created Successfully");

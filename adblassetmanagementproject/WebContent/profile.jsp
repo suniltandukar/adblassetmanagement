@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+    <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
  <%@page import="java.sql.*" %>
  <%@page import="java.util.*" %>
  <%@page import="com.adbl.model.UserRole" %>
@@ -10,7 +11,17 @@
 <!DOCTYPE html>
 <html lang="en-US" ng-app="myApp">
 <head>
-	
+	<style>
+	#nav1,#nav2,#nav3,#nav4,#nav5,#nav6,#nav7,#nav8,#nav9,#nav10,#nav11,#nav12,#nav13,#nav14{
+	display:none;}
+
+
+	<%=userdetail.getString("givenrole")%>
+	{
+display:block;}
+
+
+</style>
 </head>
 <body   class="hold-transition skin-blue sidebar-mini" >
 
@@ -48,6 +59,7 @@
                     <a>
                       <div class="pull-left">
                         <a href="#"><i class="fa fa-user"></i> Shishir Karki</a>
+                         <a href="#"><i class="fa fa-user"></i> Sunil Tandukar</a>
                       </div>
                      
                     </a>
@@ -167,9 +179,9 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li id="" ><a href="viewinventory.click" target="iframe_a"><i class="fa fa-circle-o" ></i> View Inventory</a></li>
-            <li id="" ><a href="addinventory.click" target="iframe_a"><i class="fa fa-circle-o" ></i> Add Inventory</a></li>
-            <li id="" ><a href="editinventory.click" target="iframe_a"><i class="fa fa-circle-o" ></i> Edit Inventory</a></li>
+            <li id="nav1" ><a href="viewinventory.click" target="iframe_a"><i class="fa fa-circle-o" ></i> View Inventory</a></li>
+            <li id="nav2" ><a href="addinventory.click" target="iframe_a"><i class="fa fa-circle-o" ></i> Add Inventory</a></li>
+            <li id="nav3" ><a href="editinventory.click" target="iframe_a"><i class="fa fa-circle-o" ></i> Edit Inventory</a></li>
             
           		 
             
@@ -184,10 +196,10 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li id="" ><a href="transferitem.click" target="iframe_a"><i class="fa fa-circle-o" ></i> Transfer Items</a></li>
-            <li id="" ><a href="issuedetail.click" target="iframe_a"><i class="fa fa-circle-o" ></i> Issue Details</a></li>
-            <li id="" ><a href="issueitem.click" target="iframe_a"><i class="fa fa-circle-o" ></i> Issue Items</a></li>
-            <li id="" ><a href="issueconfirmation.click" target="iframe_a"><i class="fa fa-circle-o" ></i> Issue Confirmation</a></li>
+            <li id="nav4" ><a href="transferitem.click" target="iframe_a"><i class="fa fa-circle-o" ></i> Transfer Items</a></li>
+            <li id="nav5" ><a href="issuedetail.click" target="iframe_a"><i class="fa fa-circle-o" ></i> Issue Details</a></li>
+            <li id="nav6" ><a href="issueitem.click" target="iframe_a"><i class="fa fa-circle-o" ></i> Issue Items</a></li>
+            <li id="nav7" ><a href="issueconfirmation.click" target="iframe_a"><i class="fa fa-circle-o" ></i> Issue Confirmation</a></li>
             
           </ul>
         </li>
@@ -200,8 +212,8 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li id="" ><a href="uploadbill.click" target="iframe_a"><i class="fa fa-circle-o" ></i> Upload Bill</a></li>
-            <li id="" ><a href="viewbill.click" target="iframe_a"><i class="fa fa-circle-o" ></i> View Bill</a></li>
+            <li id="nav8" ><a href="uploadbill.click" target="iframe_a"><i class="fa fa-circle-o" ></i> Upload Bill</a></li>
+            <li id="nav9" ><a href="viewbill.click" target="iframe_a"><i class="fa fa-circle-o" ></i> View Bill</a></li>
           </ul>
         </li>
         <li class="treeview">
@@ -223,13 +235,18 @@
 			          </span>
          		</a>
           		<ul class="treeview-menu">
-          			 	<li id=""><a href="addusers.click" target="iframe_a"><i class="fa fa-circle-o"></i>Manage Users</a></li>
-               	 		<li id=""><a href="userrolemanagement.click" target="iframe_a"><i class="fa fa-circle-o"></i>Manage User Roles</a></li>
-               	 		<li id=""><a href="changeusernamepassword.click" target="iframe_a"><i class="fa fa-circle-o"></i>Change Username/password</a></li>
-          		 		<li id=""><a href="logindetails.click" target="iframe_a"><i class="fa fa-circle-o"></i>Login Details</a></li>
-          		 </ul>
+          			 	<li id="nav10"><a href="addusers.click" target="iframe_a"><i class="fa fa-circle-o"></i>Manage Users</a></li>
+               	 		<li id="nav11"><a href="userrolemanagement.click" target="iframe_a"><i class="fa fa-circle-o"></i>Manage User Roles</a></li>
+               	 		<li id="nav12"><a href="changeusernamepassword.click" target="iframe_a"><i class="fa fa-circle-o"></i>Change Username/password</a></li>
+          		 		<li id="nav13"><a href="logindetails.click" target="iframe_a"><i class="fa fa-circle-o"></i>Login Details</a></li>
+          	
+          		 	<%--  <c:if test = "${userrole =='admin'}">
+          		 	 </c:if> --%>
+         	 
+      				
+      </ul>
           	</li>
-            <li id=""><a href="initialdetails.click" target="iframe_a"><i class="fa fa-circle-o"></i> Add/Edit Initial Details</a></li>
+            <li id="nav14"><a href="initialdetails.click" target="iframe_a"><i class="fa fa-circle-o"></i> Add/Edit Initial Details</a></li>
             
           </ul>
         </li>

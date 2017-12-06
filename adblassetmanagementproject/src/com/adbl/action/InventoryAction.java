@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.security.auth.Subject;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -162,6 +163,8 @@ public class InventoryAction {
 	}
 
 	public void deleteinventory(HttpServletRequest request, HttpServletResponse response) {
+		
+		
 		String itemcode=request.getParameter("itemcode");
 		String inventoryotherdetailid=request.getParameter("inventoryotherdetailid");
 		String amcid=request.getParameter("acmid");
