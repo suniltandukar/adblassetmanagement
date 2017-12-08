@@ -56,10 +56,10 @@ ResultSet bill=(ResultSet) ac.viewbillDao(userdetail.getString("branchdb")); %>
 										data-target="#trslphotos"><img
 											src="//<%=bill.getString("ipport") %>/<%=bill.getString("filepath") %>/<%=bill.getString("billimageoriginalname") %>"
 											alt="recent photo" width="0px"><i class="fa fa-eye"></i></a>&nbsp;
-										&nbsp; &nbsp;<a id="delete" class="confirmbtn"
+										&nbsp; &nbsp;<a id="remove" class="confirmbtn"
 										href="deletebill.del?path=<%=bill.getString("billimagepath") %>&id=<%=bill.getString("billid")%>&filename=<%=bill.getString("billimageoriginalname") %>">
 											<i class="fa fa-trash-o"></i>
-									</a> &nbsp; &nbsp; &nbsp; <a
+									</a> &nbsp; &nbsp; &nbsp; <a id="change"
 										href="editbill.click?id=<%=bill.getString("billid") %>"><i
 											class="fa fa-pencil-square-o"></i></a></td>
 

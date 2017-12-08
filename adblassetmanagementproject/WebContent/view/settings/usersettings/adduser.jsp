@@ -101,16 +101,16 @@ display:none;}
 								<td><label><input type="checkbox" id="add" name="role" value="#nav2"> Add Inventory</label></td>
 							</tr>
 							<tr>
-								<td><label><input type="checkbox" id="edit" name="role" value="#nav3"> Edit Inventory&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label></td>
+								<td> <label><input type="checkbox" id="update" name="role" value="#nav6">Update&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label></td>
 								<td> <label><input type="checkbox" id="transfer" name="role"  value="#nav4"> Transfer Items</label></td>
 							</tr>
 							<tr>
 								<td><label><input type="checkbox" id="staff"  name="role" value="#nav1,#nav2,#nav3,#nav4,#nav5,#nav6,#nav7,#nav8,#nav9,#nav10"> Staff(all)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label></td>
-								<td><label><input type="checkbox"  id="admin" name="role" value="#nav1, #nav2, #nav3, #nav4, #nav5, #nav6, #nav7, #nav8, #nav9, #nav10, #nav11, #nav12, #nav13, #nav14"> Admin(all)</label></td>
+								<td><label><input type="checkbox"  id="admin" name="role" value="#nav1, #nav2, #nav3, #nav4, #nav5, #nav6, #nav7, #nav8, #nav9, #nav10, #nav11, #nav12, #nav13, #nav14, #change, #remove"> Admin(all)</label></td>
 							</tr>
 							<tr>
-								<td> <label><input type="checkbox" id="update" name="role" value="#nav6">Update&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label></td>
-								<td><label><input type="checkbox" id="delete" name="role" value="#delete">Delete</label></td>
+								<td><label><input type="checkbox" id="change" name="role" value="#edit">Edit&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label></td>
+								<td><label><input type="checkbox" id="remove" name="role" value="#delete">Delete</label></td>
 							</tr>
 						</table>
 						<br>
