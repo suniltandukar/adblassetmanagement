@@ -77,7 +77,7 @@ display:none;}
  									 </td>
  									 <td>
 									<label><input type="checkbox" id="staff"  name="role" value="#nav1,#nav2,#nav3,#nav4,#nav5,#nav6,#nav7,#nav8,#nav9,#nav10"> Staff(all)</label><br>
-  									<label><input type="checkbox"  id="admin" name="role" value="#nav1, #nav2, #nav3, #nav4, #nav5, #nav6, #nav7, #nav8, #nav9, #nav10, #nav11, #nav12, #nav13, #nav14"> Admin(all)</label><br>
+  									<label><input type="checkbox"  id="admin" name="role" value="#nav1, #nav2, #nav3, #nav4, #nav5, #nav6, #nav7, #nav8, #nav9, #nav10, #nav11, #nav12, #nav13, #nav14, #edit, #delete"> Admin(all)</label><br>
  									 <label><input type="checkbox" id="update" name="role" value="#nav6">Update</label><br>
  									 <label><input type="checkbox" id="delete" name="role" value="#delete">Delete</label><br>
  									 </td>

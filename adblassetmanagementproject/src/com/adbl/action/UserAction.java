@@ -74,7 +74,7 @@ public class UserAction {
 						request.setAttribute("updatebtn", "showupdatebutton");
 						request.setAttribute("username",editdetails.getString("username"));
 						request.setAttribute("staffcode", editdetails.getString("staffcode"));
-						request.setAttribute("viewinventory", editdetails.getString("role"));
+						request.setAttribute("givenrole", editdetails.getString("givenrole"));
 						request.setAttribute("roleid", editdetails.getString("roleid"));
 						request.setAttribute("roledescription", editdetails.getString("roledescription"));
 						RequestDispatcher rd=request.getRequestDispatcher("view/settings/usersettings/adduser.jsp");
