@@ -1,4 +1,10 @@
-<jsp:include page="/includefile"></jsp:include>
+
+<%@page import="java.sql.*"%>
+<%@page import='com.adbl.daoimpl.UserDaoImpl'%>
+<%@page import='com.adbl.dao.UserDao'%>
+<%UserDao i=new UserDaoImpl(); %>
+<%ResultSet role=(ResultSet)i.getroles(); %>
+<%ResultSet existinguser=(ResultSet)i.getexistingusers(); %><jsp:include page="/includefile"></jsp:include>
 <html>
 <head>
 <style>
@@ -19,12 +25,7 @@ display:none;}
 	</style>
 </head>
 <body class="background">
-<%@page import="java.sql.*"%>
-<%@page import='com.adbl.daoimpl.UserDaoImpl'%>
-<%@page import='com.adbl.dao.UserDao'%>
-<%UserDao i=new UserDaoImpl(); %>
-<%ResultSet role=(ResultSet)i.getroles(); %>
-<%ResultSet existinguser=(ResultSet)i.getexistingusers(); %>
+
 
 <div class="breadcrumb-line">
 			<nav aria-label="breadcrumb" role="navigation">
@@ -40,7 +41,7 @@ display:none;}
 <div class="panel panel-default" style="width: 100%; margin: auto;">
     <div class="panel-body">
     	<div class="row">
-    		<div class="col-md-4">
+    		<div class="col-md-5">
     			<div class="panel panel-default">
     				<div class="panel-heading">
     					<strong>User Detail</strong>
@@ -66,8 +67,7 @@ display:none;}
                                    	</td>
                                    
 								</tr>
-								
-								<tr>
+<tr>
 									<td>
 									<label><input type="checkbox" id="view" name="role" value="#nav1"> View Inventory</label><br>
   									<label><input type="checkbox" id="add" name="role" value="#nav2"> Add Inventory</label><br>
@@ -82,8 +82,7 @@ display:none;}
  									 <label><input type="checkbox" id="delete" name="role" value="#delete">Delete</label><br>
  									 </td>
 								</tr>
-								
-								<tr>
+<tr>
 									<td>
                                        <h5>Role</h5> 
                                        <select name="roleid" form="form" class="form-control" >
@@ -110,6 +109,26 @@ display:none;}
 								</tr>
 							</tbody>
 						</table> 
+						<table>
+							<caption>Check User Roles</caption>
+							<tr>
+								<td><label><input type="checkbox" id="view" name="role" value="#nav1"> View Inventory &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label></td>
+								<td><label><input type="checkbox" id="add" name="role" value="#nav2"> Add Inventory</label></td>
+							</tr>
+							<tr>
+								<td><label><input type="checkbox" id="edit" name="role" value="#nav3"> Edit Inventory&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label></td>
+								<td> <label><input type="checkbox" id="transfer" name="role"  value="#nav4"> Transfer Items</label></td>
+							</tr>
+							<tr>
+								<td><label><input type="checkbox" id="staff"  name="role" value="#nav1,#nav2,#nav3,#nav4,#nav5,#nav6,#nav7,#nav8,#nav9,#nav10"> Staff(all)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label></td>
+								<td><label><input type="checkbox"  id="admin" name="role" value="#nav1, #nav2, #nav3, #nav4, #nav5, #nav6, #nav7, #nav8, #nav9, #nav10, #nav11, #nav12, #nav13, #nav14"> Admin(all)</label></td>
+							</tr>
+							<tr>
+								<td> <label><input type="checkbox" id="update" name="role" value="#nav6">Update&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label></td>
+								<td><label><input type="checkbox" id="delete" name="role" value="#delete">Delete</label></td>
+							</tr>
+						</table>
+						<br>
 						<input type="submit" name="button"  value="submit" class="btn btn-primary submitbtn" onclick="return OnButton1()" >
 					
 					<input type="submit" name="updatebtn" class="updatebtn btn btn-primary" value="update" onclick="return OnButton2()" >
@@ -119,7 +138,7 @@ display:none;}
     				</div>
     			</div>
     		</div>
-    		<div class="col-md-8">
+    		<div class="col-md-7">
     			<div class="panel panel-default">
     				<div class="panel-heading">
     					<strong>Existing Users</strong>
