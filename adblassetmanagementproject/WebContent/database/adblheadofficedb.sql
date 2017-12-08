@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 06, 2017 at 05:39 AM
+-- Generation Time: Dec 08, 2017 at 06:34 AM
 -- Server version: 5.6.24
 -- PHP Version: 5.6.8
 
@@ -423,16 +423,59 @@ CREATE TABLE IF NOT EXISTS `usertbl` (
   `userid` bigint(20) NOT NULL,
   `username` varchar(20) NOT NULL,
   `password` varchar(50) NOT NULL,
-  `staffcode` varchar(20) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+  `staffcode` varchar(20) DEFAULT NULL,
+  `givenrole` varchar(500) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `usertbl`
 --
 
-INSERT INTO `usertbl` (`userid`, `username`, `password`, `staffcode`) VALUES
-(1, 'admin', 'admin', '1'),
-(2, 'anil', 'anil', '9');
+INSERT INTO `usertbl` (`userid`, `username`, `password`, `staffcode`, `givenrole`) VALUES
+(1, 'admin', 'admin', '1', ''),
+(2, 'anil', 'anil', '9', ''),
+(3, 'mick', 'mick', '1234', ''),
+(4, 'ram', 'ram', '159', ''),
+(5, 'ram', 'ram', '159', ''),
+(6, 'shyam', 'shyam', '147', ''),
+(7, 'abc', 'abc', '122', ''),
+(8, 'reg', 'reg', '121', ''),
+(9, 'sss', 'sss', '1232', ''),
+(10, 'sunilt', 'sunilt', '234', ''),
+(11, 'suh', 'suh', '1123', ''),
+(12, 'sssu', 'sssu', '124', ''),
+(13, 'aaa', 'aaa', '110', ''),
+(14, 'ew', 'ew', '20', ''),
+(15, 'qwe', 'qwe', '214', ''),
+(21, 'hello', 'hello', '2344', '#nav1,#nav2,#nav3'),
+(22, 'tan', 'tan', '12323', '#nav1,#nav2,#nav3'),
+(23, 'qp', 'qp', '1212', '#nav1,#nav2,#nav3'),
+(24, 'rani', 'rani', '345', '#nav1,#nav2,#nav3,#nav1,#nav2,#nav3,#nav4,#nav5,#nav6,#nav7,#nav8,#nav9,#nav10,#nav1,#nav2,#nav3,#nav4,#nav5,#nav6,#nav7,#nav8,#nav9,#nav10,#nav11,#nav12,#nav13,#nav14,#nav6'),
+(25, 'rrr', 'rrr', '3453', ''),
+(26, 'mike', 'mike', '789', ''),
+(27, 'ju', 'ju', '333', '#nav1,#nav2,#nav3,#nav4,#nav5,#nav6,#nav7,#nav8,#nav9,#nav10,#nav11,#nav12,#nav13,#nav14'),
+(28, 'rupak', 'rupak', '786', '#nav3'),
+(29, 'rupe', 'rupe', '154', '#nav2'),
+(30, 'suhan', 'suhan', '145', '#nav3,'),
+(31, 'eee', 'eee', '23222', '#nav3'),
+(32, 'ewq', 'ewq', '12121', '#nav2'),
+(33, 'nnn', 'nnn', '1213', '#nav1'),
+(34, 'qqq', 'qqq', '1221', '#nav3'),
+(35, 'rt', 'rt', '3456', '#nav3'),
+(36, 'wqwq', 'wqwq', '231', '#nav3'),
+(37, 'rere', 'rere', '34567', '#nav3'),
+(38, 'sim', 'sim', '80', '#nav1,#nav2,#nav3,#nav4,#nav5,#nav6,#nav7,#nav8,#nav9,#nav10,#nav11,#nav12,#nav13,#nav14'),
+(39, 'hero', 'hero', '1544', '#nav1, #nav3, #nav1,#nav2,#nav3,#nav4,#nav5,#nav6,#nav7,#nav8,#nav9,#nav10,#nav11,#nav12,#nav13,#nav14'),
+(40, 'hero', 'hero', '1544', '#nav1, #nav3, #nav1,#nav2,#nav3,#nav4,#nav5,#nav6,#nav7,#nav8,#nav9,#nav10,#nav11,#nav12,#nav13,#nav14'),
+(41, 'micke', 'micke', '43', '#nav1, #nav3'),
+(42, 'kale', 'kale', '00', '#nav1, #nav2, #nav3'),
+(43, 'sara', 'sara', '46', '#nav1,#nav2,#nav3,#nav4,#nav5,#nav6,#nav7,#nav8,#nav9,#nav10,#nav11,#nav12,#nav13,#nav14'),
+(44, 'htu', 'htu', '1587', '#nav2, #nav1,#nav2,#nav3,#nav4,#nav5,#nav6,#nav7,#nav8,#nav9,#nav10, #nav1,#nav2,#nav3,#nav4,#nav5,#nav6,#nav7,#nav8,#nav9,#nav10,#nav11,#nav12,#nav13,#nav14'),
+(45, 'rammay', 'rammay', '32335', '#nav1, #nav2, #nav1,#nav2,#nav3,#nav4,#nav5,#nav6,#nav7,#nav8,#nav9,#nav10,#nav11,#nav12,#nav13,#nav14'),
+(46, 'hari', 'hari', '32121', '#nav2, #nav3, #nav1, #nav2, #nav3, #nav4, #nav5, #nav6, #nav7, #nav8, #nav9, #nav10, #nav11, #nav12, #nav13, #nav14'),
+(47, 'ew', 'ew', '12312', '#nav2, #nav1, #nav2, #nav3, #nav4, #nav5, #nav6, #nav7, #nav8, #nav9, #nav10, #nav11, #nav12, #nav13, #nav14'),
+(48, 'ewedww', 'ewedww', '2313', '#nav2, #nav1, #nav2, #nav3, #nav4, #nav5, #nav6, #nav7, #nav8, #nav9, #nav10, #nav11, #nav12, #nav13, #nav14'),
+(49, 'user', 'user', '1010', '#nav1, #nav2, #nav3, #nav4, #nav5, #nav6, #nav7, #nav8, #nav9, #nav10, #nav11, #nav12, #nav13, #nav14');
 
 -- --------------------------------------------------------
 
@@ -640,7 +683,7 @@ ALTER TABLE `unittbl`
 -- AUTO_INCREMENT for table `usertbl`
 --
 ALTER TABLE `usertbl`
-  MODIFY `userid` bigint(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+  MODIFY `userid` bigint(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=50;
 --
 -- AUTO_INCREMENT for table `warrantytbl`
 --

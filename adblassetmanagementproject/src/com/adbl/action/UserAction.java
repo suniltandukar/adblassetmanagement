@@ -5,6 +5,9 @@ import java.io.PrintWriter;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -22,7 +25,10 @@ public class UserAction {
 
 		 String[] name = request.getParameterValues("role");
 		 String role=Arrays.toString(name).replace("[","").replace("]","");
-		
+		 List<String> list=Arrays.asList(role);
+		 Set<String> set=new HashSet<>(list);
+		 System.out.println("set is"+set);
+		 
 		String username=request.getParameter("username");
 		String staffcode=request.getParameter("staffcode");
 		String roles=request.getParameter("roleid");
@@ -68,6 +74,7 @@ public class UserAction {
 						request.setAttribute("updatebtn", "showupdatebutton");
 						request.setAttribute("username",editdetails.getString("username"));
 						request.setAttribute("staffcode", editdetails.getString("staffcode"));
+						request.setAttribute("viewinventory", editdetails.getString("role"));
 						request.setAttribute("roleid", editdetails.getString("roleid"));
 						request.setAttribute("roledescription", editdetails.getString("roledescription"));
 						RequestDispatcher rd=request.getRequestDispatcher("view/settings/usersettings/adduser.jsp");
