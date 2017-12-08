@@ -89,7 +89,7 @@ ResultSet group=(ResultSet) i.getgroup();%>
 										Action <span class="caret"></span>
 									</button>
 									<ul class="dropdown-menu">
-										<li><a class="clickbtn"
+										<li id="delete"><a class="clickbtn"
 											href="deleteinventory.del?inventoryotherdetailid=<%=inventory.getString("inventoryotherdetailid") %>&itemcode=<%=inventory.getString("itemcode") %>&amcid=<%=inventory.getString("amcid") %>&insuranceid<%=inventory.getString("insuranceid") %>&warrantyid=<%=inventory.getString("warrantyid") %>&branchdb=<%=branchdb.getString("branchdb") %>"
 											style="color: red;"><i class="fa fa-trash-o"
 												aria-hidden="true"></i> Delete</a></li>

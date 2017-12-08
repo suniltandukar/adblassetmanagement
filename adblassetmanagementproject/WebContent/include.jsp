@@ -1,3 +1,25 @@
+ <%@page import="java.sql.*" %>
+ <%@page import="java.util.*" %>
+ <%@page import="com.adbl.model.UserRole" %>
+<%if((session.getAttribute("userdetail"))!=null){
+	ResultSet userdetail=(ResultSet)session.getAttribute("userdetail");
+	ResultSet roleid=(ResultSet)request.getAttribute("role");%>
+	<!DOCTYPE html>
+<html lang="en-US" ng-app="myApp">
+<head>
+	<style>
+	#nav1,#nav2,#nav3,#nav4,#nav5,#nav6,#nav7,#nav8,#nav9,#nav10,#nav11,#nav12,#nav13,#nav14,#edit,#delete{
+	display:none;}
+
+	<%=userdetail.getString("givenrole")%>
+	{
+display:block;}
+<%}else{out.println("No User Session Found!");} %>
+
+</style>
+</head>
+
+
 <div class="new">
   <!-- Bootstrap 3.3.7 -->
   <link rel="stylesheet" href="assets/css/bootstrap.min.css">

@@ -14,9 +14,12 @@
 	<style>
 	#nav1,#nav2,#nav3,#nav4,#nav5,#nav6,#nav7,#nav8,#nav9,#nav10,#nav11,#nav12,#nav13,#nav14{
 	display:none;}
+
 	<%=userdetail.getString("givenrole")%>
 	{
 display:block;}
+
+
 </style>
 </head>
 <body   class="hold-transition skin-blue sidebar-mini" >
