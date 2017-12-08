@@ -67,7 +67,7 @@ ResultSet group=(ResultSet) i.getgroup();%>
 							<th>Model</th>
 							<th>Decision Date</th>
 							<th>Depreciation Rate</th>
-							<th><i class="fa fa-cog" aria-hidden="true"></i></th>
+							<th id="delete"><i class="fa fa-cog" aria-hidden="true"></i></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -83,13 +83,13 @@ ResultSet group=(ResultSet) i.getgroup();%>
 							<td><%=inventory.getString("model") %></td>
 							<td><%=inventory.getString("decisiondate") %></td>
 							<td><%=inventory.getString("depreciationrate") %></td>
-							<td><div class="dropdown">
+							<td id="delete"><div class="dropdown">
 									<button class="btn btn-default dropdown-toggle" type="button"
 										data-toggle="dropdown">
 										Action <span class="caret"></span>
 									</button>
 									<ul class="dropdown-menu">
-										<li id="delete"><a class="clickbtn"
+										<li ><a class="clickbtn"
 											href="deleteinventory.del?inventoryotherdetailid=<%=inventory.getString("inventoryotherdetailid") %>&itemcode=<%=inventory.getString("itemcode") %>&amcid=<%=inventory.getString("amcid") %>&insuranceid<%=inventory.getString("insuranceid") %>&warrantyid=<%=inventory.getString("warrantyid") %>&branchdb=<%=branchdb.getString("branchdb") %>"
 											style="color: red;"><i class="fa fa-trash-o"
 												aria-hidden="true"></i> Delete</a></li>
