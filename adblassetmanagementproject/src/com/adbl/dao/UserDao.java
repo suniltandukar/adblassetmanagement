@@ -17,7 +17,7 @@ public interface UserDao {
 	public ResultSet getexistingusers();
 	public ResultSet edituserdao(String userid);
 	public boolean deleteuserdao(String userid, String branchdb);
-	public boolean updateuserdao(String username, String staffcode, int roleid, String mid, String branchdb,String userid);
+	public boolean updateuserdao(String username, String staffcode, int roleid, String mid, String branchdb,String userid,String givenrole);
 	public boolean updateuserroledao(String roleid, String roledescription);
 	public boolean deleteuserroledao(String roleid);
 	public ResultSet selectusernames();

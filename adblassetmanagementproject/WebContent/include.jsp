@@ -8,12 +8,13 @@
 <html lang="en-US" ng-app="myApp">
 <head>
 	<style>
-	#nav1,#nav2,#nav3,#nav4,#nav5,#nav6,#nav7,#nav8,#nav9,#nav10,#nav11,#nav12,#nav13,#nav14,#edit,#delete{
+	#nav1,#nav2,#nav3,#nav4,#nav5,#nav6,#nav7,#nav8,#nav9,#nav10,#nav11,#nav12,#nav13,#nav14,#change,#remove{
 	display:none;}
 
 	<%=userdetail.getString("givenrole")%>
 	{
-display:block;}
+display:block;
+}
 <%}else{out.println("No User Session Found!");} %>
 
 </style>

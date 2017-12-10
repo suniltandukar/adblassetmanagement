@@ -111,10 +111,10 @@ public class UserDaoImpl implements UserDao {
 		
 	}
 
-	public boolean updateuserdao(String username, String staffcode, int roleid, String mid, String branchdb,String userid){
-		String query="update usertbl set username='"+username+"', staffcode='"+staffcode+"',roleid='"+roleid+"' where userid='"+userid+"'";
+	public boolean updateuserdao(String username, String staffcode, int roleid, String mid, String branchdb,String userid,String givenrole){
+		String query="update usertbl set username='"+username+"', staffcode='"+staffcode+"',roleid='"+roleid+"',givenrole='"+givenrole+"' where userid='"+userid+"'";
 
-		String query1="update "+branchdb+".usertbl set username='"+username+"', staffcode='"+staffcode+"' where userid='"+userid+"'";
+		String query1="update "+branchdb+".usertbl set username='"+username+"', staffcode='"+staffcode+"' ,givenrole='"+givenrole+"' where userid='"+userid+"'";
 		
 		System.out.println(query);
 		

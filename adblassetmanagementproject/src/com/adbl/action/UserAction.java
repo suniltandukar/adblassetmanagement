@@ -25,6 +25,7 @@ public class UserAction {
 
 		 String[] name = request.getParameterValues("role");
 		 String role=Arrays.toString(name).replace("[","").replace("]","");
+		
 		 List<String> list=Arrays.asList(role);
 		 Set<String> set=new HashSet<>(list);
 		 System.out.println("set is"+set);
@@ -127,23 +128,22 @@ public class UserAction {
 	}
 	public void updateuser(HttpServletRequest request, HttpServletResponse response) {
 		
-		
+		String[] name = request.getParameterValues("role");
+		String role=Arrays.toString(name).replace("[","").replace("]","");
 		
 		String userid=request.getParameter("useridforupdate");
-		System.out.println(userid);
-		
 		String username=request.getParameter("username");
 		String staffcode=request.getParameter("staffcode");
-		String role=request.getParameter("roleid");
+		String rolei=request.getParameter("roleid");
 		HttpSession session=request.getSession(true);
 		ResultSet userdetails=(ResultSet) session.getAttribute("userdetail");
 		try{
 		String mid=userdetails.getString("mid");
 		String branchdb=userdetails.getString("branchdb");
-		int roleid=Integer.parseInt(role);
+		int roleid=Integer.parseInt(rolei);
 		
 		UserDao udao=new UserDaoImpl();
-		Boolean status=udao.updateuserdao(username,staffcode,roleid,mid,branchdb,userid);
+		Boolean status=udao.updateuserdao(username,staffcode,roleid,mid,branchdb,userid,role);
 		if(status)
 		{
 			request.setAttribute("msg", "User Updated Successfully");

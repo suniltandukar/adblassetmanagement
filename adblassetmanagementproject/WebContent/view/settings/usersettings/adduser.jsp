@@ -1,4 +1,7 @@
-
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@page import="java.sql.*"%>
 <%@page import='com.adbl.daoimpl.UserDaoImpl'%>
 <%@page import='com.adbl.dao.UserDao'%>
@@ -97,20 +100,27 @@ display:none;}
 						<table>
 							<caption>Check User Roles</caption>
 							<tr>
-								<td><label><input type="checkbox" id="view" name="role" value="#nav1"> View Inventory &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label></td>
-								<td><label><input type="checkbox" id="add" name="role" value="#nav2"> Add Inventory</label></td>
+							<c:set var="givenrole" value="${givenrole }"/>
+								<td><label><input type="checkbox" id="view" name="role" value="#nav1" <c:if test="${fn:contains(givenrole,'#nav1')}"> checked="checked"</c:if>> View Inventory &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label></td>
+								<td><label><input type="checkbox" id="add" name="role" value="#nav2" 
+								<c:if test="${fn:contains(givenrole,'#nav2')}"> checked="checked"</c:if>> Add Inventory&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label></td>
+								<td><label><input type="checkbox" id="add" name="role" value="#nav2" 
+								<c:if test="${fn:contains(givenrole,'#nav3')}"> checked="checked"</c:if>> Edit Inventory</label></td>
 							</tr>
 							<tr>
-								<td> <label><input type="checkbox" id="update" name="role" value="#nav6">Update&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label></td>
+								<td><label><input type="checkbox" id="staff"  name="role" value="#nav1,#nav2,#nav3,#nav4,#nav5,#nav6,#nav7,#nav8,#nav9,#nav10" > Staff(all)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label></td>
+								<td><label><input type="checkbox"  id="admin" name="role" value="#nav1, #nav2, #nav3, #nav4, #nav5, #nav6, #nav7, #nav8, #nav9, #nav10, #nav11, #nav12, #nav13, #nav14, #change, #remove"
+								<c:if test="${givenrole eq '#nav1, #nav2, #nav3, #nav4, #nav5, #nav6, #nav7, #nav8, #nav9, #nav10, #nav11, #nav12, #nav13, #nav14, #change, #remove'}"> checked="checked"</c:if>>Admin(all)</label></td>
 								<td> <label><input type="checkbox" id="transfer" name="role"  value="#nav4"> Transfer Items</label></td>
 							</tr>
 							<tr>
-								<td><label><input type="checkbox" id="staff"  name="role" value="#nav1,#nav2,#nav3,#nav4,#nav5,#nav6,#nav7,#nav8,#nav9,#nav10"> Staff(all)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label></td>
-								<td><label><input type="checkbox"  id="admin" name="role" value="#nav1, #nav2, #nav3, #nav4, #nav5, #nav6, #nav7, #nav8, #nav9, #nav10, #nav11, #nav12, #nav13, #nav14, #change, #remove"> Admin(all)</label></td>
+								<td> <label><input type="checkbox" id="update" name="role" value="#nav6" <c:if test="${fn:contains(givenrole,'#nav2')}"> checked="checked"</c:if>>Update&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label></td>
+								<td><label><input type="checkbox"  name="role" value="#change" <c:if test="${fn:contains(givenrole,'#change')}"> checked="checked"</c:if>>Edit&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label></td>
+								<td><label><input type="checkbox"  name="role" value="#remove" <c:if test="${fn:contains(givenrole,'#remove')}"> checked="checked"</c:if>>Delete</label></td>
 							</tr>
 							<tr>
-								<td><label><input type="checkbox" id="change" name="role" value="#edit">Edit&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label></td>
-								<td><label><input type="checkbox" id="remove" name="role" value="#delete">Delete</label></td>
+								<td><label><input type="checkbox" id="createuser" name="role" value="#nav10" <c:if test="${fn:contains(givenrole,'#nav10')}"> checked="checked"</c:if>>Create User&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label></td>
+								<td><label><input type="checkbox" id="deluser" name="role" value="#remove">Delete User</label></td>
 							</tr>
 						</table>
 						<br>
@@ -135,7 +145,7 @@ display:none;}
 									<th>S No.</th>
 									<th>User Name</th>
 									<th>Staff Code</th>
-									<th>Actions</th><!-- 
+									<th id="remove" >Actions</th><!-- 
 									<th><i class="fa fa-cog" aria-hidden="true"></i></th> -->
 								</tr>
 							</thead>
@@ -145,7 +155,7 @@ display:none;}
 							<td><%=sno %></td>
 							<td><%=existinguser.getString("username") %></td>
 							<td><%=existinguser.getString("staffcode") %></td>
-							<td><a href="edituser.click?id=<%=existinguser.getString("userid")%>"   ><i class="fa fa-pencil-square-o"></i></a>
+							<td id="remove" ><a href="edituser.click?id=<%=existinguser.getString("userid")%>"   ><i class="fa fa-pencil-square-o"></i></a>
 						
 							<a class="confirmbtn" href="deleteuser.click?id=<%=existinguser.getString("userid")%>"   ><i  class="fa fa-trash" id="deletebtn" aria-hidden="true" style="color:red"></i></a></td>
 							
@@ -177,7 +187,7 @@ display:none;}
     
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" id="button" class="btn btn-default" data-dismiss="modal">Close</button>
         </div>
       </div>
     </div>
@@ -187,6 +197,9 @@ display:none;}
 $(document).ready(function()
         {
 	
+	$('#button').click(function(){
+		   $('input[type="text"]').val('');
+		});
 	var $others = $('input[name="role"]').not('#admin')
 	$('#admin').change(function () {
 	    if (this.checked) {
@@ -199,7 +212,9 @@ $(document).ready(function()
 	    }
 	})
 	
-	$('#table').DataTable();
+	$('#table').DataTable({
+	    "iDisplayLength": 50
+	  } );
 	<%if(request.getAttribute("msg")!=null){%>
 	   $('#myModal').modal('show');
 	   <%}%>
