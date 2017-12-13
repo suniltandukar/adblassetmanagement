@@ -100,6 +100,11 @@ public class LoginAction {
 				
 				
 				try{
+					//for pop up if inventory arrived
+					TransferAction t=new TransferAction();
+					ResultSet issueditemdetails=t.issueditemsdetails(request, response);
+					request.setAttribute("issueditemdetails", issueditemdetails);
+					
 				RequestDispatcher rd=request.getRequestDispatcher("profile.jsp");
 				rd.forward(request, response);
 				}catch(Exception e){

@@ -163,7 +163,7 @@ public class TransferDaoImpl implements TransferDao{
 				
 	}
 	public ResultSet getissueditemdetails(String username){
-		String query="SELECT inventorytbl.*, issuetbl.*, statustbl.statusname from inventorytbl JOIN issuetbl on inventorytbl.issueid=issuetbl.issueid join statustbl on issuetbl.statusid=statustbl.statusid  WHERE issuetbl.issuedto='"+username+"'";
+		String query="SELECT inventorytbl.*, issuetbl.*, statustbl.statusname from inventorytbl JOIN issuetbl on inventorytbl.issueid=issuetbl.issueid join statustbl on issuetbl.statusid=statustbl.statusid  WHERE issuetbl.issuedto='"+username+"' ";
 		try{
 			ps=con.prepareStatement(query);
 			rs=ps.executeQuery();
@@ -175,7 +175,20 @@ public class TransferDaoImpl implements TransferDao{
 		}		return rs;
 	}
 	public ResultSet getissuedetails(){
-		String query="SELECT inventorytbl.*, issuetbl.*, statustbl.statusdescription from inventorytbl JOIN issuetbl on inventorytbl.issueid=issuetbl.issueid join statustbl on issuetbl.statusid=statustbl.statusid";
+		String query="SELECT inventorytbl.*, issuetbl.* from inventorytbl JOIN issuetbl on inventorytbl.issueid=issuetbl.issueid where issuetbl.statusid='2'";
+		try{
+			ps=con.prepareStatement(query);
+			rs=ps.executeQuery();
+			
+		}
+		catch(Exception e)
+		{
+			System.out.println("TransferDaoImpl getissueditemdetails error"+e);
+		}		return rs;
+		
+	}
+	public ResultSet myitemdetails(String username){
+		String query="SELECT inventorytbl.*, issuetbl.* from inventorytbl JOIN issuetbl on inventorytbl.issueid=issuetbl.issueid where issuetbl.statusid='2' and issuedTo='"+username+"'";
 		try{
 			ps=con.prepareStatement(query);
 			rs=ps.executeQuery();

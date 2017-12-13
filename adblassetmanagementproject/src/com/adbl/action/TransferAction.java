@@ -98,6 +98,7 @@ public class TransferAction {
 		try {
 			 branchdb=userdetail.getString("branchdb");
 			 username=userdetail.getString("username");
+			 System.out.println(username+"kk");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

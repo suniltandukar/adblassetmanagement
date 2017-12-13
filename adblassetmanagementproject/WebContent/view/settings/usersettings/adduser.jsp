@@ -100,28 +100,57 @@ display:none;}
 						<table>
 							<caption>Check User Roles</caption>
 							<tr>
-							<c:set var="givenrole" value="${givenrole }"/>
-								<td><label><input type="checkbox" id="view" name="role" value="#nav1" <c:if test="${fn:contains(givenrole,'#nav1')}"> checked="checked"</c:if>> View Inventory &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label></td>
-								<td><label><input type="checkbox" id="add" name="role" value="#nav2" 
-								<c:if test="${fn:contains(givenrole,'#nav2')}"> checked="checked"</c:if>> Add Inventory&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label></td>
-								<td><label><input type="checkbox" id="add" name="role" value="#nav2" 
-								<c:if test="${fn:contains(givenrole,'#nav3')}"> checked="checked"</c:if>> Edit Inventory</label></td>
-							</tr>
 							<tr>
-								<td><label><input type="checkbox" id="staff"  name="role" value="#nav1,#nav2,#nav3,#nav4,#nav5,#nav6,#nav7,#nav8,#nav9,#nav10" > Staff(all)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label></td>
-								<td><label><input type="checkbox"  id="admin" name="role" value="#nav1, #nav2, #nav3, #nav4, #nav5, #nav6, #nav7, #nav8, #nav9, #nav10, #nav11, #nav12, #nav13, #nav14, #change, #remove"
-								<c:if test="${givenrole eq '#nav1, #nav2, #nav3, #nav4, #nav5, #nav6, #nav7, #nav8, #nav9, #nav10, #nav11, #nav12, #nav13, #nav14, #change, #remove'}"> checked="checked"</c:if>>Admin(all)</label></td>
-								<td> <label><input type="checkbox" id="transfer" name="role"  value="#nav4"> Transfer Items</label></td>
-							</tr>
-							<tr>
-								<td> <label><input type="checkbox" id="update" name="role" value="#nav6" <c:if test="${fn:contains(givenrole,'#nav2')}"> checked="checked"</c:if>>Update&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label></td>
-								<td><label><input type="checkbox"  name="role" value="#change" <c:if test="${fn:contains(givenrole,'#change')}"> checked="checked"</c:if>>Edit&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label></td>
-								<td><label><input type="checkbox"  name="role" value="#remove" <c:if test="${fn:contains(givenrole,'#remove')}"> checked="checked"</c:if>>Delete</label></td>
-							</tr>
-							<tr>
-								<td><label><input type="checkbox" id="createuser" name="role" value="#nav10" <c:if test="${fn:contains(givenrole,'#nav10')}"> checked="checked"</c:if>>Create User&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label></td>
-								<td><label><input type="checkbox" id="deluser" name="role" value="#remove">Delete User</label></td>
-							</tr>
+										<c:set var="givenrole" value="${givenrole }" />
+										<td><label><input type="checkbox" data-onstyle="success" data-offstyle="danger" data-onstyle="danger" data-onstyle="danger" data-toggle="toggle" data-size="small"  id="view"
+												name="role" value="#nav1"
+												<c:if test="${fn:contains(givenrole,'#nav1')}"> checked="checked"</c:if>>
+												View Inventory &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label></td>
+										<td><label><input type="checkbox" data-onstyle="success" data-offstyle="danger" data-onstyle="danger" data-onstyle="danger" id="add" data-toggle="toggle" data-size="small" 
+												name="role" value="#nav2"
+												<c:if test="${fn:contains(givenrole,'#nav2')}"> checked="checked"</c:if>>
+												Add Inventory&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label></td>
+
+									</tr>
+									<tr>
+										<td><label><input type="checkbox" data-onstyle="success" data-offstyle="danger" data-onstyle="danger" data-onstyle="danger" data-toggle="toggle" data-size="small"  id="add"
+												name="role" value="#nav2"
+												<c:if test="${fn:contains(givenrole,'#nav3')}"> checked="checked"</c:if>>
+												Edit Inventory</label></td>
+										<td><label><input type="checkbox" data-onstyle="success" data-offstyle="danger" data-onstyle="danger" data-onstyle="danger"
+												data-toggle="toggle" data-size="small"  id="staff" name="role"
+												value="#nav1,#nav2,#nav3,#nav4,#nav5,#nav6,#nav7,#nav8,#nav9,#nav10">
+
+												Staff(all)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label></td>
+									</tr>
+									<tr>
+
+										<td><label><input type="checkbox" data-onstyle="success" data-offstyle="danger" data-onstyle="danger" data-onstyle="danger" data-toggle="toggle" data-size="small"  id="admin"
+												name="role"
+												value="#nav1, #nav2, #nav3, #nav4, #nav5, #nav6, #nav7, #nav8, #nav9, #nav10, #nav11, #nav12, #nav13, #nav14, #change, #remove"
+												<c:if test="${givenrole eq '#nav1, #nav2, #nav3, #nav4, #nav5, #nav6, #nav7, #nav8, #nav9, #nav10, #nav11, #nav12, #nav13, #nav14, #change, #remove'}"> checked="checked"</c:if>>Admin(all)</label></td>
+										<td><label><input type="checkbox" data-onstyle="success" data-offstyle="danger" data-onstyle="danger" data-onstyle="danger" data-toggle="toggle" data-size="small"  id="transfer"
+												name="role" value="#nav4"> Transfer Items</label></td>
+										
+
+									</tr>
+									<tr>
+									<td><label><input type="checkbox" data-onstyle="success" data-offstyle="danger" data-onstyle="danger" data-onstyle="danger" data-toggle="toggle" data-size="small"  id="update"
+												name="role" value="#nav6"
+												<c:if test="${fn:contains(givenrole,'#nav2')}"> checked="checked"</c:if>>Update&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label></td>
+										<td><label><input type="checkbox" data-onstyle="success" data-offstyle="danger" data-onstyle="danger" data-onstyle="danger" data-toggle="toggle" data-size="small"  name="role"
+												value="#remove"
+												<c:if test="${fn:contains(givenrole,'#remove')}"> checked="checked"</c:if>>Delete</label></td>
+										
+									</tr>
+									<tr>
+										<td><label><input type="checkbox" data-onstyle="success" data-offstyle="danger" data-onstyle="danger" data-onstyle="danger" data-toggle="toggle" data-size="small"  id="createuser"
+												name="role" value="#nav10"
+												<c:if test="${fn:contains(givenrole,'#nav10')}"> checked="checked"</c:if>>Create
+												User&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label></td>
+										<td><label><input type="checkbox" data-onstyle="success" data-offstyle="danger" data-onstyle="danger" data-onstyle="danger" data-toggle="toggle" data-size="small" data-offstyle="warning" id="deluser"
+												name="role" value="#remove">Delete User</label></td>
+									</tr>
 						</table>
 						<br>
 						<input type="submit" name="button"  value="submit" class="btn btn-primary submitbtn" onclick="return OnButton1()" >

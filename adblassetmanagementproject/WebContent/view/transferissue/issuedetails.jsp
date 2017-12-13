@@ -3,7 +3,7 @@
 <%@page import='com.adbl.dao.TransferDao'%>
 <%ResultSet userdetail=(ResultSet) session.getAttribute("userdetail");
 TransferDao trans=new TransferDaoImpl(userdetail.getString("branchdb"));
-ResultSet issue=trans.getissuedetails(); %>
+ResultSet issue=trans.myitemdetails(userdetail.getString("username")); %>
 <jsp:include page="/includefile"></jsp:include>
 <html>
 <head>
@@ -36,10 +36,10 @@ ResultSet issue=trans.getissuedetails(); %>
 								<tr>
 									<th>Itemcode</th>
 									<th>Issued By</th>
-									<th>Issued To</th>
+									
 									<th>Issue date(B.S.)</th>
 									<th>Issue date(A.D.)</th>
-									<th>Status</th>
+								
 								</tr>
 							</thead>
 							<tbody>
@@ -47,14 +47,8 @@ ResultSet issue=trans.getissuedetails(); %>
 								<tr>
 									<td><%=issue.getString("issueitemcode") %></td>
 									<td><%=issue.getString("issuedby") %></td>
-									<td><%=issue.getString("issuedto") %></td>
 									<td><%=issue.getString("issueddate") %></td>
 									<td><%=issue.getString("issueddateen") %></td>
-									<td><%=issue.getString("statusdescription") %></td>
-									
-
-									
-
 									<%} %>
 								
 							</tbody>

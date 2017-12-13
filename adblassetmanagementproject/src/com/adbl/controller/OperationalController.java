@@ -36,6 +36,7 @@ public class OperationalController extends HttpServlet {
 			LoginAction action=new LoginAction();
 			try {
 				action.verifyuser(request,response);
+				
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}

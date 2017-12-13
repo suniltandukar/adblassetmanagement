@@ -6,7 +6,10 @@
  <%@page import="com.adbl.model.UserRole" %>
 <%if((session.getAttribute("userdetail"))!=null){
 	ResultSet userdetail=(ResultSet)session.getAttribute("userdetail");
-	ResultSet roleid=(ResultSet)request.getAttribute("role");%>
+	ResultSet roleid=(ResultSet)request.getAttribute("role");
+	ResultSet i=(ResultSet)request.getAttribute("issueditemdetails");
+	%>
+
 	<jsp:include page="/includefile"></jsp:include>
 <!DOCTYPE html>
 <html lang="en-US" ng-app="myApp">
@@ -47,25 +50,21 @@ display:block;}
           <li class="dropdown messages-menu">
             <a class="dropdown-toggle clickable" data-toggle="dropdown">
               <i class="fa fa-envelope-o"></i>
-              <span class="label label-success">1</span>
+           
+            
+              <span class="label label-success "></span>
             </a>
-            <ul class="dropdown-menu">
-              <li class="header">You have 1 messages</li>
-              <li>
-                <!-- inner menu: contains the actual data -->
-                <ul class="menu">
-                  <li>
-                    <a>
-                      <div class="pull-left">
-                        <a href="#"><i class="fa fa-user"></i> Shishir Karki</a>
-                         <a href="#"><i class="fa fa-user"></i> Sunil Tandukar</a>
-                      </div>
-                     
-                    </a>
-                  </li>
-                </ul>
+            <ul class="dropdown-menu" >
+               <%while(i.next()){%>
+              
+              	
+              <li class="header">You have message from <%=i.getString("issuedby") %>
               </li>
-              <li class="footer"><a href="#">See All Messages</a></li>
+               <li class="footer"><a  class="btn btn-default" href="issueconfirmation.click" target="iframe_a"><i class="fa fa-circle-o" ></i> View </a></li>
+        		
+        		<%}%>
+          
+             
             </ul>
           </li>
           <!-- Notifications: style can be found in dropdown.less -->
@@ -75,7 +74,9 @@ display:block;}
               <span class="label label-warning">1</span>
             </a>
             <ul class="dropdown-menu">
-              <li class="header">You have 1 notifications</li>
+           
+              <li class="header">You have 1 notifications </li>
+             
               <li>
                 <!-- inner menu: contains the actual data -->
                 <ul class="menu">
@@ -196,7 +197,7 @@ display:block;}
           </a>
           <ul class="treeview-menu">
             <li id="nav4" ><a href="transferitem.click" target="iframe_a"><i class="fa fa-circle-o" ></i> Transfer Items</a></li>
-            <li id="nav5" ><a href="issuedetail.click" target="iframe_a"><i class="fa fa-circle-o" ></i> Issue Details</a></li>
+            <li id="nav5" ><a href="issuedetail.click" target="iframe_a"><i class="fa fa-circle-o" ></i> My Items</a></li>
             <li id="nav6" ><a href="issueitem.click" target="iframe_a"><i class="fa fa-circle-o" ></i> Issue Items</a></li>
             <li id="nav7" ><a href="issueconfirmation.click" target="iframe_a"><i class="fa fa-circle-o" ></i> Issue Confirmation</a></li>
             
@@ -272,7 +273,10 @@ display:block;}
       </div>
     </div>
 </div>
+
 <script>
+var rowval=<%=i.getRow()%>;
+$('.getrow').text(rowval);
 <%if(request.getAttribute("msg")!=null){%>
 $('#myModal').modal('show');
 <%}%>

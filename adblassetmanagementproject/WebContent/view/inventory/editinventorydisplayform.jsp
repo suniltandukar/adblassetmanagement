@@ -26,7 +26,7 @@ if(idetail.next()){ %>
                 <div id="menu2" class="tab-pane fade in active">
                 <br>
                     <ul class="nav nav-tabs">
-                        <li><button type="submit" class="btn btn-success" form="form">Update</button>&nbsp;&nbsp;&nbsp;</li>
+                        <li><button id="change" type="submit" class="btn btn-success" form="form">Update</button>&nbsp;&nbsp;&nbsp;</li>
                         <li class="active"><a data-toggle="tab" data-target="#1">Basic
                                 Details</a></li>
                         <li><a data-toggle="tab" data-target="#2">Additional
