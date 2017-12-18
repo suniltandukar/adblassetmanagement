@@ -170,7 +170,7 @@ display:block;}
 			 <li class="header"><a href="#/!"><i class="fa fa-circle-o"></i> Dashboard</a></li>            
           </ul>
         </li>
-        <li class="treeview">
+        <li class="treeview active">
           <a href="#">
             <i class="fa fa-bars"></i>
             <span>Items</span>
@@ -179,7 +179,7 @@ display:block;}
             </span>
           </a>
           <ul class="treeview-menu">
-            <li id="nav1" ><a href="viewinventory.click" target="iframe_a"><i class="fa fa-circle-o" ></i> View Inventory</a></li>
+            <li id="nav1 active"><a href="viewinventory.click" target="iframe_a"><i class="fa fa-circle-o" ></i> View Inventory</a></li>
             <li id="nav2" ><a href="addinventory.click" target="iframe_a"><i class="fa fa-circle-o" ></i> Add Inventory</a></li>
             <li id="nav3" ><a href="editinventory.click" target="iframe_a"><i class="fa fa-circle-o" ></i> Edit Inventory</a></li>
             

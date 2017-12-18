@@ -9,6 +9,7 @@ public interface TransferDao {
 	public String gettransferid();
 	public boolean updatetransferitemstatus(String transferid, String itemcode);
 	public ResultSet getbranchdetails();
+	public ResultSet getUseretails(String branchid);
 
 	public boolean setissuestatuspending(String issuedby, String issuedto,
 			String issueddate, String issueddateen, String itemcode);

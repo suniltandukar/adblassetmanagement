@@ -32,6 +32,7 @@ public class TransferAction {
 		
 		String transferredto=request.getParameter("transferedto");
 		String branchto=request.getParameter("branchto");
+		System.out.println(branchto);
 		String transferdate=request.getParameter("transferdate");
 		String transferdateen=request.getParameter("transferdateen");
 		String[] itemcode=new String[100];

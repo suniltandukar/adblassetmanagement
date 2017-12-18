@@ -6,6 +6,7 @@
 ResultSet userdetail=(ResultSet) session.getAttribute("userdetail");
 TransferDao tdao=new TransferDaoImpl(userdetail.getString("branchdb"));
 ResultSet branchname=(ResultSet) tdao.getbranchdetails();
+ResultSet userlist=(ResultSet) tdao.getUseretails(branchname.getString("branchid"));
 %>
 <jsp:include page="/includefile"></jsp:include>
 <head>
@@ -53,20 +54,26 @@ display:none;}
 								</tr>
 								
 								<tr>
-									<td>
-									 <input type="hidden" name="branchdb" class="form-control"  form="form" value="<%=userdetail.getString("branchdb")%>">
-                                       <h5>Transferred To (username):</h5><span class="staffcheck"></span>
-                                       <input type="text" name="transferedto" class="form-control"  form="form" value="">
-                                   	</td>
+									
                                    	<td>
                                        <h5>Transferred To (branchname):</h5><span class="staffcheck"></span>
                                        <select name="branchto" class="form-control"  form="form">
                                        <option value="">Select Branch Name</option>
+                                       <option  value="<%=branchname.getString("branchdb")%>"><%=branchname.getString("branchname")%> </option>
                                        <%while(branchname.next()){ %>
-                                       <option  value="<%=branchname.getString("branchid")%>"><%=branchname.getString("branchname")%> </option>
+                                       <option  value="<%=branchname.getString("branchdb")%>"><%=branchname.getString("branchname")%> </option>
                                       
                                        <%} %>
                                        </select>
+                                   	</td>
+                                   	<td>
+									 <input type="hidden" name="branchdb" class="form-control"  form="form" value="<%=userdetail.getString("branchdb")%>">
+                                       <h5>Transferred To (username):</h5><span class="staffcheck"></span>
+                                       <select name="branchto" class="form-control"  form="form">
+                                       <option value="">Select Branch Name</option>
+                                     
+                                       </select>
+                                       <input type="text" name="transferedto" class="form-control"  form="form" value="">
                                    	</td>
                                    
 								</tr>
@@ -126,6 +133,28 @@ $('table').on('click','tr a',function(e){
     e.preventDefault();
    $(this).parents('tr').remove();
  });
+</script>
+<script>
+$(document).ready(function()
+        {
+	 $(".searchbtn").click(function()
+		        {
+		 var id=$(".itemcode").val();
+		 var dataString = 'id='+ id;
+		 $.ajax
+	        ({
+	        type: "POST",
+	        url: "viewuserdetail.click",
+	        data: dataString,
+	        cache: false,
+	        success: function(html)
+	        {
+	        $(".displayform").html(html);
+	        } 
+	        });
+		 
+	});
+});
 </script>
   </body>
   </html>

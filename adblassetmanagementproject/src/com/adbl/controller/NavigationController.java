@@ -159,6 +159,11 @@ public class NavigationController extends HttpServlet {
 			rd.forward(request, response);
 		}
 		
+		else if(uri.endsWith("viewuserdetail.click"))
+				{
+			
+			
+				}
 	
 		
 	}

@@ -4,7 +4,7 @@
 <%if((session.getAttribute("userdetail"))!=null){
 	ResultSet userdetail=(ResultSet)session.getAttribute("userdetail");
 	ResultSet roleid=(ResultSet)request.getAttribute("role");%>
-	<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en-US" ng-app="myApp">
 <head>
 	<style>

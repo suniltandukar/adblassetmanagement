@@ -22,6 +22,7 @@ public class TransferDaoImpl implements TransferDao{
 	public boolean setstatuspending(String transferedby, String transferedto, String branchby, String branchto,
 			String transferdate, String transferdateen, String itemcode, String branchdb)
 	{
+		Connection con=DBConnection.getConnectionNext(branchto);
 		String statusid="3";
 		int r=0;
 		String query="insert into transfertbl(transferedby,branchby,transferedto,branchto,transfereddate,transfereddateen,statusid) values(?,?,?,?,?,?,?)";
@@ -146,7 +147,26 @@ public class TransferDaoImpl implements TransferDao{
 	
 	public ResultSet getbranchdetails(){
 		con=DBConnection.getConnection();
-		String query="select branchname,branchid from branchdetailtbl";
+String query="select * from branchdetailtbl";
+		try {
+			ps=con.prepareStatement(query);
+			rs=ps.executeQuery();
+			if(rs.next())
+			{
+				return rs;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("branchname error");
+		}
+		
+		return null;
+				
+	}
+	public ResultSet getUseretails(String branchid){
+		con=DBConnection.getConnection();
+		String query="select branchdetailtbl.*,usertbl.* from branchdetailtbl join mainusertbl on branchdetailtbl.branchid=mainusertbl.branchid join usertbl on usertbl.mid=mainusertbl.mid where branchid='"+branchid+"'";
+
 		try {
 			ps=con.prepareStatement(query);
 			rs=ps.executeQuery();
