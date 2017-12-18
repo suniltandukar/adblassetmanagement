@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 08, 2017 at 06:34 AM
+-- Generation Time: Dec 18, 2017 at 11:09 AM
 -- Server version: 5.6.24
 -- PHP Version: 5.6.8
 
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Database: `adblheadofficedb`
+-- Database: `adblkalimatidb`
 --
 
 -- --------------------------------------------------------
@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS `amctbl` (
   `amcenden` varchar(10) DEFAULT NULL,
   `amccost` double DEFAULT NULL,
   `amccompanyid` bigint(20) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `amctbl`
@@ -44,7 +44,8 @@ INSERT INTO `amctbl` (`amcid`, `amcstart`, `amcstarten`, `amcend`, `amcenden`, `
 (10, '', '', '', '', 0, 4),
 (11, '', '', '', '', 0, 4),
 (12, '', '', '', '', 0, 4),
-(13, '', '', '', '', 0, 4);
+(13, '', '', '', '', 0, 4),
+(14, '', '', '', '', 0, 4);
 
 -- --------------------------------------------------------
 
@@ -178,7 +179,7 @@ CREATE TABLE IF NOT EXISTS `insurancetbl` (
   `insuranceend` varchar(10) DEFAULT NULL,
   `insuranceenden` varchar(10) DEFAULT NULL,
   `insurancepremiumamount` double DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `insurancetbl`
@@ -187,7 +188,8 @@ CREATE TABLE IF NOT EXISTS `insurancetbl` (
 INSERT INTO `insurancetbl` (`insuranceid`, `insurancecompanyid`, `insurancestart`, `insurancestarten`, `insuranceend`, `insuranceenden`, `insurancepremiumamount`) VALUES
 (11, 4, '', '', '', '', 0),
 (12, 4, '', '', '', '', 0),
-(13, 4, '', '', '', '', 0);
+(13, 4, '', '', '', '', 0),
+(14, 4, '', '', '', '', 0);
 
 -- --------------------------------------------------------
 
@@ -274,7 +276,7 @@ CREATE TABLE IF NOT EXISTS `inventoryotherdetailtbl` (
   `engineno` varchar(30) DEFAULT NULL,
   `macaddress` varchar(30) DEFAULT NULL,
   `licenseno` varchar(30) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `inventoryotherdetailtbl`
@@ -283,7 +285,8 @@ CREATE TABLE IF NOT EXISTS `inventoryotherdetailtbl` (
 INSERT INTO `inventoryotherdetailtbl` (`inventoryotherdetailid`, `fundsourceid`, `unitname`, `rate`, `quantity`, `amount`, `warrantyid`, `amcid`, `insuranceid`, `supplierid`, `itemconditionid`, `itemsize`, `vehicleno`, `chesisno`, `engineno`, `macaddress`, `licenseno`) VALUES
 (11, 4, '', 0, 1, 0, 188, 11, 11, 4, 3, '', '', '', '', '', ''),
 (12, 4, '', 0, 1, 0, 189, 12, 12, 4, 3, '', '', '', '', '', ''),
-(13, 4, '', 0, 1, 0, 190, 13, 13, 4, 3, '', '', '', '', '', '');
+(13, 4, '', 0, 1, 0, 190, 13, 13, 4, 3, '', '', '', '', '', ''),
+(14, 4, '', 0, 1, 0, 191, 14, 14, 4, 3, '', '', '', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -314,9 +317,10 @@ CREATE TABLE IF NOT EXISTS `inventorytbl` (
 --
 
 INSERT INTO `inventorytbl` (`itemcode`, `transactionid`, `legacyid`, `groupcode`, `itemname`, `model`, `decisiondate`, `decisiondateen`, `purchasedate`, `purchasedateen`, `depreciationrate`, `inventoryotherdetailid`, `transactiondateen`, `issueid`, `transferid`) VALUES
-('1959CHA0001', '20170010004', '', 'CHA', 'chair', '', '', '', '2015-11-11', '1959-02-22', '02', 13, 'date', NULL, NULL),
-('2012TBL0001', '20170010001', '', 'TBL', 'table', '', '', '', '2068-10-19', '2012-02-02', '', 11, 'date', 1, NULL),
-('2012TBL0002', '20170010002', '', 'TBL', 'table12', '2', '', '', '2068-10-17', '2012-02-0', '1', 12, 'date', NULL, NULL);
+('1956CHA0001', '20170010006', '202', 'CHA', 'kalimati chair', 'kalimati;', '2012-02-02', '1955-05-16', '2013-02-02', '1956-05-15', '5', 14, 'date', NULL, NULL),
+('1959CHA0001', '20170010004', '', 'CHA', 'chair', '', '', '', '2015-11-11', '1959-02-22', '02', 13, 'date', 24, NULL),
+('2012TBL0001', '20170010001', '', 'TBL', 'table', '', '', '', '2068-10-19', '2012-02-02', '', 11, 'date', 17, NULL),
+('2012TBL0002', '20170010002', '', 'TBL', 'table12', '2', '', '', '2068-10-17', '2012-02-0', '1', 12, 'date', 2, NULL);
 
 -- --------------------------------------------------------
 
@@ -334,14 +338,36 @@ CREATE TABLE IF NOT EXISTS `issuetbl` (
   `issueitemcode` varchar(50) DEFAULT NULL,
   `reserve2` varchar(50) DEFAULT NULL,
   `reserve3` varchar(50) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `issuetbl`
 --
 
 INSERT INTO `issuetbl` (`issueid`, `issuedby`, `issuedto`, `issueddate`, `issueddateen`, `statusid`, `issueitemcode`, `reserve2`, `reserve3`) VALUES
-(1, 'admin', 'admin', '2012-02-02', '1955-05-16', 3, '2012TBL0001', NULL, NULL);
+(2, 'admin', 'aaa', '2012-02-02', '1955-05-16', 1, '2012TBL0002', NULL, NULL),
+(3, 'admin', 'sunil', '2012-02-02', '1955-05-16', 3, '1959CHA0001', NULL, NULL),
+(4, 'admin', 'anil', '2012-02-02', '1955-05-16', 3, '1959CHA0001', NULL, NULL),
+(5, 'admin', 'anil', '2012-02-02', '1955-05-16', 3, '1959CHA0001', NULL, NULL),
+(6, 'anil', 'admin', '2012-02-02', '1955-05-16', 2, '1959CHA0001', NULL, NULL),
+(7, 'admin', 'aaa', '2012-02-02', '1955-05-16', 3, '1959CHA0001', NULL, NULL),
+(8, 'admin', 'anil', '2012-02-02', '1955-05-16', 3, '1959CHA0001', NULL, NULL),
+(9, 'admin', 'anil', '2012-02-02', '1955-05-16', 3, '1959CHA0001', NULL, NULL),
+(10, 'sunil', 'admin', '2013-03-03', '1956-06-16', 3, '1959CHA0001', NULL, NULL),
+(11, 'sunil', 'admin', '2012-02-02', '1955-05-16', 3, '1959CHA0001', NULL, NULL),
+(12, 'admin', 'sunil', '2013-03-03', '1956-06-16', 3, '2012TBL0001', NULL, NULL),
+(13, 'admin', 'aaa', '2012-02-02', '1955-05-16', 3, '1959CHA0001', NULL, NULL),
+(14, 'admin', 'aaa', '2012-02-02', '1955-05-16', 1, '2012TBL0001', NULL, NULL),
+(15, 'admin', 'aaa', '2012-02-02', '1955-05-16', 3, '1959CHA0001', NULL, NULL),
+(16, 'admin', 'aaa', '2012-02-02', '1955-05-16', 1, '1959CHA0001', NULL, NULL),
+(17, 'admin', 'aaa', '2012-02-02', '1955-05-16', 2, '2012TBL0001', NULL, NULL),
+(18, 'sunil', 'aaa', '2013-03-03', '1956-06-16', 3, '1959CHA0001', NULL, NULL),
+(19, 'admin', 'aaa', '2012-02-02', '1955-05-16', 1, '1959CHA0001', NULL, NULL),
+(20, 'admin', 'admin', '2017-11-11', '1961-02-22', 3, '123132132', NULL, NULL),
+(21, 'admin', 'admin', '2017-11-11', '1961-02-22', 2, '1959CHA0001', NULL, NULL),
+(22, 'aaa', 'sunil', '2012-02-02', '1955-05-16', 3, '1959CHA0001', NULL, NULL),
+(23, 'aaa', 'admin', '2010-02-02', '1953-05-15', 2, '1959CHA0001', NULL, NULL),
+(24, 'sunil', 'aaa', '2012-02-02', '1955-05-16', 3, '1959CHA0001', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -400,7 +426,14 @@ CREATE TABLE IF NOT EXISTS `transfertbl` (
   `reserve1` varchar(50) DEFAULT NULL,
   `reserve2` varchar(50) DEFAULT NULL,
   `reserve3` varchar(50) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `transfertbl`
+--
+
+INSERT INTO `transfertbl` (`transferid`, `transferedby`, `branchby`, `transferedto`, `branchto`, `transfereddate`, `transfereddateen`, `statusid`, `reserve1`, `reserve2`, `reserve3`) VALUES
+(1, 'admin', '1', 'sunil', 'adblkalimatidb', '201202', '021202', 3, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -425,7 +458,7 @@ CREATE TABLE IF NOT EXISTS `usertbl` (
   `password` varchar(50) NOT NULL,
   `staffcode` varchar(20) DEFAULT NULL,
   `givenrole` varchar(500) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=501 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `usertbl`
@@ -449,7 +482,7 @@ INSERT INTO `usertbl` (`userid`, `username`, `password`, `staffcode`, `givenrole
 (15, 'qwe', 'qwe', '214', ''),
 (21, 'hello', 'hello', '2344', '#nav1,#nav2,#nav3'),
 (22, 'tan', 'tan', '12323', '#nav1,#nav2,#nav3'),
-(23, 'qp', 'qp', '1212', '#nav1,#nav2,#nav3'),
+(23, 'admin', 'qp', '1', '#nav1, #nav2, #nav3, #nav4, #nav5, #nav6, #nav7, #nav8, #nav9, #nav10, #nav11, #nav12, #nav13, #nav14, #change, #remove'),
 (24, 'rani', 'rani', '345', '#nav1,#nav2,#nav3,#nav1,#nav2,#nav3,#nav4,#nav5,#nav6,#nav7,#nav8,#nav9,#nav10,#nav1,#nav2,#nav3,#nav4,#nav5,#nav6,#nav7,#nav8,#nav9,#nav10,#nav11,#nav12,#nav13,#nav14,#nav6'),
 (25, 'rrr', 'rrr', '3453', ''),
 (26, 'mike', 'mike', '789', ''),
@@ -461,21 +494,42 @@ INSERT INTO `usertbl` (`userid`, `username`, `password`, `staffcode`, `givenrole
 (32, 'ewq', 'ewq', '12121', '#nav2'),
 (33, 'nnn', 'nnn', '1213', '#nav1'),
 (34, 'qqq', 'qqq', '1221', '#nav3'),
-(35, 'rt', 'rt', '3456', '#nav3'),
-(36, 'wqwq', 'wqwq', '231', '#nav3'),
-(37, 'rere', 'rere', '34567', '#nav3'),
-(38, 'sim', 'sim', '80', '#nav1,#nav2,#nav3,#nav4,#nav5,#nav6,#nav7,#nav8,#nav9,#nav10,#nav11,#nav12,#nav13,#nav14'),
+(35, 'sunil', 'sunil', '101', '#nav1, #nav10'),
+(36, 'shishir', 'wqwq', '2', 'null'),
+(37, 'maria', 'rere', '123', '#nav1, #nav6'),
+(38, 'anil', 'sim', '9', '#nav1, #nav2, #nav3, #nav4, #nav5, #nav6, #nav7, #nav8, #nav9, #nav10, #nav11, #nav12, #nav13, #nav14, #change, #remove'),
 (39, 'hero', 'hero', '1544', '#nav1, #nav3, #nav1,#nav2,#nav3,#nav4,#nav5,#nav6,#nav7,#nav8,#nav9,#nav10,#nav11,#nav12,#nav13,#nav14'),
 (40, 'hero', 'hero', '1544', '#nav1, #nav3, #nav1,#nav2,#nav3,#nav4,#nav5,#nav6,#nav7,#nav8,#nav9,#nav10,#nav11,#nav12,#nav13,#nav14'),
 (41, 'micke', 'micke', '43', '#nav1, #nav3'),
 (42, 'kale', 'kale', '00', '#nav1, #nav2, #nav3'),
-(43, 'sara', 'sara', '46', '#nav1,#nav2,#nav3,#nav4,#nav5,#nav6,#nav7,#nav8,#nav9,#nav10,#nav11,#nav12,#nav13,#nav14'),
+(43, 'abc', 'sara', '122', '#nav1, #nav2, #nav2'),
 (44, 'htu', 'htu', '1587', '#nav2, #nav1,#nav2,#nav3,#nav4,#nav5,#nav6,#nav7,#nav8,#nav9,#nav10, #nav1,#nav2,#nav3,#nav4,#nav5,#nav6,#nav7,#nav8,#nav9,#nav10,#nav11,#nav12,#nav13,#nav14'),
 (45, 'rammay', 'rammay', '32335', '#nav1, #nav2, #nav1,#nav2,#nav3,#nav4,#nav5,#nav6,#nav7,#nav8,#nav9,#nav10,#nav11,#nav12,#nav13,#nav14'),
 (46, 'hari', 'hari', '32121', '#nav2, #nav3, #nav1, #nav2, #nav3, #nav4, #nav5, #nav6, #nav7, #nav8, #nav9, #nav10, #nav11, #nav12, #nav13, #nav14'),
 (47, 'ew', 'ew', '12312', '#nav2, #nav1, #nav2, #nav3, #nav4, #nav5, #nav6, #nav7, #nav8, #nav9, #nav10, #nav11, #nav12, #nav13, #nav14'),
 (48, 'ewedww', 'ewedww', '2313', '#nav2, #nav1, #nav2, #nav3, #nav4, #nav5, #nav6, #nav7, #nav8, #nav9, #nav10, #nav11, #nav12, #nav13, #nav14'),
-(49, 'user', 'user', '1010', '#nav1, #nav2, #nav3, #nav4, #nav5, #nav6, #nav7, #nav8, #nav9, #nav10, #nav11, #nav12, #nav13, #nav14');
+(49, 'aaa', 'user', '110', '#nav1, #nav2, #nav2, #nav6, #nav10'),
+(50, 'sunil32', 'sunil32', '12321', '#nav1, #nav2, #nav3, #nav4, #nav5, #nav6, #nav7, #nav8, #nav9, #nav10, #nav11, #nav12, #nav13, #nav14'),
+(51, 'ram lama', 'ram lama', '342', '#nav1, #nav2'),
+(52, 'staff', 'staff', '000', '#nav1, #nav2, #nav3, #nav4'),
+(53, 'staff', 'staff', '99', '#nav1, #nav2, #nav3'),
+(54, 'rew', 'rew', '569', '#nav1, #nav2, #nav3, #nav4, #nav5, #nav6, #nav7, #nav8, #nav9, #nav10, #nav11, #nav12, #nav13, #nav14, #change, #remove'),
+(55, 'suy', 'suy', '432', '#nav1, #nav2, #nav3, #nav4, #nav5, #nav6, #nav7, #nav8, #nav9, #nav10, #nav11, #nav12, #nav13, #nav14, #change, #remove'),
+(56, 'umesh', 'umesh', '768', '#nav1'),
+(57, 'man', 'man', '369', '#nav1, #nav2, #nav6, #nav4'),
+(58, 'maya', 'maya', '987', '#nav1, #nav2, #nav6, #nav4, #nav10'),
+(59, 'kk', 'kk', '165', '#nav1, #nav2, #nav10'),
+(60, 'rajendra', 'rajendra', '4324', '#nav1, #nav2, #nav6, #nav1,#nav2,#nav3,#nav4,#nav5,#nav6,#nav7,#nav8,#nav9,#nav10, #change, #remove, #nav10, #nav14'),
+(61, 'pradip', 'pradip', '97', '#nav1, #nav2, #nav6, #nav4'),
+(62, 'suge', 'suge', '23221', '#nav1, #nav2, #nav3, #nav4, #nav5, #nav6, #nav7, #nav8, #nav9, #nav10, #nav11, #nav12, #nav13, #nav14, #change, #remove'),
+(63, 'pope', 'pope', '343', '#nav1, #nav6, #nav1,#nav2,#nav3,#nav4,#nav5,#nav6,#nav7,#nav8,#nav9,#nav10'),
+(64, 'reya', 'reya', '656', '#nav1, #nav2, #nav2, #nav10'),
+(65, 'tara', 'tara', '34536', '#nav1, #nav2, #nav3, #nav4, #nav5, #nav6, #nav7, #nav8, #nav9, #nav10, #nav11, #nav12, #nav13, #nav14, #change, #remove'),
+(66, 'umi', 'umi', '3334', '#nav1'),
+(67, 'ramesh', 'ramesh', '466', '#nav1, #nav2, #nav2, #nav10'),
+(68, 'uriya', 'uriya', '898', '#nav1, #nav2, #nav10'),
+(200, 'kalimati', 'kalimati', '999', ''),
+(500, 'kali', 'kali', '13', '');
 
 -- --------------------------------------------------------
 
@@ -489,7 +543,7 @@ CREATE TABLE IF NOT EXISTS `warrantytbl` (
   `warrantystarten` varchar(20) NOT NULL,
   `warrantyend` varchar(10) DEFAULT NULL,
   `warrantyenden` varchar(20) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=191 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=192 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `warrantytbl`
@@ -498,7 +552,8 @@ CREATE TABLE IF NOT EXISTS `warrantytbl` (
 INSERT INTO `warrantytbl` (`warrantyid`, `warrantystart`, `warrantystarten`, `warrantyend`, `warrantyenden`) VALUES
 (188, '', '', '', ''),
 (189, '', '', '', ''),
-(190, '', '', '', '');
+(190, '', '', '', ''),
+(191, '', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -623,7 +678,7 @@ ALTER TABLE `warrantytbl`
 -- AUTO_INCREMENT for table `amctbl`
 --
 ALTER TABLE `amctbl`
-  MODIFY `amcid` bigint(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=14;
+  MODIFY `amcid` bigint(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=15;
 --
 -- AUTO_INCREMENT for table `billtbl`
 --
@@ -648,17 +703,17 @@ ALTER TABLE `fundsourcetbl`
 -- AUTO_INCREMENT for table `insurancetbl`
 --
 ALTER TABLE `insurancetbl`
-  MODIFY `insuranceid` bigint(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=14;
+  MODIFY `insuranceid` bigint(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=15;
 --
 -- AUTO_INCREMENT for table `inventoryotherdetailtbl`
 --
 ALTER TABLE `inventoryotherdetailtbl`
-  MODIFY `inventoryotherdetailid` bigint(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=14;
+  MODIFY `inventoryotherdetailid` bigint(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=15;
 --
 -- AUTO_INCREMENT for table `issuetbl`
 --
 ALTER TABLE `issuetbl`
-  MODIFY `issueid` bigint(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+  MODIFY `issueid` bigint(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=25;
 --
 -- AUTO_INCREMENT for table `itemconditiontbl`
 --
@@ -673,7 +728,7 @@ ALTER TABLE `statustbl`
 -- AUTO_INCREMENT for table `transfertbl`
 --
 ALTER TABLE `transfertbl`
-  MODIFY `transferid` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `transferid` bigint(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `unittbl`
 --
@@ -683,12 +738,12 @@ ALTER TABLE `unittbl`
 -- AUTO_INCREMENT for table `usertbl`
 --
 ALTER TABLE `usertbl`
-  MODIFY `userid` bigint(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=50;
+  MODIFY `userid` bigint(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=501;
 --
 -- AUTO_INCREMENT for table `warrantytbl`
 --
 ALTER TABLE `warrantytbl`
-  MODIFY `warrantyid` bigint(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=191;
+  MODIFY `warrantyid` bigint(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=192;
 --
 -- Constraints for dumped tables
 --
