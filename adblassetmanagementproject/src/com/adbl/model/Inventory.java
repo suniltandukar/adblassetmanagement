@@ -22,6 +22,13 @@ public class Inventory {
 	public void setInventoryotherdetailid(String inventoryotherdetailid) {
 		this.inventoryotherdetailid = inventoryotherdetailid;
 	}
+	String cid;
+	public String getCid() {
+		return cid;
+	}
+	public void setCid(String cid) {
+		this.cid = cid;
+	}
 	String legacyid;
 	String groupcode;
 	String itemname;

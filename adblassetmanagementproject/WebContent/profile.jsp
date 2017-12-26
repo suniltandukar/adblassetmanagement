@@ -35,7 +35,7 @@ display:block;}
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>ADBL</b></span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b><%=userdetail.getString("username") %></b>&nbsp;ADBL</span>
+      <span class="logo-lg"><b><%=userdetail.getString("name") %></b>&nbsp;ADBL</span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top" style="background-color:#007B38;">
@@ -119,6 +119,7 @@ display:block;}
               <li class="user-footer">
                 <div class="pull-left">
                   <a  class="btn btn-default btn-flat">Profile</a>
+                 
                 </div>
                 <div class="pull-right">
                   <a href="logout.adbl" class="btn btn-default btn-flat">Sign out</a>
@@ -142,6 +143,7 @@ display:block;}
         </div>
         <div class="pull-left info">
           <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+          <br> <b><%=userdetail.getString("username") %></b>
         </div>
       </div>
       <!-- search form -->
@@ -170,7 +172,7 @@ display:block;}
 			 <li class="header"><a href="#/!"><i class="fa fa-circle-o"></i> Dashboard</a></li>            
           </ul>
         </li>
-        <li class="treeview active">
+        <li class="treeview">
           <a href="#">
             <i class="fa fa-bars"></i>
             <span>Items</span>
@@ -179,9 +181,10 @@ display:block;}
             </span>
           </a>
           <ul class="treeview-menu">
-            <li id="nav1 active"><a href="viewinventory.click" target="iframe_a"><i class="fa fa-circle-o" ></i> View Inventory</a></li>
+            <li id="nav1"><a href="viewinventory.click" target="iframe_a"><i class="fa fa-circle-o" ></i> View Inventory</a></li>
             <li id="nav2" ><a href="addinventory.click" target="iframe_a"><i class="fa fa-circle-o" ></i> Add Inventory</a></li>
             <li id="nav3" ><a href="editinventory.click" target="iframe_a"><i class="fa fa-circle-o" ></i> Edit Inventory</a></li>
+            <li id="nav3" ><a href="items.click" target="iframe_a"><i class="fa fa-circle-o" ></i> Branch Select</a></li>
             
           		 
             

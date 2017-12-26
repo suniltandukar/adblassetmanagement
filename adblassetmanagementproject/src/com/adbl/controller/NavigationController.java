@@ -22,6 +22,7 @@ import com.adbl.dao.UserDao;
 import com.adbl.daoimpl.OtherActionDAOImpl;
 import com.adbl.daoimpl.UserDaoImpl;
 import com.adbl.model.History;
+import com.adbl.model.Inventory;
 
 
 @WebServlet("/NavigationController")
@@ -41,6 +42,28 @@ public class NavigationController extends HttpServlet {
 		{
 			RequestDispatcher rd=request.getRequestDispatcher("view/inventory/viewinventory.jsp");
 			rd.forward(request, response);
+		}
+		if(uri.endsWith("getuserdetail.click"))
+				{
+			RequestDispatcher rd=request.getRequestDispatcher("view/transferissue/viewbranch.jsp");
+			rd.forward(request, response);
+				}
+		if(uri.endsWith("getbranchview.click"))
+				{
+			String cid=request.getParameter("branch");
+			System.out.println(cid+"cid");
+			
+			
+			request.setAttribute("cid", cid);
+			
+			RequestDispatcher rd=request.getRequestDispatcher("view/inventory/branchinventories.jsp");
+			rd.forward(request, response);
+				}
+		if(uri.endsWith("items.click"))
+		{
+			RequestDispatcher rd=request.getRequestDispatcher("view/inventory/branchselect.jsp");
+			rd.forward(request, response);
+			
 		}
 		else if(uri.endsWith("addinventory.click"))
 		{

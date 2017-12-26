@@ -22,6 +22,7 @@ import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 import com.adbl.action.InitialDetailAddAction;
+import com.adbl.action.InventoryAction;
 import com.adbl.action.TransferAction;
 import com.adbl.action.UserAction;
 import com.adbl.dao.OtherActionDAO;
@@ -39,6 +40,12 @@ public class AddController extends HttpServlet {
 
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String uri=request.getRequestURI();
+		if(uri.endsWith("adduseraction.add"))
+		{
+			UserAction user=new UserAction();
+			user.adduser(request,response);
+		}
+		
 		if(uri.endsWith("group.add"))
 		{
 			InitialDetailAddAction action=new InitialDetailAddAction(request, response);
@@ -87,11 +94,6 @@ public class AddController extends HttpServlet {
 		if(uri.endsWith("inventory.add")){
 			RequestDispatcher rd=request.getRequestDispatcher("initialdetails.jsp");
 			rd.forward(request, response);
-		}
-		if(uri.endsWith("adduseraction.add"))
-		{
-			UserAction user=new UserAction();
-			user.adduser(request,response);
 		}
 		if(uri.endsWith("updateuser.add"))
 		{

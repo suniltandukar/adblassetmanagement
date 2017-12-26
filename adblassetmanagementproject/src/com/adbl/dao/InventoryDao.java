@@ -7,7 +7,7 @@ import java.util.List;
 import com.adbl.model.Inventory;
 
 public interface InventoryDao {
-	public ResultSet getinventorydata();
+	public ResultSet getinventorydata(String cid);
 	public ResultSet getcompanylist();
 	public ResultSet getfundsourcelist();
 	public ResultSet getgroup();
@@ -24,5 +24,6 @@ public interface InventoryDao {
 	public boolean deleteinventorydao(String itemcode, String inventoryotherdetailid, String amcid, String insuranceid, String warrantyid);
 	public boolean editalldaocodechanged(Inventory inventory);
 	public boolean issueconfirmation(String issueid,String statusid);
+	public ResultSet userspecificdetail(String cid);
 	
 }

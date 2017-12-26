@@ -5,9 +5,16 @@
 <%@page import="java.sql.*"%>
 <%@page import='com.adbl.daoimpl.UserDaoImpl'%>
 <%@page import='com.adbl.dao.UserDao'%>
+<%@page import='com.adbl.daoimpl.TransferDaoImpl'%>
+<%@page import='com.adbl.dao.TransferDao'%>
+<jsp:include page="/includefile"></jsp:include>
 <%UserDao i=new UserDaoImpl(); %>
 <%ResultSet role=(ResultSet)i.getroles(); %>
-<%ResultSet existinguser=(ResultSet)i.getexistingusers(); %><jsp:include page="/includefile"></jsp:include>
+<%ResultSet existinguser=(ResultSet)i.getexistingusers();
+
+ResultSet userdetail=(ResultSet) session.getAttribute("userdetail");
+TransferDao tdao=new TransferDaoImpl(userdetail.getString("branchdb"));
+ResultSet branchname=(ResultSet) tdao.getbranchdetails(); %>
 <html>
 <head>
 <style>
@@ -72,31 +79,42 @@ display:none;}
                                    	</td>
                                    
 								</tr>
-
+								<tr>
 									<td>
                                        <h5>Role</h5> 
                                        <select name="roleid" form="form" class="form-control" >
-                               
-									<%if((request.getAttribute("update"))!=null){ %>
+									<%if((request.getAttribute("update"))==null){ %>
+									 	<option value="">Select Role</option>
+                                       	<%while(role.next()){%>
+                                      	<option value="<%=role.getString("roleid")%>"><%=role.getString("roledescription") %></option>
+                                      	<%}} else{  %>
 									  	<option value="${roleid }" selected="selected">${roledescription }</option>
-									  	
                                        		<%while(role.next()){%>
-                                      
                                        	<option value="<%=role.getString("roleid")%>"><%=role.getString("roledescription") %></option>
-                                      
-                                       		
-                                       	<%}} else{  %>
-                                        	<%while(role.next()){%>
-                                      
-                                       	<option value="<%=role.getString("roleid")%>"><%=role.getString("roledescription") %></option>
-                                      
-                                     
-                                       	<%} }%>
-                                       
-                                       	
+                                       		  	<%} }%>
                                        </select>
                                    	</td> 
 								</tr>
+										<tr>
+									
+                                   	<td>
+                                       <h5>Branch Name</h5><span class="staffcheck"></span>
+                                       <select name="usercid" class="form-control"  form="form">
+                                       <%if((request.getAttribute("update"))==null){ %>
+                                       <option value="">Select Branch Name</option>
+                                       <option  value="<%=branchname.getString("cid")%>"><%=branchname.getString("name")%> </option>
+                                       <%while(branchname.next()){ %>
+                                       <option  value="<%=branchname.getString("cid")%>"><%=branchname.getString("name")%> </option>
+                                      
+                                       <%} } else{ %>
+                                       <option value="${branchdbname }" selected>${branchname }</option>
+                                       <%while(branchname.next()){ %>
+                                        <option  value="<%=branchname.getString("cid")%>"><%=branchname.getString("name")%> </option>
+                                      <%}} %>
+                                       </select>
+                                   	</td>
+								</tr>
+								
 							</tbody>
 						</table> 
 						<table>
@@ -116,7 +134,7 @@ display:none;}
 									</tr>
 									<tr>
 										<td><label><input type="checkbox" data-onstyle="success" data-offstyle="danger"   data-toggle="toggle" data-size="small"  id="add"
-												name="role" value="#nav2"
+												name="role" value="#nav3"
 												<c:if test="${fn:contains(givenrole,'#nav3')}"> checked="checked"</c:if>>
 												Edit Inventory</label></td>
 										<td><label><input type="checkbox" data-onstyle="success" data-offstyle="danger"  
@@ -153,6 +171,20 @@ display:none;}
 										<td><label><input type="checkbox" data-onstyle="success" data-offstyle="danger"   data-toggle="toggle" data-size="small" data-offstyle="warning" id="deluser"
 												name="role" value="#remove">Delete User</label></td>
 									</tr>
+									<tr>
+									<td><label><input type="checkbox" data-onstyle="success" data-offstyle="danger"   data-toggle="toggle" data-size="small" data-offstyle="warning" 
+												name="branch" value="1" required>Head Office</label></td>
+											<td><label>	<input type="checkbox" data-onstyle="success" data-offstyle="danger"   data-toggle="toggle" data-size="small" data-offstyle="warning" 
+												name="branch" value="2" required>Kalimati</label></td>
+											
+									</tr>
+								
+									<tr>
+										<td>Effective Date: <input type="text" name="edate" form="form" id="Date1"
+                                                placeholder="YYYY-MM-DD" value="${edate }"></td>
+										<td>End Date: <input type="text" name="enddate" form="form" id="Date2"
+                                                placeholder="YYYY-MM-DD" value="${enddate }"></td>
+                                                </tr>
 						</table>
 						<br>
 						<input type="submit" name="button"  value="submit" class="btn btn-primary submitbtn" onclick="return OnButton1()" >
@@ -227,6 +259,14 @@ display:none;}
 <script>
 $(document).ready(function()
         {
+	
+        	$("#Date1,#Date2").keyup(function(){
+                if ($(this).val().length == 4){
+                    $(this).val($(this).val() + "-");
+                }else if ($(this).val().length == 7){
+                    $(this).val($(this).val() + "-");
+                }
+            });
 	
 	$('#button').click(function(){
 		   $('input[type="text"]').val('');

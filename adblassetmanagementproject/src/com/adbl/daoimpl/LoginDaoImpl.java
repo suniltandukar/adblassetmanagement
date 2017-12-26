@@ -45,7 +45,7 @@ public class LoginDaoImpl implements LoginDao{
 		String query="";
 		con=DBConnection.getConnection();
 		try{
-		query="SELECT usertbl.*,branchdetailtbl.* FROM usertbl join mainusertbl on usertbl.mid=mainusertbl.mid JOIN branchdetailtbl on mainusertbl.branchid=branchdetailtbl.branchid where usertbl.staffcode='"+staffcode+"' and usertbl.username='"+username+"' and usertbl.password='"+password+"'";
+		query="SELECT usertbl.*,branchdetailtbl.*,companycodetbl.branchdbname,companycodetbl.name FROM usertbl join mainusertbl on usertbl.mid=mainusertbl.mid JOIN branchdetailtbl on mainusertbl.branchid=branchdetailtbl.branchid join companycodetbl on companycodetbl.cid=usertbl.cid where usertbl.staffcode='"+staffcode+"' and usertbl.username='"+username+"' and usertbl.password='"+password+"'";
 		stmt=con.createStatement();
 		userdetail=stmt.executeQuery(query);
 		}
@@ -54,6 +54,7 @@ public class LoginDaoImpl implements LoginDao{
 		}
 		return userdetail;
 	}
+	
 		
 	
 	public boolean checkcompanydb(String staffcode,String username, String password,String branchdb)
@@ -87,6 +88,25 @@ public class LoginDaoImpl implements LoginDao{
 			System.out.println("role error"+e);
 		}
 		return rs;
+	}
+	public String userenddate(String staffcode) {
+		
+		try {
+			String query="select enddate from usertbl where staffcode=?";
+			con=DBConnection.getConnection();
+			ps=con.prepareStatement(query);
+			ps.setString(1, staffcode);
+			rs=ps.executeQuery();
+			if(rs.next())
+			{
+				return rs.getString("enddate");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
+		return null;
 	}
 	
 

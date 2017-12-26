@@ -4,10 +4,14 @@
 <%@page import="java.sql.*"%>
 <%@page import='com.adbl.daoimpl.InventoryDaoImpl'%>
 <%@page import='com.adbl.dao.InventoryDao'%>
+<%@page import='com.adbl.model.Inventory'%>
 <%
 ResultSet branchdb=(ResultSet) session.getAttribute("userdetail");
 InventoryDao i=new InventoryDaoImpl(branchdb.getString("branchdb"));
-ResultSet inventory=(ResultSet) i.getinventorydata(branchdb.getString("cid"));
+
+String cid=request.getAttribute("cid").toString();
+System.out.print(cid);
+ResultSet inventory=(ResultSet) i.getinventorydata(cid);
 ResultSet group=(ResultSet) i.getgroup();%>
 <jsp:include page="/includefile"></jsp:include>
 <html>

@@ -393,6 +393,9 @@ $( "#form" ).submit(function( event ) {
 $(document).ready(function()
         {
 	
+	
+
+	
 	<%if(request.getAttribute("msg")!=null){%>
 	   $('#myModal').modal('show');
 	   <%}%>

@@ -22,13 +22,28 @@ public class UserDaoImpl implements UserDao {
 	PreparedStatement ps=null;
 	Statement stmt=null;
 	ResultSet rs=null;
-	public boolean adduserdao(String username, String staffcode, int roleid,String mid,String branchdb,String role) {
+	public boolean addusertomainbranch(String username, String staffcode, int roleid, String mid, String userbranch,
+			String role, String effectivedate, String enddate, String usercid)
+	{
 		con=DBConnection.getConnection();
-		String query1="insert into usertbl(username,staffcode,roleid,password,mid,givenrole) values('"+username+"','"+staffcode+"','"+roleid+"','"+username+"','"+mid+"','"+role+"')";
-		String query2="insert into "+branchdb+".usertbl (username, password, staffcode,givenrole) values ('"+username+"','"+username+"','"+staffcode+"','"+role+"')";
+		String query1="insert into usertbl(username,staffcode,roleid,password,mid,givenrole,edate,enddate,cid) values('"+username+"','"+staffcode+"','"+roleid+"','"+username+"','"+mid+"','"+role+"','"+effectivedate+"','"+enddate+"','"+usercid+"')";
 		try{
 			stmt=con.createStatement();
 			stmt.addBatch(query1);
+			stmt.executeBatch();
+			return true;
+		}catch(Exception e){
+			System.out.println("adduserdao exception"+e);
+		}
+		return false;
+
+		
+	}
+	public boolean adduserdao(String username, String staffcode, int roleid,String mid,String branchdb,String role, String effectivedate, String enddate,String usercid) {
+		con=DBConnection.getConnection();
+		String query2="insert into "+branchdb+".usertbl (username, password, staffcode,givenrole,edate,enddate,cid) values ('"+username+"','"+username+"','"+staffcode+"','"+role+"','"+effectivedate+"','"+enddate+"','"+usercid+"')";
+		try{
+			stmt=con.createStatement();
 			stmt.addBatch(query2);
 			stmt.executeBatch();
 			return true;
@@ -42,7 +57,7 @@ public class UserDaoImpl implements UserDao {
 		con=DBConnection.getConnection();
 		
 		//String query="select *,roletbl.* from usertbl join roletbl where userid='"+userid+"'";
-		String query="SELECT usertbl.*,roletbl.roledescription from usertbl join roletbl where usertbl.roleid=roletbl.roleid and userid='"+userid+"'";
+		String query="SELECT usertbl.*,roletbl.roledescription,branchdetailtbl.* from usertbl join roletbl on usertbl.roleid=roletbl.roleid join mainusertbl on mainusertbl.mid=usertbl.mid join branchdetailtbl on branchdetailtbl.branchid=mainusertbl.branchid where userid='"+userid+"'";
 		
 			try {
 				ps=con.prepareStatement(query);
@@ -111,12 +126,12 @@ public class UserDaoImpl implements UserDao {
 		
 	}
 
-	public boolean updateuserdao(String username, String staffcode, int roleid, String mid, String branchdb,String userid,String givenrole){
-		String query="update usertbl set username='"+username+"', staffcode='"+staffcode+"',roleid='"+roleid+"',givenrole='"+givenrole+"' where userid='"+userid+"'";
+	public boolean updateuserdao(String username, String staffcode, int roleid, String mid, String branchdb,String userid,String givenrole, String effectivedate, String enddate){
+		String query="update usertbl set username='"+username+"', staffcode='"+staffcode+"',roleid='"+roleid+"',givenrole='"+givenrole+"',edate='"+effectivedate+"',enddate='"+enddate+"' where userid='"+userid+"'";
 
-		String query1="update "+branchdb+".usertbl set username='"+username+"', staffcode='"+staffcode+"' ,givenrole='"+givenrole+"' where userid='"+userid+"'";
+		String query1="update "+branchdb+".usertbl set username='"+username+"', staffcode='"+staffcode+"' ,givenrole='"+givenrole+"',edate='"+effectivedate+"',enddate='"+enddate+"' where userid='"+userid+"'";
 		
-		System.out.println(query);
+		System.out.println(query1);
 		
 
 		int[] rs=null;
@@ -155,6 +170,26 @@ public class UserDaoImpl implements UserDao {
 			e.printStackTrace();
 		}
 		return false;
+	}
+	public String userenddate(String staffcode)
+	{
+		String query="select enddate from usertbl where staffcode=?";
+		con=DBConnection.getConnection();
+		
+		try {
+			ps=con.prepareStatement(query);
+			ps.setString(1, staffcode);
+			rs=ps.executeQuery();
+			if(rs.next())
+			{
+				return rs.getString("enddate");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+		
+				
 	}
 	public boolean deleteuserroledao(String roleid){
 		String query="update roletbl set roledescription=? where roleid=?";
@@ -290,5 +325,69 @@ public class UserDaoImpl implements UserDao {
 			e.printStackTrace();
 		}
 	}
+	public String getrecentid()
+	{
+		String query="SELECT max(userid) as userid from usertbl";
+		con=DBConnection.getConnection();
+		
+		try {
+			ps=con.prepareStatement(query);
+			rs=ps.executeQuery();
+			if(rs.next())
+			{
+				return rs.getString("userid");
+						
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public boolean addusercompanyid(String id, String userbranch, String staffcode,String branchdb)
+	{
+		int rs=0;
+		String query="insert into companycodetbl(userid,branchname,branchlocation,companycodename) values(?,?,?,?)";
+		con=DBConnection.getConnection();
+		try {
+			ps=con.prepareStatement(query);
+			ps.setString(1, id);
+			ps.setString(2, userbranch);
+			ps.setString(3, branchdb);
+			ps.setString(4, staffcode);
+		
+			rs=ps.executeUpdate();
+			if(rs>0)
+			{
+				return true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	return false;
+		
+		
+	}
+	public String getUserCid(String cid)
+	{
+		
+		try {
+			//String query="select usertbl.*,companycodetbl.name,companycodetbl.address,companycodetbl.branchcode,companycodetbl.branchdbname from usertbl join companycodetbl on usertbl.cid=companycodetbl.cid where cid=?";
+			String query ="select * from companycodetbl where cid=?";
+					con=DBConnection.getConnection();
+			ps=con.prepareStatement(query);
+			ps.setString(1, cid);
+			rs=ps.executeQuery();
+			if(rs.next())
+			{
+				return rs.getString("branchdbname");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+		
+	
 
 }

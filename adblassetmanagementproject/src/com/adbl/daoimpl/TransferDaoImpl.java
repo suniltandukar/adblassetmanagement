@@ -147,7 +147,7 @@ public class TransferDaoImpl implements TransferDao{
 	
 	public ResultSet getbranchdetails(){
 		con=DBConnection.getConnection();
-String query="select * from branchdetailtbl";
+		String query="select * from companycodetbl";
 		try {
 			ps=con.prepareStatement(query);
 			rs=ps.executeQuery();

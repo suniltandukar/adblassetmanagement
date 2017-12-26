@@ -7,9 +7,9 @@
 		  <div class="form">
 		  	<p style="color:red;">${msg}</p>
 		    <form class="login-form" action="login.adbl" method="post">
-		      <input type="text" name="staffcode" placeholder="staff-code"/>	
-		      <input type="text" name="username" placeholder="username"/>
-		      <input type="password" name="password" placeholder="password"/>
+		      <input type="text" name="staffcode" placeholder="staff-code" required/>	
+		      <input type="text" name="username" placeholder="username" required/>
+		      <input type="password" name="password" placeholder="password" required/>
 		      <button type="submit">login</button>
 		    </form>
 		  </div>

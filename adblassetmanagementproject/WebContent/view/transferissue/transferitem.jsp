@@ -6,7 +6,7 @@
 ResultSet userdetail=(ResultSet) session.getAttribute("userdetail");
 TransferDao tdao=new TransferDaoImpl(userdetail.getString("branchdb"));
 ResultSet branchname=(ResultSet) tdao.getbranchdetails();
-ResultSet userlist=(ResultSet) tdao.getUseretails(branchname.getString("branchid"));
+//ResultSet userlist=(ResultSet) tdao.getUseretails(branchname.getString("branchid"));
 %>
 <jsp:include page="/includefile"></jsp:include>
 <head>
@@ -57,23 +57,22 @@ display:none;}
 									
                                    	<td>
                                        <h5>Transferred To (branchname):</h5><span class="staffcheck"></span>
-                                       <select name="branchto" class="form-control"  form="form">
+                                       <select name="tobranch" class="form-control showbranch"  form="form">
                                        <option value="">Select Branch Name</option>
-                                       <option  value="<%=branchname.getString("branchdb")%>"><%=branchname.getString("branchname")%> </option>
+                                       <option  value="<%=branchname.getString("cid")%>"><%=branchname.getString("name")%> </option>
                                        <%while(branchname.next()){ %>
-                                       <option  value="<%=branchname.getString("branchdb")%>"><%=branchname.getString("branchname")%> </option>
+                                       <option  value="<%=branchname.getString("cid")%>"><%=branchname.getString("name")%> </option>
                                       
                                        <%} %>
                                        </select>
                                    	</td>
                                    	<td>
-									 <input type="hidden" name="branchdb" class="form-control"  form="form" value="<%=userdetail.getString("branchdb")%>">
+									
                                        <h5>Transferred To (username):</h5><span class="staffcheck"></span>
-                                       <select name="branchto" class="form-control"  form="form">
-                                       <option value="">Select Branch Name</option>
+                                       <select name="touser" class="form-control showuser"  form="form">
+                                       <option value="">Select User</option>
                                      
                                        </select>
-                                       <input type="text" name="transferedto" class="form-control"  form="form" value="">
                                    	</td>
                                    
 								</tr>
@@ -81,11 +80,11 @@ display:none;}
 								<tr>
 									<td>
                                        <h5>Transferred Date (B.S):</h5> 
-                                       <input type="text" name="transferdate" class="form-control"  form="form" value="">
+                                       <input type="text" name="transferdate" class="form-control" id="nepaliDate1" form="form" value="">
                                    	</td>
                                    	<td>
                                        <h5>Transferred Date (A.D):</h5> 
-                                       <input type="text" name="transferdateen" class="form-control"  form="form" value="">
+                                       <input type="text" name="transferdateen" class="form-control"  form="form" id="englishDate1" value="">
                                    	</td> 
 								</tr>
 							</tbody>
@@ -122,6 +121,9 @@ display:none;}
     			</div>
     		</div>
     	</div>
+    	<script src="assets/js/dateConverter.js"></script>
+    	
+    	
    <script>
 function myFunction() {
     var table = document.getElementById("table");
@@ -135,26 +137,24 @@ $('table').on('click','tr a',function(e){
  });
 </script>
 <script>
-$(document).ready(function()
-        {
-	 $(".searchbtn").click(function()
-		        {
-		 var id=$(".itemcode").val();
-		 var dataString = 'id='+ id;
-		 $.ajax
-	        ({
-	        type: "POST",
-	        url: "viewuserdetail.click",
-	        data: dataString,
-	        cache: false,
-	        success: function(html)
-	        {
-	        $(".displayform").html(html);
-	        } 
-	        });
-		 
-	});
+
+$(".showbranch").change(function()
+		{
+		var id=$(this).val();
+		var dataString = 'id='+ id;
+		$.ajax
+		({
+		type: "POST",
+		url: "getuserdetail.click",
+		data: dataString,
+		cache: false,
+		success: function(html)
+		{
+		$(".showuser").html(html);
+		} 
+		});
 });
+
 </script>
   </body>
   </html>

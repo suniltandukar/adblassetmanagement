@@ -6,6 +6,7 @@ import java.net.UnknownHostException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -25,7 +26,7 @@ import com.org.dbconnection.DBConnection;
 
 public class LoginAction {
 
-	public void verifyuser(HttpServletRequest request, HttpServletResponse response) throws SQLException {
+	public void verifyuser(HttpServletRequest request, HttpServletResponse response) throws SQLException, ParseException {
 		String staffcode=request.getParameter("staffcode");
 		String username=request.getParameter("username");
 		String password=request.getParameter("password");
@@ -35,11 +36,32 @@ public class LoginAction {
 		InetAddress ip;
 		LoginDao ldao=  new LoginDaoImpl();
 		boolean maindbstatus=ldao.checkmaindb(staffcode, username, password);
-		if(maindbstatus){
+		
+		
+				//for user date validation
+		DateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
+		Date todaydate = new Date();
+		String enddate=ldao.userenddate(staffcode);
+		Date end;
+		
+			end = dateformat.parse(enddate);
+			if (todaydate.compareTo(end) > 0) {
+				String msg="Validation Expired!!";
+				request.setAttribute("msg", msg);
+				RequestDispatcher rd=request.getRequestDispatcher("index.jsp");
+				try {
+					rd.forward(request, response);
+				} catch (ServletException | IOException e) {
+					e.printStackTrace();
+				}
+	            
+	        }
+	if(maindbstatus){
 			userdetail=ldao.userdetail(staffcode, username, password);
 			if(userdetail.next()){
 			roleid=userdetail.getString("roleid");
-			 branchdb=userdetail.getString("branchdb");
+			 branchdb=userdetail.getString("branchdbname");
+			 System.out.println("latest user branch is "+branchdb);
 			}
 			ResultSet ulist=ldao.role(roleid);
 			
@@ -74,9 +96,7 @@ public class LoginAction {
 					}
 					String macaddress=sb.toString();
 					
-					DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-					Date date = new Date();
-					System.out.println(dateFormat.format(date)); //2016/11/16 12:08:43
+					
 					
 					UserDao use=new UserDaoImpl();
 					boolean status=use.loghistorydao(userdetail, ipaddress, macaddress);
@@ -96,6 +116,7 @@ public class LoginAction {
 					System.out.println("ip error//mac error in login action");
 					e1.printStackTrace();
 				}
+				
 				
 				
 				

@@ -25,24 +25,50 @@ public class UserAction {
 
 		 String[] name = request.getParameterValues("role");
 		 String role=Arrays.toString(name).replace("[","").replace("]","");
+		 String[] allow= request.getParameterValues("branch");
 		
-		 List<String> list=Arrays.asList(role);
-		 Set<String> set=new HashSet<>(list);
-		 System.out.println("set is"+set);
+		 UserDao udao=new UserDaoImpl();
+		 String effectivedate=request.getParameter("edate");
+		 String enddate=request.getParameter("enddate");
 		 
 		String username=request.getParameter("username");
 		String staffcode=request.getParameter("staffcode");
 		String roles=request.getParameter("roleid");
 		HttpSession session=request.getSession(true);
 		ResultSet userdetails=(ResultSet) session.getAttribute("userdetail");
+		
 		try{
 		String mid=userdetails.getString("mid");
 		String branchdb=userdetails.getString("branchdb");
 		int roleid=Integer.parseInt(roles);
 		
-		UserDao udao=new UserDaoImpl();
-		Boolean status=udao.adduserdao(username,staffcode,roleid,mid,branchdb,role);
-		if(status)
+		
+		String id=udao.getrecentid();
+		 //for user branch
+		 String usercid=request.getParameter("usercid");
+		
+		 String userbranch=udao.getUserCid(usercid);
+		 System.out.println(userbranch+"latest userbranch");
+		 
+		
+		String[] totalbranch=new String[300];
+		totalbranch=request.getParameterValues("branch");
+		System.out.println(totalbranch[0]+" totla");
+		boolean status1=false;
+		int i;	
+		boolean mainstatus=udao.addusertomainbranch(username,staffcode,roleid,mid,userbranch,role,effectivedate,enddate,usercid);
+		
+		for(i=0;i<totalbranch.length;i++){
+			String code=totalbranch[i];
+			String branch=udao.getUserCid(code);
+			System.out.println(branch+"brach");
+		boolean status=udao.adduserdao(username,staffcode,roleid,mid,branch,role,effectivedate,enddate,usercid);
+		System.out.println(totalbranch[0]+" totlal");
+	
+		
+		}
+	 
+		if(mainstatus)
 		{
 			request.setAttribute("msg", "User Created Successfully");
 			request.setAttribute("username",username);
@@ -78,6 +104,10 @@ public class UserAction {
 						request.setAttribute("givenrole", editdetails.getString("givenrole"));
 						request.setAttribute("roleid", editdetails.getString("roleid"));
 						request.setAttribute("roledescription", editdetails.getString("roledescription"));
+						request.setAttribute("edate", editdetails.getString("edate"));
+						request.setAttribute("enddate", editdetails.getString("enddate"));
+						request.setAttribute("branchname", editdetails.getString("branchname"));
+						request.setAttribute("branchdb", editdetails.getString("branchdb"));
 						RequestDispatcher rd=request.getRequestDispatcher("view/settings/usersettings/adduser.jsp");
 						rd.forward(request, response);
 						
@@ -134,6 +164,9 @@ public class UserAction {
 		String userid=request.getParameter("useridforupdate");
 		String username=request.getParameter("username");
 		String staffcode=request.getParameter("staffcode");
+		String effectivedate=request.getParameter("edate");
+		String enddate=request.getParameter("enddate");
+		
 		String rolei=request.getParameter("roleid");
 		HttpSession session=request.getSession(true);
 		ResultSet userdetails=(ResultSet) session.getAttribute("userdetail");
@@ -143,7 +176,7 @@ public class UserAction {
 		int roleid=Integer.parseInt(rolei);
 		
 		UserDao udao=new UserDaoImpl();
-		Boolean status=udao.updateuserdao(username,staffcode,roleid,mid,branchdb,userid,role);
+		Boolean status=udao.updateuserdao(username,staffcode,roleid,mid,branchdb,userid,role,effectivedate,enddate);
 		if(status)
 		{
 			request.setAttribute("msg", "User Updated Successfully");

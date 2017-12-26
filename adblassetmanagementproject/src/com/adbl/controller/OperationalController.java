@@ -3,6 +3,7 @@ package com.adbl.controller;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
@@ -37,9 +38,9 @@ public class OperationalController extends HttpServlet {
 			try {
 				action.verifyuser(request,response);
 				
-			} catch (SQLException e) {
+			} catch (Exception e) {
 				e.printStackTrace();
-			}
+			} 
 		}
 		else if(uri.endsWith("logout.adbl"))
 		{

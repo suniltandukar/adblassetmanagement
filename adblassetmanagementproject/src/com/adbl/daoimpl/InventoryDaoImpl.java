@@ -1,5 +1,7 @@
 package com.adbl.daoimpl;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.adbl.dao.InventoryDao;
 import com.adbl.model.Inventory;
@@ -16,8 +18,8 @@ public class InventoryDaoImpl implements InventoryDao {
 	public InventoryDaoImpl(String branchdb) {
 		con=DBConnection.getConnectionNext(branchdb);
 	}
-	public ResultSet getinventorydata(){
-		String query="select * from inventoryitemdetail";
+	public ResultSet getinventorydata(String cid){
+		String query="select * from inventoryitemdetail where cid='"+cid+"'";
 		try{
 			stmt=con.createStatement();
 			rs=stmt.executeQuery(query);
@@ -27,7 +29,21 @@ public class InventoryDaoImpl implements InventoryDao {
 		}
 		return rs;
 	}
-	
+	public ResultSet userspecificdetail(String cid)
+	{
+		ResultSet userdetail=null;
+		String query="";
+		con=DBConnection.getConnection();
+		try{
+		query="SELECT usertbl.*,branchdetailtbl.*,companycodetbl.branchdbname,companycodetbl.name FROM usertbl join mainusertbl on usertbl.mid=mainusertbl.mid JOIN branchdetailtbl on mainusertbl.branchid=branchdetailtbl.branchid join companycodetbl on companycodetbl.cid=usertbl.cid where usertbl.cid='"+cid+"'";
+		stmt=con.createStatement();
+		userdetail=stmt.executeQuery(query);
+		}
+		catch(Exception e){
+			System.out.println(e);
+		}
+		return userdetail;
+	}
 	public ResultSet getinventoryeditdata(String itemcode){
 		String query="select * from inventoryitemdetail where itemcode='"+itemcode+"'";
 		try{
@@ -63,7 +79,8 @@ public class InventoryDaoImpl implements InventoryDao {
 		return rs;
 	}
 	public ResultSet getgroup(){
-        String query="select * from grouptbl";
+		
+        String query="select * from adblheadofficedb.grouptbl";
         try{
             stmt=con.createStatement();
             rs=stmt.executeQuery(query);

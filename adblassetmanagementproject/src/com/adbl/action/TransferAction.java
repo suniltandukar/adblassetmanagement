@@ -30,8 +30,9 @@ public class TransferAction {
 			e1.printStackTrace();
 		}
 		
-		String transferredto=request.getParameter("transferedto");
-		String branchto=request.getParameter("branchto");
+		String transferredto=request.getParameter("touser");
+		System.out.println(transferredto+" to user id");
+		String branchto=request.getParameter("tobranch");
 		System.out.println(branchto);
 		String transferdate=request.getParameter("transferdate");
 		String transferdateen=request.getParameter("transferdateen");
@@ -77,6 +78,7 @@ public class TransferAction {
 		String issuedto=request.getParameter("issuedto");
 		String issueddate=request.getParameter("issueddate");
 		String issueddateen=request.getParameter("issueddateen");
+		
 		String[] itemcode=new String[100];
 		itemcode=request.getParameterValues("itemcode");
 		boolean status=false;
