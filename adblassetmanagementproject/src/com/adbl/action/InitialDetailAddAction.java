@@ -52,4 +52,15 @@ public class InitialDetailAddAction {
 		i.addcompany(m);
 	}
 
+	public void addcompanycode(HttpServletRequest request, HttpServletResponse response) {
+
+		String companyname=request.getParameter("companyname");
+		String companyaddress=request.getParameter("companyaddress");
+		String companycode=request.getParameter("companycode");
+		
+		InitialDetailDao dao=new InitialDetailDaoImpl("adblheadofficedb");
+		dao.addcompanycode(companyname,companyaddress,companycode);
+			
+	}
+
 }

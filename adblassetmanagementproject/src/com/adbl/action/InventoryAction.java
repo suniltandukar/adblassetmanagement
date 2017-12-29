@@ -115,6 +115,8 @@ public class InventoryAction {
 		DateFormat dateformat=new SimpleDateFormat("YYYY");
 		Date date=new Date();
 		
+		HttpSession session=request.getSession();
+		ResultSet userdetail=(ResultSet)session.getAttribute("userdetail");
 		
 		String[] year=purchasedateen.split("-");
 		Generator g=new Generator(branchdb);
@@ -152,7 +154,8 @@ public class InventoryAction {
 				String[] ids=idao.selectids();
 				idao.additionaldetaildao(inventory,ids);
 				String additionaldetailid=idao.selectadditionaldetailid();
-				status=idao.inventorydao(inventory,additionaldetailid, item_code,transaction_id);
+				String cid=userdetail.getString("cid");
+				status=idao.inventorydao(inventory,additionaldetailid, item_code,transaction_id,cid);
 				}
 			
 			

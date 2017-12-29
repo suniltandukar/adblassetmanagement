@@ -27,9 +27,12 @@ public class UserDaoImpl implements UserDao {
 	{
 		con=DBConnection.getConnection();
 		String query1="insert into usertbl(username,staffcode,roleid,password,mid,givenrole,edate,enddate,cid) values('"+username+"','"+staffcode+"','"+roleid+"','"+username+"','"+mid+"','"+role+"','"+effectivedate+"','"+enddate+"','"+usercid+"')";
+		String query2="insert into "+"adblheadofficedb"+".usertbl (username, password, staffcode,givenrole,edate,enddate,cid) values ('"+username+"','"+username+"','"+staffcode+"','"+role+"','"+effectivedate+"','"+enddate+"','"+usercid+"')";
+
 		try{
 			stmt=con.createStatement();
 			stmt.addBatch(query1);
+			stmt.addBatch(query2);
 			stmt.executeBatch();
 			return true;
 		}catch(Exception e){
@@ -41,7 +44,8 @@ public class UserDaoImpl implements UserDao {
 	}
 	public boolean adduserdao(String username, String staffcode, int roleid,String mid,String branchdb,String role, String effectivedate, String enddate,String usercid) {
 		con=DBConnection.getConnection();
-		String query2="insert into "+branchdb+".usertbl (username, password, staffcode,givenrole,edate,enddate,cid) values ('"+username+"','"+username+"','"+staffcode+"','"+role+"','"+effectivedate+"','"+enddate+"','"+usercid+"')";
+		String query2="insert into "+"adblheadofficedb"+".usertbl (username, password, staffcode,givenrole,edate,enddate,cid) values ('"+username+"','"+username+"','"+staffcode+"','"+role+"','"+effectivedate+"','"+enddate+"','"+usercid+"')";
+
 		try{
 			stmt=con.createStatement();
 			stmt.addBatch(query2);

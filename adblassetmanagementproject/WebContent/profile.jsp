@@ -15,7 +15,7 @@
 <html lang="en-US" ng-app="myApp">
 <head>
 	<style>
-	#nav1,#nav2,#nav3,#nav4,#nav5,#nav6,#nav7,#nav8,#nav9,#nav10,#nav11,#nav12,#nav13,#nav14{
+	#nav1, #nav2, #nav3, #nav4, #nav5, #nav6, #nav7, #nav8, #nav9, #nav10, #nav11, #nav12, #nav13, #nav14, #change, #remove, #pendingtransfer, #transferhistory, #transfer{
 	display:none;}
 
 	<%=userdetail.getString("givenrole")%>
@@ -203,6 +203,8 @@ display:block;}
             <li id="nav5" ><a href="issuedetail.click" target="iframe_a"><i class="fa fa-circle-o" ></i> My Items</a></li>
             <li id="nav6" ><a href="issueitem.click" target="iframe_a"><i class="fa fa-circle-o" ></i> Issue Items</a></li>
             <li id="nav7" ><a href="issueconfirmation.click" target="iframe_a"><i class="fa fa-circle-o" ></i> Issue Confirmation</a></li>
+            <li id="pendingtransfer"><a href="pendingtransfers.click" target="iframe_a"><i class="fa fa-circle-o" ></i>Pending Transfers</a>
+            <li id="transferhistory"><a href="transferhistory.click" target="iframe_a"><i class="fa fa-circle-o" ></i>Transfer History</a>
             
           </ul>
         </li>

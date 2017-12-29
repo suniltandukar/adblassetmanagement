@@ -19,6 +19,7 @@ import com.adbl.action.InventoryEditAction;
 import com.adbl.action.LoginAction;
 import com.adbl.action.TransferAction;
 import com.adbl.model.Inventory;
+import com.sun.java.accessibility.util.Translator;
 
 @WebServlet("/OperationalController")
 public class OperationalController extends HttpServlet {
@@ -86,6 +87,7 @@ public class OperationalController extends HttpServlet {
 				}
 			}
 		}
+	
 		else if(uri.endsWith("issueconfirmation.adbl"))
 		{
 				InventoryAction i=new InventoryAction();
@@ -103,8 +105,18 @@ public class OperationalController extends HttpServlet {
 				}
 				RequestDispatcher rd=request.getRequestDispatcher("view/transferissue/issueconfirmation.jsp");
 				rd.forward(request, response);
+				
 			}
+		else if(uri.endsWith("transferconfirm.adbl"))
+		{
+			TransferAction action=new TransferAction();
+			action.transferitembranch(request,response);
+			
+			
 		}
+		}
+	
+	
 	}
 
 

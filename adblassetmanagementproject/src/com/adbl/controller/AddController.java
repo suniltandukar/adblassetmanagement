@@ -91,6 +91,11 @@ public class AddController extends HttpServlet {
 			RequestDispatcher rd=request.getRequestDispatcher("view/initialdetails/initialdetails.jsp");
 			rd.forward(request, response);
 		}
+		if(uri.endsWith("companycode.add"))
+		{
+			InitialDetailAddAction action=new InitialDetailAddAction(request, response);
+			action.addcompanycode(request,response);
+		}
 		if(uri.endsWith("inventory.add")){
 			RequestDispatcher rd=request.getRequestDispatcher("initialdetails.jsp");
 			rd.forward(request, response);

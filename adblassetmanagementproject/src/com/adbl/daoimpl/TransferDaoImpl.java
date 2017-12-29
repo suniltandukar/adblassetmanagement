@@ -5,6 +5,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import com.adbl.dao.TransferDao;
 import com.mysql.jdbc.Connection;
 import com.org.dbconnection.DBConnection;
@@ -20,12 +23,12 @@ public class TransferDaoImpl implements TransferDao{
 	}
 	
 	public boolean setstatuspending(String transferedby, String transferedto, String branchby, String branchto,
-			String transferdate, String transferdateen, String itemcode, String branchdb)
+			String transferdate, String transferdateen, String itemcode, String branchdb,String branchname)
 	{
-		Connection con=DBConnection.getConnectionNext(branchto);
+		Connection con=DBConnection.getConnectionNext("adblheadofficedb");
 		String statusid="3";
 		int r=0;
-		String query="insert into transfertbl(transferedby,branchby,transferedto,branchto,transfereddate,transfereddateen,statusid) values(?,?,?,?,?,?,?)";
+		String query="insert into transfertbl(transferedby,branchby,transferedto,branchto,transfereddate,transfereddateen,statusid,branchname) values(?,?,?,?,?,?,?,?)";
 		try {
 			
 			ps=con.prepareStatement(query);
@@ -36,6 +39,7 @@ public class TransferDaoImpl implements TransferDao{
 			ps.setString(5, transferdate);
 			ps.setString(6, transferdateen);
 			ps.setString(7, statusid);
+			ps.setString(8, branchname);
 			r=ps.executeUpdate();
 			
 			if(r>0)
@@ -47,6 +51,25 @@ public class TransferDaoImpl implements TransferDao{
 		}
 		return false;
 	}
+	public ResultSet transferhistorydao(HttpServletRequest request, HttpServletResponse response)
+	{
+		Connection con=DBConnection.getConnectionNext("adblheadofficedb");
+		String query="select inventorytbl.itemcode,inventorytbl.itemname,transfertbl.* from transferhistorytbl join inventorytbl on inventorytbl.itemcode=transferhistorytbl.itemcode join transfertbl on transferhistorytbl.transferid=transfertbl.transferid";
+		try {
+			ps=con.prepareStatement(query);
+			rs=ps.executeQuery();
+			
+				
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("transfer history error");
+		}
+				
+		return rs;
+		
+	}
+
 
 
 	
@@ -80,6 +103,7 @@ public class TransferDaoImpl implements TransferDao{
 
 
 	public String gettransferid(){
+		Connection con=DBConnection.getConnectionNext("adblheadofficedb");
 		String id="";
 		String query="select max(transferid) as transferid from transfertbl;";
 		try{
@@ -111,6 +135,7 @@ public class TransferDaoImpl implements TransferDao{
 		return null;
 	}
 	public boolean updatetransferitemstatus(String transferid, String itemcode){
+		Connection con=DBConnection.getConnectionNext("adblheadofficedb");
 		String query="update inventorytbl set transferid=? where itemcode=?";
 		int rs=0;
 		try{
@@ -204,10 +229,27 @@ public class TransferDaoImpl implements TransferDao{
 		catch(Exception e)
 		{
 			System.out.println("TransferDaoImpl getissueditemdetails error"+e);
-		}		return rs;
+		}	
+		return rs;
+		
+	}
+	public ResultSet getransferdetails(String cid, String username)
+	{
+		Connection con=DBConnection.getConnectionNext("adblheadofficedb");
+		String query="SELECT inventorytbl.*, transfertbl.*,statustbl.statusname,statustbl.statusdescription from inventorytbl JOIN transfertbl on inventorytbl.transferid=transfertbl.transferid join statustbl on statustbl.statusid=transfertbl.statusid where transfertbl.transferedto='"+username+"' and branchto='"+cid+"'";
+		try {
+			ps=con.prepareStatement(query);
+			rs=ps.executeQuery();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("getransedetailserror");
+		}
+		return rs;
 		
 	}
 	public ResultSet myitemdetails(String username){
+		Connection con=DBConnection.getConnectionNext("adblheadofficedb");
+
 		String query="SELECT inventorytbl.*, issuetbl.* from inventorytbl JOIN issuetbl on inventorytbl.issueid=issuetbl.issueid where issuetbl.statusid='2' and issuedTo='"+username+"'";
 		try{
 			ps=con.prepareStatement(query);

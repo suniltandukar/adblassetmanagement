@@ -16,7 +16,7 @@
         <%
         while (rs.next()) {
          %>
-         <option value="<%=rs.getString("userid")%>"><%=rs.getString("username") %></option>
+         <option value="<%=rs.getString("username")%>"><%=rs.getString("username") %></option>
          <%
           
         }

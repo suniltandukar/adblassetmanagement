@@ -10,7 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.adbl.dao.InventoryDao;
 import com.adbl.dao.TransferDao;
+import com.adbl.daoimpl.InventoryDaoImpl;
 import com.adbl.daoimpl.TransferDaoImpl;
 
 public class TransferAction {
@@ -24,7 +26,8 @@ public class TransferAction {
 		
 		String branchby="",transferredby="";
 		try {
-			branchby = userdetail.getString("branchid");
+			branchby = userdetail.getString("cid");
+			System.out.println("Branch By "+branchby);
 			transferredby=userdetail.getString("username");
 		} catch (SQLException e1) {	
 			e1.printStackTrace();
@@ -40,9 +43,10 @@ public class TransferAction {
 		itemcode=request.getParameterValues("itemcode");
 		boolean status=false;
 		int i;	
+		String branchname=request.getParameter("branchname");
 		
 		for(i=0;i<itemcode.length;i++){
-		tdao.setstatuspending(transferredby,transferredto,branchby,branchto,transferdate,transferdateen,itemcode[i],branchdb);
+		tdao.setstatuspending(transferredby,transferredto,branchby,branchto,transferdate,transferdateen,itemcode[i],branchdb,branchname);
 		String transferid=tdao.gettransferid();
 		status=tdao.updatetransferitemstatus(transferid, itemcode[i]);
 		}
@@ -50,6 +54,7 @@ public class TransferAction {
 		if(status)
 		{
 			System.out.println("status pending");
+			request.setAttribute("msg", "Transfer Successfull");
 			RequestDispatcher rd=request.getRequestDispatcher("view/transferissue/transferitem.jsp");
 			try {
 				rd.forward(request, response);
@@ -101,7 +106,6 @@ public class TransferAction {
 		try {
 			 branchdb=userdetail.getString("branchdb");
 			 username=userdetail.getString("username");
-			 System.out.println(username+"kk");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -110,4 +114,96 @@ public class TransferAction {
 		
 		return issueditemdetails;
 	}
+	public ResultSet transferitemsdetails(HttpServletRequest request, HttpServletResponse response) {
+		HttpSession session=request.getSession(true);
+		ResultSet userdetail=(ResultSet)session.getAttribute("userdetail");
+		String cid="";
+		String username="";
+		try {
+			 cid=userdetail.getString("cid");
+			 System.out.println("branchdb"+cid);
+			 username=userdetail.getString("username");
+			 System.out.println(username+" is userid");
+			 TransferDao t=new TransferDaoImpl("adblheadofficedb");
+			 ResultSet transferdetails=t.getransferdetails(cid,username);
+			 return transferdetails;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	public void transferitembranch(HttpServletRequest request, HttpServletResponse response) {
+		
+		String newcid=request.getParameter("cid");
+		String transferid=request.getParameter("transferid");
+		String statusid=request.getParameter("statusid");
+		InventoryDao trans= new InventoryDaoImpl("adblheadofficedb");
+		if(statusid.equals("2")){
+		boolean status=trans.transferitembranchdao(newcid,transferid);
+	
+		
+		if(status)
+		{
+			boolean stats=trans.changeitemstatus(transferid,statusid);
+			ResultSet rs=trans.getitemcode(transferid);
+			
+			String itemcode;
+			try {
+				itemcode = rs.getString("itemcode");
+				System.out.println("your itemcode is "+itemcode);
+				boolean record=trans.savetransferstatus(transferid,itemcode);
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			
+			
+			
+			request.setAttribute("msg", "Transfer Successfull");
+			RequestDispatcher rd=request.getRequestDispatcher("pendingtransfers.click");
+			try {
+				rd.forward(request, response);
+			} catch (ServletException | IOException e) {
+				e.printStackTrace();
+			}
+			}
+			else{
+				request.setAttribute("msg", "Transfer Unsuccessfull");
+				RequestDispatcher rd=request.getRequestDispatcher("pendingtransfers.click");
+				try {
+					rd.forward(request, response);
+				} catch (ServletException | IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+			
+		else 
+		{
+			boolean stats=trans.changeitemstatus(transferid,statusid);
+			
+			if(stats){
+			request.setAttribute("msg", "Transfer Rejected !");
+			RequestDispatcher rd=request.getRequestDispatcher("pendingtransfers.click");
+			try {
+				rd.forward(request, response);
+			} catch (ServletException | IOException e) {
+				e.printStackTrace();
+			}
+			}
+			else{
+				request.setAttribute("msg", "Transfer Rejection Failed!");
+				RequestDispatcher rd=request.getRequestDispatcher("pendingtransfers.click");
+				try {
+					rd.forward(request, response);
+				} catch (ServletException | IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		
+		
+		
+		
+	}
+
 }

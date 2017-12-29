@@ -147,10 +147,11 @@ display:none;}
 
 										<td><label><input type="checkbox" id="admin" data-onstyle="success" data-offstyle="danger"   data-toggle="toggle" data-size="small"  
 												name="role"
-												value="#nav1, #nav2, #nav3, #nav4, #nav5, #nav6, #nav7, #nav8, #nav9, #nav10, #nav11, #nav12, #nav13, #nav14, #change, #remove"
-												<c:if test="${givenrole eq '#nav1, #nav2, #nav3, #nav4, #nav5, #nav6, #nav7, #nav8, #nav9, #nav10, #nav11, #nav12, #nav13, #nav14, #change, #remove'}"> checked="checked"</c:if>>Admin(all)</label></td>
+												value="#nav1, #nav2, #nav3, #nav4, #nav5, #nav6, #nav7, #nav8, #nav9, #nav10, #nav11, #nav12, #nav13, #nav14, #change, #remove, #pendingtransfer, #transferhistory"
+												<c:if test="${givenrole eq '#nav1, #nav2, #nav3, #nav4, #nav5, #nav6, #nav7, #nav8, #nav9, #nav10, #nav11, #nav12, #nav13, #nav14, #change, #remove, #pendingtransfer, #transferhistory'}"> checked="checked"</c:if>>Admin(all)</label></td>
 										<td><label><input type="checkbox" data-onstyle="success" data-offstyle="danger"   data-toggle="toggle" data-size="small"  id="transfer"
-												name="role" value="#nav4"> Transfer Items</label></td>
+												name="role" value="#transfer" 
+												<c:if test="${fn:contains(givenrole,'#transfer')}"> checked="checked"</c:if>> Transfer Items</label></td>
 										
 
 									</tr>
@@ -171,13 +172,24 @@ display:none;}
 										<td><label><input type="checkbox" data-onstyle="success" data-offstyle="danger"   data-toggle="toggle" data-size="small" data-offstyle="warning" id="deluser"
 												name="role" value="#remove">Delete User</label></td>
 									</tr>
-									<tr>
+										<tr>
+										<td><label><input type="checkbox" data-onstyle="success" data-offstyle="danger"   data-toggle="toggle" data-size="small"  id="createuser"
+												name="role" value="#pendingtransfer"
+												<c:if test="${fn:contains(givenrole,'#pendingtransfer')}"> checked="checked"</c:if>>Pending
+												Transfers&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label></td>
+										<td><label><input type="checkbox" data-onstyle="success" data-offstyle="danger"   data-toggle="toggle" data-size="small"  id="createuser"
+												name="role" value="#transferhistory"
+												<c:if test="${fn:contains(givenrole,'#transferhistory')}"> checked="checked"</c:if>>Transfer History
+												&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label></td>
+									</tr>
+									
+								<!-- 	<tr>
 									<td><label><input type="checkbox" data-onstyle="success" data-offstyle="danger"   data-toggle="toggle" data-size="small" data-offstyle="warning" 
 												name="branch" value="1" required>Head Office</label></td>
 											<td><label>	<input type="checkbox" data-onstyle="success" data-offstyle="danger"   data-toggle="toggle" data-size="small" data-offstyle="warning" 
 												name="branch" value="2" required>Kalimati</label></td>
 											
-									</tr>
+									</tr> -->
 								
 									<tr>
 										<td>Effective Date: <input type="text" name="edate" form="form" id="Date1"

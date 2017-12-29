@@ -234,14 +234,13 @@ public class InventoryDaoImpl implements InventoryDao {
 			e.printStackTrace();
 		}
 	}
-	public boolean inventorydao(Inventory inventory,String additionaldetailid,String item_code,String transactionid)
+	public boolean inventorydao(Inventory inventory,String additionaldetailid,String item_code,String transactionid,String cid)
 	{
-		System.out.println("dao ko tid"+transactionid);
 		boolean status=false;
 		int a;
 		String transactiondateen="date";
-		String query="insert into inventorytbl(itemcode,transactionid,transactiondateen,legacyid,groupcode,itemname,model,decisiondate,decisiondateen,purchasedate,purchasedateen,depreciationrate,inventoryotherdetailid) "
-				+ "values('"+item_code+"','"+transactionid+"','"+transactiondateen+"','"+inventory.getLegacyid()+"','"+inventory.getGroupcode()+"','"+inventory.getItemname()+"','"+inventory.getModel()+"','"+inventory.getDecisiondate()+"','"+inventory.getDecisiondateen()+"','"+inventory.getPurchasedate()+"','"+inventory.getPurchasedateen()+"','"+inventory.getDepreciationrate()+"','"+additionaldetailid+"')";
+		String query="insert into inventorytbl(itemcode,transactionid,transactiondateen,legacyid,groupcode,itemname,model,decisiondate,decisiondateen,purchasedate,purchasedateen,depreciationrate,inventoryotherdetailid,cid) "
+				+ "values('"+item_code+"','"+transactionid+"','"+transactiondateen+"','"+inventory.getLegacyid()+"','"+inventory.getGroupcode()+"','"+inventory.getItemname()+"','"+inventory.getModel()+"','"+inventory.getDecisiondate()+"','"+inventory.getDecisiondateen()+"','"+inventory.getPurchasedate()+"','"+inventory.getPurchasedateen()+"','"+inventory.getDepreciationrate()+"','"+additionaldetailid+"','"+cid+"')";
 		try {
 			ps=con.prepareStatement(query);
 
@@ -331,7 +330,80 @@ public class InventoryDaoImpl implements InventoryDao {
 		return false;
 	}
 	
+	public boolean transferitembranchdao(String newcid,String transferid)
+	{
+		int rs=0;
+		con=DBConnection.getConnectionNext("adblheadofficedb");
+		String query="update inventorytbl set cid='"+newcid+"' where transferid='"+transferid+"'";
+		try {
+			ps=con.prepareStatement(query);
+			rs=ps.executeUpdate();
+			if(rs>0)
+			{
+				return true;
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("transferitembranchdao error");
+		}
+		return false;
+	}
+	public ResultSet getitemcode(String transferid)
+	{
+		String query="select * from inventorytbl where transferid='"+transferid+"'";
+		try{
+			stmt=con.createStatement();
+			rs=stmt.executeQuery(query);
+			if(rs.next()){
+			return rs;
+			}
+		}
+		catch(Exception e){
+			System.out.println("getitemcode error"+e);
+		}
+		return null;
+		
 	
+	}
+	public boolean changeitemstatus(String transferid,String statusid)
+	{
+		int rs=0;
+		con=DBConnection.getConnectionNext("adblheadofficedb");
+		String query="update transfertbl set statusid='"+statusid+"' where transferid='"+transferid+"'";
+		try {
+			ps=con.prepareStatement(query);
+			rs=ps.executeUpdate();
+			if(rs>0)
+			{
+				return true;
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("transferitembranchdao error");
+		}
+		return false;
+	}
 	
-	
+	public boolean savetransferstatus(String transferid, String itemcode)
+	{
+		int rs=0;
+		con=DBConnection.getConnectionNext("adblheadofficedb");
+		String query="insert into transferhistorytbl(itemcode,transferid) values(?,?)" ;
+		try {
+			ps=con.prepareStatement(query);
+			ps.setString(1, itemcode);
+			ps.setString(2, transferid);
+			rs=ps.executeUpdate();
+			if(rs>0)
+			{
+				return true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("savetransferstatus error");
+		}
+		return false;
+	}
 }

@@ -78,6 +78,9 @@ ResultSet itemcondition=(ResultSet)i.showitemcondition();%>
 					  <li><a data-toggle="tab" data-target="#b" class="clickable">Group</a></li>
 					  <li><a data-toggle="tab" data-target="#c" class="clickable">Fund Source</a></li>
 					  <li><a data-toggle="tab" data-target="#d" class="clickable">Item Condition</a></li>
+						<li><a data-toggle="tab" data-target="#e" class="clickable">Branch Code</a></li>
+					  
+					  
 					</ul>
 					<div class="tab-content">
 						<div id="a" class="tab-pane fade in ">
@@ -146,6 +149,36 @@ ResultSet itemcondition=(ResultSet)i.showitemcondition();%>
 								<h6><strong>Item Condition Name:</strong></h6>
 								<input type="text" class="form-control" name="itemconditionname" required><br>
 								<button type="submit" class="btn btn-success">+ ADD</button>
+							</form>
+						</div>
+						<div class="tab-content">
+						<div id="e" class="tab-pane fade in ">
+							<form action="companycode.add" method="post" style="width:100%;margin-top:10px;" class="form" >
+							<input type="hidden" value="<%=companydb%>" name="branchdb">
+								<table class="table">
+									<tr>
+										<td>
+										<h6><strong>Branch Name:</strong></h6>
+										<input type="text" class="form-control" name="companyname" required>
+										</td>
+										<td>
+										<h6><strong>Branch Address:</strong></h6>
+										<input type="text" class="form-control" name="companyaddress" required>
+										</td>
+										<td>
+										<h6><strong>Branch Code</strong></h6>
+										<input type="text" class="form-control" name="companycode" required>
+										</td>
+										<td>
+									</tr>
+									<tr>
+										<td>
+										<button type="submit" class="btn btn-success">+ ADD</button>
+										</td>
+									</tr>
+										
+										
+								</table>
 							</form>
 						</div>
 				</div>

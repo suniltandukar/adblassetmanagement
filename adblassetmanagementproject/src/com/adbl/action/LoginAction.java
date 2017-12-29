@@ -60,7 +60,8 @@ public class LoginAction {
 			userdetail=ldao.userdetail(staffcode, username, password);
 			if(userdetail.next()){
 			roleid=userdetail.getString("roleid");
-			 branchdb=userdetail.getString("branchdbname");
+			// branchdb=userdetail.getString("branchdbname");
+			branchdb="adblheadofficedb";
 			 System.out.println("latest user branch is "+branchdb);
 			}
 			ResultSet ulist=ldao.role(roleid);

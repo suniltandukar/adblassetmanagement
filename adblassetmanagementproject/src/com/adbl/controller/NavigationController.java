@@ -17,12 +17,11 @@ import javax.servlet.http.HttpSession;
 import com.adbl.action.OtherAction;
 import com.adbl.action.TransferAction;
 import com.adbl.action.UserAction;
-import com.adbl.dao.OtherActionDAO;
+import com.adbl.dao.TransferDao;
 import com.adbl.dao.UserDao;
-import com.adbl.daoimpl.OtherActionDAOImpl;
+import com.adbl.daoimpl.TransferDaoImpl;
 import com.adbl.daoimpl.UserDaoImpl;
 import com.adbl.model.History;
-import com.adbl.model.Inventory;
 
 
 @WebServlet("/NavigationController")
@@ -59,6 +58,14 @@ public class NavigationController extends HttpServlet {
 			RequestDispatcher rd=request.getRequestDispatcher("view/inventory/branchinventories.jsp");
 			rd.forward(request, response);
 				}
+		if(uri.endsWith("transferhistory.click"))
+		{
+			TransferDao t=new TransferDaoImpl("adblheadofficedb");
+			ResultSet transferhistory=t.transferhistorydao(request, response);
+			request.setAttribute("transferhistory", transferhistory);
+			RequestDispatcher rd=request.getRequestDispatcher("view/transferissue/transferhistory.jsp");
+			rd.forward(request, response);
+		}
 		if(uri.endsWith("items.click"))
 		{
 			RequestDispatcher rd=request.getRequestDispatcher("view/inventory/branchselect.jsp");
@@ -124,6 +131,14 @@ public class NavigationController extends HttpServlet {
 			ResultSet issueditemdetails=t.issueditemsdetails(request, response);
 			request.setAttribute("issueditemdetails", issueditemdetails);
 			RequestDispatcher rd=request.getRequestDispatcher("view/transferissue/issueconfirmation.jsp");
+			rd.forward(request, response);
+		}
+		else if(uri.endsWith("pendingtransfers.click"))
+		{
+			TransferAction t=new TransferAction();
+			ResultSet transferdetails=t.transferitemsdetails(request, response);
+			request.setAttribute("transferdetails", transferdetails);
+			RequestDispatcher rd=request.getRequestDispatcher("view/transferissue/pendingtransfer.jsp");
 			rd.forward(request, response);
 		}
 		else if(uri.endsWith("uploadbill.click"))

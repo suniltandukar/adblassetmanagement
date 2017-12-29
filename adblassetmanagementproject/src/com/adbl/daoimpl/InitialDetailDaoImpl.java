@@ -88,6 +88,26 @@ public class InitialDetailDaoImpl implements InitialDetailDao{
 			}
 		}
 	}
+	public boolean addcompanycode(String companyname, String companyaddress, String companycode)
+	{
+		Connection con=DBConnection.getConnection();
+		int rs=0;
+		String query="insert into companycodetbl(name,address,branchcode) values ('"+companyname+"','"+companyaddress+"','"+companycode+"')";
+		try{
+		ps=con.prepareStatement(query);
+		rs=ps.executeUpdate();
+		if(rs>0)
+		{
+			return true;
+		}
+		}
+		catch(Exception e){
+			System.out.println("addcompanycode error"+e);
+		}
+		return false;
+		
+		
+	}
 	public ResultSet showcompany(){
 		String query="select * from companytbl";
 		try{

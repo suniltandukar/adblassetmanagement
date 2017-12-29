@@ -50,23 +50,24 @@ public class UserAction {
 		 String userbranch=udao.getUserCid(usercid);
 		 System.out.println(userbranch+"latest userbranch");
 		 
-		
-		String[] totalbranch=new String[300];
+		//to be done with multiple branches
+		/*String[] totalbranch=new String[300];
 		totalbranch=request.getParameterValues("branch");
 		System.out.println(totalbranch[0]+" totla");
 		boolean status1=false;
-		int i;	
+		int i;	*/
 		boolean mainstatus=udao.addusertomainbranch(username,staffcode,roleid,mid,userbranch,role,effectivedate,enddate,usercid);
 		
-		for(i=0;i<totalbranch.length;i++){
+		/*for(i=0;i<totalbranch.length;i++){
 			String code=totalbranch[i];
 			String branch=udao.getUserCid(code);
 			System.out.println(branch+"brach");
 		boolean status=udao.adduserdao(username,staffcode,roleid,mid,branch,role,effectivedate,enddate,usercid);
-		System.out.println(totalbranch[0]+" totlal");
-	
-		
+		System.out.println(totalbranch[0]+" total");
 		}
+	*/
+		
+		
 	 
 		if(mainstatus)
 		{

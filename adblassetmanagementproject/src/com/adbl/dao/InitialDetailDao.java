@@ -13,4 +13,5 @@ public interface InitialDetailDao {
 	public void deletegroup(String id) throws SQLException;
 	public void deletefundsource(String id) throws SQLException;
 	public void deleteitemcondition(String id) throws SQLException;
+	public boolean addcompanycode(String companyname, String companyaddress, String companycode);
 }
