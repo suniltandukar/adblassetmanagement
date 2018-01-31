@@ -29,5 +29,12 @@ public class History {
 	String ipaddress;
 	String macaddress;
 	String login;
+	String action;
+	public String getAction() {
+		return action;
+	}
+	public void setAction(String action) {
+		this.action = action;
+	}
 
 }

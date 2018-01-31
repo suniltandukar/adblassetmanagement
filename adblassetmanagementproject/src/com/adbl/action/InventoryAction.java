@@ -1,6 +1,5 @@
 package com.adbl.action;
 
-import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DateFormat;
@@ -9,9 +8,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.security.auth.Subject;
 import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -19,6 +16,7 @@ import javax.servlet.http.HttpSession;
 import com.adbl.dao.InventoryDao;
 import com.adbl.daoimpl.InventoryDaoImpl;
 import com.adbl.model.Inventory;
+import com.adbl.model.UserModel;
 
 public class InventoryAction {
 	
@@ -66,6 +64,7 @@ public class InventoryAction {
 		String licenseno=request.getParameter("licenseno");
 		String itemcode=request.getParameter("itemcode");
 		String yeartxn=request.getParameter("year");
+		String donatationpercentage=request.getParameter("donationpercentage");
 		
 		
 		Inventory inventory=new Inventory();
@@ -110,18 +109,19 @@ public class InventoryAction {
 		inventory.setMacaddress(macaddress);
 		inventory.setLicenseno(licenseno);
 		//inventory.setItemcode(itemcode);
+		inventory.setDonationpercentage(donatationpercentage);
 		
-		String branchdb=request.getParameter("branchdb");
-		DateFormat dateformat=new SimpleDateFormat("YYYY");
+		DateFormat dateformat=new SimpleDateFormat("yyyy");
 		Date date=new Date();
 		
 		HttpSession session=request.getSession();
-		ResultSet userdetail=(ResultSet)session.getAttribute("userdetail");
+		UserModel um=(UserModel) session.getAttribute("userDetail");
+		String inputter=um.getUsername();
 		
 		String[] year=purchasedateen.split("-");
-		Generator g=new Generator(branchdb);
-		String branchcode="001";
-		
+		Generator g=new Generator();
+		String branchcode=(String)session.getAttribute("currentBranchcode");
+		System.out.println(branchcode);
 		
 		String transaction_id=g.transactionidgenerator(branchcode,dateformat.format(date));
 		inventory.setGenerated_transactionid(transaction_id);
@@ -141,7 +141,7 @@ public class InventoryAction {
 		if(inventory.getItemconditionid().equals("")){
 			inventory.setItemconditionid(value);
 		}
-		InventoryDao idao=new InventoryDaoImpl(branchdb);
+		InventoryDao idao=new InventoryDaoImpl();
 		try {
 			List list=new ArrayList<>();
 			for(int i=1;i<=Integer.parseInt(quantity);i++){
@@ -154,8 +154,8 @@ public class InventoryAction {
 				String[] ids=idao.selectids();
 				idao.additionaldetaildao(inventory,ids);
 				String additionaldetailid=idao.selectadditionaldetailid();
-				String cid=userdetail.getString("cid");
-				status=idao.inventorydao(inventory,additionaldetailid, item_code,transaction_id,cid);
+				
+				status=idao.inventorydao(inventory,additionaldetailid, item_code,transaction_id,branchcode,inputter);
 				}
 			
 			
@@ -176,7 +176,7 @@ public class InventoryAction {
 		String branchdb=request.getParameter("branchdb");
 		
 		
-		InventoryDao idao=new InventoryDaoImpl(branchdb);
+		InventoryDao idao=new InventoryDaoImpl();
 		boolean status=idao.deleteinventorydao(itemcode,inventoryotherdetailid,amcid,insuranceid,warrantyid);
 		if(status)
 		{
@@ -204,7 +204,7 @@ public class InventoryAction {
 		String issueid=request.getParameter("issueid");
 		String statusid=request.getParameter("id");
 		
-		InventoryDao i=new InventoryDaoImpl(branchdb);
+		InventoryDao i=new InventoryDaoImpl();
 		Boolean status=i.issueconfirmation(issueid,statusid);
 		return status;
 		

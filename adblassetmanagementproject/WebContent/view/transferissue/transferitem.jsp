@@ -4,7 +4,7 @@
 <%@page import='com.adbl.dao.TransferDao'%>
 <%
 ResultSet userdetail=(ResultSet) session.getAttribute("userdetail");
-TransferDao tdao=new TransferDaoImpl(userdetail.getString("branchdb"));
+TransferDao tdao=new TransferDaoImpl();
 ResultSet branchname=(ResultSet) tdao.getbranchdetails();
 //ResultSet userlist=(ResultSet) tdao.getUseretails(branchname.getString("branchid"));
 %>

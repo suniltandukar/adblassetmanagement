@@ -1,25 +1,22 @@
 package com.adbl.daoimpl;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
 
 import com.adbl.dao.InventoryDao;
 import com.adbl.model.Inventory;
 import com.mysql.jdbc.Connection;
 import com.org.dbconnection.DBConnection;
 
-import sun.font.CreatedFontTracker;
 
 public class InventoryDaoImpl implements InventoryDao {
 	Connection con=null;
 	Statement stmt=null;
 	PreparedStatement ps=null;
 	ResultSet rs=null;
-	public InventoryDaoImpl(String branchdb) {
-		con=DBConnection.getConnectionNext(branchdb);
+	public InventoryDaoImpl() {
+		con=DBConnection.getConnection();
 	}
-	public ResultSet getinventorydata(String cid){
-		String query="select * from inventoryitemdetail where cid='"+cid+"'";
+	public ResultSet getinventorydata(String currentBranchcode){
+		String query="select * from inventoryitemdetail where branchcode='"+currentBranchcode+"'";
 		try{
 			stmt=con.createStatement();
 			rs=stmt.executeQuery(query);
@@ -33,7 +30,6 @@ public class InventoryDaoImpl implements InventoryDao {
 	{
 		ResultSet userdetail=null;
 		String query="";
-		con=DBConnection.getConnection();
 		try{
 		query="SELECT usertbl.*,branchdetailtbl.*,companycodetbl.branchdbname,companycodetbl.name FROM usertbl join mainusertbl on usertbl.mid=mainusertbl.mid JOIN branchdetailtbl on mainusertbl.branchid=branchdetailtbl.branchid join companycodetbl on companycodetbl.cid=usertbl.cid where usertbl.cid='"+cid+"'";
 		stmt=con.createStatement();
@@ -114,7 +110,6 @@ public class InventoryDaoImpl implements InventoryDao {
 				+ "values('"+inventory.getAmcstart()+"','"+inventory.getAmcstarten()+"','"+inventory.getAmcend()+"','"+inventory.getAmcenden()+"','"+inventory.getAmccost()+"',"+inventory.getAmccompanyid()+")";
 		try{
 			stmt=con.createStatement();
-			
 			stmt.addBatch(query1);
 			stmt.addBatch(query2);
 			stmt.addBatch(query3);
@@ -234,13 +229,13 @@ public class InventoryDaoImpl implements InventoryDao {
 			e.printStackTrace();
 		}
 	}
-	public boolean inventorydao(Inventory inventory,String additionaldetailid,String item_code,String transactionid,String cid)
+	public boolean inventorydao(Inventory inventory,String additionaldetailid,String item_code,String transactionid,String branchCode,String inputter)
 	{
 		boolean status=false;
 		int a;
 		String transactiondateen="date";
-		String query="insert into inventorytbl(itemcode,transactionid,transactiondateen,legacyid,groupcode,itemname,model,decisiondate,decisiondateen,purchasedate,purchasedateen,depreciationrate,inventoryotherdetailid,cid) "
-				+ "values('"+item_code+"','"+transactionid+"','"+transactiondateen+"','"+inventory.getLegacyid()+"','"+inventory.getGroupcode()+"','"+inventory.getItemname()+"','"+inventory.getModel()+"','"+inventory.getDecisiondate()+"','"+inventory.getDecisiondateen()+"','"+inventory.getPurchasedate()+"','"+inventory.getPurchasedateen()+"','"+inventory.getDepreciationrate()+"','"+additionaldetailid+"','"+cid+"')";
+		String query="insert into inventorytbl(itemcode,transactionid,transactiondateen,legacyid,groupcode,itemname,model,decisiondate,decisiondateen,purchasedate,purchasedateen,depreciationrate,inventoryotherdetailid,branchCode,donationpercentage,inputter) "
+				+ "values('"+item_code+"','"+transactionid+"','"+transactiondateen+"','"+inventory.getLegacyid()+"','"+inventory.getGroupcode()+"','"+inventory.getItemname()+"','"+inventory.getModel()+"','"+inventory.getDecisiondate()+"','"+inventory.getDecisiondateen()+"','"+inventory.getPurchasedate()+"','"+inventory.getPurchasedateen()+"','"+inventory.getDepreciationrate()+"','"+additionaldetailid+"','"+branchCode+"','"+inventory.getDonationpercentage()+"','"+inputter+"')";
 		try {
 			ps=con.prepareStatement(query);
 
@@ -258,7 +253,7 @@ public class InventoryDaoImpl implements InventoryDao {
 		int rs=0;
 		
 		String query="update inventorytbl inner join inventoryotherdetailtbl on  inventoryotherdetailtbl.inventoryotherdetailid=inventorytbl.inventoryotherdetailid inner join insurancetbl on inventoryotherdetailtbl.insuranceid=insurancetbl.insuranceid inner join amctbl on inventoryotherdetailtbl.amcid=amctbl.amcid inner join warrantytbl on inventoryotherdetailtbl.warrantyid=warrantytbl.warrantyid set "
-				+ "inventorytbl.itemcode='"+inventory.getUpdated_itemcode()+"', inventorytbl.transactionid='"+inventory.getTransactionid()+"', inventorytbl.legacyid='"+inventory.getLegacyid()+"', inventorytbl.groupcode='"+inventory.getGroupcode()+"', inventorytbl.itemname='"+inventory.getItemname()+"', inventorytbl.model='"+inventory.getModel()+"', inventorytbl.decisiondate='"+inventory.getDecisiondate()+"', inventorytbl.decisiondateen='"+inventory.getDecisiondateen()+"', inventorytbl.purchasedate='"+inventory.getPurchasedate()+"', inventorytbl.purchasedateen='"+inventory.getPurchasedateen()+"', inventorytbl.depreciationrate='"+inventory.getDepreciationrate()+"',"
+				+ "inventorytbl.itemcode='"+inventory.getUpdated_itemcode()+"',inventorytbl.donationpercentage='"+inventory.getDonationpercentage()+"', inventorytbl.transactionid='"+inventory.getTransactionid()+"', inventorytbl.legacyid='"+inventory.getLegacyid()+"', inventorytbl.groupcode='"+inventory.getGroupcode()+"', inventorytbl.itemname='"+inventory.getItemname()+"', inventorytbl.model='"+inventory.getModel()+"', inventorytbl.decisiondate='"+inventory.getDecisiondate()+"', inventorytbl.decisiondateen='"+inventory.getDecisiondateen()+"', inventorytbl.purchasedate='"+inventory.getPurchasedate()+"', inventorytbl.purchasedateen='"+inventory.getPurchasedateen()+"', inventorytbl.depreciationrate='"+inventory.getDepreciationrate()+"',"
 				+ "inventoryotherdetailtbl.fundsourceid='"+inventory.getFundsource()+"', inventoryotherdetailtbl.unitname='"+inventory.getUnitname()+"', inventoryotherdetailtbl.rate='"+inventory.getRate()+"', inventoryotherdetailtbl.supplierid='"+inventory.getSupplierid()+"', inventoryotherdetailtbl.itemconditionid='"+inventory.getItemconditionid()+"', inventoryotherdetailtbl.itemsize='"+inventory.getItemsize()+"', inventoryotherdetailtbl.vehicleno='"+inventory.getVehicleno()+"', inventoryotherdetailtbl.chesisno='"+inventory.getChesisno()+"', inventoryotherdetailtbl.engineno='"+inventory.getEngineno()+"', inventoryotherdetailtbl.macaddress='"+inventory.getMacaddress()+"', inventoryotherdetailtbl.licenseno='"+inventory.getLicenseno()+"',"
 						+ "insurancetbl.insurancecompanyid='"+inventory.getInsurancecompanyid()+"', insurancetbl.insurancestart='"+inventory.getInsurancestart()+"',insurancetbl.insurancestarten='"+inventory.getInsurancestarten()+"', insurancetbl.insuranceend='"+inventory.getInsuranceend()+"', insurancetbl.insuranceenden='"+inventory.getInsuranceenden()+"', insurancetbl.insurancepremiumamount='"+inventory.getInsurancepremuimamount()+"',"
 						+ "amctbl.amcstart='"+inventory.getAmcstart()+"', amctbl.amcstarten='"+inventory.getAmcstarten()+"', amctbl.amcend='"+inventory.getAmcend()+"', amctbl.amcenden='"+inventory.getAmcenden()+"', amctbl.amccost='"+inventory.getAmccost()+"', amctbl.amccompanyid='"+inventory.getAmccompanyid()+"',"
@@ -333,7 +328,6 @@ public class InventoryDaoImpl implements InventoryDao {
 	public boolean transferitembranchdao(String newcid,String transferid)
 	{
 		int rs=0;
-		con=DBConnection.getConnectionNext("adblheadofficedb");
 		String query="update inventorytbl set cid='"+newcid+"' where transferid='"+transferid+"'";
 		try {
 			ps=con.prepareStatement(query);
@@ -369,7 +363,6 @@ public class InventoryDaoImpl implements InventoryDao {
 	public boolean changeitemstatus(String transferid,String statusid)
 	{
 		int rs=0;
-		con=DBConnection.getConnectionNext("adblheadofficedb");
 		String query="update transfertbl set statusid='"+statusid+"' where transferid='"+transferid+"'";
 		try {
 			ps=con.prepareStatement(query);
@@ -389,7 +382,6 @@ public class InventoryDaoImpl implements InventoryDao {
 	public boolean savetransferstatus(String transferid, String itemcode)
 	{
 		int rs=0;
-		con=DBConnection.getConnectionNext("adblheadofficedb");
 		String query="insert into transferhistorytbl(itemcode,transferid) values(?,?)" ;
 		try {
 			ps=con.prepareStatement(query);

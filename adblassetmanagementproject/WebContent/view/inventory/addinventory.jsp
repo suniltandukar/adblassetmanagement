@@ -9,8 +9,7 @@
 </head>
 <body>
 <%
-ResultSet branchdb=(ResultSet) session.getAttribute("userdetail");
-InventoryDao i=new InventoryDaoImpl(branchdb.getString("branchdb"));
+InventoryDao i=new InventoryDaoImpl();
 ResultSet supplier=(ResultSet) i.getcompanylist();
 ResultSet companylist1=(ResultSet) i.getcompanylist();
 ResultSet companylist2=(ResultSet) i.getcompanylist();
@@ -53,7 +52,7 @@ ResultSet group=(ResultSet) i.getgroup();%>
                         <div id="1" class="tab-pane fade in active">
                             <form class="submitform" id="form" method="post" action="addinventory.adbl">
                             <input type="hidden" name="inventory" value="/inventory" form="form">
-                            <input type="hidden" value="<%=branchdb.getString("branchdb")%>" name="branchdb">
+                           
                                 <table class="table" style="width: 80%;">
                                     <tbody>
                                         <tr>
@@ -143,14 +142,11 @@ ResultSet group=(ResultSet) i.getgroup();%>
                                         </select>
                                         </td>
                                         <td>
-                                            <h5>Item Condition</h5> <select name="itemconditionid"
-                                            class="form-control"  form="form" required>
-                                            	
-                                            	<%while(itemcondition.next()){ %>
-                                            	<option value="<%=itemcondition.getString("itemconditionid")%>"><%=itemcondition.getString("itemconditionname") %></option>
-                                            	<%} %>
-                                            </select>
+                                            <h5>Donation (%)</h5> <input type="text" class="form-control"
+                                            name="donationpercentage" value="0"  form="form" >
+                                               
                                         </td>
+                                       
                                 	</tr>
                                     <tr>
                                         
@@ -161,6 +157,15 @@ ResultSet group=(ResultSet) i.getgroup();%>
                                         <td>
                                             <h5>Item Size</h5> <input type="text" name="itemsize"
                                             class="form-control"  form="form">
+                                        </td>
+                                         <td>
+                                            <h5>Item Condition</h5> <select name="itemconditionid"
+                                            class="form-control"  form="form" required>
+                                            	
+                                            	<%while(itemcondition.next()){ %>
+                                            	<option value="<%=itemcondition.getString("itemconditionid")%>"><%=itemcondition.getString("itemconditionname") %></option>
+                                            	<%} %>
+                                            </select>
                                         </td>
                                     </tr>
                                     <tr>

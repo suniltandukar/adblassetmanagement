@@ -1,16 +1,17 @@
 package com.adbl.daoimpl;
 
 import java.net.InetAddress;
+import java.net.NetworkInterface;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.adbl.dao.UserDao;
 import com.adbl.model.History;
@@ -22,19 +23,25 @@ public class UserDaoImpl implements UserDao {
 	PreparedStatement ps=null;
 	Statement stmt=null;
 	ResultSet rs=null;
+	HttpSession session=null;
 	public boolean addusertomainbranch(String username, String staffcode, int roleid, String mid, String userbranch,
-			String role, String effectivedate, String enddate, String usercid)
+			String role, String effectivedate, String enddate, String usercid,String sessionuser)
 	{
-		con=DBConnection.getConnection();
-		String query1="insert into usertbl(username,staffcode,roleid,password,mid,givenrole,edate,enddate,cid) values('"+username+"','"+staffcode+"','"+roleid+"','"+username+"','"+mid+"','"+role+"','"+effectivedate+"','"+enddate+"','"+usercid+"')";
-		String query2="insert into "+"adblheadofficedb"+".usertbl (username, password, staffcode,givenrole,edate,enddate,cid) values ('"+username+"','"+username+"','"+staffcode+"','"+role+"','"+effectivedate+"','"+enddate+"','"+usercid+"')";
+		con=DBConnection.getConnectionNext("adblheadofficedb");
+		
+		//String query1="insert into usertbl(username,staffcode,roleid,password,mid,givenrole,edate,enddate,cid) values('"+username+"','"+staffcode+"','"+roleid+"','"+username+"','"+mid+"','"+role+"','"+effectivedate+"','"+enddate+"','"+usercid+"')";
+		String query2="insert into usertbl (username, password, staffcode,givenrole,edate,enddate,cid) values ('"+username+"','"+username+"','"+staffcode+"','"+role+"','"+effectivedate+"','"+enddate+"','"+usercid+"')";
 
 		try{
 			stmt=con.createStatement();
-			stmt.addBatch(query1);
+			//stmt.addBatch(query1);
 			stmt.addBatch(query2);
 			stmt.executeBatch();
+			String action="new user "+username+" created";
+			loghistorydao(sessionuser, action);
+		
 			return true;
+			
 		}catch(Exception e){
 			System.out.println("adduserdao exception"+e);
 		}
@@ -42,17 +49,22 @@ public class UserDaoImpl implements UserDao {
 
 		
 	}
-	public boolean adduserdao(String username, String staffcode, int roleid,String mid,String branchdb,String role, String effectivedate, String enddate,String usercid) {
-		con=DBConnection.getConnection();
-		String query2="insert into "+"adblheadofficedb"+".usertbl (username, password, staffcode,givenrole,edate,enddate,cid) values ('"+username+"','"+username+"','"+staffcode+"','"+role+"','"+effectivedate+"','"+enddate+"','"+usercid+"')";
+	public boolean adduserdao(String username, String staffcode, int roleid,String mid,String role, String effectivedate, String enddate,String usercid) {
+		con=DBConnection.getConnectionNext("adblheadofficedb");
+		String query1="insert into "+"adblassetmanagementdb"+".usertbl(username,staffcode,roleid,password,mid,givenrole,edate,enddate,cid) values('"+username+"','"+staffcode+"','"+roleid+"','"+username+"','"+mid+"','"+role+"','"+effectivedate+"','"+enddate+"','"+usercid+"')";
+			System.out.println(query1+"query 1");
+		String query2="insert into usertbl (username, password, staffcode,givenrole,edate,enddate,cid) values ('"+username+"','"+username+"','"+staffcode+"','"+role+"','"+effectivedate+"','"+enddate+"','"+usercid+"')";
 
 		try{
 			stmt=con.createStatement();
+			stmt.addBatch(query1);
 			stmt.addBatch(query2);
 			stmt.executeBatch();
+			
+		
 			return true;
 		}catch(Exception e){
-			System.out.println("adduserdao exception"+e);
+			System.out.println("adduserdao yei exception"+e);
 		}
 		return false;
 	}	
@@ -66,6 +78,7 @@ public class UserDaoImpl implements UserDao {
 			try {
 				ps=con.prepareStatement(query);
 				rs=ps.executeQuery();
+				
 				
 				while(rs.next()){
 					return rs;
@@ -264,27 +277,44 @@ public class UserDaoImpl implements UserDao {
 		 }
 		 return false;
 	}
-	public boolean loghistorydao(ResultSet userdetail, String ip, String mac)
+	public boolean loghistorydao(String username,String action)
 	{
+		try {
+			
+			InetAddress ip;
+		
+			ip = InetAddress.getLocalHost();
+			String ipaddress=ip.toString();
+			NetworkInterface network = NetworkInterface.getByInetAddress(ip);
+
+			/*byte[] mac = network.getHardwareAddress();
+
+			StringBuilder sb = new StringBuilder();
+			for (int i = 0; i < mac.length; i++) {
+				sb.append(String.format("%02X%s", mac[i], (i < mac.length - 1) ? "-" : ""));
+			}
+			String macaddress=sb.toString();*/
 		int rs=0;
 		
-		try {
-			String query="insert into loginhistorytbl(username,ipaddress,macaddress,logindatetime) values(?,?,?,NOW())";
+	
+			String query="insert into loginhistorytbl(username,ipaddress,logindatetime,action) values(?,'"+ipaddress+"',NOW(),?)";
 			con=DBConnection.getConnection();
 			ps=con.prepareStatement(query);
-			ps.setString(1, userdetail.getString("username"));
-			ps.setString(2, ip);
-			ps.setString(3, mac);
+			ps.setString(1, username);
+			ps.setString(2, action);
+		
 			rs=ps.executeUpdate();
 			if(rs>0)
 			{
 				return true;
 			}
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
 		return false;
+		
+		
 			
 	}
 	public List<History> viewhistory(HttpServletRequest request, HttpServletResponse response)
@@ -303,6 +333,7 @@ public class UserDaoImpl implements UserDao {
 				hist.setIpaddress(rs.getString("ipaddress"));
 				hist.setMacaddress(rs.getString("macaddress"));
 				hist.setLogin(rs.getString("logindatetime"));
+				hist.setAction(rs.getString("action"));
 				list.add(hist);
 			}
 			if(list.size()>0){
@@ -390,6 +421,31 @@ public class UserDaoImpl implements UserDao {
 			e.printStackTrace();
 		}
 		return null;
+	}
+	public String getRoleAssigned(String name)
+	{
+		
+		String query="select roles from roleindex where name='"+name+"'";
+		String roles="";
+		con=DBConnection.getConnection();
+		try {
+			ps=con.prepareStatement(query);
+			rs=ps.executeQuery();
+			if(rs.next()){
+				roles=rs.getString("roles");
+				con.close();
+				ps.close();
+				rs=null;
+				return roles;
+			}
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("updateuserdao error");
+		}
+		
+		return null;
+		
 	}
 		
 	

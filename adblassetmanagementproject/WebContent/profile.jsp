@@ -3,26 +3,33 @@
     <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
  <%@page import="java.sql.*" %>
  <%@page import="java.util.*" %>
- <%@page import="com.adbl.model.UserRole" %>
-<%if((session.getAttribute("userdetail"))!=null){
-	ResultSet userdetail=(ResultSet)session.getAttribute("userdetail");
-	ResultSet roleid=(ResultSet)request.getAttribute("role");
-	ResultSet i=(ResultSet)request.getAttribute("issueditemdetails");
-	%>
-
+ <%@page import="com.adbl.model.UserModel" %>
+<%
+	if ((session.getAttribute("userDetail")) != null) {
+		UserModel userdetail = (UserModel) session
+				.getAttribute("userDetail");
+		String currentBranchCode=(String)session.getAttribute("currentBranchcode");
+		
+		String mainRole=(String)session.getAttribute("mainRole");
+		
+		String currentBranchFunctions=(String)session.getAttribute("currentBranchFunctions");
+		
+		String additionalFunctions=userdetail.getAdditionalFunctions();
+%>
 	<jsp:include page="/includefile"></jsp:include>
 <!DOCTYPE html>
 <html lang="en-US" ng-app="myApp">
 <head>
 	<style>
-	#nav1, #nav2, #nav3, #nav4, #nav5, #nav6, #nav7, #nav8, #nav9, #nav10, #nav11, #nav12, #nav13, #nav14, #change, #remove, #pendingtransfer, #transferhistory, #transfer{
-	display:none;}
-
-	<%=userdetail.getString("givenrole")%>
-	{
+#dashboard,#items,#transferissue,#bill,#settings,#usersettings, #i, #v,#e,#a,#r,#d{
+display:none;}
+<%=mainRole%>{
 display:block;}
 
-
+<%=currentBranchFunctions%>{
+display:block}
+<%=additionalFunctions%>{
+display:block;}
 </style>
 </head>
 <body   class="hold-transition skin-blue sidebar-mini" >
@@ -35,7 +42,7 @@ display:block;}
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>ADBL</b></span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b><%=userdetail.getString("name") %></b>&nbsp;ADBL</span>
+      <span class="logo-lg"><b></b>&nbsp;ADBL</span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top" style="background-color:#007B38;">
@@ -55,16 +62,6 @@ display:block;}
               <span class="label label-success "></span>
             </a>
             <ul class="dropdown-menu" >
-               <%while(i.next()){%>
-              
-              	
-              <li class="header">You have message from <%=i.getString("issuedby") %>
-              </li>
-               <li class="footer"><a  class="btn btn-default" href="issueconfirmation.click" target="iframe_a"><i class="fa fa-circle-o" ></i> View </a></li>
-        		
-        		<%}%>
-          
-             
             </ul>
           </li>
           <!-- Notifications: style can be found in dropdown.less -->
@@ -143,7 +140,6 @@ display:block;}
         </div>
         <div class="pull-left info">
           <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
-          <br> <b><%=userdetail.getString("username") %></b>
         </div>
       </div>
       <!-- search form -->
@@ -160,7 +156,7 @@ display:block;}
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">MAIN NAVIGATION</li>
-        <li class="treeview">
+        <li class="treeview" id="dashboard">
           <a href="#">
             <i class="fa fa-home"></i>
             <span>Dashboard</span>
@@ -169,10 +165,10 @@ display:block;}
             </span>
           </a>
           <ul class="treeview-menu">
-			 <li class="header"><a href="#/!"><i class="fa fa-circle-o"></i> Dashboard</a></li>            
+			 <li class="header" id="v"><a href="#/!"><i class="fa fa-circle-o"></i> Dashboard</a></li>            
           </ul>
         </li>
-        <li class="treeview">
+        <li class="treeview" id="items">
           <a href="#">
             <i class="fa fa-bars"></i>
             <span>Items</span>
@@ -181,16 +177,16 @@ display:block;}
             </span>
           </a>
           <ul class="treeview-menu">
-            <li id="nav1"><a href="viewinventory.click" target="iframe_a"><i class="fa fa-circle-o" ></i> View Inventory</a></li>
-            <li id="nav2" ><a href="addinventory.click" target="iframe_a"><i class="fa fa-circle-o" ></i> Add Inventory</a></li>
-            <li id="nav3" ><a href="editinventory.click" target="iframe_a"><i class="fa fa-circle-o" ></i> Edit Inventory</a></li>
-            <li id="nav3" ><a href="items.click" target="iframe_a"><i class="fa fa-circle-o" ></i> Branch Select</a></li>
+            <li id="v"><a href="viewinventory.click" target="iframe_a"><i class="fa fa-circle-o" ></i> View Inventory</a></li>
+            <li id="i" ><a href="addinventory.click" target="iframe_a"><i class="fa fa-circle-o" ></i> Add Inventory</a></li>
+            <li id="e" ><a href="editinventory.click" target="iframe_a"><i class="fa fa-circle-o" ></i> Edit Inventory</a></li>
+            <li id="i" ><a href="items.click" target="iframe_a"><i class="fa fa-circle-o" ></i> Branch Select</a></li>
             
           		 
             
           </ul>
         </li>
-        <li class="treeview">
+        <li class="treeview" id="transferissue">
           <a href="#">
             <i class="fa fa-exchange"></i>
             <span>Transfer/Issue</span>
@@ -199,16 +195,16 @@ display:block;}
             </span>
           </a>
           <ul class="treeview-menu">
-            <li id="nav4" ><a href="transferitem.click" target="iframe_a"><i class="fa fa-circle-o" ></i> Transfer Items</a></li>
-            <li id="nav5" ><a href="issuedetail.click" target="iframe_a"><i class="fa fa-circle-o" ></i> My Items</a></li>
-            <li id="nav6" ><a href="issueitem.click" target="iframe_a"><i class="fa fa-circle-o" ></i> Issue Items</a></li>
-            <li id="nav7" ><a href="issueconfirmation.click" target="iframe_a"><i class="fa fa-circle-o" ></i> Issue Confirmation</a></li>
-            <li id="pendingtransfer"><a href="pendingtransfers.click" target="iframe_a"><i class="fa fa-circle-o" ></i>Pending Transfers</a>
-            <li id="transferhistory"><a href="transferhistory.click" target="iframe_a"><i class="fa fa-circle-o" ></i>Transfer History</a>
+            <li id="i" ><a href="transferitem.click" target="iframe_a"><i class="fa fa-circle-o" ></i> Transfer Items</a></li>
+            <li id="v" ><a href="issuedetail.click" target="iframe_a"><i class="fa fa-circle-o" ></i> My Items</a></li>
+            <li id="i" ><a href="issueitem.click" target="iframe_a"><i class="fa fa-circle-o" ></i> Issue Items</a></li>
+            <li id="a" ><a href="issueconfirmation.click" target="iframe_a"><i class="fa fa-circle-o" ></i> Issue Confirmation</a></li>
+            <li id="a"><a href="pendingtransfers.click" target="iframe_a"><i class="fa fa-circle-o" ></i>Pending Transfers</a>
+            <li id="v"><a href="transferhistory.click" target="iframe_a"><i class="fa fa-circle-o" ></i>Transfer History</a>
             
           </ul>
         </li>
-        <li class="treeview">
+        <li class="treeview" id="bill">
           <a href="#">
             <i class="fa fa-money"></i>
             <span>Bill</span>
@@ -217,11 +213,11 @@ display:block;}
             </span>
           </a>
           <ul class="treeview-menu">
-            <li id="nav8" ><a href="uploadbill.click" target="iframe_a"><i class="fa fa-circle-o" ></i> Upload Bill</a></li>
-            <li id="nav9" ><a href="viewbill.click" target="iframe_a"><i class="fa fa-circle-o" ></i> View Bill</a></li>
+            <li id="i" ><a href="uploadbill.click" target="iframe_a"><i class="fa fa-circle-o" ></i> Upload Bill</a></li>
+            <li id="v" ><a href="viewbill.click" target="iframe_a"><i class="fa fa-circle-o" ></i> View Bill</a></li>
           </ul>
         </li>
-        <li class="treeview">
+        <li class="treeview" id="settings">
           <a href="#">
             <i class="fa fa-cogs"></i>
             <span>Settings</span>
@@ -232,7 +228,7 @@ display:block;}
           </a>
           
           <ul class="treeview-menu">
-          	<li class="treeview">
+          	<li class="treeview" id="usersettings">
           		<a href="#">
 			        <i class="fa fa-users"></i> <span>User Settings</span>
 			          <span class="pull-right-container">
@@ -240,10 +236,9 @@ display:block;}
 			          </span>
          		</a>
           		<ul class="treeview-menu">
-          			 	<li id="nav10"><a href="addusers.click" target="iframe_a"><i class="fa fa-circle-o"></i>Manage Users</a></li>
-               	 		<li id="nav11"><a href="userrolemanagement.click" target="iframe_a"><i class="fa fa-circle-o"></i>Manage User Roles</a></li>
-               	 		<li id="nav12"><a href="changeusernamepassword.click" target="iframe_a"><i class="fa fa-circle-o"></i>Change Username/password</a></li>
-          		 		<li id="nav13"><a href="logindetails.click" target="iframe_a"><i class="fa fa-circle-o"></i>Login Details</a></li>
+          			 	<li id="v"><a href="adduser.user" target="iframe_a"><i class="fa fa-circle-o"></i>Manage Users</a></li>
+               	 		<li id="i"><a href="changeusernamepassword.click" target="iframe_a"><i class="fa fa-circle-o"></i>Change Username/password</a></li>
+          		 		<li id="v"><a href="logindetails.click" target="iframe_a"><i class="fa fa-circle-o"></i>Login Details</a></li>
           	
           		 	<%--  <c:if test = "${userrole =='admin'}">
           		 	 </c:if> --%>
@@ -251,7 +246,7 @@ display:block;}
       				
       </ul>
           	</li>
-            <li id="nav14"><a href="initialdetails.click" target="iframe_a"><i class="fa fa-circle-o"></i> Add/Edit Initial Details</a></li>
+            <li id="i"><a href="initialdetails.click" target="iframe_a"><i class="fa fa-circle-o"></i> Add/Edit Initial Details</a></li>
             
           </ul>
         </li>
@@ -280,12 +275,10 @@ display:block;}
 </div>
 
 <script>
-var rowval=<%=i.getRow()%>;
-$('.getrow').text(rowval);
 <%if(request.getAttribute("msg")!=null){%>
 $('#myModal').modal('show');
 <%}%>
 </script>
 </body>
 </html>
-<%}else{out.println("No User Session Found!");} %>
+<%}else{out.println(" Session Found!");} %>

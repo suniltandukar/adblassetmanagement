@@ -1,8 +1,8 @@
 <%@page import="java.sql.*"%>
 <%@page import='com.adbl.daoimpl.TransferDaoImpl'%>
 <%@page import='com.adbl.dao.TransferDao'%>
-<%ResultSet userdetail=(ResultSet) session.getAttribute("userdetail");
-TransferDao trans=new TransferDaoImpl(userdetail.getString("branchdb"));
+<%ResultSet userdetail=(ResultSet) session.getAttribute("userDetail");
+TransferDao trans=new TransferDaoImpl();
 ResultSet issue=trans.myitemdetails(userdetail.getString("username")); %>
 <jsp:include page="/includefile"></jsp:include>
 <html>

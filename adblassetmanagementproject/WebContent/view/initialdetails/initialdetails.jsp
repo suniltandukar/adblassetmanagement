@@ -256,6 +256,21 @@ ResultSet itemcondition=(ResultSet)i.showitemcondition();%>
 			</div>
   		</div>
 </div>
+<div class="modal fade" id="myModal" role="dialog" tabindex="-1">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-body">
+      
+        	
+          <p><b>${msg}</b></p><br>
+    		
+        </div>
+        <div class="modal-footer">
+          <button type="button" id="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+</div>
 <script>
 	$('.form').submit(function() {
 	    return confirm('CONFIRM SUBMIT?'); 

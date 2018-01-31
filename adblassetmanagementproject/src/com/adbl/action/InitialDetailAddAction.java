@@ -1,9 +1,12 @@
 package com.adbl.action;
 
+import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -59,7 +62,19 @@ public class InitialDetailAddAction {
 		String companycode=request.getParameter("companycode");
 		
 		InitialDetailDao dao=new InitialDetailDaoImpl("adblheadofficedb");
-		dao.addcompanycode(companyname,companyaddress,companycode);
+		boolean status=dao.addcompanycode(companyname,companyaddress,companycode);
+		System.out.println(status);
+		if(status)
+		{
+			request.setAttribute("msg", "New Branch Added Successfully");
+			
+			RequestDispatcher rd=request.getRequestDispatcher("view/initialdetails/initialdetails.jsp");
+			try {
+				rd.forward(request, response);
+			} catch (ServletException | IOException e) {
+				e.printStackTrace();
+			}
+		}
 			
 	}
 

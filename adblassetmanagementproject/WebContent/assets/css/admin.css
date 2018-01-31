@@ -1,0 +1,197 @@
+select.property
+{
+	font-size: 16px;
+	padding-top: 7px;
+	padding-bottom: 7px;
+}
+p.para
+{
+	color: red;
+}
+div i.fa
+{
+	color: white;
+	font-size: 18px;
+	padding-left: 4px;
+}
+div.icon
+{
+	background-color: #ff8080;
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+div img.camera
+{
+	padding-top: 8px;
+	padding-bottom: 4px;
+	height: 50px;
+	width: 50px;
+}
+div.bor
+{
+	padding-bottom: 16px;
+}
+div h5
+{
+	position: absolute; 
+	top: 35px; 
+	text-indent: 80px; 
+	color: white;
+}
+div.admin
+{
+	background-color: #ff8080;
+}
+div ul li
+{
+	list-style: none;
+	font-size: 14px;
+	padding-bottom: 14px;
+}
+div.components a
+{
+	padding-top: 1px;
+	color: white;
+	text-decoration: none;
+}
+div.hot
+{
+	border-top: 1px solid black;
+	margin-top: 12px;
+	padding-bottom: 12px;
+}
+button.click
+{
+background-color: #ff8080;
+border-color: #ff8080;	
+color: white;
+}
+div.header_slide
+{
+	background-color: #ff8080;
+}
+div.dropdown:hover
+{
+	background-color: #ff8080;
+}
+ul.dropdown-menu
+{
+	padding-right: 0px;
+	background-color: #ff8080;
+}
+button.btn-danger:hover
+{
+	background-color: #ff8080;
+	border-color: #ff8080;
+}
+.bs-example
+    {
+      margin: 20px;
+    }
+    @media screen and (min-width: 768px) 
+    {
+      .dropdown:hover .dropdown-menu, .btn-group:hover .dropdown-menu{
+      display: block;
+      background-color: #ff8080;
+    }
+    .dropdown-menu
+    {
+      margin-top: 0;
+    }
+    .dropdown-toggle
+    {
+      margin-bottom: 2px;
+    }
+    .navbar .dropdown-toggle, .nav-tabs .dropdown-toggle
+    {
+      margin-bottom: 0;
+    }
+.col-md-6
+{
+	position: relative;
+    min-height: 1px;
+    padding-right: 0px;
+    padding-left: 0px;
+}
+button.btn
+{
+	font-size: 14px;
+	padding-top: 16px;
+	padding-bottom: 10px;
+}
+img.img-responsive
+{
+	float: none;
+	margin: 0 auto;
+	height: 140px;
+	width: 780px;
+}
+div.col-centered
+{
+	float: none;
+	margin: 80 auto;
+	background-color: white;
+}
+button.col-centered
+{
+	float: none;
+	margin: 0 auto;
+}
+input.uname
+{
+	padding-right: 20px;
+	padding-left: 20px;
+	border-left: 0px;
+	border-right: 0px;
+	border-top: 0px;
+	font-size: 15px;
+	font-family: "Times New Roman";
+	letter-spacing: 1px;
+	word-spacing: 1px;
+}
+input.uname:hover
+{
+	border-color: mediumseagreen;
+}
+label.staff
+{
+	font-size: 13px;
+	font-family: "Times New Roman Poppins-Regular";
+	letter-spacing: 1px;
+	color: gray;
+	font-variant: small-caps;
+	padding-top: 10px;
+}
+label.first
+{
+	font-size: 13px;
+	font-family: "Times New Roman Poppins-Regular";
+	letter-spacing: 1px;
+	padding-top: 20px;
+	padding-bottom: 20px;
+	color: gray;
+	font-variant: small-caps;
+}
+label.second
+{
+	font-size: 13px;
+	font-family: "Times New Roman Poppins-Regular";
+	letter-spacing: 1px;
+	padding-bottom: 20px;
+	color: gray;
+	font-variant: small-caps;
+}
+button.col-centered
+{
+	padding-top: 16px;
+	padding-left: 25px;
+	padding-right: 25px;
+	padding-bottom: 16px;
+	border-radius: 12px;
+	font-variant: small-caps;
+}
+button.col-centered:hover
+{
+	background-color: black;
+	border-color: black;
+}

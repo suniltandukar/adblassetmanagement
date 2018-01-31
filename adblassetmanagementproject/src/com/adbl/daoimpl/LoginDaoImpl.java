@@ -1,18 +1,14 @@
 package com.adbl.daoimpl;
 
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
 import com.adbl.dao.LoginDao;
-import com.adbl.model.UserRole;
+import com.adbl.model.UserModel;
 import com.mysql.jdbc.Connection;
-
-import java.sql.PreparedStatement;
-import java.util.ArrayList;
-import java.util.List;
-
 import com.org.dbconnection.DBConnection;
 
 public class LoginDaoImpl implements LoginDao{
@@ -21,10 +17,9 @@ public class LoginDaoImpl implements LoginDao{
 	Statement stmt=null;
 	ResultSet rs=null;
 	public boolean checkmaindb(String staffcode , String username, String password){
-		con=DBConnection.getConnection();
-		String query="select * from usertbl where staffcode=? and username=? and password=?";
-		
+		String query="select * from usertbl where staffCode=? and username=? and password=?";
 		try{
+			con=DBConnection.getConnection();
 			ps=con.prepareStatement(query);
 			ps.setString(1, staffcode);
 			ps.setString(2, username);
@@ -58,8 +53,9 @@ public class LoginDaoImpl implements LoginDao{
 		
 	
 	public boolean checkcompanydb(String staffcode,String username, String password,String branchdb)
+	
 	{
-		con=DBConnection.getConnectionNext(branchdb);
+		con=DBConnection.getConnection();
 		try{
 		ps=con.prepareStatement("SELECT * from usertbl where staffcode=? and username=? and password=?");
 		ps.setString(1, staffcode);
@@ -81,6 +77,7 @@ public class LoginDaoImpl implements LoginDao{
 	public ResultSet role(String roleid) throws SQLException{
 		String query="select * from rolemgmttbl where roleid='"+roleid+"'";
 		try{
+			con=DBConnection.getConnection();
 			ps=con.clientPrepareStatement(query);
 			rs=ps.executeQuery();
 		}
@@ -90,22 +87,51 @@ public class LoginDaoImpl implements LoginDao{
 		return rs;
 	}
 	public String userenddate(String staffcode) {
-		
 		try {
-			String query="select enddate from usertbl where staffcode=?";
+			String query="select endDate from usertbl where staffcode=?";
 			con=DBConnection.getConnection();
 			ps=con.prepareStatement(query);
 			ps.setString(1, staffcode);
 			rs=ps.executeQuery();
 			if(rs.next())
 			{
-				return rs.getString("enddate");
+				return rs.getString("endDate");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		
 		
+		return null;
+	}
+	public UserModel getUserDetail(UserModel u){
+		UserModel um=null;
+		String query="Select * from usertbl where username=? and password=?";
+		try{
+			con=DBConnection.getConnection();
+			ps=con.prepareStatement(query);
+			ps.setString(1, u.getUsername());
+			ps.setString(2, u.getPassword());
+			rs=ps.executeQuery();
+			while(rs.next()){
+				um=new UserModel();
+				um.setUsername(rs.getString("username"));
+				um.setPassword(rs.getString("password"));
+				um.setStatus(rs.getString("status"));
+				um.setGivenrole(rs.getString("givenrole"));
+				um.setFunctionAllowed(rs.getString("functionAllowed"));
+				um.setAdditionalFunctions(rs.getString("additionalFunctions"));
+				um.setBranchCode(rs.getString("branchCode"));
+				um.setBranchAllowed(rs.getString("branchAllowed"));
+				um.setBranchAllowedFunctions(rs.getString("branchAllowedFunctions"));
+
+				con.close();
+				ps.close();
+				return um;
+			}
+		}catch(Exception e){
+			System.out.println(e);
+		}
 		return null;
 	}
 	

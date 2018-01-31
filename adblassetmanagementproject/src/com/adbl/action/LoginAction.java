@@ -1,15 +1,11 @@
 package com.adbl.action;
 import java.io.IOException;
-import java.net.InetAddress;
-import java.net.NetworkInterface;
-import java.net.UnknownHostException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -21,19 +17,19 @@ import com.adbl.dao.LoginDao;
 import com.adbl.dao.UserDao;
 import com.adbl.daoimpl.LoginDaoImpl;
 import com.adbl.daoimpl.UserDaoImpl;
-import com.adbl.model.UserRole;
-import com.org.dbconnection.DBConnection;
+import com.adbl.model.UserModel;
 
 public class LoginAction {
 
 	public void verifyuser(HttpServletRequest request, HttpServletResponse response) throws SQLException, ParseException {
+		UserModel u=new UserModel();
 		String staffcode=request.getParameter("staffcode");
 		String username=request.getParameter("username");
 		String password=request.getParameter("password");
 		ResultSet userdetail=null;
-		String branchdb="";
-		String roleid="";
-		InetAddress ip;
+		
+		
+		
 		LoginDao ldao=  new LoginDaoImpl();
 		boolean maindbstatus=ldao.checkmaindb(staffcode, username, password);
 		
@@ -42,6 +38,7 @@ public class LoginAction {
 		DateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
 		Date todaydate = new Date();
 		String enddate=ldao.userenddate(staffcode);
+		System.out.println(enddate);
 		Date end;
 		
 			end = dateformat.parse(enddate);
@@ -57,11 +54,38 @@ public class LoginAction {
 	            
 	        }
 	if(maindbstatus){
-			userdetail=ldao.userdetail(staffcode, username, password);
+		u.setUsername(request.getParameter("username"));
+		u.setPassword(request.getParameter("password"));
+		LoginDao l=new LoginDaoImpl();
+		
+			UserModel userDetail=l.getUserDetail(u);
+			System.out.println(userDetail);
+			HttpSession session=request.getSession(true);
+			session.setAttribute("userDetail", userDetail);
+			String currentBranchcode=userDetail.getBranchCode();
+			session.setAttribute("currentBranchcode", currentBranchcode);
+			
+			
+			
+			UserDao ud=new UserDaoImpl();
+			String mainRole=ud.getRoleAssigned(userDetail.getGivenrole());
+			session.setAttribute("mainRole", mainRole);
+			System.out.println(mainRole);
+			
+			session.setAttribute("currentBranchFunctions", userDetail.getFunctionAllowed());
+			
+			
+			
+			RequestDispatcher rd=request.getRequestDispatcher("profile.jsp");
+			try {
+				rd.forward(request, response);
+			} catch (ServletException | IOException e) {
+				e.printStackTrace();
+			}
+			/*userdetail=ldao.userdetail(staffcode, username, password);
 			if(userdetail.next()){
 			roleid=userdetail.getString("roleid");
 			// branchdb=userdetail.getString("branchdbname");
-			branchdb="adblheadofficedb";
 			 System.out.println("latest user branch is "+branchdb);
 			}
 			ResultSet ulist=ldao.role(roleid);
@@ -84,23 +108,13 @@ public class LoginAction {
 				}
 				
 				//for log history
-				try {
-					ip = InetAddress.getLocalHost();
-					String ipaddress=ip.toString();
-					NetworkInterface network = NetworkInterface.getByInetAddress(ip);
-
-					byte[] mac = network.getHardwareAddress();
-
-					StringBuilder sb = new StringBuilder();
-					for (int i = 0; i < mac.length; i++) {
-						sb.append(String.format("%02X%s", mac[i], (i < mac.length - 1) ? "-" : ""));
-					}
-					String macaddress=sb.toString();
+				
+				
 					
 					
-					
+					String logged="Login Action";
 					UserDao use=new UserDaoImpl();
-					boolean status=use.loghistorydao(userdetail, ipaddress, macaddress);
+					boolean status=use.loghistorydao(username,logged);
 					
 					if(status)
 					{
@@ -113,10 +127,6 @@ public class LoginAction {
 					
 					
 					
-				} catch (Exception e1) {
-					System.out.println("ip error//mac error in login action");
-					e1.printStackTrace();
-				}
 				
 				
 				
@@ -142,7 +152,7 @@ public class LoginAction {
 					}catch(Exception e){
 						System.out.println(e);
 					}			
-				}
+				}*/
 		}
 		else{
 			try{

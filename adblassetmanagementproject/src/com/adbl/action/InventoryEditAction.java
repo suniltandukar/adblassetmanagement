@@ -58,6 +58,7 @@ public class InventoryEditAction {
 		String itemcode=request.getParameter("itemcode");
 		String previousdate=request.getParameter("previousdate");
 		String previousgroupcode=request.getParameter("previousgroupcode");
+		String donationpercentage=request.getParameter("donationpercentage");
 		
 		String amcid=request.getParameter("amcid");
 		String insuranceid=request.getParameter("insuranceid");
@@ -105,7 +106,7 @@ public class InventoryEditAction {
 		inventory.setMacaddress(macaddress);
 		inventory.setLicenseno(licenseno);
 		inventory.setItemcode(itemcode);
-		
+		inventory.setDonationpercentage(donationpercentage);
 		inventory.setAmcid(amcid);
 		inventory.setInsuranceid(insuranceid);
 		inventory.setInventoryotherdetailid(inventoryotherdetailid);
@@ -128,8 +129,7 @@ public class InventoryEditAction {
 		if(inventory.getItemconditionid().equals("")){
 			inventory.setItemconditionid(value);
 		}
-		String branchdb=request.getParameter("branchdb");
-		InventoryDao idao=new InventoryDaoImpl(branchdb);
+		InventoryDao idao=new InventoryDaoImpl();
 		boolean stats=false;
 		String updated_itemcode="";
 		String[] year=purchasedateen.split("-");
@@ -139,7 +139,7 @@ public class InventoryEditAction {
 			stats=idao.editalldaocodechanged(inventory);
 		}
 		else{
-			Generator g=new Generator(branchdb);
+			Generator g=new Generator();
 			updated_itemcode=g.itemcodegenerator(groupcode, year[0]);
 			inventory.setUpdated_itemcode(updated_itemcode);
 			stats=idao.editalldaocodechanged(inventory);

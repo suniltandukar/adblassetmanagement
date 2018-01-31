@@ -1,28 +1,11 @@
  <%@page import="java.sql.*" %>
  <%@page import="java.util.*" %>
  <%@page import="com.adbl.model.UserRole" %>
-<%if((session.getAttribute("userdetail"))!=null){
-	ResultSet userdetail=(ResultSet)session.getAttribute("userdetail");
-	ResultSet roleid=(ResultSet)request.getAttribute("role");%>
+
 <!DOCTYPE html>
 <html lang="en-US" ng-app="myApp">
 <head>
-	<style>
-	#nav1,#nav2,#nav3,#nav4,#nav5,#nav6,#nav7,#nav8,#nav9,#nav10,#nav11,#nav12,#nav13,#nav14,#change,#remove{
-	display:none;}
-
-	<%=userdetail.getString("givenrole")%>
-	{
-display:block;
-}
-<%}else{out.println("No User Session Found!");} %>
-
-</style>
-</head>
-
-
-<div class="new">
-  <!-- Bootstrap 3.3.7 -->
+	 <!-- Bootstrap 3.3.7 -->
   <link rel="stylesheet" href="assets/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css">
   
@@ -40,20 +23,21 @@ display:block;
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="assets/css/_all-skins.min.css">
    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/css/bootstrap-select.min.css" />
-  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-  <!--[if lt IE 9]>
-  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-  <![endif]-->
 
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+   <link href="assets/css/switchery.min.css" rel="stylesheet">
+    <link href="assets/css/bootstrap-tagsinput.css" rel="stylesheet">
   <style type="text/css">
   	a {
     cursor: pointer;
 }
   </style>
+</head>
+
+
+<div class="new">
+ 
  <script src="assets/js/jquery.min.js"></script>
  <!-- jQuery 3 -->
 <script src="assets/js/jquery.min.js"></script>
@@ -68,4 +52,7 @@ display:block;
 <!-- Bootstrap 3.3.7 -->
 <script src="assets/js/bootstrap.min.js"></script>
 <script src="assets/js/adminlte.min.js"></script>
+<script src="assets/js/validator.js"></script>
+<!-- jQuery Tags Input -->
+    <script type="text/javascript" src="template/js/jquery.tagsinput.js"></script>
 </div>

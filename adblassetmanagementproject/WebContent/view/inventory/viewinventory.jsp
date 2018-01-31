@@ -5,9 +5,9 @@
 <%@page import='com.adbl.daoimpl.InventoryDaoImpl'%>
 <%@page import='com.adbl.dao.InventoryDao'%>
 <%
-ResultSet branchdb=(ResultSet) session.getAttribute("userdetail");
-InventoryDao i=new InventoryDaoImpl(branchdb.getString("branchdb"));
-ResultSet inventory=(ResultSet) i.getinventorydata(branchdb.getString("cid"));
+String currentBranchcode=(String)session.getAttribute("currentBranchcode");
+InventoryDao i=new InventoryDaoImpl();
+ResultSet inventory=(ResultSet) i.getinventorydata(currentBranchcode);
 ResultSet group=(ResultSet) i.getgroup();%>
 <jsp:include page="/includefile"></jsp:include>
 <html>
@@ -68,7 +68,6 @@ ResultSet group=(ResultSet) i.getgroup();%>
 							<th>Decision Date</th>
 							<th>Depreciation Rate</th>
 							<th>Current Branch</th>
-							<th>Current Location</th>
 							<th id="remove"><i class="fa fa-cog" aria-hidden="true"></i></th>
 						</tr>
 					</thead>
@@ -85,8 +84,7 @@ ResultSet group=(ResultSet) i.getgroup();%>
 							<td><%=inventory.getString("model") %></td>
 							<td><%=inventory.getString("decisiondate") %></td>
 							<td><%=inventory.getString("depreciationrate") %></td>
-							<td><%=inventory.getString("name") %></td>
-							<td><%=inventory.getString("address") %></td>
+							<td><%=inventory.getString("branchCode") %></td>
 							<td id="remove"><div class="dropdown">
 									<button class="btn btn-default dropdown-toggle" type="button"
 										data-toggle="dropdown">
@@ -94,7 +92,7 @@ ResultSet group=(ResultSet) i.getgroup();%>
 									</button>
 									<ul class="dropdown-menu">
 										<li ><a class="clickbtn" 
-											href="deleteinventory.del?inventoryotherdetailid=<%=inventory.getString("inventoryotherdetailid") %>&itemcode=<%=inventory.getString("itemcode") %>&amcid=<%=inventory.getString("amcid") %>&insuranceid<%=inventory.getString("insuranceid") %>&warrantyid=<%=inventory.getString("warrantyid") %>&branchdb=<%=branchdb.getString("branchdb") %>"
+											href="deleteinventory.del?inventoryotherdetailid=<%=inventory.getString("inventoryotherdetailid") %>&itemcode=<%=inventory.getString("itemcode") %>&amcid=<%=inventory.getString("amcid") %>&insuranceid<%=inventory.getString("insuranceid") %>&warrantyid=<%=inventory.getString("warrantyid") %>"
 											style="color: red;"><i class="fa fa-trash-o"
 												aria-hidden="true"></i> Delete</a></li>
 									</ul>

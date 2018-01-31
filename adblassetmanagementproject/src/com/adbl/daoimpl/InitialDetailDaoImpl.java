@@ -3,6 +3,7 @@ package com.adbl.daoimpl;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 import com.adbl.dao.InitialDetailDao;
 import com.adbl.model.Model;
@@ -90,16 +91,20 @@ public class InitialDetailDaoImpl implements InitialDetailDao{
 	}
 	public boolean addcompanycode(String companyname, String companyaddress, String companycode)
 	{
-		Connection con=DBConnection.getConnection();
+		Statement stmt=null;
+		Connection con=DBConnection.getConnectionNext("adblheadofficedb");
 		int rs=0;
 		String query="insert into companycodetbl(name,address,branchcode) values ('"+companyname+"','"+companyaddress+"','"+companycode+"')";
+		String query1="insert into "+"adblassetmanagementdb"+".companycodetbl(name,address,branchcode) values ('"+companyname+"','"+companyaddress+"','"+companycode+"')";
 		try{
-		ps=con.prepareStatement(query);
-		rs=ps.executeUpdate();
-		if(rs>0)
-		{
+			stmt=con.createStatement();
+			stmt.addBatch(query1);
+			stmt.addBatch(query);
+			stmt.executeBatch();
 			return true;
-		}
+
+	
+		
 		}
 		catch(Exception e){
 			System.out.println("addcompanycode error"+e);

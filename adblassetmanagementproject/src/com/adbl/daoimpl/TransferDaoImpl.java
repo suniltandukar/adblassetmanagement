@@ -18,9 +18,7 @@ public class TransferDaoImpl implements TransferDao{
 	PreparedStatement ps=null;
 	ResultSet rs=null;
 	
-	public TransferDaoImpl(String branchdb) {
-		con=DBConnection.getConnectionNext(branchdb);
-	}
+	
 	
 	public boolean setstatuspending(String transferedby, String transferedto, String branchby, String branchto,
 			String transferdate, String transferdateen, String itemcode, String branchdb,String branchname)
@@ -81,7 +79,8 @@ public class TransferDaoImpl implements TransferDao{
 		int r=0;
 		String query="insert into issuetbl(issuedby,issuedto,issueddate,issueddateen,statusid, issueitemcode) values(?,?,?,?,?,?)";
 		try {
-			
+
+			Connection con=DBConnection.getConnectionNext("adblheadofficedb");
 			ps=con.prepareStatement(query);
 			ps.setString(1, issuedby);
 			ps.setString(2, issuedto);
@@ -123,6 +122,8 @@ public class TransferDaoImpl implements TransferDao{
 		String id="";
 		String query="select max(issueid) as issueid from issuetbl;";
 		try{
+
+			Connection con=DBConnection.getConnectionNext("adblheadofficedb");
 			ps=con.prepareStatement(query);
 			rs=ps.executeQuery();
 			while(rs.next()){
@@ -156,6 +157,8 @@ public class TransferDaoImpl implements TransferDao{
 		String query="update inventorytbl set issueid=? where itemcode=?";
 		int rs=0;
 		try{
+
+			Connection con=DBConnection.getConnectionNext("adblheadofficedb");
 			ps=con.prepareStatement(query);
 			ps.setString(1, issueid);
 			ps.setString(2, itemcode);
@@ -171,13 +174,12 @@ public class TransferDaoImpl implements TransferDao{
 	}
 	
 	public ResultSet getbranchdetails(){
-		con=DBConnection.getConnection();
+		con=DBConnection.getConnectionNext("adblheadofficedb");
 		String query="select * from companycodetbl";
 		try {
 			ps=con.prepareStatement(query);
 			rs=ps.executeQuery();
-			if(rs.next())
-			{
+			if(rs.next()){
 				return rs;
 			}
 		} catch (SQLException e) {
@@ -210,6 +212,8 @@ public class TransferDaoImpl implements TransferDao{
 	public ResultSet getissueditemdetails(String username){
 		String query="SELECT inventorytbl.*, issuetbl.*, statustbl.statusname from inventorytbl JOIN issuetbl on inventorytbl.issueid=issuetbl.issueid join statustbl on issuetbl.statusid=statustbl.statusid  WHERE issuetbl.issuedto='"+username+"' ";
 		try{
+
+			Connection con=DBConnection.getConnectionNext("adblheadofficedb");
 			ps=con.prepareStatement(query);
 			rs=ps.executeQuery();
 			
@@ -222,6 +226,8 @@ public class TransferDaoImpl implements TransferDao{
 	public ResultSet getissuedetails(){
 		String query="SELECT inventorytbl.*, issuetbl.* from inventorytbl JOIN issuetbl on inventorytbl.issueid=issuetbl.issueid where issuetbl.statusid='2'";
 		try{
+
+			Connection con=DBConnection.getConnectionNext("adblheadofficedb");
 			ps=con.prepareStatement(query);
 			rs=ps.executeQuery();
 			

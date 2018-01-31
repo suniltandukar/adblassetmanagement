@@ -72,7 +72,14 @@ public class Inventory {
 	String itemcode;
 	List generated_itemcode;
 	String updated_itemcode;
+	String donationpercentage;
 	
+	public String getDonationpercentage() {
+		return donationpercentage;
+	}
+	public void setDonationpercentage(String donationpercentage) {
+		this.donationpercentage = donationpercentage;
+	}
 	public String getUpdated_itemcode() {
 		return updated_itemcode;
 	}

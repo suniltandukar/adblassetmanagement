@@ -19,7 +19,7 @@ public class TransferAction {
 
 	public void transferitems(HttpServletRequest request, HttpServletResponse response) {
 		String branchdb=request.getParameter("branchdb");
-		TransferDao tdao=new TransferDaoImpl(branchdb);
+		TransferDao tdao=new TransferDaoImpl();
 		
 		HttpSession session=request.getSession(true);
 		ResultSet userdetail=(ResultSet) session.getAttribute("userdetail");
@@ -67,7 +67,7 @@ public class TransferAction {
 	//to be changed...
 	public boolean issueitems(HttpServletRequest request, HttpServletResponse response) {
 		String branchdb=request.getParameter("branchdb");
-		TransferDao tdao=new TransferDaoImpl(branchdb);
+		TransferDao tdao=new TransferDaoImpl();
 		
 		HttpSession session=request.getSession(true);
 		ResultSet userdetail=(ResultSet) session.getAttribute("userdetail");
@@ -109,7 +109,7 @@ public class TransferAction {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		TransferDao t=new TransferDaoImpl(branchdb);
+		TransferDao t=new TransferDaoImpl();
 		ResultSet issueditemdetails=t.getissueditemdetails(username);
 		
 		return issueditemdetails;
@@ -124,7 +124,7 @@ public class TransferAction {
 			 System.out.println("branchdb"+cid);
 			 username=userdetail.getString("username");
 			 System.out.println(username+" is userid");
-			 TransferDao t=new TransferDaoImpl("adblheadofficedb");
+			 TransferDao t=new TransferDaoImpl();
 			 ResultSet transferdetails=t.getransferdetails(cid,username);
 			 return transferdetails;
 		} catch (SQLException e) {
@@ -137,7 +137,7 @@ public class TransferAction {
 		String newcid=request.getParameter("cid");
 		String transferid=request.getParameter("transferid");
 		String statusid=request.getParameter("statusid");
-		InventoryDao trans= new InventoryDaoImpl("adblheadofficedb");
+		InventoryDao trans= new InventoryDaoImpl();
 		if(statusid.equals("2")){
 		boolean status=trans.transferitembranchdao(newcid,transferid);
 	

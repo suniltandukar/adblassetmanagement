@@ -60,7 +60,7 @@ public class NavigationController extends HttpServlet {
 				}
 		if(uri.endsWith("transferhistory.click"))
 		{
-			TransferDao t=new TransferDaoImpl("adblheadofficedb");
+			TransferDao t=new TransferDaoImpl();
 			ResultSet transferhistory=t.transferhistorydao(request, response);
 			request.setAttribute("transferhistory", transferhistory);
 			RequestDispatcher rd=request.getRequestDispatcher("view/transferissue/transferhistory.jsp");
@@ -93,14 +93,10 @@ public class NavigationController extends HttpServlet {
 			RequestDispatcher rd=request.getRequestDispatcher("view/initialdetails/initialdetails.jsp");
 			rd.forward(request, response);
 		}
-		else if(uri.endsWith("addusers.click"))
-		{
-			RequestDispatcher rd=request.getRequestDispatcher("view/settings/usersettings/adduser.jsp");
-			rd.forward(request, response);
-		}
+		
 		else if(uri.endsWith("userrolemanagement.click"))
 		{
-			RequestDispatcher rd=request.getRequestDispatcher("view/settings/usersettings/userrolemgmt.jsp");
+			RequestDispatcher rd=request.getRequestDispatcher("view/usersettings/userrolemgmt.jsp");
 			rd.forward(request, response);
 		}
 		else if(uri.endsWith("edituser.click"))

@@ -12,7 +12,7 @@ import com.adbl.model.History;
 
 public interface UserDao {
 
-	public boolean adduserdao(String username, String staffcode, int roleid, String mid, String branchdb,String role, String effectivedate, String enddate,String usercid);
+	public boolean adduserdao(String username, String staffcode, int roleid, String mid,String role, String effectivedate, String enddate,String usercid);
 	public ResultSet getroles();
 	public ResultSet getexistingusers();
 	public ResultSet edituserdao(String userid);
@@ -23,13 +23,14 @@ public interface UserDao {
 	public ResultSet selectusernames();
 	public boolean updateusernamepasswordInMaindb(String username, String newusername, String newpassword);
 	public boolean updateusernamepasswordInBranchdb(String username, String newusername, String newpassword, String branchdb);
-	public boolean loghistorydao(ResultSet userdetail, String ip, String mac);
+	public boolean loghistorydao(String username, String action);
 	public List<History> viewhistory(HttpServletRequest request, HttpServletResponse response);
 	public void addroles(HttpServletRequest request, HttpServletResponse response);
 	public String getrecentid();
 	public boolean addusercompanyid(String id, String username, String staffcode, String branchdb);
 	public String getUserCid(String usercid);
 	public boolean addusertomainbranch(String username, String staffcode, int roleid, String mid, String userbranch,
-			String role, String effectivedate, String enddate, String usercid);
+			String role, String effectivedate, String enddate, String usercid, String sessionuser);
 
+	public String getRoleAssigned(String name);
 }

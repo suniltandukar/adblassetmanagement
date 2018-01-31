@@ -5,23 +5,21 @@ import java.io.PrintWriter;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.adbl.dao.UserDao;
 import com.adbl.daoimpl.UserDaoImpl;
-import com.adbl.model.UserRole;
 
 public class UserAction {
 
+
 	public void adduser(HttpServletRequest request, HttpServletResponse response) {
+	
+		HttpSession session=request.getSession(true);
 
 		 String[] name = request.getParameterValues("role");
 		 String role=Arrays.toString(name).replace("[","").replace("]","");
@@ -34,12 +32,12 @@ public class UserAction {
 		String username=request.getParameter("username");
 		String staffcode=request.getParameter("staffcode");
 		String roles=request.getParameter("roleid");
-		HttpSession session=request.getSession(true);
 		ResultSet userdetails=(ResultSet) session.getAttribute("userdetail");
 		
 		try{
 		String mid=userdetails.getString("mid");
 		String branchdb=userdetails.getString("branchdb");
+		String sessionuser=userdetails.getString("username");
 		int roleid=Integer.parseInt(roles);
 		
 		
@@ -56,8 +54,8 @@ public class UserAction {
 		System.out.println(totalbranch[0]+" totla");
 		boolean status1=false;
 		int i;	*/
-		boolean mainstatus=udao.addusertomainbranch(username,staffcode,roleid,mid,userbranch,role,effectivedate,enddate,usercid);
-		
+		//boolean mainstatus=udao.addusertomainbranch(username,staffcode,roleid,mid,userbranch,role,effectivedate,enddate,usercid, sessionuser);
+		 boolean mainstatus=udao.adduserdao(username,staffcode,roleid,mid,role,effectivedate,enddate,usercid);
 		/*for(i=0;i<totalbranch.length;i++){
 			String code=totalbranch[i];
 			String branch=udao.getUserCid(code);
@@ -71,6 +69,13 @@ public class UserAction {
 	 
 		if(mainstatus)
 		{
+			String action="New User "+username +"Created";
+			System.out.println(action);
+			
+			UserDaoImpl userdao=new UserDaoImpl();
+			boolean status=userdao.loghistorydao(userdetails.getString("username"), action);
+			System.out.println(status);
+			
 			request.setAttribute("msg", "User Created Successfully");
 			request.setAttribute("username",username);
 			request.setAttribute("staffcode", staffcode);
@@ -86,16 +91,22 @@ public class UserAction {
 		
 		
 	}
+	
+	/*HttpSession session=request.getSession(true);
+	ResultSet sessionuser=(ResultSet)session.getAttribute("userdetail");
+	sessionuser.getString("username");
+*/
 	public void edituser(HttpServletRequest request, HttpServletResponse response) {
 
 		String userid=request.getParameter("id");
-	
+		
 		
 		UserDao udao=new UserDaoImpl();
 		ResultSet editdetails=udao.edituserdao(userid);
 		
 		if(editdetails!=null)
 		{
+			
 					try {
 
 						request.setAttribute("update", "update");
@@ -129,14 +140,19 @@ public class UserAction {
 		HttpSession session=request.getSession(true);
 		ResultSet userdetails=(ResultSet) session.getAttribute("userdetail");
 		
+		
 		try {
 
 			String branchdb=userdetails.getString("branchdb");
 			UserDao dao=new UserDaoImpl();
 			Boolean status=dao.deleteuserdao(userid,branchdb);
+			String username=userdetails.getString("username")+"  deleted User with Id "+userid;
 			
 			if(status)
 			{
+				
+				boolean statu=dao.loghistorydao(userdetails.getString("username"),username );
+				System.out.println(statu+"lksjdflkjs");
 				RequestDispatcher rd=request.getRequestDispatcher("view/settings/usersettings/adduser.jsp");
 				try {
 					rd.forward(request, response);
@@ -275,8 +291,12 @@ public class UserAction {
 		}
 		out.println("Update Successful. Login Again!");
 		
+		
+		
+		
+		
+		
 	}
-	
 	
 	
 }
