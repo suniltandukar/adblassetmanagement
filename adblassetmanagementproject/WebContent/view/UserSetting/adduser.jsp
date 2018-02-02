@@ -60,7 +60,7 @@ if (request.getAttribute ("updatebtn ") != null ) { %> .updatebtn {
 					<strong>Add New User</strong>
 				</div>
 				<div class="panel-body">
-					<form method="post" id="form" name="Form1">
+					<form method="post" action="adduseraction.user" id="form" name="form">
 						<table class="table">
 							<tbody>
 								<tr>
@@ -69,11 +69,11 @@ if (request.getAttribute ("updatebtn ") != null ) { %> .updatebtn {
 										<h6>Username</h6> <input type="hidden" form="form"
 										value="${userid}" name="useridforupdate"> <input
 										type="text" name="username" class="form-control" form="form"
-										data-validation="number" value="${username }">
+										data-validation="number" value="${username }" required>
 									</td>
 									<td>
 										<h6>Role Name</h6> <select class="form-control"
-										name="givenRole">
+										name="givenRole" form="form">
 											<c:forEach items="${rolename }" var="role">
 												<option value="${role }">${role }</option>
 											</c:forEach>
@@ -83,7 +83,7 @@ if (request.getAttribute ("updatebtn ") != null ) { %> .updatebtn {
 									<td>
 										<h6>Full Name</h6> <input type="text" class="form-control"
 										name="fullName" data-sanitize-insert-right=" $"
-										data-sanitize="insertLeft">
+										data-sanitize="insertLeft" form="form">
 									</td>
 
 								</tr>
@@ -91,29 +91,29 @@ if (request.getAttribute ("updatebtn ") != null ) { %> .updatebtn {
 									<td>
 										<h6>Post</h6> <input type="text" class="form-control"
 										name="post" data-sanitize="insertRight"
-										data-sanitize-insert-right=" $">
+										data-sanitize-insert-right=" $" form="form">
 									</td>
 									<td>
 										<h6>Staff Code</h6> <input type="text" class="form-control"
-										name="staffCode">
+										name="staffCode" form="form" required>
 									</td>
 									<td>
 										<h6>Branch Code</h6> <input type="text" class="form-control"
-										name="branchCode">
+										name="branchCode" form="form" required>
 									</td>
 								</tr>
 								<tr>
 									<td>
 										<h6>Start Date</h6> <input type="text" class="form-control"
-										name="startDate">
+										name="startDate" form="form">
 									</td>
 									<td>
 										<h6>End Date</h6> <input type="text" class="form-control"
-										name="endDate">
+										name="endDate" form="form" required >
 									</td>
 									<td>
 										<h6>Branch Allowed</h6> <select multiple 
-										name="branchAllowed">
+										name="branchAllowed" form="form">
 										<option value="">Select Branches</option>
 											<c:forEach items="${branchlist }" var="b">
 												<option value="${b.branchCode }-${b.branchName}">${b.branchCode }-${b.branchName}</option>
@@ -125,7 +125,7 @@ if (request.getAttribute ("updatebtn ") != null ) { %> .updatebtn {
 								<tr>
 									<td>
 
-										<h6>Function Allowed</h6> <input id="tags" type="text"
+										<h6>Function Allowed</h6> <input form="form" id="tags" type="text"
 										name="functionAllowed" class=" " value=""
 										data-role="tagsinput" data-sanitize="insertLeft"
 										data-sanitize-insert-left="#" />
@@ -141,31 +141,31 @@ if (request.getAttribute ("updatebtn ") != null ) { %> .updatebtn {
 							</caption>
 							<tr>
 
-								<td><label><input type="checkbox" id="dashboard"
+								<td><label><input form="form" type="checkbox" id="dashboard"
 										name="additionalFunctions" value="#dashboard"
 										class="js-switch"
 										<c:if test="${fn:contains(functionAllowed,'#dashboard')}"> checked="checked"</c:if>>
 										Dashboard &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label></td>
-								<td><label><input type="checkbox" id="items"
+								<td><label><input form="form" type="checkbox" id="items"
 										name="additionalFunctions" value="#items" class="js-switch"
 										<c:if test="${fn:contains(functionAllowed,'#items')}"> checked="checked"</c:if>>
 										Items &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label></td>
-								<td><label><input type="checkbox" id="transferissue"
+								<td><label><input form="form" type="checkbox" id="transferissue"
 										name="additionalFunctions" value="#transferissue"
 										class="js-switch"
 										<c:if test="${fn:contains(functionAllowed,'#transferissue')}"> checked="checked"</c:if>>
 										Transfer/Issue &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label></td>
-								<td><label><input type="checkbox"
+								<td><label><input form="form" type="checkbox"
 										id="bill" name="additionalFunctions"
 										value="#bill" class="js-switch"
 										<c:if test="${fn:contains(functionAllowed,'#bill')}"> checked="checked"</c:if>>
 										Bill&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label></td>
-								<td><label><input type="checkbox"
+								<td><label><input form="form" type="checkbox"
 										id="settings" name="additionalFunctions"
 										value="#settings" class="js-switch"
 										<c:if test="${fn:contains(functionAllowed,'#settings')}"> checked="checked"</c:if>>
 										Settings &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label></td>
-								<td><label><input type="checkbox" id="usersettings"
+								<td><label><input form="form" type="checkbox" id="usersettings"
 										name="additionalFunctions" value="#usersettings"
 										class="js-switch"
 										<c:if test="${fn:contains(functionAllowed,'#usersettings')}"> checked="checked"</c:if>>
@@ -174,11 +174,11 @@ if (request.getAttribute ("updatebtn ") != null ) { %> .updatebtn {
 						</table>
 
 						<br> <input type="submit" name="button" value="submit"
-							class="btn btn-primary submitbtn" onclick="return OnButton1()">
+							class="btn btn-primary" form="form">
 
-						<input type="submit" name="updatebtn"
+					<!-- 	<input type="submit" name="updatebtn"
 							class="updatebtn btn btn-primary" value="update"
-							onclick="return OnButton2()">
+							onclick="return OnButton2()"> -->
 
 					</form>
 				</div>
@@ -304,11 +304,11 @@ if (request.getAttribute ("updatebtn ") != null ) { %> .updatebtn {
 		});
 	</script>
 	<script>
-		function OnButton1() {
+		/* function OnButton1() {
 			document.Form1.action = "adduseraction.user"
 			document.Form1.submit();
-			return true;
-		}
+			return confirm('Confirm submission?');
+		} */
 
 		function OnButton2() {
 			document.Form1.action = "updateuser.user"
@@ -347,6 +347,9 @@ $('.hash').on('keypress',function(e){
 				alert(message);
 			});
 		});
+	$('form').submit(function(){
+		return confirm('Confirm Submission?');
+	})
 	</script>
 </body>
 

@@ -14,8 +14,8 @@ public class InitialDetailDaoImpl implements InitialDetailDao{
 	Connection con=null;
 	PreparedStatement ps=null;
 	ResultSet rs=null;
-	public InitialDetailDaoImpl(String branchdb){
-		con=DBConnection.getConnectionNext(branchdb);
+	public InitialDetailDaoImpl(){
+		con=DBConnection.getConnection();
 	}
 	public void addgroup(String groupcode,String groupname) throws SQLException{
 		String query="insert into grouptbl values ('"+groupcode+"','"+groupname+"');";

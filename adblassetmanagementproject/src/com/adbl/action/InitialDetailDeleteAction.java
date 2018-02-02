@@ -14,13 +14,10 @@ public class InitialDetailDeleteAction {
 	String id,branchdb;
 	public InitialDetailDeleteAction(HttpServletRequest request,HttpServletResponse response) throws SQLException{
 		id=request.getParameter("id");
-		HttpSession session=request.getSession(true);
-		ResultSet rs=(ResultSet) session.getAttribute("userdetail");
-		branchdb = rs.getString("branchdb");
 	}
 	public void deletecompany(HttpServletRequest request,HttpServletResponse response) {
 		try {
-			InitialDetailDao i=new InitialDetailDaoImpl(branchdb);
+			InitialDetailDao i=new InitialDetailDaoImpl();
 			i.deletecompany(id);
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -28,7 +25,7 @@ public class InitialDetailDeleteAction {
 	}
 	public void deletegroup(HttpServletRequest request,HttpServletResponse response) {
 		try {
-			InitialDetailDao i=new InitialDetailDaoImpl(branchdb);
+			InitialDetailDao i=new InitialDetailDaoImpl();
 			i.deletegroup(id);
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -36,7 +33,7 @@ public class InitialDetailDeleteAction {
 	}
 	public void deletefundsource(HttpServletRequest request,HttpServletResponse response) {
 		try {
-			InitialDetailDao i=new InitialDetailDaoImpl(branchdb);
+			InitialDetailDao i=new InitialDetailDaoImpl();
 			i.deletefundsource(id);
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -44,7 +41,7 @@ public class InitialDetailDeleteAction {
 	}
 	public void deleteitemcondition(HttpServletRequest request,HttpServletResponse response) {
 		try {
-			InitialDetailDao i=new InitialDetailDaoImpl(branchdb);
+			InitialDetailDao i=new InitialDetailDaoImpl();
 			i.deleteitemcondition(id);
 		} catch (SQLException e) {
 			e.printStackTrace();

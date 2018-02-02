@@ -48,7 +48,7 @@ public class AddController extends HttpServlet {
 		
 		if(uri.endsWith("group.add"))
 		{
-			InitialDetailAddAction action=new InitialDetailAddAction(request, response);
+			InitialDetailAddAction action=new InitialDetailAddAction();
 			try {
 				action.addgroup(request,response);
 			} catch (SQLException e) {
@@ -59,7 +59,7 @@ public class AddController extends HttpServlet {
 		}
 		if(uri.endsWith("itemcondition.add"))
 		{
-			InitialDetailAddAction action=new InitialDetailAddAction(request, response);
+			InitialDetailAddAction action=new InitialDetailAddAction();
 			try {
 				action.additemcondition(request,response);
 			} catch (SQLException e) {
@@ -70,7 +70,7 @@ public class AddController extends HttpServlet {
 		}
 		if(uri.endsWith("fundsource.add"))
 		{
-			InitialDetailAddAction action=new InitialDetailAddAction(request, response);
+			InitialDetailAddAction action=new InitialDetailAddAction();
 			try {
 				action.addfundsource(request,response);
 			} catch (SQLException e) {
@@ -82,7 +82,7 @@ public class AddController extends HttpServlet {
 		}
 		if(uri.endsWith("company.add"))
 		{
-			InitialDetailAddAction action=new InitialDetailAddAction(request, response);
+			InitialDetailAddAction action=new InitialDetailAddAction();
 			try {
 				action.addcompany(request,response);
 			} catch (SQLException e) {
@@ -93,7 +93,7 @@ public class AddController extends HttpServlet {
 		}
 		if(uri.endsWith("companycode.add"))
 		{
-			InitialDetailAddAction action=new InitialDetailAddAction(request, response);
+			InitialDetailAddAction action=new InitialDetailAddAction();
 			action.addcompanycode(request,response);
 		}
 		if(uri.endsWith("inventory.add")){

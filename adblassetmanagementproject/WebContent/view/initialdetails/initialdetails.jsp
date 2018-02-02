@@ -1,9 +1,8 @@
 <link rel="import" href="new.jsp">
 <%@page import="java.sql.*"%>
 <%@page import="com.adbl.daoimpl.InitialDetailDaoImpl"%>
-<%ResultSet userdetail=(ResultSet)session.getAttribute("userdetail");
-String companydb=userdetail.getString("branchdb");
-InitialDetailDaoImpl i=new InitialDetailDaoImpl(companydb);
+<%
+InitialDetailDaoImpl i=new InitialDetailDaoImpl();
 ResultSet company=(ResultSet)i.showcompany();
 ResultSet company1=(ResultSet)i.showcompany();
 ResultSet group=(ResultSet)i.showgroup();
@@ -27,7 +26,6 @@ ResultSet itemcondition=(ResultSet)i.showitemcondition();%>
   			<ul class="nav nav-tabs ">
   				<li class="active"><a data-toggle="tab" data-target="#1" class="clickable">View Added Details</a></li>
 			  <li ><a data-toggle="tab" data-target="#2" class="clickable">Add Details</a></li>
-			  <li><a data-toggle="tab" data-target="#3" class="clickable">Edit Details</a></li>
 			</ul>
 			<div class="tab-content">
 			  	<div id="1" class="tab-pane fade in active">
@@ -85,7 +83,6 @@ ResultSet itemcondition=(ResultSet)i.showitemcondition();%>
 					<div class="tab-content">
 						<div id="a" class="tab-pane fade in ">
 							<form action="company.add" method="post" style="width:100%;margin-top:10px;" class="form" >
-							<input type="hidden" value="<%=companydb%>" name="branchdb">
 								<table class="table">
 									<tr>
 										<td>
@@ -127,7 +124,6 @@ ResultSet itemcondition=(ResultSet)i.showitemcondition();%>
 						</div>
 						<div id="b" class="tab-pane fade in ">
 							<form method="post" action="group.add" style="width:20%;margin-top:10px;" class="form">
-								<input type="hidden" value="<%=companydb%>" name="branchdb">
 								<h6><strong>Group Code:</strong></h6>
 								<input type="text" class="form-control" name="groupcode" maxlength="3" required><br>
 								<h6><strong>Group Name:</strong></h6>
@@ -137,7 +133,6 @@ ResultSet itemcondition=(ResultSet)i.showitemcondition();%>
 						</div>
 						<div id="c" class="tab-pane fade in ">
 							<form method="post" action="fundsource.add" style="width:20%;margin-top:10px;" class="form">
-							<input type="hidden" value="<%=companydb%>" name="branchdb">
 								<h6><strong>Fund Source Name:</strong></h6>
 								<input type="text" class="form-control" name="sourcename" required><br>
 								<button type="submit" class="btn btn-success">+ ADD</button>
@@ -145,7 +140,6 @@ ResultSet itemcondition=(ResultSet)i.showitemcondition();%>
 						</div>
 						<div id="d" class="tab-pane fade in ">
 							<form method="post" action="itemcondition.add" style="width:20%;margin-top:10px;" class="form">
-								<input type="hidden" value="<%=companydb%>" name="branchdb">
 								<h6><strong>Item Condition Name:</strong></h6>
 								<input type="text" class="form-control" name="itemconditionname" required><br>
 								<button type="submit" class="btn btn-success">+ ADD</button>
@@ -154,7 +148,6 @@ ResultSet itemcondition=(ResultSet)i.showitemcondition();%>
 						<div class="tab-content">
 						<div id="e" class="tab-pane fade in ">
 							<form action="companycode.add" method="post" style="width:100%;margin-top:10px;" class="form" >
-							<input type="hidden" value="<%=companydb%>" name="branchdb">
 								<table class="table">
 									<tr>
 										<td>
@@ -183,8 +176,8 @@ ResultSet itemcondition=(ResultSet)i.showitemcondition();%>
 						</div>
 				</div>
 			  </div>
-			  <div id="3" class="tab-pane fade in">
-			  	<div style="width:20%;"">
+			  <%-- <div id="3" class="tab-pane fade in">
+			  	<div style="width:20%;">
 			  	
 			  		<h6><strong>Select Edit Category:</strong></h6>
 			  		<select class="form-control" name="" id="editoptions">
@@ -197,7 +190,6 @@ ResultSet itemcondition=(ResultSet)i.showitemcondition();%>
 			  	</div>
 			  	<div id="i" style="display:none;">
 			  		<form action="company.update" method="post" style="width:100%;margin-top:10px;" class="form" >
-							<input type="hidden" value="<%=companydb%>" name="branchdb">
 								<table class="table">
 									<tr>
 										<td>
@@ -242,7 +234,6 @@ ResultSet itemcondition=(ResultSet)i.showitemcondition();%>
 			  	</div>
 			  	<div id="ii" style="display:none;">
 					<form method="post" action="group.add" style="width:20%;margin-top:10px;" class="form">
-								<input type="hidden" value="<%=companydb%>" name="branchdb">
 								<h6><strong>Group Code:</strong></h6>
 								<input type="text" class="form-control" name="groupcode" maxlength="3" required><br>
 								<h6><strong>Group Name:</strong></h6>
@@ -252,9 +243,10 @@ ResultSet itemcondition=(ResultSet)i.showitemcondition();%>
 				</div>
 			  	<div id="iii" style="display:none;">fundsource</div>
 			  	<div id="iv" style="display:none;">item condition</div>
-			  </div>
+			  </div> --%>
 			</div>
   		</div>
+</div>
 </div>
 <div class="modal fade" id="myModal" role="dialog" tabindex="-1">
     <div class="modal-dialog modal-sm">
