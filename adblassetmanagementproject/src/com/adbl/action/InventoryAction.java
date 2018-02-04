@@ -14,13 +14,16 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.adbl.dao.InventoryDao;
+import com.adbl.dao.UserDao;
 import com.adbl.daoimpl.InventoryDaoImpl;
+import com.adbl.daoimpl.UserDaoImpl;
 import com.adbl.model.Inventory;
 import com.adbl.model.UserModel;
 
 public class InventoryAction {
-	
+	UserDao userdao=new UserDaoImpl();
 	public Inventory addinventory(HttpServletRequest request, HttpServletResponse response) {
+		
 		boolean status=false;
 		String legacyid=request.getParameter("legacyid");
 		String groupcode=request.getParameter("groupcode");
@@ -156,6 +159,10 @@ public class InventoryAction {
 				String additionaldetailid=idao.selectadditionaldetailid();
 				
 				status=idao.inventorydao(inventory,additionaldetailid, item_code,transaction_id,branchcode,inputter);
+				
+				String action="New Inventory "+inventory.getGenerated_itemcode()+ " Inserted By "+um.getUsername();
+				
+				boolean sts=userdao.loghistorydao(um.getUsername(), action);
 				}
 			
 			
@@ -167,7 +174,7 @@ public class InventoryAction {
 
 	public void deleteinventory(HttpServletRequest request, HttpServletResponse response) {
 		
-		
+	
 		String itemcode=request.getParameter("itemcode");
 		String inventoryotherdetailid=request.getParameter("inventoryotherdetailid");
 		String amcid=request.getParameter("acmid");
@@ -180,6 +187,11 @@ public class InventoryAction {
 		boolean status=idao.deleteinventorydao(itemcode,inventoryotherdetailid,amcid,insuranceid,warrantyid);
 		if(status)
 		{
+			HttpSession session=request.getSession();
+			UserModel um=(UserModel) session.getAttribute("userDetail");
+			String action="Inventory "+itemcode+ " Deleted By "+um.getUsername();
+			boolean sts=userdao.loghistorydao(um.getUsername(), action);
+			
 			request.setAttribute("msg", "File Deleted Successfully");
 			request.setAttribute("action", "delete");
 			RequestDispatcher rd=request.getRequestDispatcher("view/inventory/viewinventory.jsp");

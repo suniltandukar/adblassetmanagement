@@ -40,9 +40,9 @@ display:block;}
     <!-- Logo -->
     <a href="" class="logo" style="background-color:#007B38;">
       <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini"><b>ADBL</b></span>
+      <span class="logo-mini"><b> ADBL</b></span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b></b>&nbsp;ADBL</span>
+      <span class="logo-lg"><b></b>&nbsp;ADBL(<%=userdetail.getBranchCode() %>)</span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top" style="background-color:#007B38;">
@@ -57,7 +57,7 @@ display:block;}
           <li class="dropdown messages-menu">
             <a class="dropdown-toggle clickable" data-toggle="dropdown">
               <i class="fa fa-envelope-o"></i>
-           
+           	
             
               <span class="label label-success "></span>
             </a>
@@ -139,7 +139,9 @@ display:block;}
         <h4><i class="fa fa-user"></i></h4>
         </div>
         <div class="pull-left info">
-          <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+          <a href="#"><i class="fa fa-circle text-success"></i> Online</a><br>
+        <%=userdetail.getUsername() %>
+           
         </div>
       </div>
       <!-- search form -->

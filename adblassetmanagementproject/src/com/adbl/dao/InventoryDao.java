@@ -26,7 +26,7 @@ public interface InventoryDao {
 	public boolean issueconfirmation(String issueid,String statusid);
 	public ResultSet userspecificdetail(String cid);
 	public boolean transferitembranchdao(String newcid,String transferid);
-	public boolean changeitemstatus(String transferid,String statusid);
+	public boolean changeitemstatus(String transferid,String statusid,String actionBy);
 	public ResultSet getitemcode(String transferid);
 	public boolean savetransferstatus(String transferid, String itemcode);
 	

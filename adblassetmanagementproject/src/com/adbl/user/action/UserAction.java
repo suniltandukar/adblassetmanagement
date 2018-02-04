@@ -7,6 +7,7 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.adbl.action.Generator;
 import com.adbl.model.UserModel;
@@ -61,6 +62,11 @@ public class UserAction {
 		boolean stats = userdao.adduserdao(u);
 
 		if (stats) {
+			String action="New User "+username.toUpperCase() +" Created";
+			HttpSession session=request.getSession(true);
+			UserModel userdetail=(UserModel)session.getAttribute("userDetail");
+			boolean sts=userdao.loghistorydao(userdetail.getUsername(), action);
+			
 			request.setAttribute("msg", "User Created Successfully");
 			request.setAttribute("username", username);
 
@@ -80,10 +86,16 @@ public class UserAction {
 			HttpServletResponse response) {
 
 		String userid = request.getParameter("userid");
+		String username=request.getParameter("username");
 
 		UserDao userdao = new UserDaoImpl();
 		boolean status = userdao.deleteuserdao(userid);
 		if (status) {
+			HttpSession session=request.getSession(true);
+			UserModel userdetail=(UserModel)session.getAttribute("userDetail");
+			String action="User "+username +" Deleted By "+userdetail.getUsername();
+			
+			boolean sts=userdao.loghistorydao(userdetail.getUsername(), action);
 			request.setAttribute("msg", "User Deleted Success");
 			RequestDispatcher rd = request
 					.getRequestDispatcher("deleteusernav.user");
@@ -133,6 +145,11 @@ public class UserAction {
 		boolean status = userdao.updateuserdao(userid, username, role);
 
 		if (status) {
+			HttpSession session=request.getSession(true);
+			UserModel userdetail=(UserModel)session.getAttribute("userDetail");
+			String action="User "+username +" Updated By "+userdetail.getUsername();
+			boolean sts=userdao.loghistorydao(userdetail.getUsername(), action);
+			
 			request.setAttribute("msg", "User Details Updated");
 			RequestDispatcher rd = request.getRequestDispatcher("adduser.user");
 			try {
@@ -155,6 +172,7 @@ public class UserAction {
 		UserDao user=new UserDaoImpl();
 		boolean status=user.insertusergroup(groupname,givenRoles);
 		if(status){
+			
 			request.setAttribute("msg", "Group added successfully!");
 			try {
 				request.getRequestDispatcher("addusergroup.user").forward(request, response);

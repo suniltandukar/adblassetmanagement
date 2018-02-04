@@ -210,9 +210,9 @@ if (request.getAttribute ("updatebtn ") != null ) { %> .updatebtn {
 								<tr>
 									<td>${user.username }</td>
 
-									<td><a href="edituser.user?userid=${user.userid })"><i
+									<td><a href="edituser.user?userid=${user.userid }&username=${user.username}"><i
 											class="fa fa-pencil-square-o"></i></a> <a class="confirmbtn"
-										href="deleteuser.user?userid=${user.userid }"><i
+										href="deleteuser.user?userid=${user.userid }&username=${user.username}"><i
 											class="fa fa-trash" id="deletebtn" aria-hidden="true"
 											style="color: red"></i></a></td>
 
@@ -256,6 +256,7 @@ if (request.getAttribute ("updatebtn ") != null ) { %> .updatebtn {
 
 			var t = $('#table').DataTable({
 				"iDisplayLength" : 50
+				
 			});
 			t.on('order.dt search.dt', function() {
 				t.column(0, {

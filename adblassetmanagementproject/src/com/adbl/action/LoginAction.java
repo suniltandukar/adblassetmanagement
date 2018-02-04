@@ -73,6 +73,20 @@ public class LoginAction {
 			System.out.println(mainRole);
 			
 			session.setAttribute("currentBranchFunctions", userDetail.getFunctionAllowed());
+			//for log history
+			String logged="Login Action";
+			UserDao use=new UserDaoImpl();
+			boolean status=use.loghistorydao(username,logged);
+			
+			if(status)
+			{
+				System.out.println("logged");
+			}
+				
+			else{
+				System.out.println("not logged");
+			}
+			
 			
 			
 			

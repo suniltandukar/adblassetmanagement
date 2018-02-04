@@ -145,7 +145,7 @@ ResultSet itemcondition=(ResultSet)i.showitemcondition();%>
 								<button type="submit" class="btn btn-success">+ ADD</button>
 							</form>
 						</div>
-						<div class="tab-content">
+						
 						<div id="e" class="tab-pane fade in ">
 							<form action="companycode.add" method="post" style="width:100%;margin-top:10px;" class="form" >
 								<table class="table">
@@ -174,7 +174,7 @@ ResultSet itemcondition=(ResultSet)i.showitemcondition();%>
 								</table>
 							</form>
 						</div>
-				</div>
+			
 			  </div>
 			  <%-- <div id="3" class="tab-pane fade in">
 			  	<div style="width:20%;">

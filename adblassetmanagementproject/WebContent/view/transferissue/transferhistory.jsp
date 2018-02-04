@@ -34,7 +34,7 @@
 					                                        <th>Transfered By</th>
 					                                        <th>From Branch</th>
 					                                        <th>To Branch</th>
-					                                        <th>Transfered To</th>
+					                                       
 					                                        
 					                                    </tr>
 					                                </thead>
@@ -48,7 +48,7 @@
 					                                    	<td><%=i.getString("transferedby") %></td>
 					                                    	<td><%=i.getString("branchby") %></td>
 					                                        <td><%=i.getString("branchto") %></td>
-					                                        <td><%=i.getString("transferedto") %></td>
+					                                        
 					                                    
 					                                    </tr>
 					                                  <%} %>

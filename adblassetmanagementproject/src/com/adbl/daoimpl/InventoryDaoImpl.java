@@ -325,10 +325,10 @@ public class InventoryDaoImpl implements InventoryDao {
 		return false;
 	}
 	
-	public boolean transferitembranchdao(String newcid,String transferid)
+	public boolean transferitembranchdao(String newbranchcode,String transferid)
 	{
 		int rs=0;
-		String query="update inventorytbl set cid='"+newcid+"' where transferid='"+transferid+"'";
+		String query="update inventorytbl set branchcode='"+newbranchcode+"' where transferid='"+transferid+"'";
 		try {
 			ps=con.prepareStatement(query);
 			rs=ps.executeUpdate();
@@ -360,10 +360,10 @@ public class InventoryDaoImpl implements InventoryDao {
 		
 	
 	}
-	public boolean changeitemstatus(String transferid,String statusid)
+	public boolean changeitemstatus(String transferid,String statusid,String actionBy)
 	{
 		int rs=0;
-		String query="update transfertbl set statusid='"+statusid+"' where transferid='"+transferid+"'";
+		String query="update transfertbl set statusid='"+statusid+"',actionBy='"+actionBy+"' where transferid='"+transferid+"'";
 		try {
 			ps=con.prepareStatement(query);
 			rs=ps.executeUpdate();

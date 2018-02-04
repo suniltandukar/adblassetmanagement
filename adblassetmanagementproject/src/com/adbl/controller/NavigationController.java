@@ -189,7 +189,7 @@ public class NavigationController extends HttpServlet {
 			List<History> hist=userhistory.viewhistory(request,response);
 			
 			request.setAttribute("list", hist);
-			RequestDispatcher rd=request.getRequestDispatcher("view/settings/usersettings/logindetails.jsp");
+			RequestDispatcher rd=request.getRequestDispatcher("view/UserSetting/logindetails.jsp");
 			rd.forward(request, response);
 		}
 		

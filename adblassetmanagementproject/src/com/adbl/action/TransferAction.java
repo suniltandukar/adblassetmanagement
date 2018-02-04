@@ -12,29 +12,26 @@ import javax.servlet.http.HttpSession;
 
 import com.adbl.dao.InventoryDao;
 import com.adbl.dao.TransferDao;
+import com.adbl.dao.UserDao;
 import com.adbl.daoimpl.InventoryDaoImpl;
 import com.adbl.daoimpl.TransferDaoImpl;
+import com.adbl.daoimpl.UserDaoImpl;
+import com.adbl.model.UserModel;
 
 public class TransferAction {
-
+	UserDao userdao=new UserDaoImpl();
 	public void transferitems(HttpServletRequest request, HttpServletResponse response) {
-		String branchdb=request.getParameter("branchdb");
 		TransferDao tdao=new TransferDaoImpl();
 		
 		HttpSession session=request.getSession(true);
-		ResultSet userdetail=(ResultSet) session.getAttribute("userdetail");
+		UserModel userdetail=(UserModel) session.getAttribute("userDetail");
+		
 		
 		String branchby="",transferredby="";
-		try {
-			branchby = userdetail.getString("cid");
+			branchby = (String)session.getAttribute("currentBranchcode");
 			System.out.println("Branch By "+branchby);
-			transferredby=userdetail.getString("username");
-		} catch (SQLException e1) {	
-			e1.printStackTrace();
-		}
+			transferredby=userdetail.getUsername();
 		
-		String transferredto=request.getParameter("touser");
-		System.out.println(transferredto+" to user id");
 		String branchto=request.getParameter("tobranch");
 		System.out.println(branchto);
 		String transferdate=request.getParameter("transferdate");
@@ -46,7 +43,7 @@ public class TransferAction {
 		String branchname=request.getParameter("branchname");
 		
 		for(i=0;i<itemcode.length;i++){
-		tdao.setstatuspending(transferredby,transferredto,branchby,branchto,transferdate,transferdateen,itemcode[i],branchdb,branchname);
+		tdao.setstatuspending(transferredby,branchby,branchto,transferdate,transferdateen,itemcode[i],branchname);
 		String transferid=tdao.gettransferid();
 		status=tdao.updatetransferitemstatus(transferid, itemcode[i]);
 		}
@@ -116,45 +113,42 @@ public class TransferAction {
 	}
 	public ResultSet transferitemsdetails(HttpServletRequest request, HttpServletResponse response) {
 		HttpSession session=request.getSession(true);
-		ResultSet userdetail=(ResultSet)session.getAttribute("userdetail");
-		String cid="";
-		String username="";
-		try {
-			 cid=userdetail.getString("cid");
-			 System.out.println("branchdb"+cid);
-			 username=userdetail.getString("username");
-			 System.out.println(username+" is userid");
+		String currentBranchcode=(String)session.getAttribute("currentBranchcode");
+		
 			 TransferDao t=new TransferDaoImpl();
-			 ResultSet transferdetails=t.getransferdetails(cid,username);
+			 ResultSet transferdetails=t.getransferdetails(currentBranchcode);
 			 return transferdetails;
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return null;
+		
 	}
 	public void transferitembranch(HttpServletRequest request, HttpServletResponse response) {
-		
-		String newcid=request.getParameter("cid");
+		HttpSession session=request.getSession(true);
+		UserModel userdetail=(UserModel) session.getAttribute("userDetail");
+		String actionBy=userdetail.getUsername();
+		String newbranchcode=(String)session.getAttribute("currentBranchcode");
 		String transferid=request.getParameter("transferid");
 		String statusid=request.getParameter("statusid");
 		InventoryDao trans= new InventoryDaoImpl();
 		if(statusid.equals("2")){
-		boolean status=trans.transferitembranchdao(newcid,transferid);
+		boolean status=trans.transferitembranchdao(newbranchcode,transferid);
 	
-		
+		String itemcode=null;
 		if(status)
 		{
-			boolean stats=trans.changeitemstatus(transferid,statusid);
+			
+			boolean stats=trans.changeitemstatus(transferid,statusid,actionBy);
 			ResultSet rs=trans.getitemcode(transferid);
 			
-			String itemcode;
+			
 			try {
 				itemcode = rs.getString("itemcode");
-				System.out.println("your itemcode is "+itemcode);
 				boolean record=trans.savetransferstatus(transferid,itemcode);
 			} catch (SQLException e1) {
 				e1.printStackTrace();
 			}
+			
+			
+			String action=itemcode+ " Accepted By "+userdetail.getUsername();
+			boolean sts=userdao.loghistorydao(userdetail.getUsername(), action);
 			
 			
 			
@@ -167,6 +161,8 @@ public class TransferAction {
 			}
 			}
 			else{
+				
+				
 				request.setAttribute("msg", "Transfer Unsuccessfull");
 				RequestDispatcher rd=request.getRequestDispatcher("pendingtransfers.click");
 				try {
@@ -179,9 +175,12 @@ public class TransferAction {
 			
 		else 
 		{
-			boolean stats=trans.changeitemstatus(transferid,statusid);
+			String action="Transfer Rejected By "+userdetail.getUsername();
+			boolean sts=userdao.loghistorydao(userdetail.getUsername(), action);
+			boolean stats=trans.changeitemstatus(transferid,statusid,actionBy);
 			
 			if(stats){
+				
 			request.setAttribute("msg", "Transfer Rejected !");
 			RequestDispatcher rd=request.getRequestDispatcher("pendingtransfers.click");
 			try {

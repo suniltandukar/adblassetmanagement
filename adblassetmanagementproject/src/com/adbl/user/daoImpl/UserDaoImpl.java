@@ -1,5 +1,7 @@
 package com.adbl.user.daoImpl;
 
+import java.net.InetAddress;
+import java.net.NetworkInterface;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -104,6 +106,46 @@ public class UserDaoImpl implements UserDao {
 		return null;
 		
 	}
+	public boolean loghistorydao(String username,String action)
+	{
+		try {
+			
+			InetAddress ip;
+		
+			ip = InetAddress.getLocalHost();
+			String ipaddress=ip.toString();
+			NetworkInterface network = NetworkInterface.getByInetAddress(ip);
+
+			/*byte[] mac = network.getHardwareAddress();
+
+			StringBuilder sb = new StringBuilder();
+			for (int i = 0; i < mac.length; i++) {
+				sb.append(String.format("%02X%s", mac[i], (i < mac.length - 1) ? "-" : ""));
+			}
+			String macaddress=sb.toString();*/
+		int rs=0;
+		
+	
+			String query="insert into loginhistorytbl(username,ipaddress,logindatetime,action) values(?,'"+ipaddress+"',NOW(),?)";
+			con=DBConnection.getConnection();
+			ps=con.prepareStatement(query);
+			ps.setString(1, username);
+			ps.setString(2, action);
+		
+			rs=ps.executeUpdate();
+			if(rs>0)
+			{
+				return true;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return false;
+		
+		
+			
+	}
 	public UserModel edituserdao(String userid)
 	{
 		String query="select * from usertbl where userid=?";
@@ -203,15 +245,15 @@ public class UserDaoImpl implements UserDao {
 	public List<UserModel> getBranchList(){
 		List<UserModel> list=new ArrayList<UserModel>();
 		UserModel u=null;
-		String query="select * from branchtbl";
+		String query="select * from companycodetbl";
 		con=DBConnection.getConnection();
 		try {
 			ps=con.prepareStatement(query);
 			rs=ps.executeQuery();
 			while(rs.next()){
 				u=new UserModel();
-				u.setBranchCode(rs.getString("branchId"));
-				u.setBranchName(rs.getString("branchName"));
+				u.setBranchCode(rs.getString("branchcode"));
+				u.setBranchName(rs.getString("name"));
 				list.add(u);
 			}
 			if(list.size()>0){

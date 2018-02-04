@@ -24,5 +24,7 @@ public interface UserDao {
 	public boolean insertusergroup(String groupname, String givenRoles);
 
 	public boolean checkUserGroup(String parameter);
+	
+	public boolean loghistorydao(String username, String action);
 
 }

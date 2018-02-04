@@ -1,16 +1,15 @@
 package com.adbl.action;
 
-import java.io.IOException;
-import java.sql.SQLException;
-
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.adbl.dao.InventoryDao;
+import com.adbl.dao.UserDao;
 import com.adbl.daoimpl.InventoryDaoImpl;
+import com.adbl.daoimpl.UserDaoImpl;
 import com.adbl.model.Inventory;
+import com.adbl.model.UserModel;
 
 public class InventoryEditAction {
 	
@@ -137,6 +136,7 @@ public class InventoryEditAction {
 		{
 			inventory.setUpdated_itemcode(itemcode);
 			stats=idao.editalldaocodechanged(inventory);
+			
 		}
 		else{
 			Generator g=new Generator();
@@ -147,6 +147,11 @@ public class InventoryEditAction {
 		
 		if(stats)
 		{
+			UserDao userdao=new UserDaoImpl();
+			HttpSession session=request.getSession();
+			UserModel um=(UserModel) session.getAttribute("userDetail");
+			String action="Inventory "+itemcode+ " Edited By "+um.getUsername();
+			boolean sts=userdao.loghistorydao(um.getUsername(), action);
 		return inventory;
 		}
 		return null;
