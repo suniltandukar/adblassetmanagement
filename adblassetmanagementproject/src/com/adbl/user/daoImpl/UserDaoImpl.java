@@ -162,6 +162,19 @@ public class UserDaoImpl implements UserDao {
 				usermodel.setUsername(rs.getString("username"));
 				usermodel.setPassword(rs.getString("password"));
 				usermodel.setGivenrole(rs.getString("givenrole"));
+				usermodel.setAdditionalFunctions(rs.getString("additionalFunctions"));
+				usermodel.setBranchAllowed(rs.getString("branchAllowed"));
+				usermodel.setBranchCode(rs.getString("branchCode"));
+				usermodel.setEndDate(rs.getString("endDate"));
+				usermodel.setStartDate(rs.getString("startDate"));
+				usermodel.setFullName("fullName");
+				usermodel.setPost(rs.getString("post"));
+				usermodel.setStaffCode(rs.getString("staffCode"));
+				usermodel.setRoleName(rs.getString("roleName"));
+				String functionAllowed=rs.getString("functionAllowed");
+				usermodel.setFunctionAllowed(functionAllowed.replace("#", ""));
+				usermodel.setFunctionRestriction(rs.getString("functionRestriction"));
+				usermodel.setBranchAllowedFunctions(rs.getString("branchAllowedFunctions"));
 				return usermodel;
 			}
 			
@@ -171,16 +184,29 @@ public class UserDaoImpl implements UserDao {
 		return null;
 		
 	}
-	public boolean updateuserdao(String userid, String username,String givenrole)
+	public boolean updateuserdao(UserModel u)
 	{
 		int rs=0;
-		String query="update usertbl set username=?, givenrole=? where userid=?";
+		String query="update usertbl set username=?, givenrole=?,password=?,status=?,fullName=?,post=?,staffCode=?,startDate=?,endDate=?,branchCode=?,roleName=?,functionAllowed=?,functionRestriction=?,branchAllowed=?,additionalFunctions=? where userid=?";
 		con=DBConnection.getConnection();
 		try {
 			ps=con.prepareStatement(query);
-			ps.setString(1, username);
-			ps.setString(2, givenrole);
-			ps.setString(3, userid);
+			ps.setString(1, u.getUsername());
+			ps.setString(2, u.getGivenrole());
+			ps.setString(3,u.getPassword());
+			ps.setString(4, u.getStatus());
+			ps.setString(5,u.getFullName());
+			ps.setString(6, u.getPost());
+			ps.setString(7, u.getStaffCode());
+			ps.setString(8, u.getStartDate());
+			ps.setString(9,u.getEndDate());
+			ps.setString(10, u.getBranchCode());
+			ps.setString(11, u.getRoleName());
+			ps.setString(12,u.getFunctionAllowed());
+			ps.setString(13, u.getFunctionRestriction());
+			ps.setString(14, u.getBranchAllowed());
+			ps.setString(15, u.getAdditionalFunctions());
+			ps.setString(16, u.getUserid());
 			rs=ps.executeUpdate();
 			
 			if(rs>0)

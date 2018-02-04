@@ -60,7 +60,7 @@ if (request.getAttribute ("updatebtn ") != null ) { %> .updatebtn {
 					<strong>Add New User</strong>
 				</div>
 				<div class="panel-body">
-					<form method="post" action="adduseraction.user" id="form" name="form">
+					<form method="post" action="updateuser.user" id="form" name="form">
 						<table class="table">
 							<tbody>
 								<tr>
@@ -74,42 +74,51 @@ if (request.getAttribute ("updatebtn ") != null ) { %> .updatebtn {
 									<td>
 										<h6>Role Name</h6> <select class="form-control"
 										name="givenRole" form="form">
+										<c:if test="${update eq 'update' }">
 											<c:forEach items="${rolename }" var="role">
 												<option value="${role }" >${role }</option>
 											</c:forEach>
+											</c:if>
+											<option value="" >Select Role</option>
+											<option value="${role }" <c:if test="${role eq 'admin' }">selected</c:if> >${role }</option>
+											<option value="${role }" <c:if test="${role eq 'staff' }">selected</c:if> >${role }</option>
+											
+											
+										
+										
+										
+											
 
 									</select>
 									</td>
 									<td>
 										<h6>Full Name</h6> <input type="text" class="form-control"
-										name="fullName" data-sanitize-insert-right=" $"
-										data-sanitize="insertLeft" form="form">
+										name="fullName"  form="form" value="${useredit.fullName }">
 									</td>
 
 								</tr>
 								<tr>
 									<td>
 										<h6>Post</h6> <input type="text" class="form-control"
-										name="post" data-sanitize="insertRight"
-										data-sanitize-insert-right=" $" form="form">
+										name="post"  form="form" value="${useredit.post }">
 									</td>
 									<td>
 										<h6>Staff Code</h6> <input type="text" class="form-control"
-										name="staffCode" form="form" required>
+										name="staffCode" form="form" value="${ useredit.staffCode}" required>
 									</td>
 									<td>
 										<h6>Branch Code</h6> <input type="text" class="form-control"
-										name="branchCode" form="form" required>
+										name="branchCode" form="form"  value="${ useredit.branchCode}" required>
 									</td>
 								</tr>
 								<tr>
 									<td>
 										<h6>Start Date</h6> <input type="text" class="form-control"
-										name="startDate" form="form">
+										name="startDate" form="form" value="${ useredit.startDate}">
 									</td>
 									<td>
 										<h6>End Date</h6> <input type="text" class="form-control"
-										name="endDate" form="form" required >
+										name="endDate" form="form" value="${ useredit.endDate}" required >
 									</td>
 									<td>
 										<h6>Branch Allowed</h6> <select multiple 
@@ -126,9 +135,8 @@ if (request.getAttribute ("updatebtn ") != null ) { %> .updatebtn {
 									<td>
 
 										<h6>Function Allowed</h6> <input form="form" id="tags" type="text"
-										name="functionAllowed" class=" " value=""
-										data-role="tagsinput" data-sanitize="insertLeft"
-										data-sanitize-insert-left="#" />
+										name="functionAllowed" class=" " value="${ useredit.functionAllowed}"
+										data-role="tagsinput"  />
 
 
 									</td>
@@ -173,7 +181,7 @@ if (request.getAttribute ("updatebtn ") != null ) { %> .updatebtn {
 							</tr>
 						</table>
 
-						<br> <input type="submit" name="button" value="submit"
+						<br> <input type="submit" name="button" value="Update"
 							class="btn btn-primary" form="form">
 
 					<!-- 	<input type="submit" name="updatebtn"

@@ -14,7 +14,7 @@ public interface UserDao {
 
 	public List<UserModel> getexistingusers();
 
-	public boolean updateuserdao(String userid, String username,String givenrole);
+	public boolean updateuserdao(UserModel u);
 	public String getRoleAssigned(String name);
 
 	public List<String> getRoleName();

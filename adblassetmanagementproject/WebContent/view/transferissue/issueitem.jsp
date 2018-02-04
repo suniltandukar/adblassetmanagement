@@ -1,7 +1,8 @@
   <%@page import="java.sql.*" %>
   <%@page import="com.adbl.daoimpl.UserDaoImpl" %>
    <%@page import="com.adbl.dao.UserDao" %>
-<%ResultSet userdetail=(ResultSet)session.getAttribute("userdetail");
+   <%@page import="com.adbl.model.UserModel" %>
+	<%UserModel userdetail=(UserModel)session.getAttribute("userdetail");
 UserDao u=new UserDaoImpl();
 ResultSet username=u.selectusernames();%>
 <jsp:include page="/includefile"></jsp:include>
@@ -53,7 +54,6 @@ display:none;}
 								</tr>
 								<tr>
                                    <td>
-										<input type="hidden" name="branchdb" value="<%=userdetail.getString("branchdb")%>">
                                        <h5>Issued to (username):</h5><span class="staffcheck"></span>
                                        <select name="issuedto" class="form-control"  form="form" required>
                                        <%while(username.next()){ %>
