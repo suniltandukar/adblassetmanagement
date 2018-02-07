@@ -184,9 +184,7 @@ if (request.getAttribute ("updatebtn ") != null ) { %> .updatebtn {
 						<br> <input type="submit" name="button" value="Update"
 							class="btn btn-primary" form="form">
 
-					<!-- 	<input type="submit" name="updatebtn"
-							class="updatebtn btn btn-primary" value="update"
-							onclick="return OnButton2()"> -->
+					
 
 					</form>
 				</div>

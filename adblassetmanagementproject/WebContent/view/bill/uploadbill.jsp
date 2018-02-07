@@ -11,9 +11,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
 <%
-ResultSet branchdb=(ResultSet) session.getAttribute("userdetail");
-InventoryDao i=new InventoryDaoImpl(branchdb.getString("branchdb"));
-ResultSet companylist1=(ResultSet) i.getcompanylist();
+
+	InventoryDao i=new InventoryDaoImpl();
+		ResultSet companylist1=(ResultSet) i.getcompanylist();
 %>
 </head>
 <body>
@@ -35,7 +35,7 @@ ResultSet companylist1=(ResultSet) i.getcompanylist();
     				<div class="panel-body">
     				<form method="POST" action="bill.upload" class="confirm" enctype="multipart/form-data">
     				
-    				<input type="hidden" name="branchdb" value="<%=branchdb.getString("branchdb")%>">
+    		
 						<table class="table">
 							<tbody>
 								<tr>
@@ -93,7 +93,7 @@ ResultSet companylist1=(ResultSet) i.getcompanylist();
           Company Name:: ${companyname }<br>
           Image Name:: ${billname }<br>
           
-          <a href="view/uploadedbills/${billname }" target="_blank">View</a>
+          
          
           
          

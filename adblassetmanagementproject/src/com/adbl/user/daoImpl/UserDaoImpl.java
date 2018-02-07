@@ -167,7 +167,7 @@ public class UserDaoImpl implements UserDao {
 				usermodel.setBranchCode(rs.getString("branchCode"));
 				usermodel.setEndDate(rs.getString("endDate"));
 				usermodel.setStartDate(rs.getString("startDate"));
-				usermodel.setFullName("fullName");
+				usermodel.setFullName(rs.getString("fullName"));
 				usermodel.setPost(rs.getString("post"));
 				usermodel.setStaffCode(rs.getString("staffCode"));
 				usermodel.setRoleName(rs.getString("roleName"));

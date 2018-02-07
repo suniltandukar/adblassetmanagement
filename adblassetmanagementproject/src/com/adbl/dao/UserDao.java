@@ -22,7 +22,7 @@ public interface UserDao {
 	public boolean deleteuserroledao(String roleid);
 	public ResultSet selectusernames();
 	public boolean updateusernamepasswordInMaindb(String username, String newusername, String newpassword);
-	public boolean updateusernamepasswordInBranchdb(String username, String newusername, String newpassword, String branchdb);
+	public boolean updateusernamepasswordInBranchdb(String username, String newusername, String newpassword);
 	public boolean loghistorydao(String username, String action);
 	public List<History> viewhistory(HttpServletRequest request, HttpServletResponse response);
 	public void addroles(HttpServletRequest request, HttpServletResponse response);

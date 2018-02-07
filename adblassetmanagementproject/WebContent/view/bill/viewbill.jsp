@@ -1,9 +1,10 @@
 <%@page import="java.sql.*"%>
 <%@page import='com.adbl.daoimpl.OtherActionDAOImpl'%>
 <%@page import='com.adbl.dao.OtherActionDAO'%>
-<%ResultSet userdetail=(ResultSet) session.getAttribute("userdetail");
+<%@page import='com.adbl.model.UserModel'%>
+<%UserModel userdetail=(UserModel) session.getAttribute("userdetail");
 OtherActionDAO ac=new OtherActionDAOImpl();
-ResultSet bill=(ResultSet) ac.viewbillDao(userdetail.getString("branchdb")); %>
+ResultSet bill=(ResultSet) ac.viewbillDao(); %>
 <jsp:include page="/includefile"></jsp:include>
 <html>
 <head>

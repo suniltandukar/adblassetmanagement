@@ -7,12 +7,14 @@ import java.sql.SQLException;
 import java.util.Arrays;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.adbl.dao.UserDao;
 import com.adbl.daoimpl.UserDaoImpl;
+import com.adbl.model.UserModel;
 
 public class UserAction {
 
@@ -152,7 +154,6 @@ public class UserAction {
 			{
 				
 				boolean statu=dao.loghistorydao(userdetails.getString("username"),username );
-				System.out.println(statu+"lksjdflkjs");
 				RequestDispatcher rd=request.getRequestDispatcher("view/settings/usersettings/adduser.jsp");
 				try {
 					rd.forward(request, response);
@@ -264,41 +265,40 @@ public class UserAction {
 			e1.printStackTrace();
 		}
 		HttpSession session=request.getSession();
-		ResultSet userdetail=(ResultSet)session.getAttribute("userdetail");
+		UserModel userdetail=(UserModel)session.getAttribute("userDetail");
 		String username="";
-		String branchdb="";
-		try {
-			username=userdetail.getString("username");
-			branchdb=userdetail.getString("branchdb");
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		username=userdetail.getUsername();
 		String newusername=request.getParameter("newusername");
 		String newpassword=request.getParameter("newpassword");
 		UserDao u=new UserDaoImpl();
-		boolean status1=u.updateusernamepasswordInBranchdb(username, newusername, newpassword, branchdb);
-		if(status1){
-			boolean status2=u.updateusernamepasswordInMaindb(username,newusername,newpassword);
-			if(status2){
+		//boolean status=u.updateusernamepasswordInBranchdb(username, newusername, newpassword);
+		boolean status=u.updateusernamepasswordInMaindb(username,newusername,newpassword);
+		if(status){
+			
 				request.setAttribute("msg", "Update Successful!");
-			}
-			else{
-				request.setAttribute("msg", "Update Failed!");
-			}
+			
 		}
 		else{
 			request.setAttribute("msg", "Update Failed!");
 		}
-		out.println("Update Successful. Login Again!");
+		RequestDispatcher rd=request.getRequestDispatcher("view/UserSetting/changeusernamepassword.jsp");
+		try {
+			rd.forward(request, response);
+		} catch (ServletException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		
 		
 		
 		
 		
+	
+	
+	
+	
 	}
-	
-	
 }
 	
 

@@ -67,10 +67,10 @@ public class OtherActionDAOImpl implements OtherActionDAO {
 		return null;
 	}
 	
-	public ResultSet viewbillDao(String branchdb)
+	public ResultSet viewbillDao()
 	{
 		
-		con=DBConnection.getConnectionNext(branchdb);
+		con=DBConnection.getConnection();
 		String query="select billtbl.*, billportpathtbl.ipport, billportpathtbl.filepath, companytbl.companyname from billtbl join billportpathtbl on billportpathtbl.billportpathid=billtbl.billportpathid join companytbl on billtbl.companyid=companytbl.companyid";
 		try {
 			ps=con.prepareStatement(query);
@@ -103,11 +103,11 @@ public class OtherActionDAOImpl implements OtherActionDAO {
 		}
 		return null;
 	}
-	public boolean deletebilldata(String branchdb, String billid){
+	public boolean deletebilldata(String billid){
 		String query="delete from billtbl where billid='"+billid+"'";
 		int i=0;
 		try{
-			con=DBConnection.getConnectionNext(branchdb);
+			con=DBConnection.getConnection();
 			ps=con.prepareStatement(query);
 			i=ps.executeUpdate();
 			if(i>0){

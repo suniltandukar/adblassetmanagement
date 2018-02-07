@@ -22,6 +22,7 @@ import com.adbl.dao.UserDao;
 import com.adbl.daoimpl.TransferDaoImpl;
 import com.adbl.daoimpl.UserDaoImpl;
 import com.adbl.model.History;
+import com.adbl.model.UserModel;
 
 
 @WebServlet("/NavigationController")
@@ -168,18 +169,15 @@ public class NavigationController extends HttpServlet {
 		else if(uri.endsWith("changeusernamepassword.click"))
 		{
 			HttpSession session=request.getSession();
-			ResultSet userdetail=(ResultSet)session.getAttribute("userdetail");
+			UserModel userdetail=(UserModel)session.getAttribute("userDetail");
 			String username="";
 			String password="";
-			try {
-				 username=userdetail.getString("username");
-				 password=userdetail.getString("password");
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+			username=userdetail.getUsername();
+			System.out.println(username+" is your username");
+			 password=userdetail.getPassword();
 			request.setAttribute("username", username);
 			request.setAttribute("password", password);
-			RequestDispatcher rd=request.getRequestDispatcher("view/settings/usersettings/changeusernamepassword.jsp");
+			RequestDispatcher rd=request.getRequestDispatcher("view/UserSetting/changeusernamepassword.jsp");
 			rd.forward(request, response);
 		}
 		
