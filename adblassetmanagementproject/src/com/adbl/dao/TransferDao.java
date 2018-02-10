@@ -15,7 +15,7 @@ public interface TransferDao {
 	public ResultSet getUseretails(String branchid);
 
 	public boolean setissuestatuspending(String issuedby, String issuedto,
-			String issueddate, String issueddateen, String itemcode);
+			String issueddate, String issueddateen, String itemcode,String roomno);
 	public String getissueid();
 	public boolean updateissueitemstatus(String issueid, String itemcode);
 	public ResultSet getissueditemdetails(String username);
@@ -23,5 +23,6 @@ public interface TransferDao {
 	public ResultSet myitemdetails(String username);
 	public ResultSet getransferdetails(String currentBranchcode);
 	public ResultSet transferhistorydao(HttpServletRequest request, HttpServletResponse response);
+	public ResultSet issuehistorydao(HttpServletRequest request, HttpServletResponse response);
 
 }

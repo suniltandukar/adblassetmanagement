@@ -1,5 +1,5 @@
 <%@page import="java.sql.*"%>
-<%ResultSet i=(ResultSet)request.getAttribute("transferhistory"); %>
+<%ResultSet i=(ResultSet)request.getAttribute("issuehistory"); %>
 <jsp:include page="/includefile"></jsp:include>
 <html>
 	<head>
@@ -10,7 +10,7 @@
 			  <ol class="breadcrumb">
 			    <li class="breadcrumb-item"><i class="fa fa-home" aria-hidden="true"></i>&nbsp;<a href="#">Home</a></li>
 			    <li class="breadcrumb-item active" aria-current="page">Transfer/Issue</li>
-			    <li class="breadcrumb-item active" aria-current="page">Transfer History</li>
+			    <li class="breadcrumb-item active" aria-current="page">Issue History</li>
 			  </ol>
 			</nav>
 		</div>
@@ -27,13 +27,13 @@
 					                                cellspacing="0" width="100%">
 					                                <thead>
 					                                    <tr>
-					                                    	<th>Transfer Id</th>
+					                                    	<th>Issue Id</th>
 					                                    	<th>Item Code</th>
 					                                    	<th>Item Name</th>
-					                                    	<th>Transfered Date</th>
-					                                        <th>Transfered By</th>
-					                                        <th>From Branch</th>
-					                                        <th>To Branch</th>
+					                                    	<th>Issued Date</th>
+					                                        <th>Issued By</th>
+					                                        <th>Room No</th>
+					                                       
 					                                       
 					                                        
 					                                    </tr>
@@ -41,13 +41,13 @@
 					                                <tbody>
 					                                <%while(i.next()){ %>
 					                                    <tr>
-					                                    	<td><%=i.getString("transferid") %></td>
+					                                    	<td><%=i.getString("issueid") %></td>
 					                                     	<td><a href="viewinventoryitem.click?id=<%=i.getString("itemcode") %>"><%=i.getString("itemcode") %></a></td>
 					                                    	<td><%=i.getString("itemname") %></td>
-					                                    	<td><%=i.getString("transfereddateen") %>
-					                                    	<td><%=i.getString("transferedby") %></td>
-					                                    	<td><%=i.getString("branchby") %></td>
-					                                        <td><%=i.getString("branchto") %></td>
+					                                    	<td><%=i.getString("issueddateen") %>
+					                                    	<td><%=i.getString("issuedby") %></td>
+					                                    	<td><%=i.getString("roomno") %>
+					                                    	
 					                                        
 					                                    
 					                                    </tr>

@@ -63,21 +63,17 @@ public class TransferAction {
 	}
 	//to be changed...
 	public boolean issueitems(HttpServletRequest request, HttpServletResponse response) {
-		String branchdb=request.getParameter("branchdb");
 		TransferDao tdao=new TransferDaoImpl();
 		
 		HttpSession session=request.getSession(true);
-		ResultSet userdetail=(ResultSet) session.getAttribute("userdetail");
+		UserModel userdetail=(UserModel) session.getAttribute("userDetail");
 		
 		String branchby="",issuedby="";
-		try {
-			branchby = userdetail.getString("branchid");
-			issuedby=userdetail.getString("username");
-		} catch (SQLException e1) {	
-			e1.printStackTrace();
-		}
+		branchby = userdetail.getBranchCode();
+		issuedby=userdetail.getUsername();
 		
 		String issuedto=request.getParameter("issuedto");
+		String roomno=request.getParameter("roomno");
 		String issueddate=request.getParameter("issueddate");
 		String issueddateen=request.getParameter("issueddateen");
 		
@@ -87,7 +83,7 @@ public class TransferAction {
 		int i;	
 		
 		for(i=0;i<itemcode.length;i++){
-		tdao.setissuestatuspending(issuedby,issuedto,issueddate,issueddateen,itemcode[i]);
+		tdao.setissuestatuspending(issuedby,issuedto,issueddate,issueddateen,itemcode[i],roomno);
 		String issueid=tdao.getissueid();
 		status=tdao.updateissueitemstatus(issueid, itemcode[i]);
 		}
@@ -97,15 +93,9 @@ public class TransferAction {
 	}
 	public ResultSet issueditemsdetails(HttpServletRequest request, HttpServletResponse response){
 		HttpSession session=request.getSession(true);
-		ResultSet userdetail=(ResultSet)session.getAttribute("userdetail");
-		String branchdb="";
+		UserModel userdetail=(UserModel)session.getAttribute("userDetail");
 		String username="";
-		try {
-			 branchdb=userdetail.getString("branchdb");
-			 username=userdetail.getString("username");
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		username=userdetail.getUsername();
 		TransferDao t=new TransferDaoImpl();
 		ResultSet issueditemdetails=t.getissueditemdetails(username);
 		

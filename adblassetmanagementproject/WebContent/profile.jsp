@@ -198,10 +198,11 @@ display:block;}
           </a>
           <ul class="treeview-menu">
             <li id="i" ><a href="transferitem.click" target="iframe_a"><i class="fa fa-circle-o" ></i> Transfer Items</a></li>
-            <li id="v" ><a href="issuedetail.click" target="iframe_a"><i class="fa fa-circle-o" ></i> My Items</a></li>
+           
             <li id="i" ><a href="issueitem.click" target="iframe_a"><i class="fa fa-circle-o" ></i> Issue Items</a></li>
             <li id="a" ><a href="issueconfirmation.click" target="iframe_a"><i class="fa fa-circle-o" ></i> Issue Confirmation</a></li>
             <li id="a"><a href="pendingtransfers.click" target="iframe_a"><i class="fa fa-circle-o" ></i>Pending Transfers</a>
+             <li id="v" ><a href="issuehistory.click" target="iframe_a"><i class="fa fa-circle-o" ></i> Issue History</a></li>
             <li id="v"><a href="transferhistory.click" target="iframe_a"><i class="fa fa-circle-o" ></i>Transfer History</a>
             
           </ul>

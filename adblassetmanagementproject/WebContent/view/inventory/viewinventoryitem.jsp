@@ -4,7 +4,7 @@
 <%@page import='com.adbl.daoimpl.InventoryDaoImpl'%>
 <%@page import='com.adbl.dao.InventoryDao'%>
 <%ResultSet branchdb=(ResultSet)session.getAttribute("userdetail");
-InventoryDao i=new InventoryDaoImpl(branchdb.getString("branchdb"));
+InventoryDao i=new InventoryDaoImpl();
 ResultSet idetail= (ResultSet)i.getinventoryeditdata(id);
 ResultSet supplier=(ResultSet) i.getcompanylist();
 ResultSet companylist1=(ResultSet) i.getcompanylist();

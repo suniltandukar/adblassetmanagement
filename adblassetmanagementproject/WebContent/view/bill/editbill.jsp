@@ -5,7 +5,7 @@
 <%@page import='com.adbl.dao.InventoryDao'%>
 <%
 ResultSet branchdb=(ResultSet) session.getAttribute("userdetail");
-InventoryDao i=new InventoryDaoImpl(branchdb.getString("branchdb"));
+InventoryDao i=new InventoryDaoImpl();
 ResultSet companylist1=(ResultSet) i.getcompanylist(); %>
 <jsp:include page="/includefile"></jsp:include>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">

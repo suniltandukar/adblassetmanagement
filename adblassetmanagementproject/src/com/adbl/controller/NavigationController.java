@@ -67,6 +67,14 @@ public class NavigationController extends HttpServlet {
 			RequestDispatcher rd=request.getRequestDispatcher("view/transferissue/transferhistory.jsp");
 			rd.forward(request, response);
 		}
+		if(uri.endsWith("issuehistory.click"))
+		{
+			TransferDao t=new TransferDaoImpl();
+			ResultSet issuehistory=t.issuehistorydao(request, response);
+			request.setAttribute("issuehistory", issuehistory);
+			RequestDispatcher rd=request.getRequestDispatcher("view/transferissue/issuehistory.jsp");
+			rd.forward(request, response);
+		}
 		if(uri.endsWith("items.click"))
 		{
 			RequestDispatcher rd=request.getRequestDispatcher("view/inventory/branchselect.jsp");

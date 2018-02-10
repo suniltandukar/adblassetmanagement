@@ -59,7 +59,6 @@ public class LoginAction {
 		LoginDao l=new LoginDaoImpl();
 		
 			UserModel userDetail=l.getUserDetail(u);
-			System.out.println(userDetail);
 			HttpSession session=request.getSession(true);
 			session.setAttribute("userDetail", userDetail);
 			String currentBranchcode=userDetail.getBranchCode();
@@ -70,7 +69,6 @@ public class LoginAction {
 			UserDao ud=new UserDaoImpl();
 			String mainRole=ud.getRoleAssigned(userDetail.getGivenrole());
 			session.setAttribute("mainRole", mainRole);
-			System.out.println(mainRole);
 			
 			session.setAttribute("currentBranchFunctions", userDetail.getFunctionAllowed());
 			//for log history

@@ -66,17 +66,32 @@ public class TransferDaoImpl implements TransferDao{
 		return rs;
 		
 	}
+	public ResultSet issuehistorydao(HttpServletRequest request, HttpServletResponse response)
+	{
+		Connection con=DBConnection.getConnection();
+		String query="select inventorytbl.itemcode,inventorytbl.itemname,issuetbl.* from issuehistorytbl join inventorytbl on inventorytbl.itemcode=issuehistorytbl.itemcode join issuetbl on issuehistorytbl.issueid=issuetbl.issueid";
+		try {
+			ps=con.prepareStatement(query);
+			rs=ps.executeQuery();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("transfer history error");
+		}
+				
+		return rs;
+		
+	}
 
 
 
 	
 
 	public boolean setissuestatuspending(String issuedby, String issuedto,
-			String issueddate, String issueddateen, String itemcode)
+			String issueddate, String issueddateen, String itemcode,String roomno)
 	{
-		String statusid="3";
+		String statusid="2";
 		int r=0;
-		String query="insert into issuetbl(issuedby,issuedto,issueddate,issueddateen,statusid, issueitemcode) values(?,?,?,?,?,?)";
+		String query="insert into issuetbl(issuedby,issuedto,issueddate,issueddateen,statusid, issueitemcode,roomno) values(?,?,?,?,?,?,?)";
 		try {
 
 			Connection con=DBConnection.getConnection();
@@ -87,6 +102,7 @@ public class TransferDaoImpl implements TransferDao{
 			ps.setString(4, issueddateen);
 			ps.setString(5, statusid);
 			ps.setString(6, itemcode);
+			ps.setString(7, roomno);
 			r=ps.executeUpdate();
 			
 			if(r>0)

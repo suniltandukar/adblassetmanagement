@@ -20,7 +20,7 @@ public interface UserDao {
 	public boolean updateuserdao(String username, String staffcode, int roleid, String mid, String branchdb,String userid,String givenrole, String effectivedate, String enddate);
 	public boolean updateuserroledao(String roleid, String roledescription);
 	public boolean deleteuserroledao(String roleid);
-	public ResultSet selectusernames();
+	public ResultSet selectusernames(String branchcode);
 	public boolean updateusernamepasswordInMaindb(String username, String newusername, String newpassword);
 	public boolean updateusernamepasswordInBranchdb(String username, String newusername, String newpassword);
 	public boolean loghistorydao(String username, String action);

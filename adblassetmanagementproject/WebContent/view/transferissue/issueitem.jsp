@@ -2,9 +2,10 @@
   <%@page import="com.adbl.daoimpl.UserDaoImpl" %>
    <%@page import="com.adbl.dao.UserDao" %>
    <%@page import="com.adbl.model.UserModel" %>
-	<%UserModel userdetail=(UserModel)session.getAttribute("userdetail");
+	<%UserModel userdetail=(UserModel)session.getAttribute("userDetail");
 UserDao u=new UserDaoImpl();
-ResultSet username=u.selectusernames();%>
+ResultSet username=u.selectusernames(userdetail.getBranchCode());
+%>
 <jsp:include page="/includefile"></jsp:include>
 <html>
 <head>
@@ -54,12 +55,13 @@ display:none;}
 								</tr>
 								<tr>
                                    <td>
-                                       <h5>Issued to (username):</h5><span class="staffcheck"></span>
-                                       <select name="issuedto" class="form-control"  form="form" required>
-                                       <%while(username.next()){ %>
-                                       <option value="<%=username.getString("username")%>"><%=username.getString("username")%></option>
-                                       <%} %>
-                                       </select>
+                                       <h5>Issued to (staff-code):</h5><span class="staffcheck"></span>
+                                       
+                                       <input type="text" name="issuedto" class="form-control"  form="form" value="" required>
+                                   	</td>
+                                   		<td>
+                                       <h5>Room No:</h5> 
+                                       <input type="text" name="roomno" class="form-control"  form="form" value="" >
                                    	</td>
 								</tr>
 								

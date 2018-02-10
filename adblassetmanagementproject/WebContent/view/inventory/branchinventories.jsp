@@ -7,7 +7,7 @@
 <%@page import='com.adbl.model.Inventory'%>
 <%
 ResultSet branchdb=(ResultSet) session.getAttribute("userdetail");
-InventoryDao i=new InventoryDaoImpl(branchdb.getString("branchdb"));
+InventoryDao i=new InventoryDaoImpl();
 
 String cid=request.getAttribute("cid").toString();
 System.out.print(cid);

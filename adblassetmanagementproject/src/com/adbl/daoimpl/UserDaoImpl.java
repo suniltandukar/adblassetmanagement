@@ -226,12 +226,14 @@ public class UserDaoImpl implements UserDao {
 		return false;
 		
 	}
-	public ResultSet selectusernames(){
+	public ResultSet selectusernames(String branchcode){
 		 con=DBConnection.getConnection();
-		String query="select username from usertbl;";
+		String query="select username from usertbl where branchCode=?;";
 		try{
 			ps=con.prepareStatement(query);
+			ps.setString(1, branchcode);
 			rs=ps.executeQuery();
+	
 		}
 		catch(Exception e){
 			System.out.println(e);
