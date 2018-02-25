@@ -31,8 +31,8 @@ import com.adbl.model.Bill;
 @WebServlet("/UploaderController")
 public class UploaderController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private final String UPLOAD_DIRECTORY = "C:/Users/sunil/git/adblassetmanagementproject/adblassetmanagementproject/WebContent/view/uploadedbills";
-	//private final String UPLOAD_DIRECTORY = "C:/xampp/tomcat/webapps/adblassetbillimages/billimages";
+	//private final String UPLOAD_DIRECTORY = "C:/Users/sunil/git/adblassetmanagementproject/adblassetmanagementproject/WebContent/view/uploadedbills";
+	private final String UPLOAD_DIRECTORY = "C:/xampp/tomcat/webapps/adblassetbillimages/billimages";
 	Map<String,String> formMap = new HashMap<String,String>();
 	
 	

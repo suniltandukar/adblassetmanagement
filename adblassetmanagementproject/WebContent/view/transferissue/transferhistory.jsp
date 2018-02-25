@@ -19,7 +19,7 @@
 					<div class="panel panel-default" style="width: 100%;">
 					                        <div class="panel-heading">
 					                            <h6>
-					                                <strong>Issued Item Details</strong>
+					                                <strong>Transfer Item Details</strong>
 					                            </h6>
 					                        </div>
 					                        <div class="panel-body">

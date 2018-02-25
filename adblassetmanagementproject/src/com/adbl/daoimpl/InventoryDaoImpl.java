@@ -26,6 +26,23 @@ public class InventoryDaoImpl implements InventoryDao {
 		}
 		return rs;
 	}
+	public ResultSet getinventoryfordep(String itemcode)
+	{
+		String query="select * from inventorytbl join inventoryotherdetailtbl on inventorytbl.inventoryotherdetailid=inventoryotherdetailtbl.inventoryotherdetailid where itemcode='"+itemcode+"'";
+		try{
+			
+			ps=con.prepareStatement(query);
+			rs=ps.executeQuery();
+			if(rs.next()){
+				return rs;			}
+			
+		}
+		catch(Exception e){
+			System.out.println("getinventorydata error"+e);
+		}
+		return null;
+		
+	}
 	public ResultSet userspecificdetail(String cid)
 	{
 		ResultSet userdetail=null;
@@ -182,6 +199,25 @@ public class InventoryDaoImpl implements InventoryDao {
 		}
 		return insuranceid;
 	}
+	
+	/*public boolean depreciationdao(Inventory inventory, String item_code)
+	{
+		int rs=0;
+		String query="insert into depreciationtbl(";
+		try {
+			ps=con.prepareStatement(query);
+			rs=ps.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
+		return false;
+		
+	}*/
 
 	public String warrantyid(){
 		String query="select max(warrantyid) from warrantytbl";

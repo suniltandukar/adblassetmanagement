@@ -159,6 +159,7 @@ public class InventoryAction {
 				String additionaldetailid=idao.selectadditionaldetailid();
 				
 				status=idao.inventorydao(inventory,additionaldetailid, item_code,transaction_id,branchcode,inputter);
+				//boolean stats=idao.depreciationdao(inventory,item_code);
 				
 				String action="New Inventory "+inventory.getGenerated_itemcode()+ " Inserted By "+um.getUsername();
 				

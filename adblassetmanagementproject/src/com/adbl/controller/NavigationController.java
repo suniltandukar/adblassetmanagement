@@ -1,8 +1,8 @@
 package com.adbl.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -22,6 +22,7 @@ import com.adbl.dao.UserDao;
 import com.adbl.daoimpl.TransferDaoImpl;
 import com.adbl.daoimpl.UserDaoImpl;
 import com.adbl.model.History;
+import com.adbl.model.IssueModel;
 import com.adbl.model.UserModel;
 
 
@@ -205,6 +206,45 @@ public class NavigationController extends HttpServlet {
 			
 				}
 	
+		else if(uri.endsWith("getStaffName.click"))
+		{
+			PrintWriter out=response.getWriter();
+			String staffid=request.getParameter("staffid");
+			
+			UserDao udao=new UserDaoImpl();
+			String staffName=udao.getStaffName(staffid);
+			System.out.println(staffName);
+			out.println(staffName);
+		}
+		
+		else if(uri.endsWith("staffItemDetails.click"))
+	{
+			RequestDispatcher rd=request.getRequestDispatcher("view/transferissue/staffItemsDetail.jsp");
+			rd.forward(request, response);
+	}
+		
+		else if(uri.endsWith("showStaffItemDetails.click"))
+		{
+			String staffCode=request.getParameter("staffCode");
+			
+			UserDao udao=new UserDaoImpl();
+			List<IssueModel> list=udao.showStaffItems(staffCode);
+			
+			if(list!=null)
+			{
+				request.setAttribute("staffCode", staffCode);
+				request.setAttribute("list", list);
+				RequestDispatcher rd=request.getRequestDispatcher("view/transferissue/showStaffItemDetail.jsp");
+				rd.forward(request, response);
+			}
+			else
+			{
+				request.setAttribute("staffCode", staffCode);
+				RequestDispatcher rd=request.getRequestDispatcher("view/transferissue/showStaffItemDetail.jsp");
+				rd.forward(request, response);
+				
+			}
+		}
 		
 	}
 

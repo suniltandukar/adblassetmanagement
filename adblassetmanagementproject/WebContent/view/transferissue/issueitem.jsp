@@ -42,7 +42,7 @@ display:none;}
 
     				<div class="panel-heading">
     					<strong>Fill Issue Details</strong>
-
+						<strong><p class="pull-right staffName"></p></strong>
     				</div>
     				<div class="panel-body">
     				<form method="post" action="issueitem.add" id="form">
@@ -57,7 +57,7 @@ display:none;}
                                    <td>
                                        <h5>Issued to (staff-code):</h5><span class="staffcheck"></span>
                                        
-                                       <input type="text" name="issuedto" class="form-control"  form="form" value="" required>
+                                       <input type="text" name="issuedto" id="issuedto" class="form-control"  form="form" value="" required>
                                    	</td>
                                    		<td>
                                        <h5>Room No:</h5> 
@@ -125,6 +125,22 @@ display:none;}
 </div>
     	<script src="assets/js/dateConverter.js"></script>
    <script>
+   $("#issuedto").blur(function()
+			{
+			var id=$(this).val();
+			var dataString = 'staffid='+ id;
+			$.ajax
+			({
+			type: "POST",
+			url: "getStaffName.click",
+			data: dataString,
+			cache: false,
+			success: function(html)
+			{
+			$(".staffName").html(html);
+			} 
+			});
+	});
 function myFunction() {
     var table = document.getElementById("table");
     var row = table.insertRow(2);

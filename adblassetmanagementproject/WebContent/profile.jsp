@@ -204,6 +204,7 @@ display:block;}
             <li id="a"><a href="pendingtransfers.click" target="iframe_a"><i class="fa fa-circle-o" ></i>Pending Transfers</a>
              <li id="v" ><a href="issuehistory.click" target="iframe_a"><i class="fa fa-circle-o" ></i> Issue History</a></li>
             <li id="v"><a href="transferhistory.click" target="iframe_a"><i class="fa fa-circle-o" ></i>Transfer History</a>
+            <li id="v"><a href="staffItemDetails.click" target="iframe_a"><i class="fa fa-circle-o" ></i>Staff Item Details</a>
             
           </ul>
         </li>

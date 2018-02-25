@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 
 import com.adbl.dao.UserDao;
 import com.adbl.model.History;
+import com.adbl.model.IssueModel;
 import com.mysql.jdbc.Connection;
 import com.org.dbconnection.DBConnection;
 
@@ -449,6 +450,64 @@ public class UserDaoImpl implements UserDao {
 		
 	}
 		
+	public String getStaffName(String staffCode)
+	{
+		String query="select staffName from staffs where staffCode=?";
 	
+		
+		con=DBConnection.getConnection();
+		try {
+			ps=con.prepareStatement(query);
+			ps.setString(1, staffCode);
+			rs=ps.executeQuery();
+			
+			if(rs.next())
+			{
+				return rs.getString("staffName");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public List<IssueModel> showStaffItems(String staffCode)
+	{
+		IssueModel im=null;
+		List<IssueModel> list=new ArrayList<IssueModel>();
+		String query="select * from issuetbl where issuedto=?";
+		con=DBConnection.getConnection();
+		
+		try {
+			ps=con.prepareStatement(query);
+			ps.setString(1, staffCode);
+			rs=ps.executeQuery();
+			
+			
+			while(rs.next())
+			{
+				im=new IssueModel();
+				im.setIssuedate(rs.getString("issueddate"));
+				im.setIssueid(rs.getString("issueid"));
+				im.setIssueddateen(rs.getString("issueddateen"));
+				im.setIssuedby(rs.getString("issuedBy"));
+				im.setIssueitemcode(rs.getString("issueitemcode"));
+				im.setRoomno(rs.getString("roomno"));
+				im.setStatusid(rs.getString("statusid"));
+				im.setIssuedto(rs.getString("issuedto"));
+				list.add(im);
+				
+			}
+			
+			if(list.size()>0)
+			{
+				return list;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+		
+	}
 
 }

@@ -24,5 +24,6 @@ public interface TransferDao {
 	public ResultSet getransferdetails(String currentBranchcode);
 	public ResultSet transferhistorydao(HttpServletRequest request, HttpServletResponse response);
 	public ResultSet issuehistorydao(HttpServletRequest request, HttpServletResponse response);
+	public boolean validateIssue(String itemcode);
 
 }

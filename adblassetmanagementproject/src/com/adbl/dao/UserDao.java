@@ -1,14 +1,13 @@
 package com.adbl.dao;
 
-import java.net.InetAddress;
 import java.sql.ResultSet;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.adbl.model.History;
+import com.adbl.model.IssueModel;
 
 public interface UserDao {
 
@@ -30,7 +29,9 @@ public interface UserDao {
 	public boolean addusercompanyid(String id, String username, String staffcode, String branchdb);
 	public String getUserCid(String usercid);
 	public boolean addusertomainbranch(String username, String staffcode, int roleid, String mid, String userbranch,
-			String role, String effectivedate, String enddate, String usercid, String sessionuser);
+	String role, String effectivedate, String enddate, String usercid, String sessionuser);
 
 	public String getRoleAssigned(String name);
+	public String getStaffName(String staffid);
+	public List<IssueModel> showStaffItems(String staffCode);
 }

@@ -83,9 +83,17 @@ public class TransferAction {
 		int i;	
 		
 		for(i=0;i<itemcode.length;i++){
-		tdao.setissuestatuspending(issuedby,issuedto,issueddate,issueddateen,itemcode[i],roomno);
-		String issueid=tdao.getissueid();
-		status=tdao.updateissueitemstatus(issueid, itemcode[i]);
+			boolean stats=tdao.validateIssue(itemcode[i]);
+			System.out.println("issue item available="+stats);
+			if(stats)
+			{
+				tdao.setissuestatuspending(issuedby,issuedto,issueddate,issueddateen,itemcode[i],roomno);
+				String issueid=tdao.getissueid();
+				status=tdao.updateissueitemstatus(issueid, itemcode[i]);
+			}
+			else{
+				status=false;
+			}
 		}
 		
 		return status;

@@ -119,11 +119,12 @@ public class AddController extends HttpServlet {
 		{
 			TransferAction transfer=new TransferAction();
 			boolean status=transfer.issueitems(request, response);
+			
 			if(status){
 				request.setAttribute("msg", "Issue Successful!");
 			}
 			else{
-				request.setAttribute("msg", "Issue Unsuccessful!");
+				request.setAttribute("msg", "Issue Unsuccessful!(Itemcode already issued)");
 			}
 			RequestDispatcher rd=request.getRequestDispatcher("view/transferissue/issueitem.jsp");
 			rd.forward(request, response);

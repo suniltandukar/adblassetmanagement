@@ -279,6 +279,27 @@ public class TransferDaoImpl implements TransferDao{
 		}		return rs;
 		
 	}
+	
+	public boolean validateIssue(String itemcode)
+	{
+		String query="select issueitemcode from issuetbl where issueitemcode=? ";
+		Connection con=DBConnection.getConnection();
+		try {
+			ps=con.prepareStatement(query);
+			ps.setString(1, itemcode);
+			rs=ps.executeQuery();
+			
+			if(rs.next())
+			{
+				return false;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return true;
+		
+	}
+
 
 	
 }
