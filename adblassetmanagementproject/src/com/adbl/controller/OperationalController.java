@@ -19,7 +19,6 @@ import com.adbl.action.InventoryEditAction;
 import com.adbl.action.LoginAction;
 import com.adbl.action.TransferAction;
 import com.adbl.model.Inventory;
-import com.sun.java.accessibility.util.Translator;
 
 @WebServlet("/OperationalController")
 public class OperationalController extends HttpServlet {

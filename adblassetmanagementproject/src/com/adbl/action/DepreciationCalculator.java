@@ -16,7 +16,6 @@ public class DepreciationCalculator {
 	{
 		
 		
-		
 		String itemcode="2020FAN0001";
 		InventoryDao idao=new InventoryDaoImpl();
 		ResultSet rs=idao.getinventoryfordep(itemcode);

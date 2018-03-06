@@ -62,10 +62,11 @@ ResultSet group=(ResultSet) i.getgroup();%>
 						<tr>
 							<th></th>
 							<th>Item Code</th>
+							<th>Transaction Id</th>
 							<th>Group Code</th>
 							<th>Item Name</th>
 							<th>Model</th>
-							<th>Decision Date</th>
+							<th>Purchase Date</th>
 							<th>Depreciation Rate</th>
 							<th>Current Branch</th>
 							<th id="remove"><i class="fa fa-cog" aria-hidden="true"></i></th>
@@ -78,11 +79,12 @@ ResultSet group=(ResultSet) i.getgroup();%>
 							<td></td>
 							<td><a 
 								href="editinventory.click?id=<%=inventory.getString("itemcode") %>"><%=inventory.getString("itemcode") %></a></td>
+							<td><%=inventory.getString("transactionid") %></td>
 							<td><%=inventory.getString("groupcode") %></td>
 							<td><%=inventory.getString("itemname") %></td>
 							
 							<td><%=inventory.getString("model") %></td>
-							<td><%=inventory.getString("decisiondate") %></td>
+							<td><%=inventory.getString("purchasedate") %></td>
 							<td><%=inventory.getString("depreciationrate") %></td>
 							<td><%=inventory.getString("branchCode") %></td>
 							<td id="remove"><div class="dropdown">
