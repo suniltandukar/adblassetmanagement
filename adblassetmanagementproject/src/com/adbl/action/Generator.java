@@ -56,27 +56,28 @@ public class Generator {
 			if(rs.next()) {
 				int number=0;
 				transactionid = rs.getString("transactionid");
+				System.out.println("txn is"+transactionid);
 				//String[] splitCode = transactionid.split(branchcode);
 				String yr=transactionid.substring(0, 3),//year
-				bc=transactionid.substring(4, 6),//branchcode
-				lastno=transactionid.substring(7,11);
+				bc=transactionid.substring(4, 7),//branchcode
+				lastno=transactionid.substring(8,14);
 				
 				System.out.println("last no"+lastno);
 				number=Integer.parseInt(lastno);
 				number++;
 				String num=Integer.toString(number);
-				if(num.length()<4){
-					while(num.length()<4){
+				if(num.length()<6){
+					while(num.length()<6){
 						num="0"+num;
 					}
 				}
 				transactionid = year+branchcode+num;
-				System.out.println(transactionid);
+				System.out.println("txnid is "+transactionid);
 				
 			}
 			else{
-				transactionid=year+branchcode+"0001";
-				System.out.println(transactionid);
+				transactionid=year+branchcode+"000001";
+				System.out.println("txnid is "+transactionid);
 			}
 		}
 		catch(Exception e){

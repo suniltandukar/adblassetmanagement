@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import com.adbl.action.Generator;
 import com.adbl.dao.LoginDao;
 import com.adbl.model.UserModel;
 import com.mysql.jdbc.Connection;
@@ -133,6 +134,39 @@ public class LoginDaoImpl implements LoginDao{
 			System.out.println(e);
 		}
 		return null;
+	}
+	public void editing(){
+		String query="SELECT itemname as i, model as m, purchasedate as p from (SELECT itemname, model, purchasedate, count(*) as counter from inventorytbl group BY itemname) as tbl where counter>=1";
+		try{
+			String itemname,model,purchasedate,transactionid;
+			con=DBConnection.getConnection();
+			ps=con.prepareStatement(query);
+			rs=ps.executeQuery();
+			while(rs.next()){
+				itemname=rs.getString("i");
+				model=rs.getString("m");
+				purchasedate=rs.getString("p");
+				Generator g=new Generator();
+				transactionid=g.transactionidgenerator("0001", "2018");
+				updatetransactionid(transactionid,itemname,model,purchasedate);
+			}
+		}
+		catch(Exception e){
+			System.out.println(e);
+		}
+		
+	}
+	public void updatetransactionid(String transactionid, String itemname, String model, String purchasedate){
+		String query="update inventorytbl set transactionid='"+transactionid+"' where itemname='"+itemname+"' and model='"+model+"' and purchasedate='"+purchasedate+"';";
+		try{
+			PreparedStatement p=null;
+			p=con.prepareStatement(query);
+			p.executeUpdate();
+		}
+		catch(Exception e){
+			System.out.println(e);
+		}
+		
 	}
 	
 

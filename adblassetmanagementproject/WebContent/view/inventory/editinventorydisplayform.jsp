@@ -156,7 +156,7 @@ if(idetail.next()){ %>
 													<%while(supplier.next()){%>
 													<option value="<%=supplier.getString("companyid")%>"
 														<% if(supplier.getString("companyid").equals(idetail.getString("supplierid"))) {%>
-														selected<%}%>"><%=supplier.getString("companyname") %></option>
+														selected<%}%>><%=supplier.getString("companyname") %></option>
 													<%}%>
 											</select>
 											</td>
@@ -166,7 +166,10 @@ if(idetail.next()){ %>
 													<%while(fundsource.next()){%>
 													<option value="<%=fundsource.getString("fundsourceid") %>"
 														<%if(fundsource.getString("fundsourceid").equals(idetail.getString("fundsourceid"))){%>
-														selected<%}%>"><%=fundsource.getString("sourcename") %></option>
+													
+														selected<%}%>>
+															<%System.out.println(fundsource.getString("fundsourceid")+" "+idetail.getString("fundsourceid"));%>
+														<%=fundsource.getString("sourcename") %></option>
 													<%}%>
 											</select>
 											</td>
@@ -185,7 +188,7 @@ if(idetail.next()){ %>
 													<option
 														value="<%=itemcondition.getString("itemconditionid")%>"
 														<%if(itemcondition.getString("itemconditionid").equals(idetail.getString("itemconditionid"))){%>
-														selected<%}%>"><%=itemcondition.getString("itemconditionname") %></option>
+														selected<%}%>><%=itemcondition.getString("itemconditionname") %></option>
 													<%} %>
 											</select>
 											</td>
@@ -405,6 +408,7 @@ if(idetail.next()){ %>
 		</div>
 	</div>
 	<script src="assets/js/dateConverter.js"></script>
+
 </body>
 </html>
 
