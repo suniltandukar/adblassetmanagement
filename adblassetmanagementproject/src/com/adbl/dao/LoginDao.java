@@ -15,5 +15,5 @@ public interface LoginDao {
 	public ResultSet role(String roleid) throws SQLException;
 	public String userenddate(String staffcode);
 	public UserModel getUserDetail(UserModel u);
-	public void editing();
+	
 }

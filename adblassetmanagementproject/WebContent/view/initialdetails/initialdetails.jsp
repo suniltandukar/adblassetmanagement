@@ -125,7 +125,7 @@ ResultSet itemcondition=(ResultSet)i.showitemcondition();%>
 						<div id="b" class="tab-pane fade in ">
 							<form method="post" action="group.add" style="width:20%;margin-top:10px;" class="form">
 								<h6><strong>Group Code:</strong></h6>
-								<input type="text" class="form-control" name="groupcode" maxlength="3" required><br>
+								<input type="text" class="form-control" name="groupcode" minlength="3" maxlength="3" required><br>
 								<h6><strong>Group Name:</strong></h6>
 								<input type="text" class="form-control" name="groupname" required><br>
 								<button type="submit" class="btn btn-success">+ ADD</button>

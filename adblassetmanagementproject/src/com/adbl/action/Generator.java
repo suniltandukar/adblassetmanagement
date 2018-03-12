@@ -17,15 +17,19 @@ public class Generator {
 		String code="";
 		try{
 			
-			String query="select * from inventorytbl where itemcode LIKE '%"+year+groupcode+"%' order by itemcode DESC;";
+			String query="select itemcode from inventorytbl where itemcode LIKE '"+year+groupcode+"%' order by itemcode DESC;";
 			ps=con.prepareStatement(query);
 			ResultSet rs=ps.executeQuery();
 			
 			if(rs.next()) {
 				int number=0;
 				code = rs.getString("itemcode");
-				String[] splitCode = code.split(groupcode);
-				number=Integer.parseInt(splitCode[1]);
+				
+				String itemc=code.substring(7,11);
+				System.out.println(itemc+"llll");
+			//	String[] splitCode = code.split(groupcode);
+				
+				number=Integer.parseInt(itemc);
 				number++;
 				String num=Integer.toString(number);
 				if(num.length()<4){

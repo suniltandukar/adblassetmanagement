@@ -8,6 +8,9 @@
 	 <!-- Bootstrap 3.3.7 -->
   <link rel="stylesheet" href="assets/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css">
+   <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/button.dataTables.min.css">
+  
+ 
   
   
   <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
@@ -46,6 +49,19 @@
 <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
 <script type="text/javascript" src="assets/nepaliDatePicker/nepali.datepicker.v2.2.min.js"></script>
+<script type="text/javascript" src="assets/js/jszip.min.js"></script>
+<script type="text/javascript" src="assets/js/dataTables.buttons.min.js"></script>
+<script type="text/javascript" src="assets/js/buttons.print.min.js"></script>
+<script type="text/javascript" src="assets/js/buttons.colVis.min.js"></script>
+<script type="text/javascript" src="assets/js/buttons.flash.min.js"></script>
+<script type="text/javascript" src="assets/js/pdfmake.min.js"></script>
+<script type="text/javascript" src="assets/js/buttons.html5.min.js"></script>
+<script type="text/javascript" src="assets/js/vfs_fonts.js"></script>
+
+
+
+
+
 <!-- jQuery UI 1.11.4 -->
 <script src="assets/js/jquery-ui.min.js"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
@@ -55,4 +71,5 @@
 <script src="assets/js/validator.js"></script>
 <!-- jQuery Tags Input -->
     <script type="text/javascript" src="template/js/jquery.tagsinput.js"></script>
+   
 </div>

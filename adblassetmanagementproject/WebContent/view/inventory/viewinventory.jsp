@@ -56,7 +56,7 @@ ResultSet group=(ResultSet) i.getgroup();%>
 				</h5>
 			</div>
 				<div class="panel-body">
-				<table id="example" class="table table-striped table-bordered"
+				<table id="example" class=" display compact"
 					cellspacing="0" width="100%">
 					<thead>
 						<tr>
@@ -67,7 +67,7 @@ ResultSet group=(ResultSet) i.getgroup();%>
 							<th>Item Name</th>
 							<th>Model</th>
 							<th>Purchase Date</th>
-							<th>Depreciation Rate</th>
+							<th>Rate</th>
 							<th>Current Branch</th>
 							<th id="remove"><i class="fa fa-cog" aria-hidden="true"></i></th>
 						</tr>
@@ -85,7 +85,7 @@ ResultSet group=(ResultSet) i.getgroup();%>
 							
 							<td><%=inventory.getString("model") %></td>
 							<td><%=inventory.getString("purchasedate") %></td>
-							<td><%=inventory.getString("depreciationrate") %></td>
+							<td><%=inventory.getString("rate") %></td>
 							<td><%=inventory.getString("branchCode") %></td>
 							<td id="remove"><div class="dropdown">
 									<button class="btn btn-default dropdown-toggle" type="button"
@@ -160,6 +160,32 @@ function filterColumn ( i ) {
 
 $(document).ready(function() {
     var t = $('#example').DataTable( {
+    	
+    	dom:'Bfrtip',
+    	buttons:[
+    		
+    		{
+    			extend: 'print',
+    			 messageTop: 'Asset Management System',
+                exportOptions: {
+                	 columns: [1, 2, 3,4,5,6,7,8 ]
+                }
+    		},
+    		{
+    			extend: 'pdfHtml5',
+    			 messageTop: 'Asset Management System',
+                exportOptions: {
+                	 columns: [1, 2, 3,4,5,6,7,8 ]
+                }
+    		},
+    		 {
+                extend: 'excelHtml5',
+                messageTop: 'Asset Management System',
+                exportOptions: {
+                	columns: [1, 2, 3,4,5,6,7,8 ]
+                }
+            }
+    	],
         "columnDefs": [ {
             "searchable": false,
             "orderable": false,
