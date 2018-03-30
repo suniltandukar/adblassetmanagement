@@ -182,7 +182,7 @@ display:block;}
             <li id="v"><a href="viewinventory.click" target="iframe_a"><i class="fa fa-circle-o" ></i> View Inventory</a></li>
             <li id="i" ><a href="addinventory.click" target="iframe_a"><i class="fa fa-circle-o" ></i> Add Inventory</a></li>
             <li id="e" ><a href="editinventory.click" target="iframe_a"><i class="fa fa-circle-o" ></i> Edit Inventory</a></li>
-            <li id="i" ><a href="items.click" target="iframe_a"><i class="fa fa-circle-o" ></i> Branch Select</a></li>
+           <!--  <li id="i" ><a href="items.click" target="iframe_a"><i class="fa fa-circle-o" ></i> Branch Select</a></li> -->
             
           		 
             
