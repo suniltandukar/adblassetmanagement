@@ -62,7 +62,7 @@
     <servlet-name>CheckController</servlet-name>
     <url-pattern>*.check</url-pattern>
   </servlet-mapping>
-    <servlet>
+  <servlet>
     <description></description>
     <display-name>UploaderController</display-name>
     <servlet-name>UploaderController</servlet-name>
@@ -72,7 +72,17 @@
     <servlet-name>UploaderController</servlet-name>
     <url-pattern>*.upload</url-pattern>
   </servlet-mapping>
-   <servlet>
+  <servlet>
+    <description></description>
+    <display-name>UpdateController</display-name>
+    <servlet-name>UpdateController</servlet-name>
+    <servlet-class>com.adbl.controller.UpdateController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UpdateController</servlet-name>
+    <url-pattern>*.update</url-pattern>
+  </servlet-mapping>
+  <servlet>
     <description></description>
     <display-name>UserController</display-name>
     <servlet-name>UserController</servlet-name>
@@ -82,6 +92,4 @@
     <servlet-name>UserController</servlet-name>
     <url-pattern>*.user</url-pattern>
   </servlet-mapping>
-
-  
 </web-app>

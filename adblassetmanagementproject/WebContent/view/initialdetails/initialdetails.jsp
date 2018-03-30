@@ -18,7 +18,7 @@ ResultSet itemcondition=(ResultSet)i.showitemcondition();%>
 			  </ol>
 			</nav>
 		</div>
-<div class="panel panel-default" >
+<div class="panel panel-default" style="width:90%; margin:auto">
   		<div class="panel-heading">
   		<h4><strong>Add/Edit Initial Form Details</strong></h4>
   		</div>
@@ -26,6 +26,7 @@ ResultSet itemcondition=(ResultSet)i.showitemcondition();%>
   			<ul class="nav nav-tabs ">
   				<li class="active"><a data-toggle="tab" data-target="#1" class="clickable">View Added Details</a></li>
 			  <li ><a data-toggle="tab" data-target="#2" class="clickable">Add Details</a></li>
+			  
 			</ul>
 			<div class="tab-content">
 			  	<div id="1" class="tab-pane fade in active">
@@ -49,7 +50,7 @@ ResultSet itemcondition=(ResultSet)i.showitemcondition();%>
 			  					<td>
 			  					<ol>
 			  					<%while(group.next()){ %>
-			  					<li><a href="group.del?id=<%=group.getString("groupcode")%>" class="action"><i class="fa fa-trash-o" aria-hidden="true" style="color:red"></i></a>  <a href="" data-toggle="tooltip" title="Group-Code:<%=group.getString("groupcode") %>" style="color:black;"><%=group.getString("groupname") %></a></li><%} %>
+			  					<li><a href="group.del?id=<%=group.getString("groupcode")%>" class="action"><i class="fa fa-trash-o" aria-hidden="true" style="color:red"></i></a>  <a href="group.update?id=<%=group.getString("groupcode") %>&name=<%=group.getString("groupname") %>" data-toggle="tooltip" title="Group-Code:<%=group.getString("groupcode") %>" style="color:black;"><%=group.getString("groupname") %></a></li><%} %>
 			  					</ol>
 			  					</td>
 			  					<td>
@@ -264,6 +265,9 @@ ResultSet itemcondition=(ResultSet)i.showitemcondition();%>
     </div>
 </div>
 <script>
+<%if(request.getAttribute("msg")!=null){%>
+$('#myModal').modal('show');
+<%}%>
 	$('.form').submit(function() {
 	    return confirm('CONFIRM SUBMIT?'); 
 	});

@@ -28,104 +28,89 @@ DecimalFormat f = new DecimalFormat("##.00");
 		</ol>
 	</nav>
 </div>
-<div class="panel panel-default" style="width: 100%; margin: auto;">
+<div class="panel panel-default" style="width: 95%; margin: auto;">
+	<div class="panel-heading ">
+		<h5>
+			<strong>Inventory Item Details</strong>
+		</h5>
+		
+	</div>
+	<div class="panel-heading count">
+			Total Items <input type="text" form="form"
+				style="width: 50px; height: 20px; text-align: center;"
+				class="totalstock count" readonly> &nbsp
+			<table cellpadding="3" cellspacing="0" border="0" class="pull-right">
+				<tbody>
+					<tr id="filter_col2" data-column="1">
+						<td align="center"><select name="groupcode" form="form"
+							class="column_filter form-control" id="col1_filter" required>
+								<option value="" selected>Search By Group</option>
+								<%while(group.next()){ %>
 
-	<div class="panel-body">
-		<div class="panel panel-default" style="width: 100%;">
-			<div class="panel-heading count">
-				<h5>
-					<strong>Inventory Item Details</strong>
-					<div class="pull-right text-center">
-						Total Items <input type="text" form="form"
-							style="width: 50px; height: 20px; text-align: center;"
-							class="totalstock count" readonly> &nbsp
-						<table cellpadding="3" cellspacing="0" border="0"
-							class="pull-right">
-							<tbody>
-								<tr id="filter_col2" data-column="1">
-									<td align="center"><select name="groupcode" form="form"
-										class="column_filter form-control" id="col1_filter" required>
-											<option value="" selected>Search By Group</option>
-											<%while(group.next()){ %>
+								<option value="<%=group.getString("groupcode")%>"><%=group.getString("groupname") %></option>
 
-											<option value="<%=group.getString("groupcode")%>"><%=group.getString("groupname") %></option>
+								<%} %>
 
-											<%} %>
+						</select></td>
+					</tr>
+				</tbody>
+			</table>
 
-									</select></td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-
-
-				</h5>
-			</div>
-			<div class="panel-body">
-				<table id="example" class=" display compact" cellspacing="0"
-					width="100%">
-					<thead>
-						<tr>
-							<th></th>
-							<th>Item Code</th>
-							<th>Transaction Id</th>
-							<th>Group Code</th>
-							<th>Item Name</th>
-							<th>Model</th>
-							<th>Purchase Date</th>
-							<th>Rate</th>
-							<th>Current Branch</th>
-							<th id="remove"><i class="fa fa-cog" aria-hidden="true"></i></th>
-						</tr>
-					</thead>
-					<tbody>
-						<% while (inventory.next()){
-							%>
-						<tr class="tablerows">
-							<td></td>
-							<td><a
-								href="editinventory.click?id=<%=inventory.getString("itemcode") %>"><%=inventory.getString("itemcode") %></a></td>
-							<td><%=inventory.getString("transactionid") %></td>
-							<td><%=inventory.getString("groupcode") %></td>
-							<td><%=inventory.getString("itemname") %></td>
-
-							<td><%=inventory.getString("model") %></td>
-							<td><%=inventory.getString("purchasedate") %></td>
-							<td>Rs <%=f.format(inventory.getDouble("rate")) %></td>
-							<td><%=inventory.getString("branchCode") %></td>
-							<td id="remove"><div class="dropdown">
-									<button class="btn btn-default dropdown-toggle" type="button"
-										data-toggle="dropdown">
-										Action <span class="caret"></span>
-									</button>
-									<ul class="dropdown-menu">
-										<li><a class="clickbtn"
-											href="deleteinventory.del?inventoryotherdetailid=<%=inventory.getString("inventoryotherdetailid") %>&itemcode=<%=inventory.getString("itemcode") %>&amcid=<%=inventory.getString("amcid") %>&insuranceid<%=inventory.getString("insuranceid") %>&warrantyid=<%=inventory.getString("warrantyid") %>"
-											style="color: red;"><i class="fa fa-trash-o"
-												aria-hidden="true"></i> Delete</a></li>
-									</ul>
-								</div></td>
-						</tr>
-						<%} %>
-
-					</tbody>
-					<tfoot>
-						<tr>
-							<th></th>
-							<th></th>
-							<th></th>
-							<th></th>
-							<th></th>
-							<th></th>
-							<th></th>
-							<th></th>
-							<th></th>
-							<th></th>
-						</tr>
-					</tfoot>
-				</table>
-			</div>
 		</div>
+	<div class="panel-body">
+		<table id="example" class=" display compact" cellspacing="0"
+			width="100%">
+			<thead>
+				<tr>
+					<th>S.No</th>
+					<th>Item Code</th>
+					<th>Transaction Id</th>
+					<th>Group Code</th>
+					<th>Item Name</th>
+					<th>Model</th>
+					<th>Purchase Date</th>
+					<th>Rate</th>
+					<th id="remove"><i class="fa fa-cog" aria-hidden="true"></i></th>
+				</tr>
+			</thead>
+			<tbody>
+				<% while (inventory.next()){
+							%>
+				<tr class="tablerows">
+					<td></td>
+					<td><a
+						href="editinventory.click?id=<%=inventory.getString("itemcode") %>"><%=inventory.getString("itemcode") %></a></td>
+					<td><%=inventory.getString("transactionid") %></td>
+					<td><%=inventory.getString("groupcode") %></td>
+					<td><%=inventory.getString("itemname") %></td>
+
+					<td><%=inventory.getString("model") %></td>
+					<td><%=inventory.getString("purchasedate") %></td>
+					<td>Rs <%=f.format(inventory.getDouble("rate")) %></td>
+					<td id="remove"><div class="dropdown">
+							<a class="clickbtn"
+									href="deleteinventory.del?inventoryotherdetailid=<%=inventory.getString("inventoryotherdetailid") %>&itemcode=<%=inventory.getString("itemcode") %>&amcid=<%=inventory.getString("amcid") %>&insuranceid<%=inventory.getString("insuranceid") %>&warrantyid=<%=inventory.getString("warrantyid") %>"
+									style="color: red;"><i class="fa fa-trash-o"
+										aria-hidden="true"></i></a>
+						</div></td>
+				</tr>
+				<%} %>
+
+			</tbody>
+			<tfoot>
+				<tr>
+					<th>Total</th>
+					<th></th>
+					<th></th>
+					<th></th>
+					<th></th>
+					<th></th>
+					<th></th>
+					<th></th>
+					<th></th>
+				</tr>
+			</tfoot>
+		</table>
 	</div>
 </div>
 <div class="modal fade" id="myModal" role="dialog">
@@ -185,7 +170,6 @@ $(document).ready(function() {
     	"paging":  false,
     	"footerCallback": function ( row, data, start, end, display ) {
             var api = this.api(), data;
- 
             // Remove the formatting to get integer data for summation
             var intVal = function ( i ) {
                 return typeof i === 'string' ?
@@ -193,9 +177,6 @@ $(document).ready(function() {
                     typeof i === 'number' ?
                         i : 0;
             };
- 
-          
- 
             // Total over this page
             pageTotal = api
                 .column( 7, { page: 'current'} )
@@ -206,7 +187,7 @@ $(document).ready(function() {
  
             // Update footer
             $( api.column( 7 ).footer() ).html(
-                'Total: Rs '+pageTotal +' '
+                'Rs '+pageTotal +' '
             );
            
         },
