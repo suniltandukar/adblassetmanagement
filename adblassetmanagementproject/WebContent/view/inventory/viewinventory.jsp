@@ -108,7 +108,15 @@ ResultSet group=(ResultSet) i.getgroup();%>
 					</tbody>
 					<tfoot>
 						<tr>
-							<th colspan="4" style="text-align: right">Total:</th>
+							<th></th>
+							<th></th>
+							<th></th>
+							<th></th>
+							<th></th>
+							<th></th>
+							<th></th>
+							<th></th>
+							<th></th>
 							<th></th>
 						</tr>
 					</tfoot>
@@ -169,7 +177,9 @@ function filterColumn ( i ) {
 
 $(document).ready(function() {
     var t = $('#example').DataTable( {
-    	
+    	"scrollY":  "400px",
+    	"scrollCollapse":  true,
+    	"paging":  false,
     	"footerCallback": function ( row, data, start, end, display ) {
             var api = this.api(), data;
  
@@ -192,7 +202,7 @@ $(document).ready(function() {
                 }, 0 );
  
             // Update footer
-            $( api.column( 1 ).footer() ).html(
+            $( api.column( 7 ).footer() ).html(
                 'Total: Rs '+pageTotal +' '
             );
            
