@@ -58,10 +58,6 @@
 <script type="text/javascript" src="assets/js/buttons.html5.min.js"></script>
 <script type="text/javascript" src="assets/js/vfs_fonts.js"></script>
 
-
-
-
-
 <!-- jQuery UI 1.11.4 -->
 <script src="assets/js/jquery-ui.min.js"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->

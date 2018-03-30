@@ -32,32 +32,35 @@ ResultSet group=(ResultSet) i.getgroup();%>
 			<div class="panel-heading count">
 				<h5>
 					<strong>Inventory Item Details</strong>
-					 <div class="pull-right text-center">
-					  Total Items <input type="text" form="form"  style="width: 50px; height: 20px; text-align: center;" class="totalstock count" readonly>
-					 &nbsp<table cellpadding="3" cellspacing="0" border="0" class="pull-right">
-						<tbody>
-							<tr id="filter_col2" data-column="1">
-								<td align="center">
-							 <select name="groupcode" form="form" class="column_filter form-control" id="col1_filter"  required>
-                                    <option  value="" selected>Search By Group</option>
-                                                	<%while(group.next()){ %>
-                                                
-                                                	<option  value="<%=group.getString("groupcode")%>"><%=group.getString("groupname") %></option>
-                                                	
-                                                		<%} %>
-                                                
-                                                </select></td>
-							</tr>
-						</tbody>
-					</table>
+					<div class="pull-right text-center">
+						Total Items <input type="text" form="form"
+							style="width: 50px; height: 20px; text-align: center;"
+							class="totalstock count" readonly> &nbsp
+						<table cellpadding="3" cellspacing="0" border="0"
+							class="pull-right">
+							<tbody>
+								<tr id="filter_col2" data-column="1">
+									<td align="center"><select name="groupcode" form="form"
+										class="column_filter form-control" id="col1_filter" required>
+											<option value="" selected>Search By Group</option>
+											<%while(group.next()){ %>
+
+											<option value="<%=group.getString("groupcode")%>"><%=group.getString("groupname") %></option>
+
+											<%} %>
+
+									</select></td>
+								</tr>
+							</tbody>
+						</table>
 					</div>
-					
-					
+
+
 				</h5>
 			</div>
-				<div class="panel-body">
-				<table id="example" class=" display compact"
-					cellspacing="0" width="100%">
+			<div class="panel-body">
+				<table id="example" class=" display compact" cellspacing="0"
+					width="100%">
 					<thead>
 						<tr>
 							<th></th>
@@ -77,15 +80,15 @@ ResultSet group=(ResultSet) i.getgroup();%>
 							%>
 						<tr class="tablerows">
 							<td></td>
-							<td><a 
+							<td><a
 								href="editinventory.click?id=<%=inventory.getString("itemcode") %>"><%=inventory.getString("itemcode") %></a></td>
 							<td><%=inventory.getString("transactionid") %></td>
 							<td><%=inventory.getString("groupcode") %></td>
 							<td><%=inventory.getString("itemname") %></td>
-							
+
 							<td><%=inventory.getString("model") %></td>
 							<td><%=inventory.getString("purchasedate") %></td>
-							<td><%=inventory.getString("rate") %></td>
+							<td>Rs <%=inventory.getString("rate") %></td>
 							<td><%=inventory.getString("branchCode") %></td>
 							<td id="remove"><div class="dropdown">
 									<button class="btn btn-default dropdown-toggle" type="button"
@@ -93,7 +96,7 @@ ResultSet group=(ResultSet) i.getgroup();%>
 										Action <span class="caret"></span>
 									</button>
 									<ul class="dropdown-menu">
-										<li ><a class="clickbtn" 
+										<li><a class="clickbtn"
 											href="deleteinventory.del?inventoryotherdetailid=<%=inventory.getString("inventoryotherdetailid") %>&itemcode=<%=inventory.getString("itemcode") %>&amcid=<%=inventory.getString("amcid") %>&insuranceid<%=inventory.getString("insuranceid") %>&warrantyid=<%=inventory.getString("warrantyid") %>"
 											style="color: red;"><i class="fa fa-trash-o"
 												aria-hidden="true"></i> Delete</a></li>
@@ -101,8 +104,14 @@ ResultSet group=(ResultSet) i.getgroup();%>
 								</div></td>
 						</tr>
 						<%} %>
-					
+
 					</tbody>
+					<tfoot>
+						<tr>
+							<th colspan="4" style="text-align: right">Total:</th>
+							<th></th>
+						</tr>
+					</tfoot>
 				</table>
 			</div>
 		</div>
@@ -161,6 +170,34 @@ function filterColumn ( i ) {
 $(document).ready(function() {
     var t = $('#example').DataTable( {
     	
+    	"footerCallback": function ( row, data, start, end, display ) {
+            var api = this.api(), data;
+ 
+            // Remove the formatting to get integer data for summation
+            var intVal = function ( i ) {
+                return typeof i === 'string' ?
+                    i.replace(/[\Rs,]/g, '')*1 :
+                    typeof i === 'number' ?
+                        i : 0;
+            };
+ 
+          
+ 
+            // Total over this page
+            pageTotal = api
+                .column( 7, { page: 'current'} )
+                .data()
+                .reduce( function (a, b) {
+                    return intVal(a) + intVal(b);
+                }, 0 );
+ 
+            // Update footer
+            $( api.column( 1 ).footer() ).html(
+                'Total: Rs '+pageTotal +' '
+            );
+           
+        },
+    	
     	dom:'Bfrtip',
     	buttons:[
     		
@@ -211,6 +248,7 @@ $(document).ready(function() {
         filterColumn( $(this).parents('tr').attr('data-column') );
  	  
     } );
+   
     
  } );
  
