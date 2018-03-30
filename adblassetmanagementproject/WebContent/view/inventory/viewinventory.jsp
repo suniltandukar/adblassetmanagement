@@ -2,13 +2,16 @@
 
 
 <%@page import="java.sql.*"%>
+<%@page import="java.text.DecimalFormat"%>
 <%@page import='com.adbl.daoimpl.InventoryDaoImpl'%>
 <%@page import='com.adbl.dao.InventoryDao'%>
 <%
 String currentBranchcode=(String)session.getAttribute("currentBranchcode");
 InventoryDao i=new InventoryDaoImpl();
 ResultSet inventory=(ResultSet) i.getinventorydata(currentBranchcode);
-ResultSet group=(ResultSet) i.getgroup();%>
+ResultSet group=(ResultSet) i.getgroup();
+DecimalFormat f = new DecimalFormat("##.00");
+%>
 <jsp:include page="/includefile"></jsp:include>
 <html>
 <head>
@@ -88,7 +91,7 @@ ResultSet group=(ResultSet) i.getgroup();%>
 
 							<td><%=inventory.getString("model") %></td>
 							<td><%=inventory.getString("purchasedate") %></td>
-							<td>Rs <%=inventory.getString("rate") %></td>
+							<td>Rs <%=f.format(inventory.getDouble("rate")) %></td>
 							<td><%=inventory.getString("branchCode") %></td>
 							<td id="remove"><div class="dropdown">
 									<button class="btn btn-default dropdown-toggle" type="button"
