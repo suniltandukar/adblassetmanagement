@@ -29,6 +29,13 @@ public class Inventory {
 	public void setCid(String cid) {
 		this.cid = cid;
 	}
+	String lastyrdep;
+	public String getLastyrdep() {
+		return lastyrdep;
+	}
+	public void setLastyrdep(String lastyrdep) {
+		this.lastyrdep = lastyrdep;
+	}
 	String legacyid;
 	String groupcode;
 	String itemname;

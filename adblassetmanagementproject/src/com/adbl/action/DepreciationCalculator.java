@@ -55,9 +55,11 @@ public class DepreciationCalculator {
 		System.out.println("rate is "+rate);
 			double amount=Double.parseDouble(rs.getString("amount"));
        System.out.println(amount+"amount");
-			double salvage=1;
+			
+       double salvage=1;
 		
 			double depreciation=((amount-salvage)/(100/rate))*(days/365);
+			
 			System.out.println("Your depreciation is " +depreciation);
 			
 		} catch (Exception e) {

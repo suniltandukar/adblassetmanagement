@@ -68,6 +68,7 @@ public class InventoryAction {
 		String itemcode=request.getParameter("itemcode");
 		String yeartxn=request.getParameter("year");
 		String donatationpercentage=request.getParameter("donationpercentage");
+		String lastyrdep=request.getParameter("lastyrdep");
 		
 		
 		Inventory inventory=new Inventory();
@@ -113,6 +114,7 @@ public class InventoryAction {
 		inventory.setLicenseno(licenseno);
 		//inventory.setItemcode(itemcode);
 		inventory.setDonationpercentage(donatationpercentage);
+		inventory.setLastyrdep(lastyrdep);
 		
 		DateFormat dateformat=new SimpleDateFormat("yyyy");
 		Date date=new Date();
@@ -164,6 +166,9 @@ public class InventoryAction {
 				String action="New Inventory "+inventory.getGenerated_itemcode()+ " Inserted By "+um.getUsername();
 				
 				boolean sts=userdao.loghistorydao(um.getUsername(), action);
+			
+				boolean depstatus=idao.insertDep(inventory, item_code);
+				System.out.println("depreciation insert status="+depstatus);
 				}
 			
 			

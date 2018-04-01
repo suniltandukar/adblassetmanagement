@@ -113,6 +113,12 @@ public class OperationalController extends HttpServlet {
 			
 			
 		}
+		
+		else if(uri.endsWith("viewDep.adbl"))
+		{
+			
+			
+		}
 		}
 	
 	

@@ -15,6 +15,8 @@ public class InventoryEditAction {
 	
 	public Inventory editinventory(HttpServletRequest request, HttpServletResponse response) {
 		boolean status=false;
+		String lastyrdep=request.getParameter("lastyrdep");
+		
 		String legacyid=request.getParameter("legacyid");
 		String groupcode=request.getParameter("groupcode");
 		String itemname=request.getParameter("itemname");
@@ -110,6 +112,7 @@ public class InventoryEditAction {
 		inventory.setInsuranceid(insuranceid);
 		inventory.setInventoryotherdetailid(inventoryotherdetailid);
 		inventory.setWarrantyid(warrantyid);
+		inventory.setLastyrdep(lastyrdep);
 		
 		
 		String value=null;
@@ -147,6 +150,9 @@ public class InventoryEditAction {
 		
 		if(stats)
 		{
+			String genitemcode=inventory.getUpdated_itemcode();
+			boolean depstatus=idao.insertDep(inventory,genitemcode);
+			System.out.println("depreciation insert status="+depstatus);
 			UserDao userdao=new UserDaoImpl();
 			HttpSession session=request.getSession();
 			UserModel um=(UserModel) session.getAttribute("userDetail");

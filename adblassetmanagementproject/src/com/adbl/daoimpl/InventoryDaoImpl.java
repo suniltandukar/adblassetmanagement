@@ -438,4 +438,23 @@ public class InventoryDaoImpl implements InventoryDao {
 		}
 		return false;
 	}
+	public boolean insertDep(Inventory inventory, String genitemcode){
+		String query="insert into deptbl (itemcode, lastyrdep) values(?,?)";
+		
+		try {
+			con=DBConnection.getConnection();
+			ps=con.prepareStatement(query);
+			ps.setString(1, genitemcode);
+			ps.setString(2, inventory.getLastyrdep());
+			int i=ps.executeUpdate();
+			if(i>0){
+				return true;
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
 }

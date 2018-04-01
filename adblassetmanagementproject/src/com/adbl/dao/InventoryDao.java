@@ -31,5 +31,6 @@ public interface InventoryDao {
 	public boolean savetransferstatus(String transferid, String itemcode);
 	//public boolean depreciationdao(Inventory inventory, String item_code);
 	public ResultSet getinventoryfordep(String itemcode);
+	public boolean insertDep(Inventory inventory, String genitemcode);
 	
 }

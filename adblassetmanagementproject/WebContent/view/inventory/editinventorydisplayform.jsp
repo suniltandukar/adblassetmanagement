@@ -114,6 +114,11 @@ if(idetail.next()){ %>
 													id="englishDate1" placeholder="YYYY-MM-DD" form="form"
 													value="<%=idetail.getString("decisiondateen") %>">
 												</td>
+												<td>
+													<h5>Last Year Depreciation</h5> <input type="text" name="lastyrdep"
+													class="form-control" form="form"
+													value="" required>
+												</td>
 											</tr>
 											<tr>
 												<td>
