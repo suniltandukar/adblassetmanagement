@@ -98,6 +98,11 @@ ResultSet group=(ResultSet) i.getgroup();%>
                                                 name="decisiondateen" class="form-control" id="englishDate1"
                                                 placeholder="YYYY-MM-DD"  form="form" maxlength="10">
                                             </td>
+                                            <td>
+													<h5>Last Year Depreciation</h5> <input type="text" name="lastyrdep"
+													class="form-control" form="form"
+													value="" required>
+												</td>
                                         </tr>
                                         <tr>
                                             <td>

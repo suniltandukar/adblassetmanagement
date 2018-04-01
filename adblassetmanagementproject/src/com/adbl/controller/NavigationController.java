@@ -245,6 +245,11 @@ public class NavigationController extends HttpServlet {
 				
 			}
 		}
+		else if(uri.endsWith("viewDep.click"))
+		{
+			RequestDispatcher rd=request.getRequestDispatcher("view/Depreciation/viewDep.jsp");
+			rd.forward(request, response);
+		}
 		
 	}
 

@@ -221,6 +221,20 @@ display:block;}
             <li id="v" ><a href="viewbill.click" target="iframe_a"><i class="fa fa-circle-o" ></i> View Bill</a></li>
           </ul>
         </li>
+        
+           <li class="treeview" id="bill">
+          <a href="#">
+            <i class="fa fa-money"></i>
+            <span>Depreciation</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li id="i" ><a href="viewDep.click" target="iframe_a"><i class="fa fa-circle-o" ></i> Upload Bill</a></li>
+          </ul>
+        </li>
+        
         <li class="treeview" id="settings">
           <a href="#">
             <i class="fa fa-cogs"></i>
