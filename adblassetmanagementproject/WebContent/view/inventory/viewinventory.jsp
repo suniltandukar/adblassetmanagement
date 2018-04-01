@@ -16,8 +16,10 @@ DecimalFormat f = new DecimalFormat("##.00");
 <html>
 <head>
 
+
 </head>
-<div class="breadcrumb-line">
+<body class="background">
+<div class="breadcrumb-line ">
 	<nav aria-label="breadcrumb" role="navigation">
 		<ol class="breadcrumb">
 			<li class="breadcrumb-item"><i class="fa fa-home"
@@ -248,4 +250,5 @@ $(document).ready(function() {
  
 
 </script>
+</body>
 </html>
