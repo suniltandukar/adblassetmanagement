@@ -25,6 +25,7 @@ display: table-header-group;}
 		<h5>
 			<strong>Inventory Item Details</strong>
 		</h5>
+		<a href="#" class="btn btn-default" data-toggle="confirmation" data-title="Open Google?">fdsafd</a>
 		<input type="text" class="form-control count total-stock pull-right" readonly style="width:5%">
 		
 	</div>
@@ -105,7 +106,7 @@ display: table-header-group;}
 			        	{  "targets": 1,
 			        	    "data": "itemcode",
 			        	    "render": function ( data, type, row, meta ) {
-			        	      return '<a onclick="confirmfun()" href="deleteinventory.del?itemcode='+data+'">Delete</a>';
+			        	      return '<a  class="btn btn-default" data-toggle="confirmation" href="deleteinventory.del?itemcode='+data+'">Delete</a>';
 			        	    }
 			        	},
 			        ],
@@ -224,10 +225,6 @@ display: table-header-group;}
 			            $('.count').val(c);
 			        } );
 			    } ).draw();
-			  
-			    function confirmfun(){
-			    	confirm("Confirm");
-			    }
 </script>
 </body>
 </html>

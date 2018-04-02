@@ -58,6 +58,7 @@
 <script type="text/javascript" src="assets/js/buttons.html5.min.js"></script>
 <script type="text/javascript" src="assets/js/vfs_fonts.js"></script>
 
+
 <!-- jQuery UI 1.11.4 -->
 <script src="assets/js/jquery-ui.min.js"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
@@ -67,5 +68,6 @@
 <script src="assets/js/validator.js"></script>
 <!-- jQuery Tags Input -->
     <script type="text/javascript" src="template/js/jquery.tagsinput.js"></script>
+    <script type="text/javascript" src="assets/js/bootstrap-confirmation.min.js"></script>
    
 </div>
