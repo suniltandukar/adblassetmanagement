@@ -7,6 +7,7 @@
 tfoot{
 display: table-header-group;}
 </style> -->
+<script type="text/javascript" src="../../assets/js/bootstrap-confirmation.min.js"></script>
 </head>
 <body class="background">
 <div class="breadcrumb-line ">
@@ -25,7 +26,7 @@ display: table-header-group;}
 		<h5>
 			<strong>Inventory Item Details</strong>
 		</h5>
-		<a href="#" class="btn btn-default" data-toggle="confirmation" data-title="Open Google?">fdsafd</a>
+		<!-- <a href="#" class="btn btn-default" data-toggle="confirmation" data-title="Open Google?">fdsafd</a> -->
 		<input type="text" class="form-control count total-stock pull-right" readonly style="width:5%">
 		
 	</div>

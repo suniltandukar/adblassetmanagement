@@ -68,6 +68,6 @@
 <script src="assets/js/validator.js"></script>
 <!-- jQuery Tags Input -->
     <script type="text/javascript" src="template/js/jquery.tagsinput.js"></script>
-    <script type="text/javascript" src="assets/js/bootstrap-confirmation.min.js"></script>
+    
    
 </div>
