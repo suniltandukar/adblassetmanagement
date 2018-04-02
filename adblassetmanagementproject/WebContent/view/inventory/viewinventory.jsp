@@ -1,17 +1,12 @@
-<%@page import="java.sql.*"%>
-<%@page import="java.text.DecimalFormat"%>
-<%@page import='com.adbl.daoimpl.InventoryDaoImpl'%>
-<%@page import='com.adbl.dao.InventoryDao'%>
-<%
-InventoryDao i=new InventoryDaoImpl();
-ResultSet group=(ResultSet) i.getgroup();
-DecimalFormat f = new DecimalFormat("##.00");
-%>
+
 <jsp:include page="/includefile"></jsp:include>
 <html>
 <head>
 
-
+<!-- <style>
+tfoot{
+display: table-header-group;}
+</style> -->
 </head>
 <body class="background">
 <div class="breadcrumb-line ">
@@ -30,34 +25,14 @@ DecimalFormat f = new DecimalFormat("##.00");
 		<h5>
 			<strong>Inventory Item Details</strong>
 		</h5>
+		<input type="text" class="form-control count total-stock pull-right" readonly style="width:5%">
 		
 	</div>
-	<div class="panel-heading count">
-			Total Items <input type="text" form="form"
-				style="width: 50px; height: 20px; text-align: center;"
-				class="totalstock count" readonly> &nbsp
-			<table cellpadding="3" cellspacing="0" border="0" class="pull-right">
-				<tbody>
-					<tr id="filter_col2" data-column="1">
-						<td align="center"><select name="groupcode" form="form"
-							class="column_filter form-control" id="col1_filter" required>
-								<option value="" selected>Search By Group</option>
-								<%while(group.next()){ %>
-
-								<option value="<%=group.getString("groupcode")%>"><%=group.getString("groupname") %></option>
-
-								<%} %>
-
-						</select></td>
-					</tr>
-				</tbody>
-			</table>
-
-		</div>
 	<div class="panel-body">
 		<table id="datatableaa" class="table jambo_table table-striped table-bordered resulttable display nowrap" >
 			<thead>
 				<tr>
+					<th>S.No</th>
 					<th>Item Code</th>
 					<th>Transaction Id</th>
 					<th>Group Code</th>
@@ -65,20 +40,22 @@ DecimalFormat f = new DecimalFormat("##.00");
 					<th>Model</th>
 					<th>Purchase Date</th>
 					<th>Rate</th>
-					<!-- <th id="remove"><i class="fa fa-cog" aria-hidden="true"></i></th> -->
+					<th id="remove"><i class="fa fa-cog" aria-hidden="true"></i></th>
 				</tr>
 			</thead>
 			<tfoot>
 				<tr>
+					<th></th>
+					<th></th>
+					<th></th>
+					<th></th>
+					<th></th>
+					<th></th>
 					<th>Total</th>
 					<th></th>
 					<th></th>
-					<th></th>
-					<th></th>
-					<th></th>
-					<th></th>
-					
-				</tr>
+
+</tr>
 			</tfoot>
 		</table>
 	</div>
@@ -99,16 +76,24 @@ DecimalFormat f = new DecimalFormat("##.00");
 			</div>
 		</div>
 	</div>
+
 </div> 
 <script type="text/javascript">
 		$(document).ready(function() {
-			 $('#datatableaa').DataTable( {
+			   
+			 var t=$('#datatableaa').DataTable( {
+				 
+				 "scrollX": true,
+				 "scrollY":  "400px",
+			    	"paging":  false,
+			 
 				  "ajax": "inventoryList.adbl",
 			        "columns":[
-			        	{  "targets": 0,
+			        	{"data":"itemcode"},
+			        	{  "targets": 1,
 			        	    "data": "itemcode",
 			        	    "render": function ( data, type, row, meta ) {
-			        	      return '<a href="editinventory.click?id='+data+'">'+data+'</a>';
+			        	      return '<a class="a" href="editinventory.click?id='+data+'">'+data+'</a>';
 			        	    }
 			        	},
 			        	{"data":"transactionid"},
@@ -117,8 +102,90 @@ DecimalFormat f = new DecimalFormat("##.00");
 			        	{"data":"model"},
 			        	{"data":"purchasedate"},
 			        	{"data":"rate"},
-			        ]
+			        	{  "targets": 1,
+			        	    "data": "itemcode",
+			        	    "render": function ( data, type, row, meta ) {
+			        	      return '<a onclick="confirmfun()" href="deleteinventory.del?itemcode='+data+'">Delete</a>';
+			        	    }
+			        	},
+			        ],
+			        "footerCallback": function ( row, data, start, end, display ) {
+			            var api = this.api(), data;
+			            // Remove the formatting to get integer data for summation
+			            var intVal = function ( i ) {
+			                return typeof i === 'string' ?
+			                    i.replace(/[\Rs,]/g, '')*1 :
+			                    typeof i === 'number' ?
+			                        i : 0;
+			            };
+			            // Total over this page
+			            pageTotal = api
+			                .column( 7, { page: 'current'} )
+			                .data()
+			                .reduce( function (a, b) {
+			                    return (intVal(a) + intVal(b)).toFixed(2);
+			                }, 0 );
+			 
+			            // Update footer
+			            $( api.column( 7 ).footer() ).html(
+			                'Rs '+pageTotal +' '
+			            );
+			           
+			        },
+			        dom:'Bfrtip',
+			    	buttons:[
+			    		
+			    		{
+			    			extend: 'print',
+			    			 messageTop: 'Asset Management System',
+			                exportOptions: {
+			                	 columns: [1, 2, 3,4,5,6,7 ]
+			                }
+			    		},
+			    		{
+			    			extend: 'pdfHtml5',
+			    			 messageTop: 'Asset Management System',
+			                exportOptions: {
+			                	 columns: [1, 2, 3,4,5,6,7]
+			                }
+			    		},
+			    		 {
+			                extend: 'excelHtml5',
+			                messageTop: 'Asset Management System',
+			                exportOptions: {
+			                	columns: [1, 2, 3,4,5,6,7 ]
+			                }
+			            }
+			    	],
+			        initComplete: function () {
+			            this.api().columns([3,4]).every( function () {
+			                var column = this;
+			                var select = $('<select style="width:80%"><option value="">Search</option></select>')
+			                    .appendTo( $(column.footer()).empty() )
+			                    .on( 'change', function () {
+			                        var val = $.fn.dataTable.util.escapeRegex(
+			                            $(this).val()
+			                        );
+			 
+			                        column
+			                            .search( val ? '^'+val+'$' : '', true, false )
+			                            .draw();
+			                    } );
+			 
+			                column.data().unique().sort().each( function ( d, j ) {
+			                    select.append( '<option value="'+d+'">'+d+'</option>' )
+			                } );
+			            } );
+			        }
 			    } );
+			
+			 t.on( 'order.dt search.dt', function () {
+			        t.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+			            var c=cell.innerHTML = i+1;
+			            $('.count').val(c);
+			        } );
+			    } ).draw();
+			 
 			} );
 		
 		<%if(request.getAttribute("msg")!=null){%>
@@ -157,86 +224,10 @@ DecimalFormat f = new DecimalFormat("##.00");
 			            $('.count').val(c);
 			        } );
 			    } ).draw();
-				
+			  
+			    function confirmfun(){
+			    	confirm("Confirm");
+			    }
 </script>
 </body>
 </html>
- <%-- 
-		
-		
-		
-</script>
-
-<script>
-
-
-$(document).ready(function() {
-    var t = $('#datatableaa').DataTable( {
-    	"scrollY":  "400px",
-    	"scrollCollapse":  true,
-    	"paging":  false,
-    	"footerCallback": function ( row, data, start, end, display ) {
-            var api = this.api(), data;
-            // Remove the formatting to get integer data for summation
-            var intVal = function ( i ) {
-                return typeof i === 'string' ?
-                    i.replace(/[\Rs,]/g, '')*1 :
-                    typeof i === 'number' ?
-                        i : 0;
-            };
-            // Total over this page
-            pageTotal = api
-                .column( 7, { page: 'current'} )
-                .data()
-                .reduce( function (a, b) {
-                    return intVal(a) + intVal(b);
-                }, 0 );
- 
-            // Update footer
-            $( api.column( 7 ).footer() ).html(
-                'Rs '+pageTotal +' '
-            );
-           
-        },
-    	
-    	dom:'Bfrtip',
-    	buttons:[
-    		
-    		{
-    			extend: 'print',
-    			 messageTop: 'Asset Management System',
-                exportOptions: {
-                	 columns: [1, 2, 3,4,5,6,7,8 ]
-                }
-    		},
-    		{
-    			extend: 'pdfHtml5',
-    			 messageTop: 'Asset Management System',
-                exportOptions: {
-                	 columns: [1, 2, 3,4,5,6,7,8 ]
-                }
-    		},
-    		 {
-                extend: 'excelHtml5',
-                messageTop: 'Asset Management System',
-                exportOptions: {
-                	columns: [1, 2, 3,4,5,6,7,8 ]
-                }
-            }
-    	],
-        "columnDefs": [ {
-            "searchable": false,
-            "orderable": false,
-            "targets": 0
-        } ],
-        "order": [[ 1, 'asc' ]],
-   		 "iDisplayLength": 50
-    } );
- 
-   
-   
-	
-  
-   
-    
- } ); --%>
