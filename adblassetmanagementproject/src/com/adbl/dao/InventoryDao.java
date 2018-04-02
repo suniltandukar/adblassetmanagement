@@ -4,10 +4,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+import org.json.JSONObject;
+
 import com.adbl.model.Inventory;
 
 public interface InventoryDao {
-	public ResultSet getinventorydata(String currentBranchcode);
+	public JSONObject getinventorydata(String currentBranchcode);
 	public ResultSet getcompanylist();
 	public ResultSet getfundsourcelist();
 	public ResultSet getgroup();

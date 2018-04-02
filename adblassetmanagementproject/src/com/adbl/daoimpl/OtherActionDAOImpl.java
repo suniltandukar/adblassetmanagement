@@ -4,11 +4,15 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
-import javax.servlet.http.HttpSession;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import com.adbl.dao.OtherActionDAO;
 import com.adbl.model.Bill;
+import com.adbl.model.Inventory;
 import com.org.dbconnection.DBConnection;
 
 public class OtherActionDAOImpl implements OtherActionDAO {
@@ -162,4 +166,40 @@ public class OtherActionDAOImpl implements OtherActionDAO {
 		return false;
 	}
 	
+	public JSONObject getDepreciation(){
+		List<Inventory> list=new ArrayList<Inventory>();
+		Inventory i=null;
+		JSONObject jObjDevice=null;
+		String query="select * from depreciation";
+		try{
+			con=DBConnection.getConnection();
+			ps=con.prepareStatement(query);
+			rs=ps.executeQuery();
+			JSONArray jsonArray=new JSONArray();
+			while(rs.next()){
+				JSONObject jobj = new JSONObject();
+				String itemcode=rs.getString("itemcode");
+			    String lastyrdep=rs.getString("lastyrdep");
+			    String curyrdep=rs.getString("curyrdep");
+			    String rate=rs.getString("rate");
+			    String totaldep=rs.getString("totaldep");
+			    String balance=rs.getString("balance");
+			   
+			   
+					jobj.put("itemcode", itemcode);
+					jobj.put("lastyrdep", lastyrdep);
+					jobj.put("curyrdep", curyrdep);
+				    jobj.put("rate", rate);
+				    jobj.put("totaldep", totaldep);
+				    jobj.put("balance", balance);
+				    jsonArray.put(jobj);
+				    
+				    jObjDevice = new JSONObject();
+				    jObjDevice.put("data", jsonArray);
+			}
+		}catch(Exception e){
+			System.out.println(e);
+		}
+		return jObjDevice;
+	}
 }

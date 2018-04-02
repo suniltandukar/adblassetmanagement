@@ -231,7 +231,7 @@ display:block;}
             </span>
           </a>
           <ul class="treeview-menu">
-            <li id="i" ><a href="viewDep.click" target="iframe_a"><i class="fa fa-circle-o" ></i> Upload Bill</a></li>
+            <li id="i" ><a href="viewDep.click" target="iframe_a"><i class="fa fa-circle-o" ></i> View Depreciation</a></li>
           </ul>
         </li>
         

@@ -1,5 +1,20 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <jsp:include page="/includefile"></jsp:include>
+<html>
+	<head>
+		<body>
+		
+		<div class="breadcrumb-line ">
+	<nav aria-label="breadcrumb" role="navigation">
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item"><i class="fa fa-home"
+				aria-hidden="true"></i>&nbsp;<a href="#">Home</a></li>
+			<li class="breadcrumb-item active" aria-current="page">Depreciation</li>
+			<li class="breadcrumb-item active" aria-current="page">View
+				Depreciation</li>
+		</ol>
+	</nav>
+</div>
 <div>
 	<table id="datatableaa"
 		class="table jambo_table table-striped table-bordered resulttable display nowrap"
@@ -7,7 +22,6 @@
 		<thead>
 			<tr>
 				<th>Itemcode</th>
-				<th>Particular</th>
 				<th>Amount</th>
 				<th>Dep upto Last Fiscal Year</th>
 				<th>Dep Current Year</th>
@@ -32,15 +46,25 @@ $(document).ready(function() {
 	        
 	        "ajax": "viewDep.adbl",
 	        "columns":[
-	        	{"data":"pid"},
-	        	{"data":"memberid"},
-	        	{"data":"name"},
+	        	{  "targets": 0,
+	        	    "data": "itemcode",
+	        	    "render": function ( data, type, row, meta ) {
+	        	      return '<a href="editinventory.click?id='+data+'">'+data+'</a>';
+	        	    }
+	        	},
+	        	{"data":"rate"},
+	        	{"data":"lastyrdep"},
 	        	
-	        	{"data":"gender"},
+	        	{"data":"curyrdep"},
 	        	
-	        	{"data":"address"},
+	        	{"data":"totaldep"},
+	        	{"data":"balance"},
+	        	 
 	        ]
 	    } );
 } );
 
 </script>
+		</body>
+	</head>
+</html>

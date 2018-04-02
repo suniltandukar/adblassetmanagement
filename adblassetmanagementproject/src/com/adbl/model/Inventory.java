@@ -36,6 +36,27 @@ public class Inventory {
 	public void setLastyrdep(String lastyrdep) {
 		this.lastyrdep = lastyrdep;
 	}
+	String curyrdep;
+	public String getCuryrdep() {
+		return curyrdep;
+	}
+	public void setCuryrdep(String curyrdep) {
+		this.curyrdep = curyrdep;
+	}
+	String totaldep;
+	public String getTotaldep() {
+		return totaldep;
+	}
+	public void setTotaldep(String totaldep) {
+		this.totaldep = totaldep;
+	}
+	String balance;
+	public String getBalance() {
+		return balance;
+	}
+	public void setBalance(String balance) {
+		this.balance = balance;
+	}
 	String legacyid;
 	String groupcode;
 	String itemname;

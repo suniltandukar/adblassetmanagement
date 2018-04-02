@@ -1,14 +1,9 @@
-<link rel="import" href="new.jsp">
-
-
 <%@page import="java.sql.*"%>
 <%@page import="java.text.DecimalFormat"%>
 <%@page import='com.adbl.daoimpl.InventoryDaoImpl'%>
 <%@page import='com.adbl.dao.InventoryDao'%>
 <%
-String currentBranchcode=(String)session.getAttribute("currentBranchcode");
 InventoryDao i=new InventoryDaoImpl();
-ResultSet inventory=(ResultSet) i.getinventorydata(currentBranchcode);
 ResultSet group=(ResultSet) i.getgroup();
 DecimalFormat f = new DecimalFormat("##.00");
 %>
@@ -60,11 +55,9 @@ DecimalFormat f = new DecimalFormat("##.00");
 
 		</div>
 	<div class="panel-body">
-		<table id="example" class=" display compact" cellspacing="0"
-			width="100%">
+		<table id="datatableaa" class="table jambo_table table-striped table-bordered resulttable display nowrap" >
 			<thead>
 				<tr>
-					<th>S.No</th>
 					<th>Item Code</th>
 					<th>Transaction Id</th>
 					<th>Group Code</th>
@@ -72,33 +65,9 @@ DecimalFormat f = new DecimalFormat("##.00");
 					<th>Model</th>
 					<th>Purchase Date</th>
 					<th>Rate</th>
-					<th id="remove"><i class="fa fa-cog" aria-hidden="true"></i></th>
+					<!-- <th id="remove"><i class="fa fa-cog" aria-hidden="true"></i></th> -->
 				</tr>
 			</thead>
-			<tbody>
-				<% while (inventory.next()){
-							%>
-				<tr class="tablerows">
-					<td></td>
-					<td><a
-						href="editinventory.click?id=<%=inventory.getString("itemcode") %>"><%=inventory.getString("itemcode") %></a></td>
-					<td><%=inventory.getString("transactionid") %></td>
-					<td><%=inventory.getString("groupcode") %></td>
-					<td><%=inventory.getString("itemname") %></td>
-
-					<td><%=inventory.getString("model") %></td>
-					<td><%=inventory.getString("purchasedate") %></td>
-					<td>Rs <%=f.format(inventory.getDouble("rate")) %></td>
-					<td id="remove"><div class="dropdown">
-							<a class="clickbtn"
-									href="deleteinventory.del?inventoryotherdetailid=<%=inventory.getString("inventoryotherdetailid") %>&itemcode=<%=inventory.getString("itemcode") %>&amcid=<%=inventory.getString("amcid") %>&insuranceid<%=inventory.getString("insuranceid") %>&warrantyid=<%=inventory.getString("warrantyid") %>"
-									style="color: red;"><i class="fa fa-trash-o"
-										aria-hidden="true"></i></a>
-						</div></td>
-				</tr>
-				<%} %>
-
-			</tbody>
 			<tfoot>
 				<tr>
 					<th>Total</th>
@@ -115,7 +84,7 @@ DecimalFormat f = new DecimalFormat("##.00");
 		</table>
 	</div>
 </div>
-<div class="modal fade" id="myModal" role="dialog">
+<%-- <div class="modal fade" id="myModal" role="dialog">
 	<div class="modal-dialog modal-sm">
 		<div class="modal-content">
 			<div class="modal-body">
@@ -131,13 +100,33 @@ DecimalFormat f = new DecimalFormat("##.00");
 			</div>
 		</div>
 	</div>
-</div>
+</div> --%>
 <script type="text/javascript">
 		$(document).ready(function() {
-			   <%if(request.getAttribute("msg")!=null){%>
-			   $('#myModal').modal('show');
-			   <%}%>
+			 $('#datatableaa').DataTable( {
+				  "ajax": "inventoryList.adbl",
+			        "columns":[
+			        	{  "targets": 0,
+			        	    "data": "itemcode",
+			        	    "render": function ( data, type, row, meta ) {
+			        	      return '<a href="editinventory.click?id='+data+'">'+data+'</a>';
+			        	    }
+			        	},
+			        	{"data":"transactionid"},
+			        	{"data":"groupcode"},
+			        	{"data":"itemname"},
+			        	{"data":"model"},
+			        	{"data":"purchasedate"},
+			        	{"data":"rate"},
+			        ]
+			    } );
 			} );
+</script>
+</body>
+</html>
+ <%--  <%if(request.getAttribute("msg")!=null){%>
+		   $('#myModal').modal('show');
+		   <%}%>
 		$('.clickbtn').click(function(){
 			return confirm('CONFIRM?');
 		});
@@ -166,7 +155,7 @@ function filterColumn ( i ) {
 }
 
 $(document).ready(function() {
-    var t = $('#example').DataTable( {
+    var t = $('#datatableaa').DataTable( {
     	"scrollY":  "400px",
     	"scrollCollapse":  true,
     	"paging":  false,
@@ -246,9 +235,4 @@ $(document).ready(function() {
     } );
    
     
- } );
- 
-
-</script>
-</body>
-</html>
+ } ); --%>

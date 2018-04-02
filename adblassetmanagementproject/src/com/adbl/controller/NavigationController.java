@@ -14,11 +14,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.JSONObject;
+
 import com.adbl.action.OtherAction;
 import com.adbl.action.TransferAction;
 import com.adbl.action.UserAction;
+import com.adbl.dao.InventoryDao;
 import com.adbl.dao.TransferDao;
 import com.adbl.dao.UserDao;
+import com.adbl.daoimpl.InventoryDaoImpl;
 import com.adbl.daoimpl.TransferDaoImpl;
 import com.adbl.daoimpl.UserDaoImpl;
 import com.adbl.model.History;
@@ -41,6 +45,7 @@ public class NavigationController extends HttpServlet {
 		String uri=request.getRequestURI();
 		if(uri.endsWith("viewinventory.click"))
 		{
+			
 			RequestDispatcher rd=request.getRequestDispatcher("view/inventory/viewinventory.jsp");
 			rd.forward(request, response);
 		}

@@ -1,8 +1,12 @@
 package com.adbl.dao;
 
 import java.sql.ResultSet;
+import java.util.List;
+
+import org.json.JSONObject;
 
 import com.adbl.model.Bill;
+import com.adbl.model.Inventory;
 
 public interface OtherActionDAO {
 
@@ -20,6 +24,8 @@ public interface OtherActionDAO {
 	public boolean deletebilldata(String billid);
 
 	public Bill getbilldetail(String billid, String branchdb, Bill bill);
+
+	public JSONObject getDepreciation();
 
 	
 	

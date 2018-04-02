@@ -3,7 +3,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import com.adbl.dao.InventoryDao;
 import com.adbl.model.Inventory;
@@ -19,16 +23,44 @@ public class InventoryDaoImpl implements InventoryDao {
 	public InventoryDaoImpl() {
 		con=DBConnection.getConnection();
 	}
-	public ResultSet getinventorydata(String currentBranchcode){
+	public JSONObject getinventorydata(String currentBranchcode){
 		String query="select * from inventoryitemdetail where branchcode='"+currentBranchcode+"'";
+		List<Inventory> list=new ArrayList<Inventory>();
+		Inventory i=null;
+		JSONObject jObjDevice=null;
 		try{
-			stmt=con.createStatement();
-			rs=stmt.executeQuery(query);
+			con=DBConnection.getConnection();
+			ps=con.prepareStatement(query);
+			rs=ps.executeQuery();
+			JSONArray jsonArray=new JSONArray();
+			
+			while(rs.next()){
+				
+				JSONObject jobj = new JSONObject();
+				String itemcode=rs.getString("itemcode");
+			    String transactionid=rs.getString("transactionid");
+			    String groupcode=rs.getString("groupcode");
+			    String itemname=rs.getString("itemname");
+			    String model=rs.getString("model");
+			    String purchasedate=rs.getString("purchasedate");
+			    String rate=rs.getString("rate");
+			   
+					jobj.put("itemcode", itemcode);
+					jobj.put("transactionid", transactionid);
+					jobj.put("groupcode", groupcode);
+				    jobj.put("itemname", itemname);
+				    jobj.put("model", model);
+				    jobj.put("purchasedate", purchasedate);
+				    jobj.put("rate", rate);
+				    jsonArray.put(jobj);
+				    
+				    jObjDevice = new JSONObject();
+				    jObjDevice.put("data", jsonArray);
+			}
+		}catch(Exception e){
+			System.out.println(e);
 		}
-		catch(Exception e){
-			System.out.println("getinventorydata error"+e);
-		}
-		return rs;
+		return jObjDevice;
 	}
 	public ResultSet getinventoryfordep(String itemcode)
 	{
