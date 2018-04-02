@@ -77,14 +77,13 @@ DecimalFormat f = new DecimalFormat("##.00");
 					<th></th>
 					<th></th>
 					<th></th>
-					<th></th>
-					<th></th>
+					
 				</tr>
 			</tfoot>
 		</table>
 	</div>
 </div>
-<%-- <div class="modal fade" id="myModal" role="dialog">
+<div class="modal fade" id="myModal" role="dialog">
 	<div class="modal-dialog modal-sm">
 		<div class="modal-content">
 			<div class="modal-body">
@@ -100,7 +99,7 @@ DecimalFormat f = new DecimalFormat("##.00");
 			</div>
 		</div>
 	</div>
-</div> --%>
+</div> 
 <script type="text/javascript">
 		$(document).ready(function() {
 			 $('#datatableaa').DataTable( {
@@ -121,38 +120,55 @@ DecimalFormat f = new DecimalFormat("##.00");
 			        ]
 			    } );
 			} );
+		
+		<%if(request.getAttribute("msg")!=null){%>
+		   $('#myModal').modal('show');
+		   <%}%>
+		   
+		   function filterGlobal () {
+			    $('#example').DataTable().search(
+			        $('#global_filter').val(),
+			        $('#global_regex').prop('checked'),
+			        $('#global_smart').prop('checked')
+			        
+			    ).draw();
+			}
+			 
+
+			function filterColumn ( i ) {
+			   $('#example').DataTable().column( i ).search(
+			       $('#col'+i+'_filter').val(),
+			       $('#col'+i+'_regex').prop('checked'),
+			       $('#col'+i+'_smart').prop('checked')
+			   ).draw();
+			}
+			
+			  $('select.global_filter').on( 'keyup click', function () {
+			        filterGlobal();
+			    } );
+
+			    $('select.column_filter').on( 'keyup click', function () {
+			        filterColumn( $(this).parents('tr').attr('data-column') );
+			 	  
+			    } );
+			    t.on( 'order.dt search.dt', function () {
+			        t.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+			            var c=cell.innerHTML = i+1;
+			            $('.count').val(c);
+			        } );
+			    } ).draw();
+				
 </script>
 </body>
 </html>
- <%--  <%if(request.getAttribute("msg")!=null){%>
-		   $('#myModal').modal('show');
-		   <%}%>
-		$('.clickbtn').click(function(){
-			return confirm('CONFIRM?');
-		});
+ <%-- 
 		
 		
 		
 </script>
 
 <script>
-function filterGlobal () {
-    $('#example').DataTable().search(
-        $('#global_filter').val(),
-        $('#global_regex').prop('checked'),
-        $('#global_smart').prop('checked')
-        
-    ).draw();
-}
- 
 
-function filterColumn ( i ) {
-   $('#example').DataTable().column( i ).search(
-       $('#col'+i+'_filter').val(),
-       $('#col'+i+'_regex').prop('checked'),
-       $('#col'+i+'_smart').prop('checked')
-   ).draw();
-}
 
 $(document).ready(function() {
     var t = $('#datatableaa').DataTable( {
@@ -218,21 +234,9 @@ $(document).ready(function() {
     } );
  
    
-    t.on( 'order.dt search.dt', function () {
-        t.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
-            var c=cell.innerHTML = i+1;
-            $('.count').val(c);
-        } );
-    } ).draw();
+   
 	
-    $('select.global_filter').on( 'keyup click', function () {
-        filterGlobal();
-    } );
-
-    $('select.column_filter').on( 'keyup click', function () {
-        filterColumn( $(this).parents('tr').attr('data-column') );
- 	  
-    } );
+  
    
     
  } ); --%>
