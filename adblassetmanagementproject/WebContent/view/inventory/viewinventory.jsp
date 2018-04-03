@@ -84,13 +84,15 @@ display: table-header-group;}
 		$(document).ready(function() {
 			   
 			 var t=$('#datatableaa').DataTable( {
+				 
+			 	
 				 "processing": true,
-				 "serverSide": true,
 				 "scrollX": true,
 				 "scrollY":  "400px",
 			    	"paging":  false,
 			 
 				  "ajax": "inventoryList.adbl",
+				 
 			        "columns":[
 			        	{"data":"itemcode"},
 			        	{  "targets": 1,
