@@ -20,8 +20,10 @@
 		class="table jambo_table table-striped table-bordered resulttable display nowrap"
 		style="font-size: 100%;">
 		<thead>
-			<tr>
-				<th>Itemcode</th>
+			<tr>	
+				<th>S.NO</th>
+				<th>Item Code</th>
+				<th>Item Name</th>
 				<th>Amount</th>
 				<th>Dep upto Last Fiscal Year</th>
 				<th>Dep Current Year</th>
@@ -42,16 +44,18 @@
 </div>
 <script>
 $(document).ready(function() {
-	 $('#datatableaa').DataTable( {
+	 var t=$('#datatableaa').DataTable( {
 	        
 	        "ajax": "viewDep.adbl",
 	        "columns":[
+	        	{"data":"rate"},
 	        	{  "targets": 0,
 	        	    "data": "itemcode",
 	        	    "render": function ( data, type, row, meta ) {
 	        	      return '<a href="editinventory.click?id='+data+'">'+data+'</a>';
 	        	    }
 	        	},
+	        	{"data":"itemname"},
 	        	{"data":"rate"},
 	        	{"data":"lastyrdep"},
 	        	
@@ -62,6 +66,12 @@ $(document).ready(function() {
 	        	 
 	        ]
 	    } );
+	 t.on( 'order.dt search.dt', function () {
+	        t.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+	            var c=cell.innerHTML = i+1;
+	            $('.count').val(c);
+	        } );
+	    } ).draw();
 } );
 
 </script>

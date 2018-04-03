@@ -167,10 +167,9 @@ public class OtherActionDAOImpl implements OtherActionDAO {
 	}
 	
 	public JSONObject getDepreciation(){
-		List<Inventory> list=new ArrayList<Inventory>();
-		Inventory i=null;
+		
 		JSONObject jObjDevice=null;
-		String query="select * from depreciation";
+		String query="select *,inventoryitemdetail.itemname from depreciation join inventoryitemdetail on inventoryitemdetail.itemcode=depreciation.itemcode";
 		try{
 			con=DBConnection.getConnection();
 			ps=con.prepareStatement(query);
@@ -184,6 +183,8 @@ public class OtherActionDAOImpl implements OtherActionDAO {
 			    String rate=rs.getString("rate");
 			    String totaldep=rs.getString("totaldep");
 			    String balance=rs.getString("balance");
+			    String itemname=rs.getString("itemname");
+			    String groupname=rs.getString("groupname");
 			   
 			   
 					jobj.put("itemcode", itemcode);
@@ -192,6 +193,8 @@ public class OtherActionDAOImpl implements OtherActionDAO {
 				    jobj.put("rate", rate);
 				    jobj.put("totaldep", totaldep);
 				    jobj.put("balance", balance);
+				    jobj.put("itemname", itemname);
+				    jobj.put("groupname", groupname);
 				    jsonArray.put(jobj);
 				    
 				    jObjDevice = new JSONObject();

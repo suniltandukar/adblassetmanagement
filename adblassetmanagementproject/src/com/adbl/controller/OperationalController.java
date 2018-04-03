@@ -118,7 +118,7 @@ public class OperationalController extends HttpServlet {
 		}
 
 		else if (uri.endsWith("viewDep.adbl")) {
-			Gson objGson = new GsonBuilder().setPrettyPrinting().create();
+			//Gson objGson = new GsonBuilder().setPrettyPrinting().create();
 			OtherActionDAO o = new OtherActionDAOImpl();
 			JSONObject deplist = o.getDepreciation();
 			out.println(deplist);

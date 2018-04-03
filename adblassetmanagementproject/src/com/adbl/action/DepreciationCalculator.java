@@ -29,8 +29,11 @@ public class DepreciationCalculator {
 			DateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
 			
 			Date pdate = dateformat.parse(purchaseDate);
+			
+			String masanta="2074-03-31";
 		
-			String lastMonth="-03-31";
+		
+			String lastMonth="-07-15";
 			String lastDate=forpurchaseYear.format(pdate)+lastMonth;
 			
 			
