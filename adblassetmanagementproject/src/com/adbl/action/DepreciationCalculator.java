@@ -11,26 +11,37 @@ import com.adbl.daoimpl.InventoryDaoImpl;
 
 public class DepreciationCalculator {
 
-	public boolean DepCalc()
+	public double DepCalc(String itemcode, String lastDate, String purchaseDate, String deprate, String samount)
 
+	
 	{
-		String itemcode = "2020FAN0001";
-		InventoryDao idao = new InventoryDaoImpl();
-		ResultSet rs = idao.getinventoryfordep(itemcode);
+		System.out.println("itemcode="+itemcode+" lastDate="+lastDate+" purchasedate="+purchaseDate+" deprate="+deprate+" samount="+samount);
+		double depreciation=0;
+
 		try {
+		InventoryDao idao = new InventoryDaoImpl();
+	
+	
+		ResultSet rs = idao.getinventoryfordep(itemcode);
+		
+		
+		 
+		 double amount = Double.parseDouble(samount);
+		 double rate = Double.parseDouble(deprate);
+		
+		
 			// String itemcode=rs.getString("itemcode");
 			//String purchaseDate = rs.getString("purchasedate");
-			String purchaseDate="2012-07-10";
+			
 			DateFormat forpurchaseYear = new SimpleDateFormat("yyyy");
 
 			DateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
 
 			Date pdate = dateformat.parse(purchaseDate);
 
+			//String lastMonth = "-07-15";
+			//String lastDate = forpurchaseYear.format(pdate) + lastMonth;
 			
-
-			String lastMonth = "-07-15";
-			String lastDate = forpurchaseYear.format(pdate) + lastMonth;
 			System.out.println("Last Date "+lastDate);
 
 			Date ldate = dateformat.parse(lastDate);
@@ -43,26 +54,27 @@ public class DepreciationCalculator {
 
 				System.out.println("Number of Days between dates: " + daysBetween);
 
-				double days = 35;
-				String deprate = rs.getString("depreciationrate");
-				double rate = Double.parseDouble(deprate);
+				
+				
 				System.out.println("rate is " + rate);
-				double amount = Double.parseDouble(rs.getString("amount"));
+			
 				System.out.println(amount + "amount");
 
 				double salvage = 1;
 
-				double depreciation = ((amount - salvage) / (100 / rate)) * (days / 365);
+				 depreciation = ((amount - salvage) / (100 / rate)) * (daysBetween / 365);
 
 				System.out.println("Your depreciation is " + depreciation);
 			}
+			else{
+				depreciation=0;
+			}
 
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
-		return false;
+		return depreciation;
 	}
 
 }
