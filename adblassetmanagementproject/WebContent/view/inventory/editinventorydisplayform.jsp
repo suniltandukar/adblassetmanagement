@@ -117,7 +117,7 @@ if(idetail.next()){ %>
 												<td>
 													<h5>Last Year Depreciation</h5> <input type="text" name="lastyrdep"
 													class="form-control" form="form"
-													value="" required>
+													value="" >
 												</td>
 											</tr>
 											<tr>
