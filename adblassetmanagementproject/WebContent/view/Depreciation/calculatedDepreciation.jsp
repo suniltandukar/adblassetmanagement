@@ -1,6 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <jsp:include page="/includefile"></jsp:include>
-<jsp:include page="depJson.jsp"></jsp:include>
 <html>
 <head>
 <body>
@@ -11,28 +10,37 @@
 				<li class="breadcrumb-item"><i class="fa fa-home"
 					aria-hidden="true"></i>&nbsp;<a href="#">Home</a></li>
 				<li class="breadcrumb-item active" aria-current="page">Depreciation</li>
-				<li class="breadcrumb-item active" aria-current="page">View
-					Depreciation</li>
+				<li class="breadcrumb-item active" aria-current="page">
+					Depreciation Calculation</li>
 			</ol>
 		</nav>
 	</div>
 	<div>
-		<table id="datatableaa"
-			class="table jambo_table table-striped table-bordered resulttable display nowrap"
-			style="font-size: 100%;">
+		<table id="datatableaa" class="display compact nowrap"
+			style="width: 100%">
+			<caption>Calculated Depreciation Detail</caption>
 			<thead>
 				<tr>
-					<th>S.NO</th>
-					<th>Item Code</th>
-					<th>Item Name</th>
+					<th>Itemcode</th>
+					<th>Fiscal Date</th>
+					<th>Purchase Date</th>
+					<th>Depreciation Rate</th>
 					<th>Amount</th>
-					<th>Dep upto Last Fiscal Year</th>
-					<th>Dep Current Year</th>
-					<th>Total Dep</th>
-					<th>Balance Amount</th>
-					<th>Action</th>
+					<th>This Yr. Depreciation Amount</th>
 				</tr>
 			</thead>
+			<tbody>
+			<c:forEach items="${depreciation }" var="dep">
+			<tr>
+				<td>${dep.itemcode }</td>
+				<td>${dep.fiscaldate }</td>
+				<td>${dep.purchasedateen }</td>
+				<td>${dep.depreciationrate }</td>
+				<td>${dep.rate }</td>
+				<td>${dep.thisyrdepamt }</td>
+				</tr>
+				</c:forEach>
+			</tbody>
 		</table>
 	</div>
 	<div class="modal fade" id="myModal" role="dialog" tabindex="-1">
@@ -54,7 +62,13 @@
 			</div>
 		</div>
 	</div>
-
+	<script>
+$("#datatableaa").DataTable();
+	<%if (request.getAttribute("msg") != null) {%>
+		$('#myModal').modal('show');
+	<%}%>
+		
+	</script>
 </body>
 </head>
 </html>

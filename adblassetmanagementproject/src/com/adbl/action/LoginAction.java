@@ -54,12 +54,7 @@ public class LoginAction {
 	            
 	        }
 	if(maindbstatus){
-	/*	
-		DepreciationCalculator d=new DepreciationCalculator();
-		d.DepCalc();
-		
-		*/
-		
+
 		u.setUsername(request.getParameter("username"));
 		u.setPassword(request.getParameter("password"));
 		LoginDao l=new LoginDaoImpl();

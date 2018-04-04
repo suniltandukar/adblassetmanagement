@@ -34,5 +34,7 @@ public interface InventoryDao {
 	//public boolean depreciationdao(Inventory inventory, String item_code);
 	public ResultSet getinventoryfordep(String itemcode);
 	public boolean insertDep(Inventory inventory, String genitemcode);
+	public String getGeneralSettings();
+	public List<String> getallItemcodes(String currentBranchcode);
 	
 }

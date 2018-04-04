@@ -3,6 +3,8 @@ package com.adbl.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.ResultSet;
+import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -14,8 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.json.JSONObject;
-
+import com.adbl.action.DepreciationCalculator;
 import com.adbl.action.OtherAction;
 import com.adbl.action.TransferAction;
 import com.adbl.action.UserAction;
@@ -25,6 +26,7 @@ import com.adbl.dao.UserDao;
 import com.adbl.daoimpl.InventoryDaoImpl;
 import com.adbl.daoimpl.TransferDaoImpl;
 import com.adbl.daoimpl.UserDaoImpl;
+import com.adbl.model.DepreciationModel;
 import com.adbl.model.History;
 import com.adbl.model.IssueModel;
 import com.adbl.model.UserModel;
@@ -262,6 +264,50 @@ public class NavigationController extends HttpServlet {
 			request.setAttribute("lastyrdep", request.getParameter("lastyrdep"));
 			RequestDispatcher rd=request.getRequestDispatcher("view/Depreciation/edit.jsp");
 			rd.forward(request, response);
+		}
+		else if(uri.endsWith("depcalculation.click"))
+		{
+			DepreciationCalculator d=new DepreciationCalculator();
+			InventoryDao idao = new InventoryDaoImpl();
+			
+			HttpSession session=request.getSession();
+			String currentBranchcode=(String)session.getAttribute("currentBranchcode");
+			String lastdate=idao.getGeneralSettings();
+			
+			
+			List<String> itemlist=idao.getallItemcodes(currentBranchcode);
+			DepreciationModel dm=null;
+			List<DepreciationModel> depitemlist=new ArrayList<DepreciationModel>();
+			DecimalFormat decimal=new DecimalFormat("##.00");
+			for(String itemcode: itemlist){
+				dm=new DepreciationModel();
+				//inside for
+				try{
+				ResultSet rs = idao.getinventoryfordep(itemcode);
+				String purchasedateen=rs.getString("purchasedateen");
+				String depreciationrate=rs.getString("depreciationrate");
+				String rate=rs.getString("rate");
+				double depreciationamt=d.DepCalc(itemcode, lastdate, purchasedateen, depreciationrate, rate);
+				dm.setItemcode(itemcode);
+				dm.setFiscaldate(lastdate);
+				dm.setPurchasedateen(purchasedateen);
+				dm.setDepreciationrate(depreciationrate);
+				dm.setRate(rate);
+				dm.setThisyrdepamt(decimal.format(depreciationamt));
+				
+				depitemlist.add(dm);
+				}
+				catch(Exception e){
+					System.out.println(e);
+				}
+				
+			}
+			
+			request.setAttribute("depreciation", depitemlist);
+			RequestDispatcher rd=request.getRequestDispatcher("view/Depreciation/calculatedDepreciation.jsp");
+			rd.forward(request, response);
+			
+			
 		}
 		
 	}

@@ -232,6 +232,7 @@ display:block;}
           </a>
           <ul class="treeview-menu">
             <li id="i" ><a href="viewDep.click" target="iframe_a"><i class="fa fa-circle-o" ></i> View Depreciation</a></li>
+            <li id="i" ><a href="depcalculation.click" target="iframe_a"><i class="fa fa-circle-o" ></i> Calculate Depreciation</a></li>
           </ul>
         </li>
         
