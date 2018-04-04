@@ -59,7 +59,8 @@ public class LoginAction {
 		d.DepCalc();
 		
 		*/
-		
+		DepreciationCalculator dep=new DepreciationCalculator();
+		dep.DepCalc();
 		u.setUsername(request.getParameter("username"));
 		u.setPassword(request.getParameter("password"));
 		LoginDao l=new LoginDaoImpl();
