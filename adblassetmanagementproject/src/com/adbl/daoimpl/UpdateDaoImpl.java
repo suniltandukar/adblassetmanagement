@@ -29,4 +29,24 @@ public class UpdateDaoImpl implements UpdateDao{
 		return false;
 		
 	}
+	public boolean updateDepreciation(String did, String lastyrdep){
+		System.out.println("did="+did+" "+lastyrdep);
+		String sql="UPDATE DEPTBL SET LASTYRDEP=? WHERE DID=?";
+		
+		try{
+			con=DBConnection.getConnection();
+			ps=con.prepareStatement(sql);
+			ps.setString(1, lastyrdep);
+			ps.setString(2, did);
+			int i=ps.executeUpdate();
+			if(i>0){
+				return true;
+			}
+		}
+		catch(Exception e){
+			System.out.println(e);
+		}
+		return false;
+		
+	}
 }

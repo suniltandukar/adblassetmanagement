@@ -50,6 +50,9 @@ public class UpdateController extends HttpServlet {
 		case "editGroup.update":
 			up.editGroup(request,response);
 			break;
+		case "updateDepreciation.update":
+			up.updateDepreciation(request,response);
+			break;
 
 		default:
 			out.println("Invalid Action!");

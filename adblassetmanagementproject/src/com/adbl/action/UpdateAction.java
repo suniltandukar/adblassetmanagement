@@ -17,7 +17,7 @@ public class UpdateAction {
 	public void editGroup(HttpServletRequest request, HttpServletResponse response) {
 
 		String groupcode = request.getParameter("groupcode"), groupname = request.getParameter("groupname"),
-				igroupcode=request.getParameter("igroupcode");
+				igroupcode = request.getParameter("igroupcode");
 
 		boolean status = up.editGroup(groupcode, groupname, igroupcode);
 		if (status) {
@@ -31,6 +31,24 @@ public class UpdateAction {
 		} catch (ServletException | IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public void updateDepreciation(HttpServletRequest request, HttpServletResponse response) {
+		String lastyrdep = request.getParameter("lastyrdep");
+		String did = request.getParameter("did");
+		boolean status = up.updateDepreciation(did, lastyrdep);
+		if (status) {
+			request.setAttribute("msg", "Update Successful!");
+		} else {
+			request.setAttribute("msg", "Update Failed!");
+		}
+		rd = request.getRequestDispatcher("viewDep.click");
+		try {
+			rd.forward(request, response);
+		} catch (ServletException | IOException e) {
+			e.printStackTrace();
+		}
+
 	}
 
 }

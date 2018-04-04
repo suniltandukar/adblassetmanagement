@@ -178,6 +178,7 @@ public class OtherActionDAOImpl implements OtherActionDAO {
 			JSONArray jsonArray=new JSONArray();
 			while(rs.next()){
 				JSONObject jobj = new JSONObject();
+				String did=rs.getString("did");
 				String itemcode=rs.getString("itemcode");
 			    String lastyrdep=rs.getString("lastyrdep");
 			    String curyrdep=rs.getString("curyrdep");
@@ -185,7 +186,7 @@ public class OtherActionDAOImpl implements OtherActionDAO {
 			    String totaldep=rs.getString("totaldep");
 			    String balance=rs.getString("balance");
 			   
-			   
+			   jobj.put("did", did);
 					jobj.put("itemcode", itemcode);
 					jobj.put("lastyrdep", lastyrdep);
 					jobj.put("curyrdep", curyrdep);

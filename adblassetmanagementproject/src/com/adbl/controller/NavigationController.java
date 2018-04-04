@@ -255,6 +255,14 @@ public class NavigationController extends HttpServlet {
 			RequestDispatcher rd=request.getRequestDispatcher("view/Depreciation/viewDep.jsp");
 			rd.forward(request, response);
 		}
+		else if(uri.endsWith("editDepreciation.click"))
+		{
+			request.setAttribute("id", request.getParameter("id"));
+			request.setAttribute("itemcode", request.getParameter("itemcode"));
+			request.setAttribute("lastyrdep", request.getParameter("lastyrdep"));
+			RequestDispatcher rd=request.getRequestDispatcher("view/Depreciation/edit.jsp");
+			rd.forward(request, response);
+		}
 		
 	}
 
