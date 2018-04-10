@@ -38,14 +38,14 @@ display:block;}
 
   <header class="main-header" >
     <!-- Logo -->
-    <a href="" class="logo" style="background-color:#007B38;">
+    <a href="" class="logo" >
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b> ADBL</b></span>
       <!-- logo for regular state and mobile devices -->
       <span class="logo-lg"><b></b>&nbsp;ADBL(<%=userdetail.getBranchCode() %>)</span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
-    <nav class="navbar navbar-static-top" style="background-color:#007B38;">
+    <nav class="navbar navbar-static-top">
       <!-- Sidebar toggle button-->
       <a  class="sidebar-toggle" data-toggle="push-menu" role="button">
         <span class="sr-only">Toggle navigation</span>
@@ -167,7 +167,7 @@ display:block;}
             </span>
           </a>
           <ul class="treeview-menu">
-			 <li class="header" id="v"><a href="#/!"><i class="fa fa-circle-o"></i> Dashboard</a></li>            
+			 <li class="header" id="v"><a href="Dashboard.jsp" target="iframe_a"><i class="fa fa-circle-o"></i> Dashboard</a></li>            
           </ul>
         </li>
         <li class="treeview" id="items">
@@ -276,7 +276,7 @@ display:block;}
      
   
   <div class="content-wrapper view"  style="height:1300px;">
-  	<iframe height="1000px" width="100%" src="" id="Iframe" name="iframe_a">
+  	<iframe height="1000px" width="100%" src="Dashboard.jsp" id="Iframe" name="iframe_a" style="border:none">
 	</iframe>
   </div>
 </div>
