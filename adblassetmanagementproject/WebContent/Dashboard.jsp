@@ -26,7 +26,7 @@ background-color: #f2f2f2;}
           <!-- small box -->
           <div class="small-box bg-aqua">
             <div class="inner">
-              <h3>150</h3>
+              <h3>${inventory }</h3>
 
               <p>Total Inventories</p>
             </div>
@@ -43,7 +43,7 @@ background-color: #f2f2f2;}
           <!-- small box -->
           <div class="small-box bg-green">
             <div class="inner">
-              <h3>53<sup style="font-size: 20px">%</sup></h3>
+              <h3>${group }</h3>
 
               <p>Inventory Groups</p>
             </div>
@@ -60,7 +60,7 @@ background-color: #f2f2f2;}
           <!-- small box -->
           <div class="small-box bg-yellow">
             <div class="inner">
-              <h3>44</h3>
+              <h3>${group }</h3>
 
               <p>User Registrations</p>
             </div>
@@ -77,7 +77,7 @@ background-color: #f2f2f2;}
           <!-- small box -->
           <div class="small-box bg-red">
             <div class="inner">
-              <h3>65</h3>
+              <h3>${sessionScope.currentBranchcode}</h3>
 
               <p>Current Branch</p>
             </div>
@@ -98,34 +98,27 @@ background-color: #f2f2f2;}
           <div class="box box-widget widget-user">
             <!-- Add the bg color to the header using any of the bg-* classes -->
             <div class="widget-user-header bg-aqua-active">
-              <h3 class="widget-user-username">Alexander Pierce</h3>
-              <h5 class="widget-user-desc">Founder &amp; CEO</h5>
+              <h3 class="widget-user-username">${sessionScope.userDetail.fullName }</h3>
+              <h5 class="widget-user-desc">${sessionScope.userDetail.post }</h5>
             </div>
             <div class="widget-user-image">
               <img class="img-circle" src="assets/images/download.png" alt="User Avatar">
             </div>
             <div class="box-footer">
               <div class="row">
-                <div class="col-sm-4 border-right">
+                <div class="col-sm-6 border-right">
                   <div class="description-block">
-                    <h5 class="description-header">3,200</h5>
-                    <span class="description-text">SALES</span>
+                    <h5 class="description-header">${invinputcount }</h5>
+                    <span class="description-text">Inventory Input</span>
                   </div>
                   <!-- /.description-block -->
                 </div>
+              
                 <!-- /.col -->
-                <div class="col-sm-4 border-right">
+                <div class="col-sm-6">
                   <div class="description-block">
-                    <h5 class="description-header">13,000</h5>
-                    <span class="description-text">FOLLOWERS</span>
-                  </div>
-                  <!-- /.description-block -->
-                </div>
-                <!-- /.col -->
-                <div class="col-sm-4">
-                  <div class="description-block">
-                    <h5 class="description-header">35</h5>
-                    <span class="description-text">PRODUCTS</span>
+                    <h5 class="description-header">-</h5>
+                    <span class="description-text">TOTAL TRANSFERS</span>
                   </div>
                   <!-- /.description-block -->
                 </div>

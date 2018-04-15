@@ -121,6 +121,16 @@ ResultSet group=(ResultSet) i.getgroup();%>
                                                 <h5>Depreciation Rate(%)</h5> <input type="text" 
                                                 name="depreciationrate" class="form-control"  form="form" >
                                             </td>
+                                               <td>
+                                                <h5>Effective Date (B.S.)</h5> <input type="text"
+                                                name="depeffectivedate" class="form-control" id="nepaliDate9"
+                                                placeholder="YYYY-MM-DD"  form="form" maxlength="10" > 
+                                            </td>
+                                               <td>
+                                                <h5>Effective Date (A.D.)</h5> <input type="text"
+                                                name="depeffectivedateen" class="form-control" id="englishDate9"
+                                                placeholder="YYYY-MM-DD"  form="form" maxlength="10" > 
+                                            </td>
                                     </tbody>
                                 </table>
                             </form>

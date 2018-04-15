@@ -13,7 +13,6 @@
  
   
   
-  <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="assets/css/font-awesome.min.css">
   <!-- Ionicons -->
@@ -43,7 +42,6 @@
  <!-- jQuery 3 -->
 <script src="assets/js/jquery.min.js"></script>
 <script src="assets/js/dateConverter.js"></script>
- <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
 <script type="text/javascript" src="assets/nepaliDatePicker/nepali.datepicker.v2.2.min.js"></script>

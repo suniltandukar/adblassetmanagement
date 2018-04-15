@@ -21,9 +21,11 @@ import com.adbl.action.OtherAction;
 import com.adbl.action.TransferAction;
 import com.adbl.action.UserAction;
 import com.adbl.dao.InventoryDao;
+import com.adbl.dao.OtherActionDAO;
 import com.adbl.dao.TransferDao;
 import com.adbl.dao.UserDao;
 import com.adbl.daoimpl.InventoryDaoImpl;
+import com.adbl.daoimpl.OtherActionDAOImpl;
 import com.adbl.daoimpl.TransferDaoImpl;
 import com.adbl.daoimpl.UserDaoImpl;
 import com.adbl.model.DepreciationModel;
@@ -98,6 +100,11 @@ public class NavigationController extends HttpServlet {
 		else if(uri.endsWith("editinventory.click"))
 		{
 			RequestDispatcher rd=request.getRequestDispatcher("view/inventory/editinventory.jsp");
+			rd.forward(request, response);
+		}
+		else if(uri.endsWith("editinventorydisplay.click"))
+		{
+			RequestDispatcher rd=request.getRequestDispatcher("view/inventory/editinventorydisplayform.jsp");
 			rd.forward(request, response);
 		}
 		else if(uri.endsWith("viewinventoryitem.click"))
@@ -310,6 +317,22 @@ public class NavigationController extends HttpServlet {
 			
 		}
 		
+		else if(uri.endsWith("Dashboard.click"))
+		{
+HttpSession session=request.getSession(true);
+UserModel user=(UserModel)session.getAttribute("userDetail");
+			OtherActionDAO dao=new OtherActionDAOImpl();
+			List<String> list=dao.getDashboardDetails(user.getUsername());
+			System.out.println(list.toString());
+			request.setAttribute("user", list.get(0));
+			request.setAttribute("group", list.get(1));
+			request.setAttribute("inventory", list.get(2));
+			request.setAttribute("invinputcount", list.get(3));
+			
+			RequestDispatcher rd=request.getRequestDispatcher("Dashboard.jsp");
+			rd.forward(request, response);
+			
+		}
 	}
 
 }

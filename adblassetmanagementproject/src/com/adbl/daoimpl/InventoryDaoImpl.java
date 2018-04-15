@@ -342,13 +342,13 @@ public List<String> getallItemcodes(String currentBranchcode){
 		boolean status = false;
 		int a;
 		String transactiondateen = "date";
-		String query = "insert into inventorytbl(itemcode,transactionid,transactiondateen,legacyid,groupcode,itemname,model,decisiondate,decisiondateen,purchasedate,purchasedateen,depreciationrate,inventoryotherdetailid,branchCode,donationpercentage,inputter) "
+		String query = "insert into inventorytbl(itemcode,transactionid,transactiondateen,legacyid,groupcode,itemname,model,decisiondate,decisiondateen,purchasedate,purchasedateen,depreciationrate,inventoryotherdetailid,branchCode,donationpercentage,inputter,depeffectivedateen, depeffectivedate) "
 				+ "values('" + item_code + "','" + transactionid + "','" + transactiondateen + "','"
 				+ inventory.getLegacyid() + "','" + inventory.getGroupcode() + "','" + inventory.getItemname() + "','"
 				+ inventory.getModel() + "','" + inventory.getDecisiondate() + "','" + inventory.getDecisiondateen()
 				+ "','" + inventory.getPurchasedate() + "','" + inventory.getPurchasedateen() + "','"
 				+ inventory.getDepreciationrate() + "','" + additionaldetailid + "','" + branchCode + "','"
-				+ inventory.getDonationpercentage() + "','" + inputter + "')";
+				+ inventory.getDonationpercentage() + "','" + inputter + "','"+inventory.getDepeffectivedate()+"','"+inventory.getDepeffectivedate()+"')";
 		try {
 			ps = con.prepareStatement(query);
 
@@ -374,7 +374,7 @@ public List<String> getallItemcodes(String currentBranchcode){
 				+ inventory.getDecisiondate() + "', inventorytbl.decisiondateen='" + inventory.getDecisiondateen()
 				+ "', inventorytbl.purchasedate='" + inventory.getPurchasedate() + "', inventorytbl.purchasedateen='"
 				+ inventory.getPurchasedateen() + "', inventorytbl.depreciationrate='" + inventory.getDepreciationrate()
-				+ "'," + "inventoryotherdetailtbl.fundsourceid='" + inventory.getFundsource()
+				+ "',inventorytbl.depeffectivedate='"+inventory.getDepeffectivedate()+"',inventorytbl.depeffectivedateen='"+inventory.getDepeffectivedateen()+"',inventoryotherdetailtbl.fundsourceid='" + inventory.getFundsource()
 				+ "', inventoryotherdetailtbl.unitname='" + inventory.getUnitname()
 				+ "', inventoryotherdetailtbl.rate='" + inventory.getRate() + "', inventoryotherdetailtbl.supplierid='"
 				+ inventory.getSupplierid() + "', inventoryotherdetailtbl.itemconditionid='"

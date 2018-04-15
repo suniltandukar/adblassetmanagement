@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 01, 2018 at 05:38 PM
+-- Generation Time: Apr 15, 2018 at 03:41 PM
 -- Server version: 5.6.24
 -- PHP Version: 5.6.8
 
@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS `amctbl` (
   `amcenden` varchar(10) DEFAULT NULL,
   `amccost` double DEFAULT NULL,
   `amccompanyid` bigint(20) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=222 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=224 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `amctbl`
@@ -261,7 +261,9 @@ INSERT INTO `amctbl` (`amcid`, `amcstart`, `amcstarten`, `amcend`, `amcenden`, `
 (218, '', '', '', '', 0, 4),
 (219, '', '', '', '', 0, 4),
 (220, '', '', '', '', 0, 4),
-(221, '', '', '', '', 0, 4);
+(221, '', '', '', '', 0, 4),
+(222, '', '', '', '', 0, 4),
+(223, '', '', '', '', 0, 4);
 
 -- --------------------------------------------------------
 
@@ -612,7 +614,7 @@ CREATE TABLE IF NOT EXISTS `deptbl` (
   `reserved3` varchar(20) DEFAULT NULL,
   `reserved4` varchar(20) DEFAULT NULL,
   `reserved5` varchar(20) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `deptbl`
@@ -622,7 +624,10 @@ INSERT INTO `deptbl` (`did`, `itemcode`, `lastyrdep`, `curyrdep`, `reserved1`, `
 (1, '19552110001', 10.00, 0.00, NULL, NULL, NULL, NULL, NULL),
 (2, '19552110001', 100.00, 0.00, NULL, NULL, NULL, NULL, NULL),
 (3, '20182110011', 500.00, 0.00, NULL, NULL, NULL, NULL, NULL),
-(4, '20182110012', 500.00, 0.00, NULL, NULL, NULL, NULL, NULL);
+(4, '20182110012', 500.00, 0.00, NULL, NULL, NULL, NULL, NULL),
+(5, '20182110013', 1000.00, 0.00, NULL, NULL, NULL, NULL, NULL),
+(6, '19552110001', 201520.00, 0.00, NULL, NULL, NULL, NULL, NULL),
+(7, '19552110001', 50000.00, 0.00, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -678,7 +683,7 @@ CREATE TABLE IF NOT EXISTS `insurancetbl` (
   `insuranceend` varchar(10) DEFAULT NULL,
   `insuranceenden` varchar(10) DEFAULT NULL,
   `insurancepremiumamount` double DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=222 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=224 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `insurancetbl`
@@ -905,7 +910,9 @@ INSERT INTO `insurancetbl` (`insuranceid`, `insurancecompanyid`, `insurancestart
 (218, 4, '', '', '', '', 0),
 (219, 4, '', '', '', '', 0),
 (220, 4, '', '', '', '', 0),
-(221, 4, '', '', '', '', 0);
+(221, 4, '', '', '', '', 0),
+(222, 4, '', '', '', '', 0),
+(223, 4, '', '', '', '', 0);
 
 -- --------------------------------------------------------
 
@@ -925,6 +932,8 @@ CREATE TABLE IF NOT EXISTS `inventoryitemdetail` (
 ,`purchasedate` varchar(10)
 ,`purchasedateen` varchar(10)
 ,`depreciationrate` varchar(3)
+,`depeffectivedate` varchar(30)
+,`depeffectivedateen` varchar(10)
 ,`transactiondateen` varchar(10)
 ,`groupcode` varchar(10)
 ,`groupname` varchar(20)
@@ -994,7 +1003,7 @@ CREATE TABLE IF NOT EXISTS `inventoryotherdetailtbl` (
   `engineno` varchar(30) DEFAULT NULL,
   `macaddress` varchar(30) DEFAULT NULL,
   `licenseno` varchar(30) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=222 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=224 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `inventoryotherdetailtbl`
@@ -1210,7 +1219,9 @@ INSERT INTO `inventoryotherdetailtbl` (`inventoryotherdetailid`, `fundsourceid`,
 (218, 4, '', 100000, 2, 0, 218, 218, 218, 4, 3, '', '', '', '', '', ''),
 (219, 4, '', 100000, 2, 0, 219, 219, 219, 4, 3, '', '', '', '', '', ''),
 (220, 4, '', 5000, 2, 0, 220, 220, 220, 4, 3, '', '', '', '', '', ''),
-(221, 4, '', 5000, 2, 0, 221, 221, 221, 4, 3, '', '', '', '', '', '');
+(221, 4, '', 5000, 2, 0, 221, 221, 221, 4, 3, '', '', '', '', '', ''),
+(222, 4, '', 5000, 1, 0, 222, 222, 222, 4, 3, '', '', '', '', '', ''),
+(223, 4, '', 0, 1, 0, 223, 223, 223, 4, 3, '', '', '', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -1230,6 +1241,8 @@ CREATE TABLE IF NOT EXISTS `inventorytbl` (
   `purchasedate` varchar(10) DEFAULT NULL,
   `purchasedateen` varchar(10) DEFAULT NULL,
   `depreciationrate` varchar(3) DEFAULT NULL,
+  `depeffectivedate` varchar(30) NOT NULL DEFAULT '0',
+  `depeffectivedateen` varchar(10) NOT NULL DEFAULT '0',
   `inventoryotherdetailid` bigint(20) DEFAULT NULL,
   `transactiondateen` varchar(10) DEFAULT NULL,
   `issueid` bigint(20) DEFAULT NULL,
@@ -1246,215 +1259,212 @@ CREATE TABLE IF NOT EXISTS `inventorytbl` (
 -- Dumping data for table `inventorytbl`
 --
 
-INSERT INTO `inventorytbl` (`itemcode`, `transactionid`, `legacyid`, `groupcode`, `itemname`, `model`, `decisiondate`, `decisiondateen`, `purchasedate`, `purchasedateen`, `depreciationrate`, `inventoryotherdetailid`, `transactiondateen`, `issueid`, `transferid`, `cid`, `branchCode`, `custno`, `status`, `donationpercentage`, `inputter`) VALUES
-('19552110001', '20180001000043', '', '211', 'jhjhj', 'jbn', '', '', '2012-02-02', '1955-05-16', '', 179, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'admin'),
-('19552110002', '20180001000051', '1', '211', 'lll', 'mm', '', '', '2012-02-02', '1955-05-16', '', 183, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'admin'),
-('1955FAN0001', '20180001000038', '2121', 'FAN', 'fan', 'Fan', '', '', '2012-02-02', '1955-05-16', '', 177, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'admin'),
-('1955FAN0002', '20180001000059', '', 'FAN', 'test', 'test', '2012-02-02', '1955-05-16', '2012-02-02', '1955-05-16', '5', 217, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'admin'),
-('19582110001', '20180001000001', '12', '211', 'Fan', 'fan', '', '', '2015-02-02', '1958-05-15', '', 182, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'admin'),
-('19582110002', '20180001000045', '54', '211', 'klo', 'mmm', '', '', '2015-02-02', '1958-05-15', '', 195, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'admin'),
-('19582110003', '20180001000045', '54', '211', 'klo', 'mmm', '', '', '2015-02-02', '1958-05-15', '', 196, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'admin'),
-('19582110004', '20180001000045', '54', '211', 'klo', 'mmm', '', '', '2015-02-02', '1958-05-15', '', 197, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'admin'),
-('19582110005', '20180001000045', '54', '211', 'klo', 'mmm', '', '', '2015-02-02', '1958-05-15', '', 198, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'admin'),
-('19582110006', '20180001000045', '54', '211', 'klo', 'mmm', '', '', '2015-02-02', '1958-05-15', '', 199, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'admin'),
-('19582110007', '20180001000045', '54', '211', 'klo', 'mmm', '', '', '2015-02-02', '1958-05-15', '', 200, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'admin'),
-('19582110008', '20180001000045', '54', '211', 'klo', 'mmm', '', '', '2015-02-02', '1958-05-15', '', 201, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'admin'),
-('19582110009', '20180001000045', '54', '211', 'klo', 'mmm', '', '', '2015-02-02', '1958-05-15', '', 202, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'admin'),
-('19582110010', '20180001000045', '54', '211', 'klo', 'mmm', '', '', '2015-02-02', '1958-05-15', '', 203, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'admin'),
-('19582110011', '20180001000045', '54', '211', 'klo', 'mmm', '', '', '2015-02-02', '1958-05-15', '', 204, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'admin'),
-('1958FAN0001', '20180001000044', '12', 'FAN', 'kkkk', 'kkk', '', '', '2015-02-02', '1958-05-15', '', 180, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'admin'),
-('1995FAN0001', '20180001000060', '12', 'FAN', 'tete', '1', '2051-02-02', '1994-05-16', '2052-02-02', '1995-05-16', '', 218, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'admin'),
-('1995FAN0002', '20180001000060', '12', 'FAN', 'tete', '1', '2051-02-02', '1994-05-16', '2052-02-02', '1995-05-16', '', 219, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'admin'),
-('19992110001', '20180001000003', '11224', '211', 'kkkk', '11', '', '', '2056-02-02', '1999-05-16', '', 185, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'admin'),
-('19992110002', '20180001000003', '11224', '211', 'kkkk', '11', '', '', '2056-02-02', '1999-05-16', '', 186, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'admin'),
-('19992110003', '20180001000003', '11224', '211', 'kkkk', '11', '', '', '2056-02-02', '1999-05-16', '', 187, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'admin'),
-('19992110004', '20180001000003', '11224', '211', 'kkkk', '11', '', '', '2056-02-02', '1999-05-16', '', 188, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'admin'),
-('19992110005', '20180001000003', '11224', '211', 'kkkk', '11', '', '', '2056-02-02', '1999-05-16', '', 189, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'admin'),
-('19992110006', '20180001000003', '11224', '211', 'kkkk', '11', '', '', '2056-02-02', '1999-05-16', '', 190, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'admin'),
-('19992110007', '20180001000003', '11224', '211', 'kkkk', '11', '', '', '2056-02-02', '1999-05-16', '', 191, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'admin'),
-('19992110008', '20180001000003', '11224', '211', 'kkkk', '11', '', '', '2056-02-02', '1999-05-16', '', 192, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'admin'),
-('19992110009', '20180001000003', '11224', '211', 'kkkk', '11', '', '', '2056-02-02', '1999-05-16', '', 193, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'admin'),
-('19992110010', '20180001000003', '11224', '211', 'kkkk', '11', '', '', '2056-02-02', '1999-05-16', '', 194, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'admin'),
-('20072110001', '20180001000046', '', '211', 'LAPTOP', 'Acer', '', '', '2064-08-17', '2007-12-03', '20', 7, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20082110001', '20180001000036', '', '211', 'COMPUTER HP COMPACT', 'HP COMPACT', '', '', '2065-07-21', '2008-11-06', '20', 18, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20082110002', '20180001000036', '', '211', 'COMPUTER HP COMPACT', 'HP COMPACT', '', '', '2065-07-21', '2008-11-06', '20', 19, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20082110003', '20180001000036', '', '211', 'COMPUTER HP COMPACT', 'HP COMPACT', '', '', '2065-07-21', '2008-11-06', '20', 20, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20082110004', '20180001000036', '', '211', 'COMPUTER HP COMPACT', 'HP COMPACT', '', '', '2065-07-21', '2008-11-06', '20', 21, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20082110005', '20180001000036', '', '211', 'COMPUTER HP COMPACT', 'HP COMPACT', '', '', '2065-07-21', '2008-11-06', '20', 22, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20082110006', '20180001000036', '', '211', 'COMPUTER HP COMPACT', 'HP COMPACT', '', '', '2065-07-21', '2008-11-06', '20', 23, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20082110007', '20180001000036', '', '211', 'COMPUTER HP COMPACT', 'HP COMPACT', '', '', '2065-07-21', '2008-11-06', '20', 24, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20082110008', '20180001000036', '', '211', 'COMPUTER HP COMPACT', 'HP COMPACT', '', '', '2065-07-21', '2008-11-06', '20', 25, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20082110009', '20180001000036', '', '211', 'COMPUTER HP COMPACT', 'HP COMPACT', '', '', '2065-07-21', '2008-11-06', '20', 26, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20082110010', '20180001000036', '', '211', 'COMPUTER HP COMPACT', 'HP COMPACT', '', '', '2065-07-21', '2008-11-06', '20', 27, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20092110001', '20180001000001', '', '211', 'LAPTOP', 'SONY VAIO SR 16GN NOTEBOOK', '', '', '2065-11-05', '2009-02-16', '20', 28, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20102110001', '20180001000033', '', '211', 'Assemble computer', '', '', '', '2066-11-06', '2010-02-18', '', 29, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20112110001', '20180001000037', '', '211', 'DELL COMPUTER', 'DELL MT 780', '', '', '2068-03-30', '2011-07-14', '20', 30, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20112110002', '20180001000037', '', '211', 'DELL COMPUTER', 'DELL MT 780', '', '', '2068-03-30', '2011-07-14', '20', 31, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20112110003', '20180001000037', '', '211', 'DELL COMPUTER', 'DELL MT 780', '', '', '2068-03-30', '2011-07-14', '20', 32, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20112110004', '20180001000037', '', '211', 'DELL COMPUTER', 'DELL MT 780', '', '', '2068-03-30', '2011-07-14', '20', 33, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20112110005', '20180001000037', '', '211', 'DELL COMPUTER', 'DELL MT 780', '', '', '2068-03-30', '2011-07-14', '20', 34, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20112110006', '20180001000037', '', '211', 'DELL COMPUTER', 'DELL MT 780', '', '', '2068-03-30', '2011-07-14', '20', 35, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20112110007', '20180001000037', '', '211', 'DELL COMPUTER', 'DELL MT 780', '', '', '2068-03-30', '2011-07-14', '20', 36, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20112110008', '20180001000037', '', '211', 'DELL COMPUTER', 'DELL MT 780', '', '', '2068-03-30', '2011-07-14', '20', 37, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20112110009', '20180001000037', '', '211', 'DELL COMPUTER', 'DELL MT 780', '', '', '2068-03-30', '2011-07-14', '20', 38, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20112110010', '20180001000037', '', '211', 'DELL COMPUTER', 'DELL MT 780', '', '', '2068-03-30', '2011-07-14', '20', 39, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20112110011', '20180001000037', '', '211', 'DELL COMPUTER', 'DELL MT 780', '', '', '2068-03-30', '2011-07-14', '20', 40, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20112110012', '20180001000037', '', '211', 'DELL COMPUTER', 'DELL MT 780', '', '', '2068-03-30', '2011-07-14', '20', 41, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20112110013', '20180001000037', '', '211', 'DELL COMPUTER', 'DELL MT 780', '', '', '2068-03-30', '2011-07-14', '20', 42, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20112110014', '20180001000037', '', '211', 'DELL COMPUTER', 'DELL MT 780', '', '', '2068-03-30', '2011-07-14', '20', 43, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20112110015', '20180001000037', '', '211', 'DELL COMPUTER', 'DELL MT 780', '', '', '2068-03-30', '2011-07-14', '20', 44, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20112110016', '20180001000037', '', '211', 'DELL COMPUTER', 'DELL MT 780', '', '', '2068-03-30', '2011-07-14', '20', 45, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20112110017', '20180001000048', '', '211', 'LED MONITOR', 'AOC22', '', '', '2068-01-26', '2011-05-09', '20', 46, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20112110018', '20180001000042', '', '211', 'IBM SERVER', 'IBMXB650', '', '', '2068-08-18', '2011-12-04', '20', 86, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20122110001', '20180001000050', '', '211', 'LENOVO THINKPAD LAPTOP', 'T420', '', '', '2068-09-19', '2012-01-03', '20', 87, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20122110002', '20180001000040', '', '211', 'HARDDISK 500gb', '', '', '', '2068-12-07', '2012-03-20', '20', 88, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20122110003', '20180001000034', '', '211', 'CISCO SWITCH', '2960', '', '', '2069-02-03', '2012-05-16', '20', 89, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20122110004', '20180001000039', '', '211', 'HARDDISK 160gb', '', '', '', '2069-03-06', '2012-06-20', '20', 90, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20122110005', '20180001000001', '', '211', 'LED MONITOR', '23.5"', '', '', '2069-05-26', '2012-09-11', '20', 91, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20122110006', '20180001000029', '', '211', ' COMPUTER HP', '', '', '', '2069-03-31', '2012-07-15', '20', 92, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20122110007', '20180001000029', '', '211', ' COMPUTER HP', '', '', '', '2069-03-31', '2012-07-15', '20', 93, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20122110008', '20180001000029', '', '211', ' COMPUTER HP', '', '', '', '2069-03-31', '2012-07-15', '20', 94, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20122110009', '20180001000029', '', '211', ' COMPUTER HP', '', '', '', '2069-03-31', '2012-07-15', '20', 95, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20122110010', '20180001000029', '', '211', ' COMPUTER HP', '', '', '', '2069-03-31', '2012-07-15', '20', 96, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20122110011', '20180001000029', '', '211', ' COMPUTER HP', '', '', '', '2069-03-31', '2012-07-15', '20', 97, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20122110012', '20180001000029', '', '211', ' COMPUTER HP', '', '', '', '2069-03-31', '2012-07-15', '20', 98, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20122110013', '20180001000029', '', '211', ' COMPUTER HP', '', '', '', '2069-03-31', '2012-07-15', '20', 99, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20122110014', '20180001000029', '', '211', ' COMPUTER HP', '', '', '', '2069-03-31', '2012-07-15', '20', 100, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20122110015', '20180001000029', '', '211', ' COMPUTER HP', '', '', '', '2069-03-31', '2012-07-15', '20', 101, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20122110016', '20180001000029', '', '211', ' COMPUTER HP', '', '', '', '2069-03-31', '2012-07-15', '20', 102, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20122110017', '20180001000029', '', '211', ' COMPUTER HP', '', '', '', '2069-03-31', '2012-07-15', '20', 103, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20122110018', '20180001000029', '', '211', ' COMPUTER HP', '', '', '', '2069-03-31', '2012-07-15', '20', 104, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20122110019', '20180001000029', '', '211', ' COMPUTER HP', '', '', '', '2069-03-31', '2012-07-15', '20', 105, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20122110020', '20180001000029', '', '211', ' COMPUTER HP', '', '', '', '2069-03-31', '2012-07-15', '20', 106, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20122110021', '20180001000029', '', '211', ' COMPUTER HP', '', '', '', '2069-03-31', '2012-07-15', '20', 107, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20122110022', '20180001000029', '', '211', ' COMPUTER HP', '', '', '', '2069-03-31', '2012-07-15', '20', 108, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20122110023', '20180001000029', '', '211', ' COMPUTER HP', '', '', '', '2069-03-31', '2012-07-15', '20', 109, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20122110024', '20180001000029', '', '211', ' COMPUTER HP', '', '', '', '2069-03-31', '2012-07-15', '20', 110, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20122110025', '20180001000047', '', '211', 'LAPTOP DELL', 'VESTRO3450', '', '', '2069-08-10', '2012-11-25', '20', 111, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20122110026', '20180001000047', '', '211', 'LAPTOP DELL', 'VESTRO3450', '', '', '2069-08-10', '2012-11-25', '20', 112, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20132110001', '20180001000001', '', '211', 'Laptop', 'MSI', '', '', '2070-01-09', '2013-04-22', '20', 1, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20132110002', '20180001000041', '', '211', 'HARDDISK1tb', 'STORE JET TRANSCEND', '', '', '2070-01-09', '2013-04-22', '20', 113, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20132110003', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', 114, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20132110004', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', 115, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20132110005', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', 116, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20132110006', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', 117, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20132110007', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', 118, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20132110008', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', 119, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20132110009', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', 120, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20132110010', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', 121, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20132110011', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', 122, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20132110012', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', 123, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20132110013', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', 124, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20132110014', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', 125, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20132110015', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', 126, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20132110016', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', 127, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20132110017', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', 128, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20132110018', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', 129, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20132110019', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', 130, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20132110020', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', 131, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20132110021', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', 132, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20132110022', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', 133, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20132110023', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', 134, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20132110024', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', 135, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20132110025', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', 136, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20132110026', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', 137, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20132110027', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', 138, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20132110028', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', 139, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20132110029', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', 140, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20132110030', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', 141, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20132110031', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', 142, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20132110032', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', 143, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20132110033', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', 144, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20132110034', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', 145, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20132110035', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', 146, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20132110036', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', 147, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20132110037', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', 148, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20132110038', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', 149, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20132110039', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', 150, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20132110040', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', 151, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20132110041', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', 152, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20132110042', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', 153, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20132110043', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', 154, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20132110044', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', 155, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20132110045', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', 156, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20132110046', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', 157, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20132110047', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', 158, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20132110048', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', 159, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20132110049', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', 160, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20132110050', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', 161, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20132110051', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', 162, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20132110052', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', 163, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20132110053', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', 164, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20132110054', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', 165, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20132110055', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', 166, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20132110056', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', 167, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20132110057', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', 168, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20132110058', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', 169, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20132110059', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', 170, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20132110060', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', 171, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20132110061', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', 172, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20132110062', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', 173, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20132110063', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', 174, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20132110064', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', 175, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20142110001', '20180001000001', '', '211', 'Assemble computer', '', '', '', '2070-10-14', '2014-01-28', '20', 2, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20142110002', '20180001000001', '', '211', 'LAPTOP', 'DELL 7420', '', '', '2071-03-18', '2014-07-02', '20', 3, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20142110003', '20180001000049', '', '211', 'LENOVO COMPUTER', 'M58', '', '', '2071-03-30', '2014-07-14', '20', 47, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20142110004', '20180001000049', '', '211', 'LENOVO COMPUTER', 'M58', '', '', '2071-03-30', '2014-07-14', '20', 48, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20142110005', '20180001000049', '', '211', 'LENOVO COMPUTER', 'M58', '', '', '2071-03-30', '2014-07-14', '20', 49, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20142110006', '20180001000049', '', '211', 'LENOVO COMPUTER', 'M58', '', '', '2071-03-30', '2014-07-14', '20', 50, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20142110007', '20180001000049', '', '211', 'LENOVO COMPUTER', 'M58', '', '', '2071-03-30', '2014-07-14', '20', 51, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20142110008', '20180001000049', '', '211', 'LENOVO COMPUTER', 'M58', '', '', '2071-03-30', '2014-07-14', '20', 52, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20142110009', '20180001000049', '', '211', 'LENOVO COMPUTER', 'M58', '', '', '2071-03-30', '2014-07-14', '20', 53, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20142110010', '20180001000049', '', '211', 'LENOVO COMPUTER', 'M58', '', '', '2071-03-30', '2014-07-14', '20', 54, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20142110011', '20180001000049', '', '211', 'LENOVO COMPUTER', 'M58', '', '', '2071-03-30', '2014-07-14', '20', 55, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20142110012', '20180001000049', '', '211', 'LENOVO COMPUTER', 'M58', '', '', '2071-03-30', '2014-07-14', '20', 56, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20142110013', '20180001000049', '', '211', 'LENOVO COMPUTER', 'M58', '', '', '2071-03-30', '2014-07-14', '20', 57, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20142110014', '20180001000049', '', '211', 'LENOVO COMPUTER', 'M58', '', '', '2071-03-30', '2014-07-14', '20', 58, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20142110015', '20180001000049', '', '211', 'LENOVO COMPUTER', 'M58', '', '', '2071-03-30', '2014-07-14', '20', 59, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20142110016', '20180001000049', '', '211', 'LENOVO COMPUTER', 'M58', '', '', '2071-03-30', '2014-07-14', '20', 60, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20142110017', '20180001000049', '', '211', 'LENOVO COMPUTER', 'M58', '', '', '2071-03-30', '2014-07-14', '20', 61, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20142110018', '20180001000049', '', '211', 'LENOVO COMPUTER', 'M58', '', '', '2071-03-30', '2014-07-14', '20', 62, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20142110019', '20180001000049', '', '211', 'LENOVO COMPUTER', 'M58', '', '', '2071-03-30', '2014-07-14', '20', 63, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20142110020', '20180001000049', '', '211', 'LENOVO COMPUTER', 'M58', '', '', '2071-03-30', '2014-07-14', '20', 64, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20142110021', '20180001000049', '', '211', 'LENOVO COMPUTER', 'M58', '', '', '2071-03-30', '2014-07-14', '20', 65, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20142110022', '20180001000049', '', '211', 'LENOVO COMPUTER', 'M58', '', '', '2071-03-30', '2014-07-14', '20', 66, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20142110023', '20180001000049', '', '211', 'LENOVO COMPUTER', 'M58', '', '', '2071-03-30', '2014-07-14', '20', 67, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20142110024', '20180001000049', '', '211', 'LENOVO COMPUTER', 'M58', '', '', '2071-03-30', '2014-07-14', '20', 68, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20142110025', '20180001000049', '', '211', 'LENOVO COMPUTER', 'M58', '', '', '2071-03-30', '2014-07-14', '20', 69, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20142110026', '20180001000049', '', '211', 'LENOVO COMPUTER', 'M58', '', '', '2071-03-30', '2014-07-14', '20', 70, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20142110027', '20180001000049', '', '211', 'LENOVO COMPUTER', 'M58', '', '', '2071-03-30', '2014-07-14', '20', 71, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20142110028', '20180001000049', '', '211', 'LENOVO COMPUTER', 'M58', '', '', '2071-03-30', '2014-07-14', '20', 72, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20142110029', '20180001000049', '', '211', 'LENOVO COMPUTER', 'M58', '', '', '2071-03-30', '2014-07-14', '20', 73, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20142110030', '20180001000049', '', '211', 'LENOVO COMPUTER', 'M58', '', '', '2071-03-30', '2014-07-14', '20', 74, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20142110031', '20180001000049', '', '211', 'LENOVO COMPUTER', 'M58', '', '', '2071-03-30', '2014-07-14', '20', 75, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20142110032', '20180001000049', '', '211', 'LENOVO COMPUTER', 'M58', '', '', '2071-03-30', '2014-07-14', '20', 76, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20142110033', '20180001000049', '', '211', 'LENOVO COMPUTER', 'M58', '', '', '2071-03-30', '2014-07-14', '20', 77, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20142110034', '20180001000049', '', '211', 'LENOVO COMPUTER', 'M58', '', '', '2071-03-30', '2014-07-14', '20', 78, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20142110035', '20180001000049', '', '211', 'LENOVO COMPUTER', 'M58', '', '', '2071-03-30', '2014-07-14', '20', 79, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20142110036', '20180001000049', '', '211', 'LENOVO COMPUTER', 'M58', '', '', '2071-03-30', '2014-07-14', '20', 80, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20142110037', '20180001000049', '', '211', 'LENOVO COMPUTER', 'M58', '', '', '2071-03-30', '2014-07-14', '20', 81, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20142110038', '20180001000049', '', '211', 'LENOVO COMPUTER', 'M58', '', '', '2071-03-30', '2014-07-14', '20', 82, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20142110039', '20180001000049', '', '211', 'LENOVO COMPUTER', 'M58', '', '', '2071-03-30', '2014-07-14', '20', 83, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20142110040', '20180001000049', '', '211', 'LENOVO COMPUTER', 'M58', '', '', '2071-03-30', '2014-07-14', '20', 84, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20142110041', '20180001000049', '', '211', 'LENOVO COMPUTER', 'M58', '', '', '2071-03-30', '2014-07-14', '20', 85, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20162110001', '20180001000052', '', '211', 'SERVER DELL', 'DELL', '', '', '2072-12-07', '2016-03-20', '20', 4, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20162110002', '20180001000052', '', '211', 'SERVER DELL', 'DELL', '', '', '2072-12-07', '2016-03-20', '20', 5, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20162110003', '20180001000001', '', '211', 'SERVER DELL', 'poweredge 2900', '', '', '2073-03-15', '2016-06-29', '20', 6, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
-('20172110001', '20180001000030', '12212', '211', '12121', '2121', '', '', '2074-02-02', '2017-05-16', '', 178, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'admin'),
-('20172110002', '20180001000053', '12', '211', 'aaaaa', '2015', '', '', '2074-02-03', '2017-05-17', '20', 207, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'admin'),
-('20182110001', '20180001000031', '1231', '211', '1351', '132', '', '', '2074-11-11', '2018-02-23', '', 184, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'admin'),
-('20182110002', '20180001000054', '', '211', 'kjkj', 'j', '', '', '2074-11-28', '2018-03-12', '', 208, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'admin'),
-('20182110003', '20180001000055', '', '211', 'jhjh', 'mnm', '', '', '2074-11-11', '2018-02-23', '', 209, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'admin'),
-('20182110004', '20180001000056', '', '211', 'su', 'js', '', '', '2074-11-11', '2018-02-23', '20', 210, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'admin'),
-('20182110005', '20180001000057', '22', '211', 'sdufj', 'sdsfj', '2074-11-11', '2018-02-23', '2074-11-11', '2018-02-23', '', 211, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'admin'),
-('20182110006', '20180001000058', '1321', '211', '23132', '2313', '', '', '2074-11-11', '2018-02-23', '', 212, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'admin'),
-('20182110007', '20180001000058', '1321', '211', '23132', '2313', '', '', '2074-11-11', '2018-02-23', '', 213, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'admin'),
-('20182110008', '20180001000058', '1321', '211', '23132', '2313', '', '', '2074-11-11', '2018-02-23', '', 214, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'admin'),
-('20182110009', '20180001000058', '1321', '211', '23132', '2313', '', '', '2074-11-11', '2018-02-23', '', 215, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'admin'),
-('20182110010', '20180001000058', '1321', '211', '23132', '2313', '', '', '2074-11-11', '2018-02-23', '', 216, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'admin'),
-('20182110011', '20180001000061', '123', '211', 'chekc', '123', '', '', '2074-11-11', '2018-02-23', '', 220, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'admin'),
-('20182110012', '20180001000061', '123', '211', 'chekc', '123', '', '', '2074-11-11', '2018-02-23', '', 221, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'admin'),
-('2018FAN0001', '20180001000032', '1234', 'FAN', '1531', '1321', '', '', '2074-11-11', '2018-02-23', '', 181, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'admin');
+INSERT INTO `inventorytbl` (`itemcode`, `transactionid`, `legacyid`, `groupcode`, `itemname`, `model`, `decisiondate`, `decisiondateen`, `purchasedate`, `purchasedateen`, `depreciationrate`, `depeffectivedate`, `depeffectivedateen`, `inventoryotherdetailid`, `transactiondateen`, `issueid`, `transferid`, `cid`, `branchCode`, `custno`, `status`, `donationpercentage`, `inputter`) VALUES
+('19552110001', '20180001000063', '12', '211', 'sunil', 'suni', '2012-02-02', '1955-05-16', '2012-02-02', '1955-05-16', '26', '2075-01-05', '2018-04-18', 223, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'admin'),
+('19582110002', '20180001000045', '54', '211', 'kl', 'mmm', '', '', '2015-02-02', '1958-05-15', '', '', '', 195, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'admin'),
+('19582110003', '20180001000045', '54', '211', 'klo', 'mmm', '', '', '2015-02-02', '1958-05-15', '', '0', '0', 196, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'admin'),
+('19582110004', '20180001000045', '54', '211', 'klo', 'mmm', '', '', '2015-02-02', '1958-05-15', '', '0', '0', 197, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'admin'),
+('19582110005', '20180001000045', '54', '211', 'klo', 'mmm', '', '', '2015-02-02', '1958-05-15', '', '0', '0', 198, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'admin'),
+('19582110006', '20180001000045', '54', '211', 'klo', 'mmm', '', '', '2015-02-02', '1958-05-15', '', '0', '0', 199, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'admin'),
+('19582110007', '20180001000045', '54', '211', 'klo', 'mmm', '', '', '2015-02-02', '1958-05-15', '', '0', '0', 200, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'admin'),
+('19582110008', '20180001000045', '54', '211', 'klo', 'mmm', '', '', '2015-02-02', '1958-05-15', '', '0', '0', 201, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'admin'),
+('19582110009', '20180001000045', '54', '211', 'klo', 'mmm', '', '', '2015-02-02', '1958-05-15', '', '0', '0', 202, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'admin'),
+('19582110010', '20180001000045', '54', '211', 'klo', 'mmm', '', '', '2015-02-02', '1958-05-15', '', '0', '0', 203, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'admin'),
+('19582110011', '20180001000045', '54', '211', 'klo', 'mmm', '', '', '2015-02-02', '1958-05-15', '', '0', '0', 204, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'admin'),
+('1958FAN0001', '20180001000044', '12', 'FAN', 'kkkk', 'kkk', '', '', '2015-02-02', '1958-05-15', '', '0', '0', 180, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'admin'),
+('1995FAN0001', '20180001000060', '12', 'FAN', 'tete', '1', '2051-02-02', '1994-05-16', '2052-02-02', '1995-05-16', '', '0', '0', 218, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'admin'),
+('1995FAN0002', '20180001000060', '12', 'FAN', 'tete', '1', '2051-02-02', '1994-05-16', '2052-02-02', '1995-05-16', '', '0', '0', 219, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'admin'),
+('19992110001', '20180001000003', '11224', '211', 'kkkk', '11', '', '', '2056-02-02', '1999-05-16', '', '0', '0', 185, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'admin'),
+('19992110002', '20180001000003', '11224', '211', 'kkkk', '11', '', '', '2056-02-02', '1999-05-16', '', '0', '0', 186, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'admin'),
+('19992110003', '20180001000003', '11224', '211', 'kkkk', '11', '', '', '2056-02-02', '1999-05-16', '', '0', '0', 187, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'admin'),
+('19992110004', '20180001000003', '11224', '211', 'kkkk', '11', '', '', '2056-02-02', '1999-05-16', '', '0', '0', 188, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'admin'),
+('19992110005', '20180001000003', '11224', '211', 'kkkk', '11', '', '', '2056-02-02', '1999-05-16', '', '0', '0', 189, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'admin'),
+('19992110006', '20180001000003', '11224', '211', 'kkkk', '11', '', '', '2056-02-02', '1999-05-16', '', '0', '0', 190, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'admin'),
+('19992110007', '20180001000003', '11224', '211', 'kkkk', '11', '', '', '2056-02-02', '1999-05-16', '', '0', '0', 191, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'admin'),
+('19992110008', '20180001000003', '11224', '211', 'kkkk', '11', '', '', '2056-02-02', '1999-05-16', '', '0', '0', 192, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'admin'),
+('19992110009', '20180001000003', '11224', '211', 'kkkk', '11', '', '', '2056-02-02', '1999-05-16', '', '0', '0', 193, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'admin'),
+('19992110010', '20180001000003', '11224', '211', 'kkkk', '11', '', '', '2056-02-02', '1999-05-16', '', '0', '0', 194, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'admin'),
+('20072110001', '20180001000046', '', '211', 'LAPTOP', 'Acer', '', '', '2064-08-17', '2007-12-03', '20', '0', '0', 7, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20082110001', '20180001000036', '', '211', 'COMPUTER HP COMPACT', 'HP COMPACT', '', '', '2065-07-21', '2008-11-06', '20', '0', '0', 18, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20082110002', '20180001000036', '', '211', 'COMPUTER HP COMPACT', 'HP COMPACT', '', '', '2065-07-21', '2008-11-06', '20', '0', '0', 19, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20082110003', '20180001000036', '', '211', 'COMPUTER HP COMPACT', 'HP COMPACT', '', '', '2065-07-21', '2008-11-06', '20', '0', '0', 20, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20082110004', '20180001000036', '', '211', 'COMPUTER HP COMPACT', 'HP COMPACT', '', '', '2065-07-21', '2008-11-06', '20', '0', '0', 21, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20082110005', '20180001000036', '', '211', 'COMPUTER HP COMPACT', 'HP COMPACT', '', '', '2065-07-21', '2008-11-06', '20', '0', '0', 22, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20082110006', '20180001000036', '', '211', 'COMPUTER HP COMPACT', 'HP COMPACT', '', '', '2065-07-21', '2008-11-06', '20', '0', '0', 23, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20082110007', '20180001000036', '', '211', 'COMPUTER HP COMPACT', 'HP COMPACT', '', '', '2065-07-21', '2008-11-06', '20', '0', '0', 24, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20082110008', '20180001000036', '', '211', 'COMPUTER HP COMPACT', 'HP COMPACT', '', '', '2065-07-21', '2008-11-06', '20', '0', '0', 25, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20082110009', '20180001000036', '', '211', 'COMPUTER HP COMPACT', 'HP COMPACT', '', '', '2065-07-21', '2008-11-06', '20', '0', '0', 26, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20082110010', '20180001000036', '', '211', 'COMPUTER HP COMPACT', 'HP COMPACT', '', '', '2065-07-21', '2008-11-06', '20', '0', '0', 27, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20092110001', '20180001000001', '', '211', 'LAPTOP', 'SONY VAIO SR 16GN NOTEBOOK', '', '', '2065-11-05', '2009-02-16', '20', '0', '0', 28, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20102110001', '20180001000033', '', '211', 'Assemble computer', '', '', '', '2066-11-06', '2010-02-18', '', '0', '0', 29, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20112110001', '20180001000037', '', '211', 'DELL COMPUTER', 'DELL MT 780', '', '', '2068-03-30', '2011-07-14', '20', '0', '0', 30, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20112110002', '20180001000037', '', '211', 'DELL COMPUTER', 'DELL MT 780', '', '', '2068-03-30', '2011-07-14', '20', '0', '0', 31, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20112110003', '20180001000037', '', '211', 'DELL COMPUTER', 'DELL MT 780', '', '', '2068-03-30', '2011-07-14', '20', '0', '0', 32, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20112110004', '20180001000037', '', '211', 'DELL COMPUTER', 'DELL MT 780', '', '', '2068-03-30', '2011-07-14', '20', '0', '0', 33, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20112110005', '20180001000037', '', '211', 'DELL COMPUTER', 'DELL MT 780', '', '', '2068-03-30', '2011-07-14', '20', '0', '0', 34, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20112110006', '20180001000037', '', '211', 'DELL COMPUTER', 'DELL MT 780', '', '', '2068-03-30', '2011-07-14', '20', '0', '0', 35, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20112110007', '20180001000037', '', '211', 'DELL COMPUTER', 'DELL MT 780', '', '', '2068-03-30', '2011-07-14', '20', '0', '0', 36, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20112110008', '20180001000037', '', '211', 'DELL COMPUTER', 'DELL MT 780', '', '', '2068-03-30', '2011-07-14', '20', '0', '0', 37, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20112110009', '20180001000037', '', '211', 'DELL COMPUTER', 'DELL MT 780', '', '', '2068-03-30', '2011-07-14', '20', '0', '0', 38, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20112110010', '20180001000037', '', '211', 'DELL COMPUTER', 'DELL MT 780', '', '', '2068-03-30', '2011-07-14', '20', '0', '0', 39, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20112110011', '20180001000037', '', '211', 'DELL COMPUTER', 'DELL MT 780', '', '', '2068-03-30', '2011-07-14', '20', '0', '0', 40, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20112110012', '20180001000037', '', '211', 'DELL COMPUTER', 'DELL MT 780', '', '', '2068-03-30', '2011-07-14', '20', '0', '0', 41, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20112110013', '20180001000037', '', '211', 'DELL COMPUTER', 'DELL MT 780', '', '', '2068-03-30', '2011-07-14', '20', '0', '0', 42, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20112110014', '20180001000037', '', '211', 'DELL COMPUTER', 'DELL MT 780', '', '', '2068-03-30', '2011-07-14', '20', '0', '0', 43, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20112110015', '20180001000037', '', '211', 'DELL COMPUTER', 'DELL MT 780', '', '', '2068-03-30', '2011-07-14', '20', '0', '0', 44, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20112110016', '20180001000037', '', '211', 'DELL COMPUTER', 'DELL MT 780', '', '', '2068-03-30', '2011-07-14', '20', '0', '0', 45, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20112110017', '20180001000048', '', '211', 'LED MONITOR', 'AOC22', '', '', '2068-01-26', '2011-05-09', '20', '0', '0', 46, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20112110018', '20180001000042', '', '211', 'IBM SERVER', 'IBMXB650', '', '', '2068-08-18', '2011-12-04', '20', '0', '0', 86, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20122110001', '20180001000050', '', '211', 'LENOVO THINKPAD LAPTOP', 'T420', '', '', '2068-09-19', '2012-01-03', '20', '0', '0', 87, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20122110002', '20180001000040', '', '211', 'HARDDISK 500gb', '', '', '', '2068-12-07', '2012-03-20', '20', '0', '0', 88, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20122110003', '20180001000034', '', '211', 'CISCO SWITCH', '2960', '', '', '2069-02-03', '2012-05-16', '20', '0', '0', 89, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20122110004', '20180001000039', '', '211', 'HARDDISK 160gb', '', '', '', '2069-03-06', '2012-06-20', '20', '0', '0', 90, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20122110005', '20180001000001', '', '211', 'LED MONITOR', '23.5"', '', '', '2069-05-26', '2012-09-11', '20', '0', '0', 91, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20122110006', '20180001000029', '', '211', ' COMPUTER HP', '', '', '', '2069-03-31', '2012-07-15', '20', '0', '0', 92, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20122110007', '20180001000029', '', '211', ' COMPUTER HP', '', '', '', '2069-03-31', '2012-07-15', '20', '0', '0', 93, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20122110008', '20180001000029', '', '211', ' COMPUTER HP', '', '', '', '2069-03-31', '2012-07-15', '20', '0', '0', 94, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20122110009', '20180001000029', '', '211', ' COMPUTER HP', '', '', '', '2069-03-31', '2012-07-15', '20', '0', '0', 95, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20122110010', '20180001000029', '', '211', ' COMPUTER HP', '', '', '', '2069-03-31', '2012-07-15', '20', '0', '0', 96, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20122110011', '20180001000029', '', '211', ' COMPUTER HP', '', '', '', '2069-03-31', '2012-07-15', '20', '0', '0', 97, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20122110012', '20180001000029', '', '211', ' COMPUTER HP', '', '', '', '2069-03-31', '2012-07-15', '20', '0', '0', 98, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20122110013', '20180001000029', '', '211', ' COMPUTER HP', '', '', '', '2069-03-31', '2012-07-15', '20', '0', '0', 99, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20122110014', '20180001000029', '', '211', ' COMPUTER HP', '', '', '', '2069-03-31', '2012-07-15', '20', '0', '0', 100, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20122110015', '20180001000029', '', '211', ' COMPUTER HP', '', '', '', '2069-03-31', '2012-07-15', '20', '0', '0', 101, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20122110016', '20180001000029', '', '211', ' COMPUTER HP', '', '', '', '2069-03-31', '2012-07-15', '20', '0', '0', 102, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20122110017', '20180001000029', '', '211', ' COMPUTER HP', '', '', '', '2069-03-31', '2012-07-15', '20', '0', '0', 103, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20122110018', '20180001000029', '', '211', ' COMPUTER HP', '', '', '', '2069-03-31', '2012-07-15', '20', '0', '0', 104, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20122110019', '20180001000029', '', '211', ' COMPUTER HP', '', '', '', '2069-03-31', '2012-07-15', '20', '0', '0', 105, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20122110020', '20180001000029', '', '211', ' COMPUTER HP', '', '', '', '2069-03-31', '2012-07-15', '20', '0', '0', 106, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20122110021', '20180001000029', '', '211', ' COMPUTER HP', '', '', '', '2069-03-31', '2012-07-15', '20', '0', '0', 107, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20122110022', '20180001000029', '', '211', ' COMPUTER HP', '', '', '', '2069-03-31', '2012-07-15', '20', '0', '0', 108, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20122110023', '20180001000029', '', '211', ' COMPUTER HP', '', '', '', '2069-03-31', '2012-07-15', '20', '0', '0', 109, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20122110024', '20180001000029', '', '211', ' COMPUTER HP', '', '', '', '2069-03-31', '2012-07-15', '20', '0', '0', 110, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20122110025', '20180001000047', '', '211', 'LAPTOP DELL', 'VESTRO3450', '', '', '2069-08-10', '2012-11-25', '20', '0', '0', 111, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20122110026', '20180001000047', '', '211', 'LAPTOP DELL', 'VESTRO3450', '', '', '2069-08-10', '2012-11-25', '20', '0', '0', 112, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20132110001', '20180001000001', '', '211', 'Laptop', 'MSI', '', '', '2070-01-09', '2013-04-22', '20', '0', '0', 1, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20132110002', '20180001000041', '', '211', 'HARDDISK1tb', 'STORE JET TRANSCEND', '', '', '2070-01-09', '2013-04-22', '20', '0', '0', 113, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20132110003', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', '0', '0', 114, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20132110004', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', '0', '0', 115, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20132110005', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', '0', '0', 116, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20132110006', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', '0', '0', 117, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20132110007', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', '0', '0', 118, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20132110008', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', '0', '0', 119, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20132110009', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', '0', '0', 120, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20132110010', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', '0', '0', 121, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20132110011', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', '0', '0', 122, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20132110012', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', '0', '0', 123, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20132110013', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', '0', '0', 124, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20132110014', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', '0', '0', 125, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20132110015', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', '0', '0', 126, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20132110016', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', '0', '0', 127, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20132110017', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', '0', '0', 128, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20132110018', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', '0', '0', 129, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20132110019', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', '0', '0', 130, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20132110020', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', '0', '0', 131, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20132110021', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', '0', '0', 132, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20132110022', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', '0', '0', 133, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20132110023', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', '0', '0', 134, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20132110024', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', '0', '0', 135, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20132110025', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', '0', '0', 136, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20132110026', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', '0', '0', 137, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20132110027', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', '0', '0', 138, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20132110028', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', '0', '0', 139, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20132110029', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', '0', '0', 140, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20132110030', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', '0', '0', 141, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20132110031', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', '0', '0', 142, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20132110032', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', '0', '0', 143, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20132110033', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', '0', '0', 144, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20132110034', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', '0', '0', 145, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20132110035', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', '0', '0', 146, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20132110036', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', '0', '0', 147, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20132110037', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', '0', '0', 148, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20132110038', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', '0', '0', 149, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20132110039', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', '0', '0', 150, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20132110040', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', '0', '0', 151, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20132110041', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', '0', '0', 152, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20132110042', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', '0', '0', 153, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20132110043', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', '0', '0', 154, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20132110044', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', '0', '0', 155, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20132110045', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', '0', '0', 156, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20132110046', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', '0', '0', 157, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20132110047', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', '0', '0', 158, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20132110048', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', '0', '0', 159, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20132110049', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', '0', '0', 160, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20132110050', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', '0', '0', 161, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20132110051', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', '0', '0', 162, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20132110052', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', '0', '0', 163, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20132110053', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', '0', '0', 164, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20132110054', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', '0', '0', 165, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20132110055', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', '0', '0', 166, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20132110056', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', '0', '0', 167, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20132110057', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', '0', '0', 168, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20132110058', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', '0', '0', 169, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20132110059', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', '0', '0', 170, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20132110060', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', '0', '0', 171, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20132110061', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', '0', '0', 172, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20132110062', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', '0', '0', 173, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20132110063', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', '0', '0', 174, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20132110064', '20180001000035', '', '211', 'COMPUTER DELL OPTIPLEX', 'OPTIPLEX', '', '', '2069-11-01', '2013-02-12', '20', '0', '0', 175, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20142110001', '20180001000001', '', '211', 'Assemble computer', '', '', '', '2070-10-14', '2014-01-28', '20', '0', '0', 2, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20142110002', '20180001000001', '', '211', 'LAPTOP', 'DELL 7420', '', '', '2071-03-18', '2014-07-02', '20', '0', '0', 3, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20142110003', '20180001000049', '', '211', 'LENOVO COMPUTER', 'M58', '', '', '2071-03-30', '2014-07-14', '20', '0', '0', 47, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20142110004', '20180001000049', '', '211', 'LENOVO COMPUTER', 'M58', '', '', '2071-03-30', '2014-07-14', '20', '0', '0', 48, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20142110005', '20180001000049', '', '211', 'LENOVO COMPUTER', 'M58', '', '', '2071-03-30', '2014-07-14', '20', '0', '0', 49, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20142110006', '20180001000049', '', '211', 'LENOVO COMPUTER', 'M58', '', '', '2071-03-30', '2014-07-14', '20', '0', '0', 50, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20142110007', '20180001000049', '', '211', 'LENOVO COMPUTER', 'M58', '', '', '2071-03-30', '2014-07-14', '20', '0', '0', 51, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20142110008', '20180001000049', '', '211', 'LENOVO COMPUTER', 'M58', '', '', '2071-03-30', '2014-07-14', '20', '0', '0', 52, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20142110009', '20180001000049', '', '211', 'LENOVO COMPUTER', 'M58', '', '', '2071-03-30', '2014-07-14', '20', '0', '0', 53, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20142110010', '20180001000049', '', '211', 'LENOVO COMPUTER', 'M58', '', '', '2071-03-30', '2014-07-14', '20', '0', '0', 54, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20142110011', '20180001000049', '', '211', 'LENOVO COMPUTER', 'M58', '', '', '2071-03-30', '2014-07-14', '20', '0', '0', 55, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20142110012', '20180001000049', '', '211', 'LENOVO COMPUTER', 'M58', '', '', '2071-03-30', '2014-07-14', '20', '0', '0', 56, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20142110013', '20180001000049', '', '211', 'LENOVO COMPUTER', 'M58', '', '', '2071-03-30', '2014-07-14', '20', '0', '0', 57, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20142110014', '20180001000049', '', '211', 'LENOVO COMPUTER', 'M58', '', '', '2071-03-30', '2014-07-14', '20', '0', '0', 58, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20142110015', '20180001000049', '', '211', 'LENOVO COMPUTER', 'M58', '', '', '2071-03-30', '2014-07-14', '20', '0', '0', 59, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20142110016', '20180001000049', '', '211', 'LENOVO COMPUTER', 'M58', '', '', '2071-03-30', '2014-07-14', '20', '0', '0', 60, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20142110017', '20180001000049', '', '211', 'LENOVO COMPUTER', 'M58', '', '', '2071-03-30', '2014-07-14', '20', '0', '0', 61, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20142110018', '20180001000049', '', '211', 'LENOVO COMPUTER', 'M58', '', '', '2071-03-30', '2014-07-14', '20', '0', '0', 62, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20142110019', '20180001000049', '', '211', 'LENOVO COMPUTER', 'M58', '', '', '2071-03-30', '2014-07-14', '20', '0', '0', 63, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20142110020', '20180001000049', '', '211', 'LENOVO COMPUTER', 'M58', '', '', '2071-03-30', '2014-07-14', '20', '0', '0', 64, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20142110021', '20180001000049', '', '211', 'LENOVO COMPUTER', 'M58', '', '', '2071-03-30', '2014-07-14', '20', '0', '0', 65, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20142110022', '20180001000049', '', '211', 'LENOVO COMPUTER', 'M58', '', '', '2071-03-30', '2014-07-14', '20', '0', '0', 66, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20142110023', '20180001000049', '', '211', 'LENOVO COMPUTER', 'M58', '', '', '2071-03-30', '2014-07-14', '20', '0', '0', 67, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20142110024', '20180001000049', '', '211', 'LENOVO COMPUTER', 'M58', '', '', '2071-03-30', '2014-07-14', '20', '0', '0', 68, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20142110025', '20180001000049', '', '211', 'LENOVO COMPUTER', 'M58', '', '', '2071-03-30', '2014-07-14', '20', '0', '0', 69, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20142110026', '20180001000049', '', '211', 'LENOVO COMPUTER', 'M58', '', '', '2071-03-30', '2014-07-14', '20', '0', '0', 70, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20142110027', '20180001000049', '', '211', 'LENOVO COMPUTER', 'M58', '', '', '2071-03-30', '2014-07-14', '20', '0', '0', 71, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20142110028', '20180001000049', '', '211', 'LENOVO COMPUTER', 'M58', '', '', '2071-03-30', '2014-07-14', '20', '0', '0', 72, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20142110029', '20180001000049', '', '211', 'LENOVO COMPUTER', 'M58', '', '', '2071-03-30', '2014-07-14', '20', '0', '0', 73, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20142110030', '20180001000049', '', '211', 'LENOVO COMPUTER', 'M58', '', '', '2071-03-30', '2014-07-14', '20', '0', '0', 74, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20142110031', '20180001000049', '', '211', 'LENOVO COMPUTER', 'M58', '', '', '2071-03-30', '2014-07-14', '20', '0', '0', 75, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20142110032', '20180001000049', '', '211', 'LENOVO COMPUTER', 'M58', '', '', '2071-03-30', '2014-07-14', '20', '0', '0', 76, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20142110033', '20180001000049', '', '211', 'LENOVO COMPUTER', 'M58', '', '', '2071-03-30', '2014-07-14', '20', '0', '0', 77, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20142110034', '20180001000049', '', '211', 'LENOVO COMPUTER', 'M58', '', '', '2071-03-30', '2014-07-14', '20', '0', '0', 78, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20142110035', '20180001000049', '', '211', 'LENOVO COMPUTER', 'M58', '', '', '2071-03-30', '2014-07-14', '20', '0', '0', 79, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20142110036', '20180001000049', '', '211', 'LENOVO COMPUTER', 'M58', '', '', '2071-03-30', '2014-07-14', '20', '0', '0', 80, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20142110037', '20180001000049', '', '211', 'LENOVO COMPUTER', 'M58', '', '', '2071-03-30', '2014-07-14', '20', '0', '0', 81, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20142110038', '20180001000049', '', '211', 'LENOVO COMPUTER', 'M58', '', '', '2071-03-30', '2014-07-14', '20', '0', '0', 82, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20142110039', '20180001000049', '', '211', 'LENOVO COMPUTER', 'M58', '', '', '2071-03-30', '2014-07-14', '20', '0', '0', 83, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20142110040', '20180001000049', '', '211', 'LENOVO COMPUTER', 'M58', '', '', '2071-03-30', '2014-07-14', '20', '0', '0', 84, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20142110041', '20180001000049', '', '211', 'LENOVO COMPUTER', 'M58', '', '', '2071-03-30', '2014-07-14', '20', '0', '0', 85, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20162110001', '20180001000052', '', '211', 'SERVER DELL', 'DELL', '', '', '2072-12-07', '2016-03-20', '20', '0', '0', 4, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20162110002', '20180001000052', '', '211', 'SERVER DELL', 'DELL', '', '', '2072-12-07', '2016-03-20', '20', '0', '0', 5, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20162110003', '20180001000001', '', '211', 'SERVER DELL', 'poweredge 2900', '', '', '2073-03-15', '2016-06-29', '20', '0', '0', 6, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'rameshgiri'),
+('20172110001', '20180001000030', '12212', '211', '12121', '2121', '', '', '2074-02-02', '2017-05-16', '', '0', '0', 178, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'admin'),
+('20172110002', '20180001000053', '12', '211', 'aaaaa', '2015', '', '', '2074-02-03', '2017-05-17', '20', '0', '0', 207, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'admin'),
+('20182110001', '20180001000031', '1231', '211', '1351', '132', '', '', '2074-11-11', '2018-02-23', '', '0', '0', 184, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'admin'),
+('20182110002', '20180001000054', '', '211', 'kjkj', 'j', '', '', '2074-11-28', '2018-03-12', '', '0', '0', 208, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'admin'),
+('20182110003', '20180001000055', '', '211', 'jhjh', 'mnm', '', '', '2074-11-11', '2018-02-23', '', '0', '0', 209, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'admin'),
+('20182110004', '20180001000056', '', '211', 'su', 'js', '', '', '2074-11-11', '2018-02-23', '20', '0', '0', 210, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'admin'),
+('20182110005', '20180001000057', '22', '211', 'sdufj', 'sdsfj', '2074-11-11', '2018-02-23', '2074-11-11', '2018-02-23', '', '0', '0', 211, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'admin'),
+('20182110006', '20180001000058', '1321', '211', '23132', '2313', '', '', '2074-11-11', '2018-02-23', '', '0', '0', 212, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'admin'),
+('20182110007', '20180001000058', '1321', '211', '23132', '2313', '', '', '2074-11-11', '2018-02-23', '', '0', '0', 213, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'admin'),
+('20182110008', '20180001000058', '1321', '211', '23132', '2313', '', '', '2074-11-11', '2018-02-23', '', '0', '0', 214, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'admin'),
+('20182110009', '20180001000058', '1321', '211', '23132', '2313', '', '', '2074-11-11', '2018-02-23', '', '0', '0', 215, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'admin'),
+('20182110010', '20180001000058', '1321', '211', '23132', '2313', '', '', '2074-11-11', '2018-02-23', '', '0', '0', 216, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'admin'),
+('20182110011', '20180001000061', '123', '211', 'chekc', '123', '', '', '2074-11-11', '2018-02-23', '', '0', '0', 220, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'admin'),
+('20182110012', '20180001000061', '123', '211', 'chekc', '123', '', '', '2074-11-11', '2018-02-23', '', '0', '0', 221, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'admin'),
+('20182110013', '20180001000062', '', '211', 'tessssssss', '', '', '', '2074-10-19', '2018-02-02', '20', '0', '0', 222, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'admin'),
+('2018FAN0001', '20180001000032', '1234', 'FAN', '1531', '1321', '', '', '2074-11-11', '2018-02-23', '', '0', '0', 181, 'date', NULL, NULL, NULL, '0001', NULL, NULL, '0', 'admin');
 
 -- --------------------------------------------------------
 
@@ -1532,7 +1542,7 @@ CREATE TABLE IF NOT EXISTS `loginhistorytbl` (
   `reserved4` varchar(50) CHARACTER SET utf8 DEFAULT NULL,
   `reserved5` varchar(50) CHARACTER SET utf8 DEFAULT NULL,
   `reserved6` varchar(50) CHARACTER SET utf8 DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=475 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=584 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `loginhistorytbl`
@@ -1834,7 +1844,116 @@ INSERT INTO `loginhistorytbl` (`loginhistoryid`, `username`, `ipaddress`, `macad
 (471, 'admin', 'DESKTOP-K3SG9MG/172.26.1.82', NULL, '2018-04-01 17:18:59', 'New Inventory [1995FAN0001, 1995FAN0002] Inserted By admin', NULL, NULL, NULL, NULL, NULL),
 (472, 'admin', 'DESKTOP-K3SG9MG/172.26.1.82', NULL, '2018-04-01 17:20:22', 'Login Action', NULL, NULL, NULL, NULL, NULL),
 (473, 'admin', 'DESKTOP-K3SG9MG/172.26.1.82', NULL, '2018-04-01 17:21:05', 'New Inventory [20182110011] Inserted By admin', NULL, NULL, NULL, NULL, NULL),
-(474, 'admin', 'DESKTOP-K3SG9MG/172.26.1.82', NULL, '2018-04-01 17:21:05', 'New Inventory [20182110011, 20182110012] Inserted By admin', NULL, NULL, NULL, NULL, NULL);
+(474, 'admin', 'DESKTOP-K3SG9MG/172.26.1.82', NULL, '2018-04-01 17:21:05', 'New Inventory [20182110011, 20182110012] Inserted By admin', NULL, NULL, NULL, NULL, NULL),
+(475, 'admin', 'DESKTOP-K3SG9MG/192.168.1.5', NULL, '2018-04-02 12:34:42', 'Login Action', NULL, NULL, NULL, NULL, NULL),
+(476, 'admin', 'DESKTOP-K3SG9MG/192.168.1.5', NULL, '2018-04-02 14:55:32', 'Login Action', NULL, NULL, NULL, NULL, NULL),
+(477, 'admin', 'DESKTOP-K3SG9MG/192.168.1.5', NULL, '2018-04-02 14:55:52', 'Inventory 19552110002 Deleted By admin', NULL, NULL, NULL, NULL, NULL),
+(478, 'admin', 'DESKTOP-K3SG9MG/192.168.1.5', NULL, '2018-04-02 14:57:43', 'Login Action', NULL, NULL, NULL, NULL, NULL),
+(479, 'admin', 'DESKTOP-K3SG9MG/192.168.1.5', NULL, '2018-04-02 15:03:46', 'Inventory 19552110001 Deleted By admin', NULL, NULL, NULL, NULL, NULL),
+(480, 'admin', 'DESKTOP-K3SG9MG/192.168.1.5', NULL, '2018-04-02 15:04:17', 'Inventory 1955FAN0001 Deleted By admin', NULL, NULL, NULL, NULL, NULL),
+(481, 'admin', 'DESKTOP-K3SG9MG/192.168.1.5', NULL, '2018-04-02 15:06:17', 'Inventory 1955FAN0002 Deleted By admin', NULL, NULL, NULL, NULL, NULL),
+(482, 'admin', 'DESKTOP-K3SG9MG/192.168.1.5', NULL, '2018-04-02 15:11:58', 'Login Action', NULL, NULL, NULL, NULL, NULL),
+(483, 'admin', 'DESKTOP-K3SG9MG/192.168.1.5', NULL, '2018-04-02 15:46:51', 'Login Action', NULL, NULL, NULL, NULL, NULL),
+(484, 'admin', 'DESKTOP-K3SG9MG/192.168.1.5', NULL, '2018-04-02 15:47:39', 'Inventory 19582110001 Deleted By admin', NULL, NULL, NULL, NULL, NULL),
+(485, 'admin', 'DESKTOP-K3SG9MG/192.168.1.5', NULL, '2018-04-02 17:12:05', 'Login Action', NULL, NULL, NULL, NULL, NULL),
+(486, 'admin', 'DESKTOP-K3SG9MG/192.168.1.5', NULL, '2018-04-03 12:37:33', 'Login Action', NULL, NULL, NULL, NULL, NULL),
+(487, 'admin', 'DESKTOP-K3SG9MG/172.26.1.82', NULL, '2018-04-03 12:50:55', 'Login Action', NULL, NULL, NULL, NULL, NULL),
+(488, 'admin', 'DESKTOP-K3SG9MG/192.168.1.5', NULL, '2018-04-04 12:53:58', 'Login Action', NULL, NULL, NULL, NULL, NULL),
+(489, 'admin', 'DESKTOP-K3SG9MG/192.168.1.5', NULL, '2018-04-04 13:07:47', 'Login Action', NULL, NULL, NULL, NULL, NULL),
+(490, 'admin', 'DESKTOP-K3SG9MG/192.168.1.5', NULL, '2018-04-04 13:09:00', 'Login Action', NULL, NULL, NULL, NULL, NULL),
+(491, 'admin', 'DESKTOP-K3SG9MG/192.168.1.5', NULL, '2018-04-04 13:13:29', 'Login Action', NULL, NULL, NULL, NULL, NULL),
+(492, 'admin', 'DESKTOP-K3SG9MG/192.168.1.5', NULL, '2018-04-04 13:14:16', 'Login Action', NULL, NULL, NULL, NULL, NULL),
+(493, 'admin', 'DESKTOP-K3SG9MG/192.168.1.5', NULL, '2018-04-04 13:15:43', 'Login Action', NULL, NULL, NULL, NULL, NULL),
+(494, 'admin', 'DESKTOP-K3SG9MG/192.168.1.5', NULL, '2018-04-04 13:16:36', 'Login Action', NULL, NULL, NULL, NULL, NULL),
+(495, 'admin', 'DESKTOP-K3SG9MG/192.168.1.5', NULL, '2018-04-04 16:40:08', 'Login Action', NULL, NULL, NULL, NULL, NULL),
+(496, 'admin', 'DESKTOP-K3SG9MG/192.168.1.5', NULL, '2018-04-04 17:48:50', 'Login Action', NULL, NULL, NULL, NULL, NULL),
+(497, 'admin', 'DESKTOP-K3SG9MG/172.26.1.82', NULL, '2018-04-05 13:08:13', 'Login Action', NULL, NULL, NULL, NULL, NULL),
+(498, 'admin', 'DESKTOP-K3SG9MG/172.26.1.82', NULL, '2018-04-05 13:09:53', 'New Inventory [20182110013] Inserted By admin', NULL, NULL, NULL, NULL, NULL),
+(499, 'admin', 'DESKTOP-K3SG9MG/127.0.0.1', NULL, '2018-04-10 11:10:56', 'Login Action', NULL, NULL, NULL, NULL, NULL),
+(500, 'admin', 'DESKTOP-K3SG9MG/172.26.1.82', NULL, '2018-04-10 11:22:17', 'Login Action', NULL, NULL, NULL, NULL, NULL),
+(501, 'admin', 'DESKTOP-K3SG9MG/172.26.1.82', NULL, '2018-04-10 11:32:47', 'Login Action', NULL, NULL, NULL, NULL, NULL),
+(502, 'admin', 'DESKTOP-K3SG9MG/172.26.1.82', NULL, '2018-04-10 11:33:54', 'Login Action', NULL, NULL, NULL, NULL, NULL),
+(503, 'admin', 'DESKTOP-K3SG9MG/172.26.1.82', NULL, '2018-04-10 11:47:31', 'Login Action', NULL, NULL, NULL, NULL, NULL),
+(504, 'admin', 'DESKTOP-K3SG9MG/172.26.1.82', NULL, '2018-04-10 11:48:11', 'Login Action', NULL, NULL, NULL, NULL, NULL),
+(505, 'admin', 'DESKTOP-K3SG9MG/172.26.1.82', NULL, '2018-04-10 11:48:35', 'Login Action', NULL, NULL, NULL, NULL, NULL),
+(506, 'admin', 'DESKTOP-K3SG9MG/172.26.1.82', NULL, '2018-04-10 11:48:55', 'Login Action', NULL, NULL, NULL, NULL, NULL),
+(507, 'admin', 'DESKTOP-K3SG9MG/172.26.1.82', NULL, '2018-04-10 11:50:31', 'Login Action', NULL, NULL, NULL, NULL, NULL),
+(508, 'admin', 'DESKTOP-K3SG9MG/172.26.1.82', NULL, '2018-04-10 11:51:24', 'Login Action', NULL, NULL, NULL, NULL, NULL),
+(509, 'admin', 'DESKTOP-K3SG9MG/172.26.1.82', NULL, '2018-04-10 11:52:18', 'Login Action', NULL, NULL, NULL, NULL, NULL),
+(510, 'admin', 'DESKTOP-K3SG9MG/172.26.1.82', NULL, '2018-04-10 11:56:21', 'Login Action', NULL, NULL, NULL, NULL, NULL),
+(511, 'admin', 'DESKTOP-K3SG9MG/172.26.1.82', NULL, '2018-04-10 11:57:25', 'Login Action', NULL, NULL, NULL, NULL, NULL),
+(512, 'admin', 'DESKTOP-K3SG9MG/172.26.1.82', NULL, '2018-04-10 11:58:58', 'Login Action', NULL, NULL, NULL, NULL, NULL),
+(513, 'admin', 'DESKTOP-K3SG9MG/172.26.1.82', NULL, '2018-04-10 12:00:36', 'Login Action', NULL, NULL, NULL, NULL, NULL),
+(514, 'admin', 'DESKTOP-K3SG9MG/172.26.1.82', NULL, '2018-04-10 12:02:15', 'Login Action', NULL, NULL, NULL, NULL, NULL),
+(515, 'admin', 'DESKTOP-K3SG9MG/172.26.1.82', NULL, '2018-04-10 12:03:18', 'Login Action', NULL, NULL, NULL, NULL, NULL),
+(516, 'admin', 'DESKTOP-K3SG9MG/172.26.1.82', NULL, '2018-04-10 12:04:06', 'Login Action', NULL, NULL, NULL, NULL, NULL),
+(517, 'admin', 'DESKTOP-K3SG9MG/172.26.1.82', NULL, '2018-04-10 12:04:59', 'Login Action', NULL, NULL, NULL, NULL, NULL),
+(518, 'admin', 'DESKTOP-K3SG9MG/172.26.1.82', NULL, '2018-04-10 12:06:23', 'Login Action', NULL, NULL, NULL, NULL, NULL),
+(519, 'admin', 'DESKTOP-K3SG9MG/172.26.1.82', NULL, '2018-04-10 12:07:20', 'Login Action', NULL, NULL, NULL, NULL, NULL),
+(520, 'admin', 'DESKTOP-K3SG9MG/172.26.1.82', NULL, '2018-04-10 12:11:46', 'Login Action', NULL, NULL, NULL, NULL, NULL),
+(521, 'admin', 'DESKTOP-K3SG9MG/172.26.1.82', NULL, '2018-04-10 12:12:58', 'Login Action', NULL, NULL, NULL, NULL, NULL),
+(522, 'admin', 'DESKTOP-K3SG9MG/172.26.1.82', NULL, '2018-04-10 12:14:16', 'Login Action', NULL, NULL, NULL, NULL, NULL),
+(523, 'admin', 'DESKTOP-K3SG9MG/172.26.1.82', NULL, '2018-04-10 12:17:16', 'Login Action', NULL, NULL, NULL, NULL, NULL),
+(524, 'admin', 'DESKTOP-K3SG9MG/172.26.1.82', NULL, '2018-04-10 12:18:05', 'Login Action', NULL, NULL, NULL, NULL, NULL),
+(525, 'admin', 'DESKTOP-K3SG9MG/172.26.1.82', NULL, '2018-04-10 12:18:41', 'Login Action', NULL, NULL, NULL, NULL, NULL),
+(526, 'admin', 'DESKTOP-K3SG9MG/172.26.1.82', NULL, '2018-04-10 12:19:55', 'Login Action', NULL, NULL, NULL, NULL, NULL),
+(527, 'admin', 'DESKTOP-K3SG9MG/172.26.1.82', NULL, '2018-04-10 12:20:29', 'Login Action', NULL, NULL, NULL, NULL, NULL),
+(528, 'admin', 'DESKTOP-K3SG9MG/172.26.1.82', NULL, '2018-04-10 12:28:16', 'Login Action', NULL, NULL, NULL, NULL, NULL),
+(529, 'admin', 'DESKTOP-K3SG9MG/172.26.1.82', NULL, '2018-04-10 12:29:53', 'Login Action', NULL, NULL, NULL, NULL, NULL),
+(530, 'admin', 'DESKTOP-K3SG9MG/172.26.1.82', NULL, '2018-04-10 12:32:07', 'Login Action', NULL, NULL, NULL, NULL, NULL),
+(531, 'admin', 'DESKTOP-K3SG9MG/172.26.1.82', NULL, '2018-04-10 12:35:08', 'Login Action', NULL, NULL, NULL, NULL, NULL),
+(532, 'admin', 'DESKTOP-K3SG9MG/172.26.1.82', NULL, '2018-04-10 12:35:56', 'Login Action', NULL, NULL, NULL, NULL, NULL),
+(533, 'admin', 'DESKTOP-K3SG9MG/172.26.1.82', NULL, '2018-04-10 12:39:24', 'Login Action', NULL, NULL, NULL, NULL, NULL),
+(534, 'admin', 'DESKTOP-K3SG9MG/172.26.1.82', NULL, '2018-04-10 12:40:07', 'Login Action', NULL, NULL, NULL, NULL, NULL),
+(535, 'admin', 'DESKTOP-K3SG9MG/172.26.1.82', NULL, '2018-04-10 12:41:10', 'Login Action', NULL, NULL, NULL, NULL, NULL),
+(536, 'admin', 'DESKTOP-K3SG9MG/172.26.1.82', NULL, '2018-04-10 12:42:10', 'Login Action', NULL, NULL, NULL, NULL, NULL),
+(537, 'admin', 'DESKTOP-K3SG9MG/172.26.1.82', NULL, '2018-04-10 12:44:57', 'Login Action', NULL, NULL, NULL, NULL, NULL),
+(538, 'admin', 'DESKTOP-K3SG9MG/172.26.1.82', NULL, '2018-04-10 12:45:24', 'Login Action', NULL, NULL, NULL, NULL, NULL),
+(539, 'admin', 'DESKTOP-K3SG9MG/172.26.1.82', NULL, '2018-04-10 12:47:46', 'Login Action', NULL, NULL, NULL, NULL, NULL),
+(540, 'admin', 'DESKTOP-K3SG9MG/172.26.1.82', NULL, '2018-04-10 12:49:16', 'Login Action', NULL, NULL, NULL, NULL, NULL),
+(541, 'admin', 'DESKTOP-K3SG9MG/172.26.1.82', NULL, '2018-04-10 12:50:20', 'Login Action', NULL, NULL, NULL, NULL, NULL),
+(542, 'admin', 'DESKTOP-K3SG9MG/172.26.1.82', NULL, '2018-04-10 12:51:34', 'Login Action', NULL, NULL, NULL, NULL, NULL),
+(543, 'admin', 'DESKTOP-K3SG9MG/172.26.1.82', NULL, '2018-04-10 12:52:13', 'Login Action', NULL, NULL, NULL, NULL, NULL),
+(544, 'admin', 'DESKTOP-K3SG9MG/172.26.1.82', NULL, '2018-04-10 12:52:25', 'Login Action', NULL, NULL, NULL, NULL, NULL),
+(545, 'admin', 'DESKTOP-K3SG9MG/172.26.1.82', NULL, '2018-04-10 12:53:08', 'Login Action', NULL, NULL, NULL, NULL, NULL),
+(546, 'admin', 'DESKTOP-K3SG9MG/192.168.0.105', NULL, '2018-04-15 08:40:52', 'Login Action', NULL, NULL, NULL, NULL, NULL),
+(547, 'admin', 'DESKTOP-K3SG9MG/192.168.1.3', NULL, '2018-04-15 15:54:23', 'Login Action', NULL, NULL, NULL, NULL, NULL),
+(548, 'admin', 'DESKTOP-K3SG9MG/192.168.1.3', NULL, '2018-04-15 16:00:14', 'Login Action', NULL, NULL, NULL, NULL, NULL),
+(549, 'admin', 'DESKTOP-K3SG9MG/192.168.1.3', NULL, '2018-04-15 16:05:47', 'Login Action', NULL, NULL, NULL, NULL, NULL),
+(550, 'admin', 'DESKTOP-K3SG9MG/192.168.1.3', NULL, '2018-04-15 16:07:24', 'Login Action', NULL, NULL, NULL, NULL, NULL),
+(551, 'admin', 'DESKTOP-K3SG9MG/192.168.1.3', NULL, '2018-04-15 16:07:56', 'Login Action', NULL, NULL, NULL, NULL, NULL),
+(552, 'admin', 'DESKTOP-K3SG9MG/192.168.1.3', NULL, '2018-04-15 16:09:32', 'Login Action', NULL, NULL, NULL, NULL, NULL),
+(553, 'admin', 'DESKTOP-K3SG9MG/192.168.1.3', NULL, '2018-04-15 16:10:03', 'Login Action', NULL, NULL, NULL, NULL, NULL),
+(554, 'admin', 'DESKTOP-K3SG9MG/192.168.1.3', NULL, '2018-04-15 16:11:05', 'Login Action', NULL, NULL, NULL, NULL, NULL),
+(555, 'admin', 'DESKTOP-K3SG9MG/192.168.1.3', NULL, '2018-04-15 16:11:57', 'Login Action', NULL, NULL, NULL, NULL, NULL),
+(556, 'admin', 'DESKTOP-K3SG9MG/192.168.1.3', NULL, '2018-04-15 16:12:25', 'Login Action', NULL, NULL, NULL, NULL, NULL),
+(557, 'admin', 'DESKTOP-K3SG9MG/192.168.1.3', NULL, '2018-04-15 16:13:13', 'Login Action', NULL, NULL, NULL, NULL, NULL),
+(558, 'admin', 'DESKTOP-K3SG9MG/192.168.1.3', NULL, '2018-04-15 16:13:57', 'Login Action', NULL, NULL, NULL, NULL, NULL),
+(559, 'admin', 'DESKTOP-K3SG9MG/192.168.1.3', NULL, '2018-04-15 16:14:24', 'Login Action', NULL, NULL, NULL, NULL, NULL),
+(560, 'admin', 'DESKTOP-K3SG9MG/192.168.1.3', NULL, '2018-04-15 16:14:41', 'Login Action', NULL, NULL, NULL, NULL, NULL),
+(561, 'admin', 'DESKTOP-K3SG9MG/192.168.1.3', NULL, '2018-04-15 16:15:56', 'Login Action', NULL, NULL, NULL, NULL, NULL),
+(562, 'admin', 'DESKTOP-K3SG9MG/192.168.1.3', NULL, '2018-04-15 16:22:00', 'Login Action', NULL, NULL, NULL, NULL, NULL),
+(563, 'admin', 'DESKTOP-K3SG9MG/192.168.1.3', NULL, '2018-04-15 16:22:50', 'Login Action', NULL, NULL, NULL, NULL, NULL),
+(564, 'admin', 'DESKTOP-K3SG9MG/192.168.1.3', NULL, '2018-04-15 16:23:15', 'Login Action', NULL, NULL, NULL, NULL, NULL),
+(565, 'admin', 'DESKTOP-K3SG9MG/192.168.1.3', NULL, '2018-04-15 16:24:03', 'Login Action', NULL, NULL, NULL, NULL, NULL),
+(566, 'admin', 'DESKTOP-K3SG9MG/192.168.1.3', NULL, '2018-04-15 16:25:03', 'Login Action', NULL, NULL, NULL, NULL, NULL),
+(567, 'admin', 'DESKTOP-K3SG9MG/192.168.1.3', NULL, '2018-04-15 16:25:22', 'Login Action', NULL, NULL, NULL, NULL, NULL),
+(568, 'admin', 'DESKTOP-K3SG9MG/192.168.1.3', NULL, '2018-04-15 16:25:56', 'Login Action', NULL, NULL, NULL, NULL, NULL),
+(569, 'admin', 'DESKTOP-K3SG9MG/192.168.1.3', NULL, '2018-04-15 17:00:35', 'Login Action', NULL, NULL, NULL, NULL, NULL),
+(570, 'admin', 'DESKTOP-K3SG9MG/192.168.1.3', NULL, '2018-04-15 17:12:08', 'Login Action', NULL, NULL, NULL, NULL, NULL),
+(571, 'admin', 'DESKTOP-K3SG9MG/192.168.1.3', NULL, '2018-04-15 17:12:08', 'Login Action', NULL, NULL, NULL, NULL, NULL),
+(572, 'admin', 'DESKTOP-K3SG9MG/192.168.1.3', NULL, '2018-04-15 17:13:05', 'New Inventory [19552110001] Inserted By admin', NULL, NULL, NULL, NULL, NULL),
+(573, 'admin', 'DESKTOP-K3SG9MG/192.168.1.3', NULL, '2018-04-15 17:26:09', 'Login Action', NULL, NULL, NULL, NULL, NULL),
+(574, 'admin', 'DESKTOP-K3SG9MG/192.168.1.3', NULL, '2018-04-15 17:28:22', 'Login Action', NULL, NULL, NULL, NULL, NULL),
+(575, 'admin', 'DESKTOP-K3SG9MG/192.168.1.3', NULL, '2018-04-15 17:29:58', 'Login Action', NULL, NULL, NULL, NULL, NULL),
+(576, 'admin', 'DESKTOP-K3SG9MG/192.168.1.3', NULL, '2018-04-15 17:30:09', 'Login Action', NULL, NULL, NULL, NULL, NULL),
+(577, 'admin', 'DESKTOP-K3SG9MG/192.168.1.3', NULL, '2018-04-15 17:31:49', 'Login Action', NULL, NULL, NULL, NULL, NULL),
+(578, 'admin', 'DESKTOP-K3SG9MG/192.168.1.3', NULL, '2018-04-15 17:32:17', 'Inventory 19552110001 Edited By admin', NULL, NULL, NULL, NULL, NULL),
+(579, 'admin', 'DESKTOP-K3SG9MG/192.168.1.3', NULL, '2018-04-15 17:33:25', 'Inventory 19582110002 Edited By admin', NULL, NULL, NULL, NULL, NULL),
+(580, 'admin', 'DESKTOP-K3SG9MG/192.168.1.3', NULL, '2018-04-15 17:33:44', 'Inventory 19552110001 Edited By admin', NULL, NULL, NULL, NULL, NULL),
+(581, 'admin', 'DESKTOP-K3SG9MG/192.168.1.3', NULL, '2018-04-15 17:36:08', 'Login Action', NULL, NULL, NULL, NULL, NULL),
+(582, 'admin', 'DESKTOP-K3SG9MG/192.168.0.103', NULL, '2018-04-15 19:15:08', 'Login Action', NULL, NULL, NULL, NULL, NULL),
+(583, 'admin', 'DESKTOP-K3SG9MG/192.168.0.103', NULL, '2018-04-15 19:15:46', 'Inventory 19552110001 Edited By admin', NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -4417,7 +4536,7 @@ CREATE TABLE IF NOT EXISTS `warrantytbl` (
   `warrantystarten` varchar(20) NOT NULL,
   `warrantyend` varchar(10) DEFAULT NULL,
   `warrantyenden` varchar(20) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=222 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=224 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `warrantytbl`
@@ -4633,7 +4752,9 @@ INSERT INTO `warrantytbl` (`warrantyid`, `warrantystart`, `warrantystarten`, `wa
 (218, '', '', '', ''),
 (219, '', '', '', ''),
 (220, '', '', '', ''),
-(221, '', '', '', '');
+(221, '', '', '', ''),
+(222, '', '', '', ''),
+(223, '', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -4651,7 +4772,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `inventoryitemdetail`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `inventoryitemdetail` AS select `inventorytbl`.`itemcode` AS `itemcode`,`inventorytbl`.`branchCode` AS `branchCode`,`inventorytbl`.`donationpercentage` AS `donationpercentage`,`inventorytbl`.`transactionid` AS `transactionid`,`inventorytbl`.`legacyid` AS `legacyid`,`inventorytbl`.`itemname` AS `itemname`,`inventorytbl`.`model` AS `model`,`inventorytbl`.`decisiondate` AS `decisiondate`,`inventorytbl`.`decisiondateen` AS `decisiondateen`,`inventorytbl`.`purchasedate` AS `purchasedate`,`inventorytbl`.`purchasedateen` AS `purchasedateen`,`inventorytbl`.`depreciationrate` AS `depreciationrate`,`inventorytbl`.`transactiondateen` AS `transactiondateen`,`grouptbl`.`groupcode` AS `groupcode`,`grouptbl`.`groupname` AS `groupname`,`inventoryotherdetailtbl`.`inventoryotherdetailid` AS `inventoryotherdetailid`,`inventoryotherdetailtbl`.`unitname` AS `unitname`,`inventoryotherdetailtbl`.`rate` AS `rate`,`inventoryotherdetailtbl`.`itemsize` AS `itemsize`,`inventoryotherdetailtbl`.`vehicleno` AS `vehicleno`,`inventoryotherdetailtbl`.`chesisno` AS `chesisno`,`inventoryotherdetailtbl`.`engineno` AS `engineno`,`inventoryotherdetailtbl`.`macaddress` AS `macaddress`,`inventoryotherdetailtbl`.`licenseno` AS `licenseno`,`inventoryotherdetailtbl`.`supplierid` AS `supplierid`,`companytbl`.`companyid` AS `companyid`,`companytbl`.`vatpan` AS `vatpan`,`companytbl`.`companyname` AS `companyname`,`companytbl`.`companyaddress` AS `companyaddress`,`companytbl`.`companycontactno` AS `companycontactno`,`companytbl`.`companyemail` AS `companyemail`,`companytbl`.`companycontactperson` AS `companycontactperson`,`amctbl`.`amcid` AS `amcid`,`amctbl`.`amcstart` AS `amcstart`,`amctbl`.`amcstarten` AS `amcstarten`,`amctbl`.`amcend` AS `amcend`,`amctbl`.`amcenden` AS `amcenden`,`amctbl`.`amccost` AS `amccost`,`amctbl`.`amccompanyid` AS `amccompanyid`,`insurancetbl`.`insuranceid` AS `insuranceid`,`insurancetbl`.`insurancecompanyid` AS `insurancecompanyid`,`insurancetbl`.`insurancestart` AS `insurancestart`,`insurancetbl`.`insurancestarten` AS `insurancestarten`,`insurancetbl`.`insuranceend` AS `insuranceend`,`insurancetbl`.`insuranceenden` AS `insuranceenden`,`insurancetbl`.`insurancepremiumamount` AS `insurancepremiumamount`,`warrantytbl`.`warrantyid` AS `warrantyid`,`warrantytbl`.`warrantystart` AS `warrantystart`,`warrantytbl`.`warrantystarten` AS `warrantystarten`,`warrantytbl`.`warrantyend` AS `warrantyend`,`warrantytbl`.`warrantyenden` AS `warrantyenden`,`fundsourcetbl`.`fundsourceid` AS `fundsourceid`,`fundsourcetbl`.`sourcename` AS `sourcename`,`itemconditiontbl`.`itemconditionid` AS `itemconditionid`,`itemconditiontbl`.`itemconditionname` AS `itemconditionname` from ((((((((`inventorytbl` join `grouptbl` on((`inventorytbl`.`groupcode` = `grouptbl`.`groupcode`))) join `inventoryotherdetailtbl` on((`inventorytbl`.`inventoryotherdetailid` = `inventoryotherdetailtbl`.`inventoryotherdetailid`))) join `companytbl` on((`inventoryotherdetailtbl`.`supplierid` = `companytbl`.`companyid`))) join `amctbl` on((`amctbl`.`amcid` = `inventoryotherdetailtbl`.`amcid`))) join `insurancetbl` on((`insurancetbl`.`insuranceid` = `inventoryotherdetailtbl`.`insuranceid`))) join `warrantytbl` on((`inventoryotherdetailtbl`.`warrantyid` = `warrantytbl`.`warrantyid`))) join `fundsourcetbl` on((`inventoryotherdetailtbl`.`fundsourceid` = `fundsourcetbl`.`fundsourceid`))) join `itemconditiontbl` on((`inventoryotherdetailtbl`.`itemconditionid` = `itemconditiontbl`.`itemconditionid`)));
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `inventoryitemdetail` AS select `inventorytbl`.`itemcode` AS `itemcode`,`inventorytbl`.`branchCode` AS `branchCode`,`inventorytbl`.`donationpercentage` AS `donationpercentage`,`inventorytbl`.`transactionid` AS `transactionid`,`inventorytbl`.`legacyid` AS `legacyid`,`inventorytbl`.`itemname` AS `itemname`,`inventorytbl`.`model` AS `model`,`inventorytbl`.`decisiondate` AS `decisiondate`,`inventorytbl`.`decisiondateen` AS `decisiondateen`,`inventorytbl`.`purchasedate` AS `purchasedate`,`inventorytbl`.`purchasedateen` AS `purchasedateen`,`inventorytbl`.`depreciationrate` AS `depreciationrate`,`inventorytbl`.`depeffectivedate` AS `depeffectivedate`,`inventorytbl`.`depeffectivedateen` AS `depeffectivedateen`,`inventorytbl`.`transactiondateen` AS `transactiondateen`,`grouptbl`.`groupcode` AS `groupcode`,`grouptbl`.`groupname` AS `groupname`,`inventoryotherdetailtbl`.`inventoryotherdetailid` AS `inventoryotherdetailid`,`inventoryotherdetailtbl`.`unitname` AS `unitname`,`inventoryotherdetailtbl`.`rate` AS `rate`,`inventoryotherdetailtbl`.`itemsize` AS `itemsize`,`inventoryotherdetailtbl`.`vehicleno` AS `vehicleno`,`inventoryotherdetailtbl`.`chesisno` AS `chesisno`,`inventoryotherdetailtbl`.`engineno` AS `engineno`,`inventoryotherdetailtbl`.`macaddress` AS `macaddress`,`inventoryotherdetailtbl`.`licenseno` AS `licenseno`,`inventoryotherdetailtbl`.`supplierid` AS `supplierid`,`companytbl`.`companyid` AS `companyid`,`companytbl`.`vatpan` AS `vatpan`,`companytbl`.`companyname` AS `companyname`,`companytbl`.`companyaddress` AS `companyaddress`,`companytbl`.`companycontactno` AS `companycontactno`,`companytbl`.`companyemail` AS `companyemail`,`companytbl`.`companycontactperson` AS `companycontactperson`,`amctbl`.`amcid` AS `amcid`,`amctbl`.`amcstart` AS `amcstart`,`amctbl`.`amcstarten` AS `amcstarten`,`amctbl`.`amcend` AS `amcend`,`amctbl`.`amcenden` AS `amcenden`,`amctbl`.`amccost` AS `amccost`,`amctbl`.`amccompanyid` AS `amccompanyid`,`insurancetbl`.`insuranceid` AS `insuranceid`,`insurancetbl`.`insurancecompanyid` AS `insurancecompanyid`,`insurancetbl`.`insurancestart` AS `insurancestart`,`insurancetbl`.`insurancestarten` AS `insurancestarten`,`insurancetbl`.`insuranceend` AS `insuranceend`,`insurancetbl`.`insuranceenden` AS `insuranceenden`,`insurancetbl`.`insurancepremiumamount` AS `insurancepremiumamount`,`warrantytbl`.`warrantyid` AS `warrantyid`,`warrantytbl`.`warrantystart` AS `warrantystart`,`warrantytbl`.`warrantystarten` AS `warrantystarten`,`warrantytbl`.`warrantyend` AS `warrantyend`,`warrantytbl`.`warrantyenden` AS `warrantyenden`,`fundsourcetbl`.`fundsourceid` AS `fundsourceid`,`fundsourcetbl`.`sourcename` AS `sourcename`,`itemconditiontbl`.`itemconditionid` AS `itemconditionid`,`itemconditiontbl`.`itemconditionname` AS `itemconditionname` from ((((((((`inventorytbl` join `grouptbl` on((`inventorytbl`.`groupcode` = `grouptbl`.`groupcode`))) join `inventoryotherdetailtbl` on((`inventorytbl`.`inventoryotherdetailid` = `inventoryotherdetailtbl`.`inventoryotherdetailid`))) join `companytbl` on((`inventoryotherdetailtbl`.`supplierid` = `companytbl`.`companyid`))) join `amctbl` on((`amctbl`.`amcid` = `inventoryotherdetailtbl`.`amcid`))) join `insurancetbl` on((`insurancetbl`.`insuranceid` = `inventoryotherdetailtbl`.`insuranceid`))) join `warrantytbl` on((`inventoryotherdetailtbl`.`warrantyid` = `warrantytbl`.`warrantyid`))) join `fundsourcetbl` on((`inventoryotherdetailtbl`.`fundsourceid` = `fundsourcetbl`.`fundsourceid`))) join `itemconditiontbl` on((`inventoryotherdetailtbl`.`itemconditionid` = `itemconditiontbl`.`itemconditionid`)));
 
 --
 -- Indexes for dumped tables
@@ -4803,7 +4924,7 @@ ALTER TABLE `warrantytbl`
 -- AUTO_INCREMENT for table `amctbl`
 --
 ALTER TABLE `amctbl`
-  MODIFY `amcid` bigint(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=222;
+  MODIFY `amcid` bigint(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=224;
 --
 -- AUTO_INCREMENT for table `billtbl`
 --
@@ -4823,7 +4944,7 @@ ALTER TABLE `companytbl`
 -- AUTO_INCREMENT for table `deptbl`
 --
 ALTER TABLE `deptbl`
-  MODIFY `did` bigint(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+  MODIFY `did` bigint(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `fundsourcetbl`
 --
@@ -4833,12 +4954,12 @@ ALTER TABLE `fundsourcetbl`
 -- AUTO_INCREMENT for table `insurancetbl`
 --
 ALTER TABLE `insurancetbl`
-  MODIFY `insuranceid` bigint(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=222;
+  MODIFY `insuranceid` bigint(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=224;
 --
 -- AUTO_INCREMENT for table `inventoryotherdetailtbl`
 --
 ALTER TABLE `inventoryotherdetailtbl`
-  MODIFY `inventoryotherdetailid` bigint(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=222;
+  MODIFY `inventoryotherdetailid` bigint(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=224;
 --
 -- AUTO_INCREMENT for table `issuehistorytbl`
 --
@@ -4858,7 +4979,7 @@ ALTER TABLE `itemconditiontbl`
 -- AUTO_INCREMENT for table `loginhistorytbl`
 --
 ALTER TABLE `loginhistorytbl`
-  MODIFY `loginhistoryid` bigint(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=475;
+  MODIFY `loginhistoryid` bigint(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=584;
 --
 -- AUTO_INCREMENT for table `roleindex`
 --
@@ -4893,7 +5014,7 @@ ALTER TABLE `usertbl`
 -- AUTO_INCREMENT for table `warrantytbl`
 --
 ALTER TABLE `warrantytbl`
-  MODIFY `warrantyid` bigint(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=222;
+  MODIFY `warrantyid` bigint(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=224;
 --
 -- Constraints for dumped tables
 --

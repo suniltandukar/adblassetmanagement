@@ -76,6 +76,7 @@ public class LoginAction {
 			String logged="Login Action";
 			UserDao use=new UserDaoImpl();
 			boolean status=use.loghistorydao(username,logged);
+			
 			if(status)
 			{
 				

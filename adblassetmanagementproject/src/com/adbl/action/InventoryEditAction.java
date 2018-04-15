@@ -65,6 +65,8 @@ public class InventoryEditAction {
 		String insuranceid=request.getParameter("insuranceid");
 		String inventoryotherdetailid=request.getParameter("inventoryotherdetailid");
 		String warrantyid=request.getParameter("warrantyid");
+		String depeffectivedate=request.getParameter("depeffectivedate");
+		String depeffectivedateen=request.getParameter("depeffectivedateen");
 		
 		Inventory inventory=new Inventory();
 		inventory.setAmccompanyid(amccompanyid);
@@ -113,6 +115,8 @@ public class InventoryEditAction {
 		inventory.setInventoryotherdetailid(inventoryotherdetailid);
 		inventory.setWarrantyid(warrantyid);
 		inventory.setLastyrdep(lastyrdep);
+		inventory.setDepeffectivedate(depeffectivedate);
+		inventory.setDepeffectivedateen(depeffectivedateen);
 		
 		
 		String value=null;

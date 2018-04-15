@@ -27,6 +27,8 @@ public interface OtherActionDAO {
 
 	public JSONObject getDepreciation();
 
+	public List<String> getDashboardDetails(String username);
+
 	
 	
 	

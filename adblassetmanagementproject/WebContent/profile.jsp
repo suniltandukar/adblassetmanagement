@@ -276,7 +276,7 @@ display:block;}
      
   
   <div class="content-wrapper view"  style="height:1300px;">
-  	<iframe height="1000px" width="100%" src="Dashboard.jsp" id="Iframe" name="iframe_a" style="border:none">
+  	<iframe height="1000px" width="100%" src="Dashboard.click" id="Iframe" name="iframe_a" style="border:none">
 	</iframe>
   </div>
 </div>

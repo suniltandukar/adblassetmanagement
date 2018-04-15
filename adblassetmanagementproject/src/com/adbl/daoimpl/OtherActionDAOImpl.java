@@ -206,4 +206,30 @@ public class OtherActionDAOImpl implements OtherActionDAO {
 		}
 		return jObjDevice;
 	}
+	
+	public List<String> getDashboardDetails(String username)
+	{
+		List<String> list=new ArrayList<String>();
+		String usercount;
+		String query="select (select count(*) from usertbl) as totaluser, (select count(*) from grouptbl) as totalgroup, (select count(*) from inventorytbl) as totalinventory,(select count(*) from inventorytbl where inputter='"+username+"') as inputcount";
+		con=DBConnection.getConnection();
+		try {
+			ps=con.prepareStatement(query);
+			rs=ps.executeQuery();
+			
+			if(rs.next())
+			{
+				list.add(rs.getString("totaluser"));
+				list.add(rs.getString("totalgroup"));
+				list.add(rs.getString("totalinventory"));
+				list.add(rs.getString("inputcount"));
+			}
+			return list;
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+		
+	}
 }

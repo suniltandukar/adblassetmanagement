@@ -69,6 +69,9 @@ public class InventoryAction {
 		String yeartxn=request.getParameter("year");
 		String donatationpercentage=request.getParameter("donationpercentage");
 		String lastyrdep=request.getParameter("lastyrdep");
+		String depeffectivedate=request.getParameter("depeffectivedate");
+		String depeffectivedateen=request.getParameter("depeffectivedateen");
+		
 		
 		
 		Inventory inventory=new Inventory();
@@ -115,6 +118,9 @@ public class InventoryAction {
 		//inventory.setItemcode(itemcode);
 		inventory.setDonationpercentage(donatationpercentage);
 		inventory.setLastyrdep(lastyrdep);
+		inventory.setDepeffectivedate(depeffectivedate);
+		inventory.setDepeffectivedateen(depeffectivedateen);
+		
 		
 		DateFormat dateformat=new SimpleDateFormat("yyyy");
 		Date date=new Date();

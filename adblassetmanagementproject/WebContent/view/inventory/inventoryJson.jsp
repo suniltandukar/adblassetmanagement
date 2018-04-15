@@ -16,7 +16,7 @@ $(document).ready(function() {
 	        	{  "targets": 1,
 	        	    "data": "itemcode",
 	        	    "render": function ( data, type, row, meta ) {
-	        	      return '<a class="a" href="editinventory.click?id='+data+'">'+data+'</a>';
+	        	      return '<a class="a" href="editinventorydisplay.click?id='+data+'">'+data+'</a>';
 	        	    }
 	        	},
 	        	{"data":"transactionid"},

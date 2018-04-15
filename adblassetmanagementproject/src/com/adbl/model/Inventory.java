@@ -101,7 +101,21 @@ public class Inventory {
 	List generated_itemcode;
 	String updated_itemcode;
 	String donationpercentage;
+	String depeffectivedate;
+	String depeffectivedateen;
 	
+	public String getDepeffectivedateen() {
+		return depeffectivedateen;
+	}
+	public void setDepeffectivedateen(String depeffectivedateen) {
+		this.depeffectivedateen = depeffectivedateen;
+	}
+	public String getDepeffectivedate() {
+		return depeffectivedate;
+	}
+	public void setDepeffectivedate(String depeffectivedate) {
+		this.depeffectivedate = depeffectivedate;
+	}
 	public String getDonationpercentage() {
 		return donationpercentage;
 	}
