@@ -28,7 +28,10 @@ public class LoginAction {
 		String password=request.getParameter("password");
 		ResultSet userdetail=null;
 		
-		
+		/*Maharishi m=new Maharishi();
+		//m.isGuthrieSequence();
+		//m.generateSequence(7);
+		m.StrantonGenerator();*/
 		
 		LoginDao ldao=  new LoginDaoImpl();
 		boolean maindbstatus=ldao.checkmaindb(staffcode, username, password);

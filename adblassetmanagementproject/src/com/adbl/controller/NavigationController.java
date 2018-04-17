@@ -293,11 +293,13 @@ public class NavigationController extends HttpServlet {
 				ResultSet rs = idao.getinventoryfordep(itemcode);
 				String purchasedateen=rs.getString("purchasedateen");
 				String depreciationrate=rs.getString("depreciationrate");
+				String depeffectivedateen=rs.getString("depeffectivedateen");
 				String rate=rs.getString("rate");
-				double depreciationamt=d.DepCalc(itemcode, lastdate, purchasedateen, depreciationrate, rate);
+				double depreciationamt=d.DepCalc(itemcode, lastdate, depeffectivedateen, depreciationrate, rate);
 				dm.setItemcode(itemcode);
 				dm.setFiscaldate(lastdate);
 				dm.setPurchasedateen(purchasedateen);
+				dm.setDepeffectivedateen(depeffectivedateen);
 				dm.setDepreciationrate(depreciationrate);
 				dm.setRate(rate);
 				dm.setThisyrdepamt(decimal.format(depreciationamt));

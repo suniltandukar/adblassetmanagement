@@ -1,7 +1,15 @@
 package com.adbl.model;
 
 public class DepreciationModel {
-	private String itemcode, fiscaldate, purchasedateen, depreciationrate,rate,thisyrdepamt;
+	private String itemcode, fiscaldate, purchasedateen, depreciationrate,rate,thisyrdepamt,depeffectivedateen;
+
+	public String getDepeffectivedateen() {
+		return depeffectivedateen;
+	}
+
+	public void setDepeffectivedateen(String depeffectivedateen) {
+		this.depeffectivedateen = depeffectivedateen;
+	}
 
 	public String getItemcode() {
 		return itemcode;

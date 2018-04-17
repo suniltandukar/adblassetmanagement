@@ -21,8 +21,9 @@
 			<caption>Calculated Depreciation Detail</caption>
 			<thead>
 				<tr>
-					<th>Itemcode</th>
+					<th>Item Code</th>
 					<th>Fiscal Date</th>
+					<th>Effective Date</th>
 					<th>Purchase Date</th>
 					<th>Depreciation Rate</th>
 					<th>Amount</th>
@@ -34,6 +35,7 @@
 			<tr>
 				<td>${dep.itemcode }</td>
 				<td>${dep.fiscaldate }</td>
+				<td>${dep.depeffectivedateen }</td>
 				<td>${dep.purchasedateen }</td>
 				<td>${dep.depreciationrate }</td>
 				<td>${dep.rate }</td>

@@ -11,11 +11,11 @@ import com.adbl.daoimpl.InventoryDaoImpl;
 
 public class DepreciationCalculator {
 
-	public double DepCalc(String itemcode, String lastDate, String purchaseDate, String deprate, String samount)
+	public double DepCalc(String itemcode, String lastDate, String depeffectivedateen, String deprate, String samount)
 
 	
 	{
-		System.out.println("itemcode="+itemcode+" lastDate="+lastDate+" purchasedate="+purchaseDate+" deprate="+deprate+" samount="+samount);
+		System.out.println("itemcode="+itemcode+" lastDate="+lastDate+" purchasedate="+depeffectivedateen+" deprate="+deprate+" samount="+samount);
 		double depreciation=0;
 
 		try {
@@ -37,7 +37,7 @@ public class DepreciationCalculator {
 
 			DateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
 
-			Date pdate = dateformat.parse(purchaseDate);
+			Date pdate = dateformat.parse(depeffectivedateen);
 
 			//String lastMonth = "-07-15";
 			//String lastDate = forpurchaseYear.format(pdate) + lastMonth;

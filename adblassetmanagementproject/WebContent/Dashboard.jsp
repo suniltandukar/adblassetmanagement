@@ -33,7 +33,7 @@ background-color: #f2f2f2;}
             <div class="icon">
               <i class="fa fa-shopping-cart"></i>
             </div>
-            <a href="#" class="small-box-footer">
+            <a href="viewinventory.click" class="small-box-footer">
               More info <i class="fa fa-arrow-circle-right"></i>
             </a>
           </div>
@@ -50,7 +50,7 @@ background-color: #f2f2f2;}
             <div class="icon">
               <i class="fa fa-dropbox"></i>
             </div>
-            <a href="#" class="small-box-footer">
+            <a href="initialdetails.click" class="small-box-footer">
               More info <i class="fa fa-arrow-circle-right"></i>
             </a>
           </div>
@@ -67,7 +67,7 @@ background-color: #f2f2f2;}
             <div class="icon">
               <i class="fa fa-user-plus"></i>
             </div>
-            <a href="#" class="small-box-footer">
+            <a href="adduser.user" class="small-box-footer">
               More info <i class="fa fa-arrow-circle-right"></i>
             </a>
           </div>

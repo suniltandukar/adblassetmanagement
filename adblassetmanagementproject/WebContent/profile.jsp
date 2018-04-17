@@ -167,7 +167,7 @@ display:block;}
             </span>
           </a>
           <ul class="treeview-menu">
-			 <li class="header" id="v"><a href="Dashboard.jsp" target="iframe_a"><i class="fa fa-circle-o"></i> Dashboard</a></li>            
+			 <li class="header" id="v"><a href="Dashboard.click" target="iframe_a"><i class="fa fa-circle-o"></i> Dashboard</a></li>            
           </ul>
         </li>
         <li class="treeview" id="items">
