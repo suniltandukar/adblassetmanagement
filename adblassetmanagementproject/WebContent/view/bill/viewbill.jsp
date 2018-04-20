@@ -53,9 +53,9 @@ ResultSet bill=(ResultSet) ac.viewbillDao(); %>
 
 									<td><a href="#" data-toggle="modal"
 										data-caption="test caption text"
-										data-image="//<%=bill.getString("ipport") %>/<%=bill.getString("filepath") %>/<%=bill.getString("billimageoriginalname") %>"
+										data-image="view/uploadedbills/<%=bill.getString("billimageoriginalname") %>"
 										data-target="#trslphotos"><img
-											src="//<%=bill.getString("ipport") %>/<%=bill.getString("filepath") %>/<%=bill.getString("billimageoriginalname") %>"
+											src="view/uploadedbills/<%=bill.getString("billimageoriginalname") %>"
 											alt="recent photo" width="0px"><i class="fa fa-eye"></i></a>&nbsp;
 										&nbsp; &nbsp;<a id="remove" class="confirmbtn"
 										href="deletebill.del?path=<%=bill.getString("billimagepath") %>&id=<%=bill.getString("billid")%>&filename=<%=bill.getString("billimageoriginalname") %>">
